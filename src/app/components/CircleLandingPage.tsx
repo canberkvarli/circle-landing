@@ -26,7 +26,6 @@ const CircleLandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
-  const [introComplete, setIntroComplete] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,19 +34,14 @@ const CircleLandingPage = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Intro animation timing
-    const timer1 = setTimeout(() => {
+    // Simple intro timing
+    const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 2500);
-
-    const timer2 = setTimeout(() => {
-      setIntroComplete(true);
-    }, 3000);
+    }, 2000);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -68,98 +62,36 @@ const CircleLandingPage = () => {
 
   return (
     <>
-      {/* Intro Animation */}
+      {/* Simple Intro Animation */}
       <AnimatePresence>
         {showIntro && (
           <motion.div
-            className="fixed inset-0 bg-white z-[100] flex items-center justify-center"
-            initial={{ opacity: 1 }}
-            exit={{ y: "100%", opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 bg-white z-50 flex items-center justify-center"
+            exit={{ y: "100%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
           >
             <motion.div
-              className="flex flex-col items-center"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              {/* Animated Logo */}
-              <motion.div
-                className="relative mb-6"
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <motion.div
-                  className="w-20 h-20 bg-gradient-to-br from-gray-800 to-gray-600 rounded-2xl flex items-center justify-center shadow-2xl"
-                  animate={{
-                    boxShadow: [
-                      "0 0 0 0 rgba(75, 85, 99, 0.3)",
-                      "0 0 0 20px rgba(75, 85, 99, 0.1)",
-                      "0 0 0 0 rgba(75, 85, 99, 0.3)",
-                    ],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <motion.div
-                    initial={{ rotate: 0 }}
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1.5, delay: 0.8 }}
-                  >
-                    <Sparkles className="w-10 h-10 text-white" />
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-
-              {/* App Name */}
-              <motion.h1
-                className="text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1 }}
-              >
-                Circle
-              </motion.h1>
-
-              {/* Tagline */}
-              <motion.p
-                className="text-gray-600 mt-2 text-lg"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.3 }}
-              >
-                Sacred Connections
-              </motion.p>
-
-              {/* Loading dots */}
-              <motion.div
-                className="flex space-x-2 mt-8"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.6 }}
-              >
-                {[0, 1, 2].map((i) => (
-                  <motion.div
-                    key={i}
-                    className="w-2 h-2 bg-gray-400 rounded-full"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.5, 1, 0.5],
-                    }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      delay: i * 0.2 + 1.8,
-                    }}
-                  />
-                ))}
-              </motion.div>
+              <h1 className="text-5xl font-light text-gray-900">Circle</h1>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 relative overflow-hidden">
+      {/* Main Content - Slides up like a drawer */}
+      <motion.div
+        className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 relative overflow-hidden"
+        initial={{ y: "100%" }}
+        animate={showIntro ? { y: "100%" } : { y: 0 }}
+        transition={{
+          duration: 0.8,
+          ease: [0.76, 0, 0.24, 1],
+          delay: showIntro ? 0 : 1.5,
+        }}
+      >
         {/* Sacred Mandala Background */}
         <div className="fixed inset-0 pointer-events-none opacity-[0.08] z-0">
           <svg
@@ -386,10 +318,8 @@ const CircleLandingPage = () => {
               : "bg-transparent"
           }`}
           initial={{ y: -100, opacity: 0 }}
-          animate={
-            introComplete ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }
-          }
-          transition={{ duration: 0.6, delay: 0.2 }}
+          animate={!showIntro ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
+          transition={{ duration: 0.6, delay: 2.5 }}
         >
           <div className="max-w-7xl mx-auto px-6 py-4">
             <div className="flex justify-between items-center">
@@ -543,190 +473,192 @@ const CircleLandingPage = () => {
         {/* Hero Section */}
         <motion.main
           className="pt-32 pb-20 relative z-10"
-          initial={{ y: "100vh", opacity: 0 }}
-          animate={
-            introComplete ? { y: 0, opacity: 1 } : { y: "100vh", opacity: 0 }
-          }
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 2.3 }}
         >
           <div className="max-w-4xl mx-auto px-6 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+            <motion.h1
+              className="text-5xl sm:text-6xl lg:text-7xl font-light mb-8 leading-tight"
+              initial={{ opacity: 0, y: 20 }}
+              animate={
+                !showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+              }
+              transition={{ duration: 1, delay: 2.5 }}
             >
-              <motion.h1
-                className="text-5xl sm:text-6xl lg:text-7xl font-light mb-8 leading-tight"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
-              >
-                <span className="block bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800 bg-clip-text text-transparent">
-                  Sacred
-                </span>
-                <span className="block text-gray-600">Connections</span>
-              </motion.h1>
+              <span className="block bg-gradient-to-r from-gray-900 via-gray-700 to-gray-800 bg-clip-text text-transparent">
+                Sacred
+              </span>
+              <span className="block text-gray-600">Connections</span>
+            </motion.h1>
 
-              <motion.p
-                className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.4 }}
-              >
-                Where sacred souls unite. Connect with fellow seekers who
-                practice
-                <span className="text-gray-800 font-medium"> meditation</span>,
-                <span className="text-gray-800 font-medium"> yoga</span>,
-                <span className="text-gray-800 font-medium">
-                  {" "}
-                  energy healing
-                </span>
-                , and embrace conscious living.
-              </motion.p>
+            <motion.p
+              className="text-lg sm:text-xl text-gray-600 mb-12 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={
+                !showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+              }
+              transition={{ duration: 1, delay: 2.7 }}
+            >
+              Where sacred souls unite. Connect with fellow seekers who practice
+              <span className="text-gray-800 font-medium"> meditation</span>,
+              <span className="text-gray-800 font-medium"> yoga</span>,
+              <span className="text-gray-800 font-medium"> energy healing</span>
+              , and embrace conscious living.
+            </motion.p>
 
-              {/* Coming Soon */}
-              <motion.div
-                className="mb-12"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <div className="max-w-lg mx-auto bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 shadow-xl">
-                  <motion.div
-                    className="flex items-center justify-center space-x-2 mb-4"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <Calendar className="w-5 h-5 text-gray-700" />
-                    <span className="text-lg font-semibold text-gray-800">
-                      Coming Spring 2025
-                    </span>
-                  </motion.div>
-                  <p className="text-gray-600 mb-4">
-                    Join the waitlist for exclusive early access
-                  </p>
-                  <div className="text-sm text-gray-500">
-                    iOS & Android • Free to download
-                  </div>
+            {/* Coming Soon */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={
+                !showIntro
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0.95 }
+              }
+              transition={{ duration: 0.6, delay: 2.9 }}
+            >
+              <div className="max-w-lg mx-auto bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+                <motion.div
+                  className="flex items-center justify-center space-x-2 mb-4"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  <Calendar className="w-5 h-5 text-gray-700" />
+                  <span className="text-lg font-semibold text-gray-800">
+                    Coming Spring 2025
+                  </span>
+                </motion.div>
+                <p className="text-gray-600 mb-4">
+                  Join the waitlist for exclusive early access
+                </p>
+                <div className="text-sm text-gray-500">
+                  iOS & Android • Free to download
                 </div>
-              </motion.div>
+              </div>
+            </motion.div>
 
-              {/* Email Collection */}
-              <motion.div
-                className="mb-12"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-              >
-                <div className="max-w-xl mx-auto">
-                  <AnimatePresence mode="wait">
-                    {!isSubmitted ? (
-                      <motion.div
-                        key="form"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                      >
-                        <div className="flex flex-col sm:flex-row gap-3 p-3 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200/50 shadow-xl">
-                          <input
-                            type="email"
-                            placeholder="Enter your email for early access"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="flex-1 px-6 py-3 rounded-full border-0 focus:outline-none bg-white/90 text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-gray-300/50"
-                            required
-                          />
-                          <motion.button
-                            onClick={handleSubmit}
-                            className="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-full font-medium shadow-lg flex items-center justify-center space-x-2 whitespace-nowrap relative overflow-hidden group"
-                            whileHover={{
-                              scale: 1.02,
-                              boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-                            }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <motion.div
-                              className="absolute inset-0 bg-white/10"
-                              initial={{ x: "-100%" }}
-                              whileHover={{ x: "100%" }}
-                              transition={{ duration: 0.6 }}
-                            />
-                            <span className="relative z-10">Join Waitlist</span>
-                            <ArrowRight className="w-4 h-4 relative z-10" />
-                          </motion.button>
-                        </div>
-                        <p className="text-gray-600 text-center mt-4">
-                          Be among the first to experience divine love ✨
-                        </p>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="success"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20,
-                        }}
-                        className="text-center p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl"
-                      >
-                        <motion.div
-                          className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4"
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 0.6 }}
-                        >
-                          <Check className="w-6 h-6 text-white" />
-                        </motion.div>
-                        <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                          Welcome to the Circle
-                        </h3>
-                        <p className="text-gray-600">
-                          You're on the exclusive early access list!
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-
-              {/* Stats */}
-              <motion.div
-                className="border-t border-gray-200 pt-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1 }}
-              >
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                  {[
-                    { value: stats.users, label: "Souls waiting", suffix: "+" },
-                    { value: 25, label: "Sacred features", suffix: "+" },
-                    {
-                      value: stats.matches,
-                      label: "Connections made",
-                      suffix: "+",
-                    },
-                    { value: 2156, label: "Beta testers", suffix: "" },
-                  ].map((stat, index) => (
+            {/* Email Collection */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={
+                !showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+              }
+              transition={{ duration: 0.6, delay: 3.1 }}
+            >
+              <div className="max-w-xl mx-auto">
+                <AnimatePresence mode="wait">
+                  {!isSubmitted ? (
                     <motion.div
-                      key={index}
-                      className="text-center group cursor-pointer"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 1.2 + index * 0.1 }}
-                      whileHover={{ y: -5, scale: 1.05 }}
+                      key="form"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
                     >
-                      <div className="text-xl sm:text-2xl font-bold mb-1 text-gray-800 group-hover:text-gray-900 transition-colors">
-                        {stat.value.toLocaleString()}
-                        {stat.suffix}
+                      <div className="flex flex-col sm:flex-row gap-3 p-3 bg-white/60 backdrop-blur-sm rounded-full border border-gray-200/50 shadow-xl">
+                        <input
+                          type="email"
+                          placeholder="Enter your email for early access"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="flex-1 px-6 py-3 rounded-full border-0 focus:outline-none bg-white/90 text-gray-700 placeholder-gray-500 focus:ring-2 focus:ring-gray-300/50"
+                          required
+                        />
+                        <motion.button
+                          onClick={handleSubmit}
+                          className="px-6 py-3 bg-gradient-to-r from-gray-800 to-gray-600 text-white rounded-full font-medium shadow-lg flex items-center justify-center space-x-2 whitespace-nowrap relative overflow-hidden group"
+                          whileHover={{
+                            scale: 1.02,
+                            boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                          }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <motion.div
+                            className="absolute inset-0 bg-white/10"
+                            initial={{ x: "-100%" }}
+                            whileHover={{ x: "100%" }}
+                            transition={{ duration: 0.6 }}
+                          />
+                          <span className="relative z-10">Join Waitlist</span>
+                          <ArrowRight className="w-4 h-4 relative z-10" />
+                        </motion.button>
                       </div>
-                      <div className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">
-                        {stat.label}
-                      </div>
+                      <p className="text-gray-600 text-center mt-4">
+                        Be among the first to experience divine love ✨
+                      </p>
                     </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                  ) : (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                      className="text-center p-8 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl"
+                    >
+                      <motion.div
+                        className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4"
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <Check className="w-6 h-6 text-white" />
+                      </motion.div>
+                      <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                        Welcome to the Circle
+                      </h3>
+                      <p className="text-gray-600">
+                        You're on the exclusive early access list!
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              className="border-t border-gray-200 pt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={
+                !showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+              }
+              transition={{ duration: 0.6, delay: 3.3 }}
+            >
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { value: stats.users, label: "Souls waiting", suffix: "+" },
+                  { value: 25, label: "Sacred features", suffix: "+" },
+                  {
+                    value: stats.matches,
+                    label: "Connections made",
+                    suffix: "+",
+                  },
+                  { value: 2156, label: "Beta testers", suffix: "" },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    className="text-center group cursor-pointer"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={
+                      !showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                    }
+                    transition={{ delay: 3.5 + index * 0.1 }}
+                    whileHover={{ y: -5, scale: 1.05 }}
+                  >
+                    <div className="text-xl sm:text-2xl font-bold mb-1 text-gray-800 group-hover:text-gray-900 transition-colors">
+                      {stat.value.toLocaleString()}
+                      {stat.suffix}
+                    </div>
+                    <div className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </motion.main>
@@ -735,11 +667,9 @@ const CircleLandingPage = () => {
         <motion.section
           className="py-20 relative z-10"
           id="features"
-          initial={{ y: "50vh", opacity: 0 }}
-          animate={
-            introComplete ? { y: 0, opacity: 1 } : { y: "50vh", opacity: 0 }
-          }
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8, delay: 3.5 }}
         >
           <div className="max-w-6xl mx-auto px-6">
             <motion.div
@@ -846,11 +776,9 @@ const CircleLandingPage = () => {
         <motion.section
           className="py-20 bg-white/40 backdrop-blur-sm relative z-10"
           id="about"
-          initial={{ y: "50vh", opacity: 0 }}
-          animate={
-            introComplete ? { y: 0, opacity: 1 } : { y: "50vh", opacity: 0 }
-          }
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8, delay: 3.7 }}
         >
           <div className="max-w-4xl mx-auto px-6 text-center">
             <motion.div
@@ -949,11 +877,9 @@ const CircleLandingPage = () => {
         <motion.footer
           className="py-12 px-6 border-t border-gray-200 relative z-10"
           id="contact"
-          initial={{ y: "30vh", opacity: 0 }}
-          animate={
-            introComplete ? { y: 0, opacity: 1 } : { y: "30vh", opacity: 0 }
-          }
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 3.9 }}
         >
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -998,7 +924,7 @@ const CircleLandingPage = () => {
             </motion.div>
           </div>
         </motion.footer>
-      </div>
+      </motion.div>
     </>
   );
 };
