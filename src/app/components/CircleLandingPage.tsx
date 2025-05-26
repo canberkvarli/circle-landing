@@ -232,7 +232,7 @@ This was sent via the contact form.
         loop
         muted
         playsInline
-        className="inset-0 w-full h-100 object-cover pointer-events-none"
+        className="inset-0 w-full h-120 object-cover pointer-events-none"
       />
 
       {/* rest of your components */}
