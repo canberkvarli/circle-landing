@@ -18,7 +18,6 @@ import MandalaBackground from "@/app/components/MandalaBackground";
 import { db } from "@/services/firebase/config";
 import { doc, getDoc, setDoc, onSnapshot } from "@firebase/firestore";
 import type { Stats, Countdown, FormData } from "@/types";
-import Video from "next-video";
 
 const CircleLandingPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -227,16 +226,14 @@ This was sent via the contact form.
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Full‐screen background video */}
-      <Video
+      <video
+        src="/assets/videos/danielle.mp4"
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-20 z-0 pointer-events-none"
-      >
-        <source src="/assets/videos/danielle.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </Video>
+        className="inset-0 w-full h-100 object-cover pointer-events-none"
+      />
 
       {/* rest of your components */}
       <div className="relative z-10 bg-gradient-to-br from-[#F5F1EA] via-[#EDE4D3] to-[#E8DCC6] min-h-screen">
