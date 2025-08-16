@@ -1,75 +1,91 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar, Download, Heart, Sparkles } from "lucide-react";
+import { Circle } from "lucide-react";
 
-interface AboutSectionProps {
-  showIntro: boolean;
-  openModal: (modalId: string) => void;
-}
-
-const AboutSection = ({ showIntro, openModal }: AboutSectionProps) => {
+const AboutSection = () => {
   return (
-    <motion.section
-      className="py-20 relative z-10"
-      id="about"
-      initial={{ opacity: 0, y: 50 }}
-      animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, delay: 4.6 }}
-    >
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section id="about" className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-light text-spiritual-primary mb-8 leading-tight bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
-            Your journey begins here
+          <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-accent mb-6 tracking-wide">
+            About Circle
           </h2>
-
-          <p className="text-lg text-spiritual-text-muted mb-12 max-w-2xl mx-auto leading-relaxed">
-            Join thousands of awakened souls ready to experience authentic
-            connection through shared practices and values.
+          <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
+            We believe that true connections happen when souls align on a deeper level
           </p>
+        </motion.div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            className="flex flex-wrap justify-center gap-6 text-spiritual-text-muted text-sm mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.8 }}
           >
-            {[
-              { icon: Calendar, text: "Spring 2025" },
-              { icon: Download, text: "iOS & Android" },
-              { icon: Heart, text: "Free to join" },
-              { icon: Sparkles, text: "Mindful by design" },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                className="flex items-center space-x-2 hover:text-spiritual-secondary transition-colors cursor-pointer"
-                whileHover={{ scale: 1.05, y: -2 }}
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{item.text}</span>
-              </motion.div>
-            ))}
+            <h3 className="text-2xl font-spirituality font-bold text-spiritual-text-dark mb-6 tracking-wide">
+              Our Mission
+            </h3>
+            <p className="text-spiritual-text-muted mb-6 leading-relaxed">
+              Circle is more than a dating app - it's a sanctuary for conscious souls
+              seeking meaningful connections. We understand that true compatibility
+              goes beyond surface-level interests and delves into the spiritual,
+              emotional, and intellectual realms.
+            </p>
+            <p className="text-spiritual-text-muted mb-6 leading-relaxed">
+              Our platform is designed to foster authentic relationships based on
+              shared values, spiritual practices, and conscious living principles.
+              Whether you're into meditation, yoga, energy healing, or simply
+              living mindfully, Circle helps you find your tribe.
+            </p>
+            <div className="flex items-center space-x-4">
+              <Circle className="w-8 h-8 text-spiritual-accent" />
+              <span className="text-spiritual-accent font-medium">
+                Join the conscious revolution
+              </span>
+            </div>
           </motion.div>
 
-          <motion.button
-            className="px-8 py-4 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-medium shadow-lg text-lg relative overflow-hidden group"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 25px rgba(123, 107, 92, 0.25)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => openModal("earlyAccess")}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            Reserve Your Place
-          </motion.button>
-        </motion.div>
+            <div className="bg-gradient-to-br from-spiritual-accent/20 to-spiritual-primary/20 rounded-2xl p-8 border border-spiritual-accent/30">
+              <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4 tracking-wide">
+                What Makes Us Different
+              </h4>
+              <ul className="space-y-3">
+                <li className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <span className="text-spiritual-text-dark">Spiritual compatibility matching</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <span className="text-spiritual-text-dark">Conscious community events</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <span className="text-spiritual-text-dark">Mindful conversation prompts</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <span className="text-spiritual-text-dark">Authentic profile verification</span>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
+
 export default AboutSection;

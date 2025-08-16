@@ -9,19 +9,22 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'spirituality': ['Spirituality', 'serif'],
+      },
       colors: {
         spiritual: {
-          // Core colors from mobile app
+          // Core colors from mobile app - cherry-like palette
           background: '#FAF8F5', // Warm off-white
           foreground: '#3D3B37', // Dark charcoal
           
-          // Primary palette - earthy & calming
+          // Primary palette - cherry & earthy tones
           primary: '#7B6B5C', // Warm brown (main CTA)
           secondary: '#C4A984', // Soft tan
           tertiary: '#E5D4B1', // Light beige
           
-          // Accent colors
-          accent: '#9B8F7F', // Muted taupe
+          // Accent colors - cherry-inspired
+          accent: '#B8860B', // Cherry gold (like in SSO buttons)
           'accent-light': '#D4C8B8', // Light taupe
           
           // Semantic colors
@@ -52,13 +55,13 @@ const config: Config = {
           background: '#1A1815', // Deep charcoal
           foreground: '#F5E6D3', // Warm cream
           
-          // Primary palette - earthy & calming
+          // Primary palette - cherry & earthy tones
           primary: '#C4A984', // Soft tan (main CTA)
           secondary: '#7B6B5C', // Warm brown
           tertiary: '#3D3B37', // Dark charcoal
           
-          // Accent colors
-          accent: '#D4C8B8', // Light taupe
+          // Accent colors - cherry-inspired
+          accent: '#B8860B', // Cherry gold
           'accent-light': '#9B8F7F', // Muted taupe
           
           // Semantic colors

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Spirituality font */
+@font-face {
+  font-family: 'Spirituality';
+  src: url('/assets/fonts/custom/Spirituality.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #FAF8F5;
   --foreground: #3D3B37;
@@ -57,5 +66,14 @@ html {
   
   .text-gradient {
     @apply bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent;
+  }
+  
+  .font-spirituality {
+    font-family: 'Spirituality', serif;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }

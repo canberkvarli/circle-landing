@@ -1,22 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUp } from "lucide-react";
+import IntroAnimation from "./IntroAnimation";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
 import FeaturesSection from "./FeaturesSection";
 import RoadmapSection from "./RoadmapSection";
 import AboutSection from "./AboutSection";
 import Footer from "./Footer";
-import IntroAnimation from "./IntroAnimation";
 import EarlyAccessModal from "../modals/EarlyAccessModal";
 import ContactModal from "../modals/ContactModal";
 import PrivacyModal from "../modals/PrivacyModal";
 import TermsModal from "../modals/TermsModal";
+import FullCircleModal from "./FullCircleModal";
 
 const CircleLandingPage = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [activeModal, setActiveModal] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [stats] = useState({
     signups: 1247,
     connections: 89,
@@ -35,6 +38,15 @@ const CircleLandingPage = () => {
     }, 2500);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -57,10 +69,12 @@ const CircleLandingPage = () => {
   }, []);
 
   const openModal = (modalType) => {
+    console.log('Opening modal:', modalType);
     setActiveModal(modalType);
   };
 
   const closeModal = () => {
+    console.log('Closing modal');
     setActiveModal(null);
   };
 
@@ -87,21 +101,41 @@ const CircleLandingPage = () => {
         <RoadmapSection />
         <AboutSection />
         <Footer openModal={openModal} />
+
+        {/* Modals */}
+        <AnimatePresence>
+          {activeModal === "earlyAccess" && (
+            <EarlyAccessModal onClose={closeModal} />
+          )}
+          {activeModal === "contact" && (
+            <ContactModal onClose={closeModal} />
+          )}
+          {activeModal === "privacy" && (
+            <PrivacyModal onClose={closeModal} />
+          )}
+          {activeModal === "terms" && (
+            <TermsModal onClose={closeModal} />
+          )}
+          {activeModal === "fullcircle" && (
+            <FullCircleModal isOpen={true} onClose={closeModal} />
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Modals */}
+      {/* Scroll to Top Button */}
       <AnimatePresence>
-        {activeModal === "earlyAccess" && (
-          <EarlyAccessModal onClose={closeModal} />
-        )}
-        {activeModal === "contact" && (
-          <ContactModal onClose={closeModal} />
-        )}
-        {activeModal === "privacy" && (
-          <PrivacyModal onClose={closeModal} />
-        )}
-        {activeModal === "terms" && (
-          <TermsModal onClose={closeModal} />
+        {showScrollTop && (
+          <motion.button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-40 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
         )}
       </AnimatePresence>
     </div>

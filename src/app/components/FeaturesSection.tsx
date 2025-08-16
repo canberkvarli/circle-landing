@@ -1,84 +1,79 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Heart, Users, MessageCircle } from "lucide-react";
+import { Heart, Users, Shield, Sparkles } from "lucide-react";
 
-const FeaturesSection = ({ showIntro }: { showIntro: boolean }) => {
+const FeaturesSection = () => {
   const features = [
     {
       icon: Heart,
-      title: "Mindful Matching",
-      description: "Connect with souls who share your practices and values",
+      title: "Authentic Connections",
+      description:
+        "Connect with people who share your spiritual journey and values.",
     },
     {
       icon: Users,
-      title: "Conscious Community",
-      description: "Join circles of like-minded seekers on similar journeys",
+      title: "Community Building",
+      description:
+        "Join groups and events that align with your spiritual practices.",
     },
     {
-      icon: MessageCircle,
-      title: "Meaningful Conversations",
+      icon: Shield,
+      title: "Safe Space",
       description:
-        "Share your journey through deep dialogue about growth and consciousness",
+        "A respectful environment where you can be your authentic self.",
+    },
+    {
+      icon: Sparkles,
+      title: "Mindful Matching",
+      description:
+        "Our algorithm considers spiritual compatibility and shared interests.",
     },
   ];
 
   return (
-    <motion.section
-      className="py-20 relative z-10"
-      id="features"
-      initial={{ opacity: 0, y: 50 }}
-      animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, delay: 4.2 }}
-    >
-      <div className="max-w-5xl mx-auto px-6">
+    <section id="features" className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-light mb-6 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
-            How it works
+          <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-accent mb-6 tracking-wide">
+            Why Choose Circle?
           </h2>
-          <p className="text-lg text-spiritual-text-muted">
-            Simple steps to find your authentic connection
+          <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
+            We're building more than just a dating app - we're creating a community
+            of conscious individuals who value authentic connections.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-12">
-          {features.map((feature, index) => {
-            const IconComponent = feature.icon;
-            return (
-              <motion.div
-                key={index}
-                className="text-center group"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-              >
-                <div className="p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-spiritual-primary/20 hover:bg-white/80 transition-all duration-300 shadow-lg hover:shadow-xl h-full group-hover:border-spiritual-primary/30">
-                  <motion.div
-                    className="w-12 h-12 bg-gradient-to-br from-spiritual-primary/10 to-spiritual-secondary/10 rounded-xl flex items-center justify-center mb-6 mx-auto text-spiritual-primary group-hover:from-spiritual-primary/20 group-hover:to-spiritual-secondary/20 transition-all duration-300"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
-                    <IconComponent className="w-6 h-6" />
-                  </motion.div>
-                  <h3 className="text-lg font-semibold text-spiritual-primary mb-4 group-hover:text-spiritual-secondary transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-spiritual-text-muted leading-relaxed group-hover:text-spiritual-text-muted/80 transition-colors">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="text-center group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <feature.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-4 tracking-wide">
+                {feature.title}
+              </h3>
+              <p className="text-spiritual-text-muted leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
