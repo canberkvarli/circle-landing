@@ -273,7 +273,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           transition={{ duration: 1, delay: 0.8 }}
         >
           <h3 className="text-4xl font-spirituality font-bold text-spiritual-accent mb-16 text-center tracking-wide">
-            Experience the App
+            See Circle in Action
           </h3>
           
           {/* Pyramid Layout: Video at top, 3 phones below */}

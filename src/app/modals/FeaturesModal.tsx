@@ -105,7 +105,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
           
           <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-6 border border-amber-200">
             <h3 className="text-2xl font-spirituality font-bold text-spiritual-accent mb-4 text-center">
-              Ready to Experience These Features?
+              Ready to Join Circle?
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
               Join thousands of conscious seekers who are already transforming their connections through Circle.
