@@ -57,7 +57,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-base font-sans"
             >
               About
             </button>
@@ -65,7 +65,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-base font-sans"
             >
               Features
             </button>
@@ -73,7 +73,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-base font-sans"
             >
               Roadmap
             </button>
@@ -81,10 +81,10 @@ const Header = ({ openModal }: HeaderProps) => {
 
           {/* CTA Button */}
           <motion.button
-            className="hidden md:block px-6 py-2 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+            className="hidden md:block px-8 py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-accent-light text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 text-base"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 10px 25px rgba(184, 134, 11, 0.3)",
+              boxShadow: "0 10px 25px rgba(212, 165, 116, 0.3)",
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => openModal('earlyAccess')}
@@ -117,7 +117,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-base font-sans"
                 >
                   About
                 </button>
@@ -126,7 +126,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-base font-sans"
                 >
                   Features
                 </button>
@@ -135,9 +135,15 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-base font-sans"
                 >
                   Roadmap
+                </button>
+                <button
+                  onClick={() => openModal('earlyAccess')}
+                  className="w-full py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-accent-light text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 text-base"
+                >
+                  Join Waitlist
                 </button>
               </div>
             </motion.div>

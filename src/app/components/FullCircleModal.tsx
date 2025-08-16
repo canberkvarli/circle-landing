@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X, CheckCircle, Star, Heart, Sparkles, Users, Mail } from "lucide-react";
+import { X, CheckCircle, Mail } from "lucide-react";
 
 interface FullCircleModalProps {
   isOpen: boolean;
@@ -54,20 +54,20 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
         <div className="relative p-8 pb-6">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 w-8 h-8 bg-spiritual-accent/10 rounded-full flex items-center justify-center hover:bg-spiritual-accent/20 transition-colors"
+            className="absolute top-6 right-6 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors"
           >
-            <X className="w-5 h-5 text-spiritual-accent" />
+            <X className="w-5 h-5 text-spiritual-primary" />
           </button>
           
           <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-20 h-20 bg-gradient-to-br from-spiritual-primary to-spiritual-secondary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <svg className="w-10 h-10 text-white" viewBox="0 0 100 100" fill="currentColor">
                 <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
                 <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
                 <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
               </svg>
             </div>
-            <h2 className="text-3xl font-spirituality font-bold text-spiritual-accent mb-2 tracking-wide">
+            <h2 className="text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
               What is FullCircle?
             </h2>
             <p className="text-spiritual-text-muted text-lg">
@@ -82,73 +82,67 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {[
               {
-                icon: <Users className="w-6 h-6" />,
-                title: "Unlimited Connections",
-                description: "Connect with unlimited conscious seekers"
+                icon: "💫",
+                title: "Soul Matching",
+                description: "Advanced algorithm that connects you with compatible spiritual seekers"
               },
               {
-                icon: <Heart className="w-6 h-6" />,
-                title: "See Who Likes You",
-                description: "Discover who resonates with your energy"
+                icon: "🌿",
+                title: "Conscious Community",
+                description: "Join exclusive events and connect with like-minded souls"
               },
               {
-                icon: <Star className="w-6 h-6" />,
-                title: "Advanced Filters",
-                description: "Find your perfect spiritual match"
+                icon: "✨",
+                title: "Premium Support",
+                description: "Get priority assistance from our spiritual connection experts"
               },
               {
-                icon: <Sparkles className="w-6 h-6" />,
-                title: "Priority Matching",
-                description: "Get featured with the lotus flower"
+                icon: "🌟",
+                title: "Exclusive Content",
+                description: "Access to guided meditations, spiritual practices, and growth resources"
               }
             ].map((feature, index) => (
-              <div key={index} className="flex items-start gap-4 p-4 bg-spiritual-background rounded-xl">
-                <div className="w-10 h-10 bg-spiritual-accent/20 rounded-full flex items-center justify-center text-spiritual-accent">
-                  {feature.icon}
-                </div>
-                <div>
-                  <h3 className="font-spirituality font-bold text-spiritual-accent mb-1">
-                    {feature.title}
-                  </h3>
-                  <p className="text-spiritual-text-muted text-sm">
-                    {feature.description}
-                  </p>
-                </div>
+              <div key={index} className="bg-white rounded-xl p-4 border border-spiritual-primary/20">
+                <div className="text-3xl mb-3">{feature.icon}</div>
+                <h4 className="font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
+                  {feature.title}
+                </h4>
+                <p className="text-sm text-spiritual-text-muted">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
 
           {/* Pricing Plans */}
-          <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-6 mb-6 border border-spiritual-accent/20">
-            <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4 text-center">
-              Choose Your Sacred Path
+          <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-6 mb-6 border border-spiritual-primary/20">
+            <h3 className="text-xl font-spirituality font-bold text-spiritual-primary mb-4 tracking-wide">
+              Choose Your Plan
             </h3>
             <div className="space-y-3">
               {[
-                { plan: "1 Month", price: "$29.99", weekly: "$7.50/week" },
-                { plan: "3 Months", price: "$74.97", weekly: "$6.25/week", popular: true, savings: "17%" },
-                { plan: "6 Months", price: "$119.94", weekly: "$5.00/week", savings: "33%" }
+                { name: "Monthly", price: "$9.99", savings: "0%" },
+                { name: "3 Months", price: "$24.99", savings: "17%" },
+                { name: "6 Months", price: "$44.99", savings: "25%" },
+                { name: "Annual", price: "$79.99", savings: "33%", popular: true },
               ].map((option, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg border border-spiritual-accent/20">
-                  <div className="flex items-center gap-3">
-                    <span className="font-spirituality font-bold text-spiritual-accent">
-                      {option.plan}
-                    </span>
+                <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg border border-spiritual-primary/20">
+                  <div className="flex items-center space-x-3">
+                    <div className="text-sm font-medium text-spiritual-text-dark">
+                      {option.name}
+                    </div>
                     {option.popular && (
-                      <span className="px-2 py-1 bg-spiritual-accent text-white text-xs font-bold rounded-full">
+                      <span className="px-2 py-1 bg-spiritual-primary text-white text-xs font-bold rounded-full">
                         POPULAR
                       </span>
                     )}
                   </div>
-                  <div className="text-right">
-                    <div className="font-spirituality font-bold text-spiritual-accent">
+                  <div className="flex items-center space-x-3">
+                    <div className="text-lg font-bold text-spiritual-text-dark">
                       {option.price}
                     </div>
-                    <div className="text-sm text-spiritual-text-muted">
-                      {option.weekly}
-                    </div>
-                    {option.savings && (
-                      <div className="text-xs text-spiritual-accent font-bold">
+                    {option.savings !== "0%" && (
+                      <div className="text-xs text-spiritual-primary font-bold">
                         Save {option.savings}
                       </div>
                     )}
@@ -159,26 +153,27 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           </div>
 
           {/* Benefits */}
-          <div className="bg-spiritual-background rounded-2xl p-6 mb-6">
-            <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4 text-center">
+          <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-6 mb-6 border border-spiritual-primary/20">
+            <h3 className="text-xl font-spirituality font-bold text-spiritual-primary mb-4 tracking-wide">
               Sacred Features Unlocked
             </h3>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                "Unlimited Soul Connections",
-                "See Who Resonates With You", 
-                "Advanced Spiritual Filters",
-                "Priority Likes with the Lotus Flower"
-              ].map((benefit, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-spiritual-accent flex-shrink-0" />
-                  <span className="text-spiritual-text-dark font-medium">{benefit}</span>
+                "Unlimited daily matches",
+                "Advanced compatibility algorithm",
+                "Priority customer support",
+                "Exclusive spiritual content",
+                "Community events access",
+                "Profile verification badge",
+                "Custom conversation starters",
+                "Relationship coaching sessions"
+              ].map((feature, index) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-spiritual-primary flex-shrink-0" />
+                  <span className="text-spiritual-text-dark">{feature}</span>
                 </div>
               ))}
             </div>
-            <p className="text-center text-spiritual-text-muted text-sm mt-4 italic">
-              Cancel anytime and keep all premium features until your cycle ends
-            </p>
           </div>
 
           {/* Email Collection Form */}
@@ -207,8 +202,8 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 </div>
                 <button
                   type="submit"
-                  disabled={isSubmitting || !email}
-                  className="px-6 py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
+                  className="px-6 py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </button>

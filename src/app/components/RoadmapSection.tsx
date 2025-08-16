@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, Clock, Star } from "lucide-react";
+import { Clock } from "lucide-react";
 
 const RoadmapSection = () => {
   const roadmapItems = [
@@ -57,7 +57,7 @@ const RoadmapSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-accent mb-6 tracking-wide">
+          <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-primary mb-6 tracking-wide">
             Our Journey
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">

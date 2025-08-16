@@ -14,18 +14,21 @@ const config: Config = {
       },
       colors: {
         spiritual: {
-          // Core colors from mobile app - cherry-like palette
-          background: '#FAF8F5', // Warm off-white
-          foreground: '#3D3B37', // Dark charcoal
+          // Core colors from mobile app
+          text: '#FFFFFF',
+          'text-dark': '#3D3B37',
+          background: '#FAF8F5',
+          tint: '#7B6B5C',
+          icon: '#8B7B6B',
           
-          // Primary palette - cherry & earthy tones
-          primary: '#7B6B5C', // Warm brown (main CTA)
-          secondary: '#C4A984', // Soft tan
+          // Primary palette - earthy & calming with rose/reddish brown
+          primary: '#C17767', // Dusty rose (main CTA) - from mobile app
+          secondary: '#7B6B5C', // Warm brown
           tertiary: '#E5D4B1', // Light beige
           
-          // Accent colors - cherry-inspired
-          accent: '#B8860B', // Cherry gold (like in SSO buttons)
-          'accent-light': '#D4C8B8', // Light taupe
+          // Accent colors - keep some golden for divine feel
+          accent: '#D4A574', // Warm amber (for waitlist buttons)
+          'accent-light': '#E5C399', // Light amber
           
           // Semantic colors
           success: '#7D8471', // Sage green
@@ -41,27 +44,29 @@ const config: Config = {
           // Text variations - IMPROVED FOR BETTER VISIBILITY
           'text-light': '#6B5B4F', // Much darker for better contrast
           'text-muted': '#8B7B6B', // Darker muted text that's readable
-          'text-subtle': '#A09080', // For subtle text that's still readable
-          'text-dark': '#3D3B37', // Dark charcoal for light backgrounds
+          'text-subtle': '#A09080', // For very subtle text
           
           // Gradients
-          'gradient-start': '#7B6B5C',
-          'gradient-end': '#C4A984',
+          'gradient-start': '#C17767',
+          'gradient-end': '#7B6B5C',
           
           shadow: 'rgba(0, 0, 0, 0.1)',
         },
         'spiritual-dark': {
-          // Core colors for dark mode
+          // Core colors
+          text: '#F5E6D3', // Warm cream
+          'text-dark': '#F5E6D3', // Light cream for dark backgrounds
           background: '#1A1815', // Deep charcoal
-          foreground: '#F5E6D3', // Warm cream
+          tint: '#F5E6D3',
+          icon: '#C4A984',
           
-          // Primary palette - cherry & earthy tones
+          // Primary palette - earthy & calming
           primary: '#C4A984', // Soft tan (main CTA)
           secondary: '#7B6B5C', // Warm brown
           tertiary: '#3D3B37', // Dark charcoal
           
-          // Accent colors - cherry-inspired
-          accent: '#B8860B', // Cherry gold
+          // Accent colors
+          accent: '#D4C8B8', // Light taupe
           'accent-light': '#9B8F7F', // Muted taupe
           
           // Semantic colors
@@ -78,8 +83,7 @@ const config: Config = {
           // Text variations - IMPROVED FOR BETTER VISIBILITY
           'text-light': '#E5D4B1', // Much lighter for better contrast
           'text-muted': '#C4A984', // Lighter muted text that's readable
-          'text-subtle': '#A09080', // For subtle text that's still readable
-          'text-dark': '#F5E6D3', // Light cream for dark backgrounds
+          'text-subtle': '#A09080', // For very subtle text
           
           // Gradients
           'gradient-start': '#C4A984',

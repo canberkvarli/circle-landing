@@ -12,7 +12,7 @@ const AboutSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-accent mb-6 tracking-wide">
+          <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-primary mb-6 tracking-wide">
             About Circle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
@@ -43,12 +43,12 @@ const AboutSection = () => {
               living mindfully, Circle helps you find your tribe.
             </p>
             <div className="flex items-center space-x-4">
-              <svg className="w-8 h-8 text-spiritual-accent" viewBox="0 0 100 100" fill="currentColor">
+              <svg className="w-8 h-8 text-spiritual-primary" viewBox="0 0 100 100" fill="currentColor">
                 <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
                 <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
                 <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
               </svg>
-              <span className="text-spiritual-accent font-medium">
+              <span className="text-spiritual-primary font-medium">
                 Join the conscious revolution
               </span>
             </div>
@@ -61,25 +61,25 @@ const AboutSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-gradient-to-br from-spiritual-accent/20 to-spiritual-primary/20 rounded-2xl p-8 border border-spiritual-accent/30">
-              <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4 tracking-wide">
+            <div className="bg-gradient-to-br from-spiritual-primary/20 to-spiritual-secondary/20 rounded-2xl p-8 border border-spiritual-primary/30">
+              <h4 className="text-xl font-spirituality font-bold text-spiritual-primary mb-4 tracking-wide">
                 What Makes Us Different
               </h4>
               <ul className="space-y-3">
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <div className="w-2 h-2 bg-spiritual-primary rounded-full"></div>
                   <span className="text-spiritual-text-dark">Spiritual compatibility matching</span>
                 </li>
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <div className="w-2 h-2 bg-spiritual-primary rounded-full"></div>
                   <span className="text-spiritual-text-dark">Conscious community events</span>
                 </li>
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <div className="w-2 h-2 bg-spiritual-primary rounded-full"></div>
                   <span className="text-spiritual-text-dark">Mindful conversation prompts</span>
                 </li>
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-spiritual-accent rounded-full"></div>
+                  <div className="w-2 h-2 bg-spiritual-primary rounded-full"></div>
                   <span className="text-spiritual-text-dark">Authentic profile verification</span>
                 </li>
               </ul>

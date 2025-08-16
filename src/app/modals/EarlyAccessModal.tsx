@@ -47,20 +47,20 @@ const EarlyAccessModal = ({ onClose }: EarlyAccessModalProps) => {
         <div className="relative p-6 pb-4">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 bg-spiritual-accent/10 rounded-full flex items-center justify-center hover:bg-spiritual-accent/20 transition-colors"
+            className="absolute top-4 right-4 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors"
           >
-            <X className="w-5 h-5 text-spiritual-accent" />
+            <X className="w-5 h-5 text-spiritual-primary" />
           </button>
           
           <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <div className="w-16 h-16 bg-gradient-to-br from-spiritual-accent to-spiritual-accent-light rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
               <svg className="w-8 h-8 text-white" viewBox="0 0 100 100" fill="currentColor">
                 <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
                 <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
                 <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
               </svg>
             </div>
-            <h2 className="text-2xl font-spirituality font-bold text-spiritual-accent mb-2 tracking-wide">
+            <h2 className="text-2xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
               Join the Waitlist
             </h2>
             <p className="text-spiritual-text-muted">
@@ -107,7 +107,7 @@ const EarlyAccessModal = ({ onClose }: EarlyAccessModalProps) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-lg font-medium hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center space-x-2 font-spirituality font-bold tracking-wide"
+                className="w-full py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-accent-light text-white rounded-lg font-spirituality font-bold text-lg tracking-wide hover:shadow-xl transition-all disabled:opacity-50 flex items-center justify-center space-x-2 shadow-lg"
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
