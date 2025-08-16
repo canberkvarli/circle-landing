@@ -38,10 +38,10 @@ const FeaturesSection = ({ showIntro }: { showIntro: boolean }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-light mb-6 bg-gradient-to-r from-[#8B5A2B] to-[#D4AF37] bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl font-light mb-6 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
             How it works
           </h2>
-          <p className="text-lg text-[#8B7355]">
+          <p className="text-lg text-spiritual-text-muted">
             Simple steps to find your authentic connection
           </p>
         </motion.div>
@@ -59,17 +59,17 @@ const FeaturesSection = ({ showIntro }: { showIntro: boolean }) => {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 whileHover={{ y: -10, scale: 1.02 }}
               >
-                <div className="p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-[#8B5A2B]/20 hover:bg-white/80 transition-all duration-300 shadow-lg hover:shadow-xl h-full group-hover:border-[#8B5A2B]/30">
+                <div className="p-6 bg-white/60 backdrop-blur-sm rounded-2xl border border-spiritual-primary/20 hover:bg-white/80 transition-all duration-300 shadow-lg hover:shadow-xl h-full group-hover:border-spiritual-primary/30">
                   <motion.div
-                    className="w-12 h-12 bg-gradient-to-br from-[#8B5A2B]/10 to-[#D4AF37]/10 rounded-xl flex items-center justify-center mb-6 mx-auto text-[#8B5A2B] group-hover:from-[#8B5A2B]/20 group-hover:to-[#D4AF37]/20 transition-all duration-300"
+                    className="w-12 h-12 bg-gradient-to-br from-spiritual-primary/10 to-spiritual-secondary/10 rounded-xl flex items-center justify-center mb-6 mx-auto text-spiritual-primary group-hover:from-spiritual-primary/20 group-hover:to-spiritual-secondary/20 transition-all duration-300"
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
                     <IconComponent className="w-6 h-6" />
                   </motion.div>
-                  <h3 className="text-lg font-semibold text-[#8B5A2B] mb-4 group-hover:text-[#D4AF37] transition-colors">
+                  <h3 className="text-lg font-semibold text-spiritual-primary mb-4 group-hover:text-spiritual-secondary transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-[#8B7355] leading-relaxed group-hover:text-[#8B7355]/80 transition-colors">
+                  <p className="text-spiritual-text-muted leading-relaxed group-hover:text-spiritual-text-muted/80 transition-colors">
                     {feature.description}
                   </p>
                 </div>

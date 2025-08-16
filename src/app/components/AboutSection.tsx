@@ -23,17 +23,17 @@ const AboutSection = ({ showIntro, openModal }: AboutSectionProps) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-light text-[#8B5A2B] mb-8 leading-tight bg-gradient-to-r from-[#8B5A2B] to-[#D4AF37] bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl font-light text-spiritual-primary mb-8 leading-tight bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
             Your journey begins here
           </h2>
 
-          <p className="text-lg text-[#8B7355] mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-spiritual-text-muted mb-12 max-w-2xl mx-auto leading-relaxed">
             Join thousands of awakened souls ready to experience authentic
             connection through shared practices and values.
           </p>
 
           <motion.div
-            className="flex flex-wrap justify-center gap-6 text-[#8B7355] text-sm mb-12"
+            className="flex flex-wrap justify-center gap-6 text-spiritual-text-muted text-sm mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -47,7 +47,7 @@ const AboutSection = ({ showIntro, openModal }: AboutSectionProps) => {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="flex items-center space-x-2 hover:text-[#D4AF37] transition-colors cursor-pointer"
+                className="flex items-center space-x-2 hover:text-spiritual-secondary transition-colors cursor-pointer"
                 whileHover={{ scale: 1.05, y: -2 }}
               >
                 <item.icon className="w-4 h-4" />
@@ -57,10 +57,10 @@ const AboutSection = ({ showIntro, openModal }: AboutSectionProps) => {
           </motion.div>
 
           <motion.button
-            className="px-8 py-4 bg-gradient-to-r from-[#8B5A2B] to-[#D4AF37] text-white rounded-full font-medium shadow-lg text-lg relative overflow-hidden group"
+            className="px-8 py-4 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-medium shadow-lg text-lg relative overflow-hidden group"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 10px 25px rgba(139, 90, 43, 0.25)",
+              boxShadow: "0 10px 25px rgba(123, 107, 92, 0.25)",
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => openModal("earlyAccess")}

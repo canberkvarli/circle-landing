@@ -10,13 +10,13 @@ const PrivacyModal = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Privacy Policy">
-      <div className="text-[#8B7355] leading-relaxed space-y-4 max-h-96 overflow-y-auto">
+      <div className="text-spiritual-text-muted leading-relaxed space-y-4 max-h-96 overflow-y-auto">
         <p>
-          <strong className="text-[#8B5A2B]">Last updated: January 2025</strong>
+          <strong className="text-spiritual-primary">Last updated: January 2025</strong>
         </p>
 
         <div>
-          <h4 className="text-[#8B5A2B] font-semibold mb-2">
+          <h4 className="text-spiritual-primary font-semibold mb-2">
             Information We Collect
           </h4>
           <p>
@@ -27,7 +27,7 @@ const PrivacyModal = ({
         </div>
 
         <div>
-          <h4 className="text-[#8B5A2B] font-semibold mb-2">
+          <h4 className="text-spiritual-primary font-semibold mb-2">
             How We Use Your Information
           </h4>
           <p>
@@ -38,7 +38,7 @@ const PrivacyModal = ({
         </div>
 
         <div>
-          <h4 className="text-[#8B5A2B] font-semibold mb-2">
+          <h4 className="text-spiritual-primary font-semibold mb-2">
             Information Sharing
           </h4>
           <p>
@@ -49,7 +49,7 @@ const PrivacyModal = ({
         </div>
 
         <div>
-          <h4 className="text-[#8B5A2B] font-semibold mb-2">Data Security</h4>
+          <h4 className="text-spiritual-primary font-semibold mb-2">Data Security</h4>
           <p>
             We implement appropriate security measures to protect your personal
             information against unauthorized access, alteration, disclosure, or
@@ -58,7 +58,7 @@ const PrivacyModal = ({
         </div>
 
         <div>
-          <h4 className="text-[#8B5A2B] font-semibold mb-2">Contact Us</h4>
+          <h4 className="text-spiritual-primary font-semibold mb-2">Contact Us</h4>
           <p>
             If you have any questions about this Privacy Policy, please contact
             us at canberkvarli@gmail.com

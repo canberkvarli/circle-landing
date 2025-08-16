@@ -26,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => (
           className="bg-white rounded-xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto"
         >
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold bg-gradient-to-r from-[#8B5A2B] to-[#D4AF37] bg-clip-text text-transparent">
+            <h3 className="text-xl font-semibold bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
               {title}
             </h3>
             <button
