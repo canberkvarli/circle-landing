@@ -106,7 +106,7 @@ const CircleLandingPage = () => {
       {/* Modals - Outside main content so they work during intro */}
       <AnimatePresence>
         {activeModal === "earlyAccess" && (
-          <EarlyAccessModal onClose={closeModal} />
+          <EarlyAccessModal onClose={closeModal} openModal={openModal} />
         )}
         {activeModal === "contact" && (
           <ContactModal onClose={closeModal} />

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X, ArrowRight, Check, Mail, User, Phone } from "lucide-react";
+import { X, ArrowRight, Check, Mail, User, Phone, Info } from "lucide-react";
+import Image from "next/image";
 
 interface EarlyAccessModalProps {
   onClose: () => void;
+  openModal?: (modalType: string) => void;
 }
 
-const EarlyAccessModal = ({ onClose }: EarlyAccessModalProps) => {
+const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -53,19 +55,32 @@ const EarlyAccessModal = ({ onClose }: EarlyAccessModalProps) => {
           </button>
           
           <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-spiritual-accent to-spiritual-accent-light rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <svg className="w-8 h-8 text-white" viewBox="0 0 100 100" fill="currentColor">
-                <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
-                <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
-                <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
-              </svg>
+            <div className="flex justify-center mx-auto mb-4">
+              <Image
+                src="/assets/circle.svg"
+                alt="Circle"
+                width={80}
+                height={80}
+                className="w-20 h-20"
+              />
             </div>
             <h2 className="text-2xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
               Join the Waitlist
             </h2>
-            <p className="text-spiritual-text-muted">
+            <p className="text-spiritual-text-muted mb-4">
               Be among the first to experience authentic connections
             </p>
+            
+            {/* FullCircle Membership Info Button */}
+            {openModal && (
+              <button
+                onClick={() => openModal('fullcircle')}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-sm font-medium hover:bg-spiritual-accent/20 transition-colors"
+              >
+                <Info className="w-4 h-4" />
+                What is FullCircle Membership?
+              </button>
+            )}
           </div>
         </div>
 

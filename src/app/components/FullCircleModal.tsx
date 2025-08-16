@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X, CheckCircle, Mail } from "lucide-react";
+import Image from "next/image";
 
 interface FullCircleModalProps {
   isOpen: boolean;
@@ -60,12 +61,14 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           </button>
           
           <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-spiritual-primary to-spiritual-secondary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <svg className="w-10 h-10 text-white" viewBox="0 0 100 100" fill="currentColor">
-                <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
-                <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
-                <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
-              </svg>
+            <div className="flex justify-center mx-auto mb-4">
+              <Image
+                src="/assets/circle.svg"
+                alt="Circle"
+                width={80}
+                height={80}
+                className="w-20 h-20"
+              />
             </div>
             <h2 className="text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
               What is FullCircle?
@@ -104,7 +107,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-xl p-4 border border-spiritual-primary/20">
                 <div className="text-3xl mb-3">{feature.icon}</div>
-                <h4 className="font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
+                <h4 className="text-xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
                   {feature.title}
                 </h4>
                 <p className="text-sm text-spiritual-text-muted">
@@ -203,7 +206,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-4 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </button>

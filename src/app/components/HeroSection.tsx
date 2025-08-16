@@ -61,7 +61,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
 
           {/* CTA Button */}
           <motion.button
-            className="px-12 py-5 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-medium shadow-xl text-xl relative overflow-hidden group hover:shadow-2xl transition-all duration-300"
+            className="px-12 py-5 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold shadow-xl text-xl relative overflow-hidden group hover:shadow-2xl transition-all duration-300 font-spirituality tracking-wide"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 20px 40px rgba(184, 134, 11, 0.3)",
@@ -280,9 +280,9 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           <div className="max-w-7xl mx-auto">
             {/* Top: Danielle Video */}
             <div className="flex justify-center mb-12 relative">
-              <div className="relative w-80 h-[600px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[3rem] shadow-2xl border-8 border-spiritual-accent/20 transform transition-all duration-500 hover:scale-105">
-                {/* Phone Notch */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-spiritual-accent/20 rounded-b-2xl z-10"></div>
+              <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
+                {/* Phone Notch - iPhone 16 Pro style */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
                 
                 {/* Info Icon - Top Right Corner of Phone Frame */}
                 <div className="absolute top-2 right-2 z-20">
@@ -297,7 +297,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 </div>
                 
                 {/* Video Screen */}
-                <div className="absolute inset-2 bg-black rounded-[2rem] overflow-hidden">
+                <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
                   <video
                     className="w-full h-full object-cover"
                     autoPlay
@@ -309,8 +309,8 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     <source src="/assets/videos/danielle.mov" type="video/quicktime" />
                   </video>
                   
-                  {/* App Overlay - Like Login/Signup Page */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-transparent flex flex-col justify-between">
+                  {/* App Overlay - Cleaner design */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-transparent flex flex-col justify-between">
                     {/* Top Section - Just Title */}
                     <div className="flex-1 flex flex-col items-center justify-center pt-16">
                       {/* Title */}
