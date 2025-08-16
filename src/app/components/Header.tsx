@@ -57,7 +57,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
             >
               About
             </button>
@@ -65,7 +65,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
             >
               Features
             </button>
@@ -73,7 +73,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
             >
               Roadmap
             </button>
@@ -81,7 +81,7 @@ const Header = ({ openModal }: HeaderProps) => {
 
           {/* CTA Button */}
           <motion.button
-            className="hidden md:block px-6 py-2 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+            className="hidden md:block px-6 py-2 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 10px 25px rgba(184, 134, 11, 0.3)",
@@ -117,7 +117,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
                 >
                   About
                 </button>
@@ -126,7 +126,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
                 >
                   Features
                 </button>
@@ -135,7 +135,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-semibold text-base"
                 >
                   Roadmap
                 </button>

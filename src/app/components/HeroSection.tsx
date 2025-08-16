@@ -568,7 +568,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             >
               <button
                 onClick={() => openModal('fullcircle')}
-                className="px-8 py-4 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white rounded-full font-medium shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide"
+                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-black shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality tracking-wide border-2 border-white/20"
               >
                 Become a FullCircle Member
               </button>

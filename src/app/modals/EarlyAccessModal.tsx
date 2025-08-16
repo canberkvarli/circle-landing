@@ -1,156 +1,140 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
-import Modal from "./Modal";
+import { X, ArrowRight, Check, Mail, User, Phone } from "lucide-react";
 
 interface EarlyAccessModalProps {
-  isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: {
-    email: string;
-    name: string;
-    phone: string;
-    practices: string;
-    timestamp: string;
-  }) => Promise<{ success: boolean }>;
-  isSubmitting: boolean;
-  submitMessage: string;
 }
-const EarlyAccessModal: React.FC<EarlyAccessModalProps> = ({
-  isOpen,
-  onClose,
-  onSubmit,
-  isSubmitting,
-  submitMessage,
-}) => {
+
+const EarlyAccessModal = ({ onClose }: EarlyAccessModalProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      email: formData.get("email") as string,
-      name: (formData.get("name") as string) || "Not provided",
-      phone: (formData.get("phone") as string) || "Not provided",
-      practices: (formData.get("practices") as string) || "Not specified",
-      timestamp: new Date().toISOString(),
-    };
-
-    const result = await onSubmit(data);
-    if (result.success) {
-      e.currentTarget.reset();
-    }
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setSubmitted(true);
+    setIsSubmitting(false);
+    
+    // Close modal after 3 seconds
+    setTimeout(() => {
+      onClose();
+      setSubmitted(false);
+    }, 3000);
   };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Join the Waitlist">
-      <p className="text-spiritual-text-muted mb-6 leading-relaxed">
-        Be among the first to experience authentic connections. Reserve your
-        spot and receive exclusive updates on our journey.
-      </p>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-spiritual-primary mb-2">
-            Email Address *
-          </label>
-          <input
-            type="email"
-            name="email"
-            className="w-full px-4 py-3 border border-spiritual-primary/20 rounded-lg focus:ring-2 focus:ring-spiritual-secondary/50 focus:border-spiritual-secondary transition-colors"
-            placeholder="your@email.com"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-spiritual-primary mb-2">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            className="w-full px-4 py-3 border border-spiritual-primary/20 rounded-lg focus:ring-2 focus:ring-spiritual-secondary/50 focus:border-spiritual-secondary transition-colors"
-            placeholder="+1 (555) 123-4567"
-            pattern="[+]?[0-9\s\-\(\)]+"
-          />
-          <p className="text-xs text-spiritual-text-muted mt-1">
-            Optional: Receive launch notifications via SMS
-          </p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-spiritual-primary mb-2">
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            className="w-full px-4 py-3 border border-spiritual-primary/20 rounded-lg focus:ring-2 focus:ring-spiritual-secondary/50 focus:border-spiritual-secondary transition-colors"
-            placeholder="Your name"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-spiritual-primary mb-2">
-            Primary Practice
-          </label>
-          <select
-            name="practices"
-            className="w-full px-4 py-3 border border-spiritual-primary/20 rounded-lg focus:ring-2 focus:ring-spiritual-secondary/50 focus:border-spiritual-secondary transition-colors"
+    <motion.div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="bg-white rounded-3xl max-w-md w-full shadow-2xl"
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="relative p-6 pb-4">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 w-8 h-8 bg-spiritual-accent/10 rounded-full flex items-center justify-center hover:bg-spiritual-accent/20 transition-colors"
           >
-            <option value="">Select your primary practice</option>
-            <option value="meditation">Meditation</option>
-            <option value="yoga">Yoga</option>
-            <option value="energy-healing">Energy Healing</option>
-            <option value="mindfulness">Mindfulness</option>
-            <option value="astrology">Astrology</option>
-            <option value="breathwork">Breathwork</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-lg font-medium hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center space-x-2"
-        >
-          {isSubmitting ? (
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          ) : (
-            <>
-              <span>Reserve My Spot</span>
-              <ArrowRight className="w-4 h-4" />
-            </>
-          )}
-        </button>
-      </form>
-
-      {submitMessage === "success" && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mt-4 p-4 bg-green-100 border border-green-200 rounded-lg text-center"
-        >
-          <div className="flex items-center justify-center mb-2">
-            <Check className="w-6 h-6 text-green-600" />
+            <X className="w-5 h-5 text-spiritual-accent" />
+          </button>
+          
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <svg className="w-8 h-8 text-white" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
+                <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
+                <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
+              </svg>
+            </div>
+            <h2 className="text-2xl font-spirituality font-bold text-spiritual-accent mb-2 tracking-wide">
+              Join the Waitlist
+            </h2>
+            <p className="text-spiritual-text-muted">
+              Be among the first to experience authentic connections
+            </p>
           </div>
-          <h4 className="font-semibold text-green-800 mb-1">
-            Welcome to the community!
-          </h4>
-          <p className="text-green-700 text-sm">
-            You&apos;re now on our exclusive waitlist. We&apos;ll notify you as
-            soon as the app launches.
-          </p>
-        </motion.div>
-      )}
-
-      {submitMessage === "error" && (
-        <div className="mt-4 p-4 bg-red-100 border border-red-200 rounded-lg text-center">
-          <p className="text-red-700 text-sm">
-            There was an error processing your request. Please try again or
-            contact us directly at canberkvarli@gmail.com
-          </p>
         </div>
-      )}
-    </Modal>
+
+        {/* Content */}
+        <div className="px-6 pb-6">
+          {!submitted ? (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted" />
+                <input
+                  type="email"
+                  name="email"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted"
+                  placeholder="Email address"
+                  required
+                />
+              </div>
+
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted" />
+                <input
+                  type="text"
+                  name="name"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted"
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted" />
+                <input
+                  type="tel"
+                  name="phone"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted"
+                  placeholder="Phone number (optional)"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-lg font-medium hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center space-x-2 font-spirituality font-bold tracking-wide"
+              >
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <span>Reserve My Spot</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </form>
+          ) : (
+            <div className="text-center py-8">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
+                Welcome to the Community! 🌟
+              </h3>
+              <p className="text-spiritual-text-muted">
+                You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as the app launches!
+              </p>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

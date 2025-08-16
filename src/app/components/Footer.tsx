@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Circle } from "lucide-react";
 
 const Footer = ({ showIntro, openModal }) => {
   return (
@@ -22,7 +21,11 @@ const Footer = ({ showIntro, openModal }) => {
             whileHover={{ scale: 1.05 }}
           >
             <div className="w-8 h-8 bg-gradient-to-br from-spiritual-primary to-spiritual-secondary rounded-lg flex items-center justify-center">
-              <Circle className="w-5 h-5 text-white" />
+              <svg className="w-5 h-5 text-white" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 10c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zm0 70c-16.569 0-30-13.431-30-30s13.431-30 30-30 30 13.431 30 30-13.431 30-30 30z"/>
+                <path d="M50 25c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.807 0-25-11.193-25-25s11.193-25 25-25 25 11.193 25 25-11.193 25-25 25z"/>
+                <path d="M50 35c-13.807 0-25 11.193-25 25s11.193 25 25 25 25-11.193 25-25-11.193-25-25-25zm0 40c-8.284 0-15-6.716-15-15s6.716-15 15-15 15 6.716 15 15-6.716 15-15 15z"/>
+              </svg>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
               Circle

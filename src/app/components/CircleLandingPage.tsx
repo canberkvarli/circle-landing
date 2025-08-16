@@ -101,33 +101,33 @@ const CircleLandingPage = () => {
         <RoadmapSection />
         <AboutSection />
         <Footer openModal={openModal} />
-
-        {/* Modals */}
-        <AnimatePresence>
-          {activeModal === "earlyAccess" && (
-            <EarlyAccessModal onClose={closeModal} />
-          )}
-          {activeModal === "contact" && (
-            <ContactModal onClose={closeModal} />
-          )}
-          {activeModal === "privacy" && (
-            <PrivacyModal onClose={closeModal} />
-          )}
-          {activeModal === "terms" && (
-            <TermsModal onClose={closeModal} />
-          )}
-          {activeModal === "fullcircle" && (
-            <FullCircleModal isOpen={true} onClose={closeModal} />
-          )}
-        </AnimatePresence>
       </div>
+
+      {/* Modals - Outside main content so they work during intro */}
+      <AnimatePresence>
+        {activeModal === "earlyAccess" && (
+          <EarlyAccessModal onClose={closeModal} />
+        )}
+        {activeModal === "contact" && (
+          <ContactModal onClose={closeModal} />
+        )}
+        {activeModal === "privacy" && (
+          <PrivacyModal onClose={closeModal} />
+        )}
+        {activeModal === "terms" && (
+          <TermsModal onClose={closeModal} />
+        )}
+        {activeModal === "fullcircle" && (
+          <FullCircleModal isOpen={true} onClose={closeModal} />
+        )}
+      </AnimatePresence>
 
       {/* Scroll to Top Button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-40 flex items-center justify-center"
+            className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-40 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
