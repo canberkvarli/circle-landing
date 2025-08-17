@@ -1,6 +1,8 @@
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
 
 /* Import Spirituality font */
 @font-face {
@@ -67,6 +69,7 @@ html {
 }
 
 /* Base component styles */
+/* stylelint-disable at-rule-no-unknown */
 @layer components {
   .btn-primary {
     @apply px-6 py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300;
@@ -129,6 +132,7 @@ html {
     transform: scale(1.02);
   }
 }
+/* stylelint-enable at-rule-no-unknown */
 
 /* Dark mode transitions */
 * {

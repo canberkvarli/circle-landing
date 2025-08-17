@@ -15,11 +15,14 @@ import ContactModal from "../modals/ContactModal";
 import PrivacyModal from "../modals/PrivacyModal";
 import TermsModal from "../modals/TermsModal";
 import FullCircleModal from "./FullCircleModal";
+import OuroborosInfoModal from "../modals/OuroborosInfoModal";
 
 const CircleLandingPage = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<string | undefined>(undefined);
   const [stats] = useState({
     signups: 1247,
     connections: 89,
@@ -71,11 +74,75 @@ const CircleLandingPage = () => {
   const openModal = (modalType: string) => {
     console.log('Opening modal:', modalType);
     setActiveModal(modalType);
+    setSubmitMessage(undefined); // Reset message when opening modal
   };
 
   const closeModal = () => {
     console.log('Closing modal');
     setActiveModal(null);
+    setSubmitMessage(undefined);
+    setIsSubmitting(false);
+  };
+
+  const handleContactSubmit = async (data: {
+    name: string | null;
+    email: string | null;
+    subject: string | null;
+    message: string | null;
+    timestamp: string;
+  }) => {
+    setIsSubmitting(true);
+    setSubmitMessage(undefined);
+    
+    try {
+      // Validate that all required fields have values
+      if (!data.name || !data.email || !data.subject || !data.message) {
+        console.error('Missing required form fields');
+        setSubmitMessage('error');
+        return { success: false };
+      }
+      
+      // Prepare email content
+      const emailData = {
+        to: 'canberkvarli@gmail.com', // Your email address
+        subject: `Contact Form: ${data.subject}`,
+        html: `
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Subject:</strong> ${data.subject}</p>
+          <p><strong>Message:</strong></p>
+          <p>${data.message}</p>
+          <p><strong>Timestamp:</strong> ${data.timestamp}</p>
+        `
+      };
+
+      // Send email via API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitMessage('success');
+        return { success: true };
+      } else {
+        console.error('Email API error:', result.message);
+        setSubmitMessage('error');
+        return { success: false };
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setSubmitMessage('error');
+      return { success: false };
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -109,7 +176,13 @@ const CircleLandingPage = () => {
           <EarlyAccessModal onClose={closeModal} openModal={openModal} />
         )}
         {activeModal === "contact" && (
-          <ContactModal isOpen={true} onClose={closeModal} onSubmit={async () => ({ success: true })} isSubmitting={false} />
+          <ContactModal 
+            isOpen={true} 
+            onClose={closeModal} 
+            onSubmit={handleContactSubmit} 
+            isSubmitting={isSubmitting}
+            submitMessage={submitMessage}
+          />
         )}
         {activeModal === "privacy" && (
           <PrivacyModal isOpen={true} onClose={closeModal} />
@@ -119,6 +192,9 @@ const CircleLandingPage = () => {
         )}
         {activeModal === "fullcircle" && (
           <FullCircleModal isOpen={true} onClose={closeModal} />
+        )}
+        {activeModal === "ouroborosInfo" && (
+          <OuroborosInfoModal isOpen={true} onClose={closeModal} />
         )}
       </AnimatePresence>
 

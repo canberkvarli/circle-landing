@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock } from "lucide-react";
 import Image from "next/image";
@@ -23,9 +23,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
   // Progress bar percentage
   const progressPercentage = (stats.signups / stats.totalSpots) * 100;
   
-  // Modal state
-  const [showDanielleModal, setShowDanielleModal] = useState(false);
-
   return (
     <motion.main
       className="pt-32 pb-20 relative z-10 bg-gradient-to-br from-white via-spiritual-tertiary/30 to-spiritual-secondary/20 dark:from-spiritual-dark-card dark:via-spiritual-dark-tertiary/30 dark:to-spiritual-dark-secondary/20"
@@ -59,6 +56,24 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             Connect with fellow seekers who practice meditation, yoga, energy
             healing, and embrace mindful living.
           </motion.p>
+
+          {/* Logo Meaning Link */}
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 1, delay: 0.9 }}
+          >
+            <button
+              onClick={() => openModal("ouroborosInfo")}
+              className="inline-flex items-center gap-2 text-sm text-spiritual-accent/70 hover:text-spiritual-accent transition-colors duration-300 font-medium"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              What does the Circle logo mean?
+            </button>
+          </motion.div>
 
           {/* CTA Button */}
           <motion.button
@@ -195,70 +210,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
       </div>
       
       {/* Danielle Modal */}
-      {showDanielleModal && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setShowDanielleModal(false)}
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-spiritual-accent/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setShowDanielleModal(false)}
-              className="absolute top-4 right-4 w-8 h-8 bg-spiritual-accent/10 rounded-full flex items-center justify-center hover:bg-spiritual-accent/20 transition-colors"
-            >
-              <svg className="w-5 h-5 text-spiritual-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
-            {/* Modal Content */}
-            <div className="text-center">
-              {/* Danielle's Vibe Avatar */}
-              <div className="flex justify-center mx-auto mb-6">
-                <Image
-                  src="/assets/circle.svg"
-                  alt="Circle"
-                  width={80}
-                  height={80}
-                  className="w-20 h-20"
-                />
-              </div>
-              
-              {/* Title */}
-              <h3 className="text-2xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide dark:text-spiritual-dark-accent">
-                A Glimpse of Authenticity
-              </h3>
-              
-              {/* Description */}
-              <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-light">
-                Danielle brings a radiant, authentic energy to every space she holds. Her love for dance, somatic practices, and mindful connection inspires others to show up as their true selves. She’s a passionate space holder and a believer in the magic of embodied presence.
-                <br /><br />
-                You might catch her dancing, laughing, or simply holding space for others to be real. She’s just one of the many beautiful souls you’ll find in Circle.
-              </p>
-              
-
-              
-              {/* CTA */}
-              <button
-                onClick={() => {
-                  setShowDanielleModal(false);
-                  openModal('earlyAccess');
-                }}
-                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold hover:from-spiritual-accent/90 hover:to-spiritual-primary/90 transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                <span className="font-spirituality">
-                  Meet More Beautiful Souls
-                </span>
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
+      {/* Removed Danielle modal as it's no longer accessible */}
 
         {/* App Preview Section */}
         <motion.div
@@ -278,18 +230,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
                 {/* Phone Notch - iPhone 16 Pro style */}
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
-                
-                {/* Info Icon - Top Right Corner of Phone Frame */}
-                <div className="absolute top-5 right-5 z-20">
-                  <button 
-                    onClick={() => setShowDanielleModal(true)}
-                    className="w-10 h-10 bg-spiritual-accent/90 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-white/30 shadow-xl hover:scale-110 transition-all duration-300 hover:bg-spiritual-accent"
-                  >
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </button>
-                </div>
                 
                 {/* Video Screen */}
                 <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
@@ -336,39 +276,13 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   
                   {/* Screen Content */}
                   <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    {/* App Header */}
-                    <div className="bg-gradient-to-r from-spiritual-accent to-spiritual-primary h-12 flex items-center justify-center">
-                      <span className="text-white font-spirituality font-bold text-sm">Circle</span>
-                    </div>
-                    
-                    {/* Main Content - Profile Cards */}
-                    <div className="p-3 space-y-3">
-                      <div className="bg-spiritual-background rounded-lg p-3 dark:bg-spiritual-dark-background">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full flex items-center justify-center">
-                            <span className="text-white font-spirituality font-bold text-sm">S</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="h-3 bg-spiritual-accent/30 rounded w-20 mb-1"></div>
-                            <div className="h-2 bg-spiritual-accent/20 rounded w-24"></div>
-                          </div>
-                        </div>
-                        <div className="mt-2 h-2 bg-spiritual-accent/20 rounded w-full"></div>
-                      </div>
-                      
-                      <div className="bg-spiritual-background rounded-lg p-3">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-spiritual-primary to-spiritual-secondary rounded-full flex items-center justify-center">
-                            <span className="text-white font-spirituality font-bold text-sm">M</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="h-3 bg-spiritual-primary/30 rounded w-24 mb-1"></div>
-                            <div className="h-2 bg-spiritual-primary/20 rounded w-28"></div>
-                          </div>
-                        </div>
-                        <div className="mt-2 h-2 bg-spiritual-primary/20 rounded w-3/4"></div>
-                      </div>
-                    </div>
+                    <Image
+                      src="/assets/frames/connect2.png"
+                      alt="Connect Screen"
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: 'center 10%' }}
+                    />
                   </div>
                 </div>
                 
@@ -379,7 +293,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 </div>
               </div>
 
-              {/* Phone 2 - Discover Feature */}
+              {/* Phone 2 - Kindred Feature */}
               <div className="relative group">
                 <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">
                   {/* Phone Notch */}
@@ -387,47 +301,24 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   
                   {/* Screen Content */}
                   <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    {/* App Header */}
-                    <div className="bg-gradient-to-r from-spiritual-primary to-spiritual-secondary h-12 flex items-center justify-center">
-                      <span className="text-white font-spirituality font-bold text-sm">Discover</span>
-                    </div>
-                    
-                    {/* Main Content - Practice Grid */}
-                    <div className="p-3 space-y-3">
-                      <div className="bg-spiritual-background rounded-lg p-4 text-center dark:bg-spiritual-dark-background">
-                        <div className="w-12 h-12 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full mx-auto mb-2 flex items-center justify-center">
-                          <span className="text-white font-spirituality font-bold text-sm">🧘</span>
-                        </div>
-                        <div className="h-2 bg-spiritual-accent/30 rounded w-20 mx-auto mb-1"></div>
-                        <div className="h-1.5 bg-spiritual-accent/20 rounded w-16 mx-auto"></div>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="bg-spiritual-background rounded-lg p-2 text-center">
-                          <div className="w-8 h-8 bg-gradient-to-br from-spiritual-primary to-spiritual-secondary rounded-full mx-auto mb-1 flex items-center justify-center">
-                            <span className="text-white font-spirituality font-bold text-xs">🌿</span>
-                          </div>
-                          <div className="h-1.5 bg-spiritual-primary/30 rounded w-12 mx-auto"></div>
-                        </div>
-                        <div className="bg-spiritual-background rounded-lg p-2 text-center">
-                          <div className="w-8 h-8 bg-gradient-to-br from-spiritual-secondary to-spiritual-accent rounded-full mx-auto mb-1 flex items-center justify-center">
-                            <span className="text-white font-spirituality font-bold text-xs">✨</span>
-                          </div>
-                          <div className="h-1.5 bg-spiritual-secondary/30 rounded w-12 mx-auto"></div>
-                        </div>
-                      </div>
-                    </div>
+                    <Image
+                      src="/assets/frames/kindred1.png"
+                      alt="Kindred Screen"
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: 'center 25%' }}
+                    />
                   </div>
                 </div>
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Discover</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">New practices</p>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Kindred</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Discover souls</p>
                 </div>
               </div>
 
-              {/* Phone 3 - Grow Feature */}
+              {/* Phone 3 - Chat Feature */}
               <div className="relative group">
                 <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-1">
                   {/* Phone Notch */}
@@ -435,57 +326,20 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   
                   {/* Screen Content */}
                   <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    {/* App Header */}
-                    <div className="bg-gradient-to-r from-spiritual-secondary to-spiritual-accent h-12 flex items-center justify-center">
-                      <span className="text-white font-spirituality font-bold text-sm">Grow</span>
-                    </div>
-                    
-                    {/* Main Content - Progress Tracking */}
-                    <div className="p-3 space-y-3">
-                      <div className="bg-spiritual-background rounded-lg p-3 dark:bg-spiritual-dark-background">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs text-spiritual-text-dark font-medium dark:text-spiritual-dark-text-light">Daily Practice</span>
-                          <span className="text-xs font-bold text-spiritual-accent dark:text-spiritual-dark-accent">75%</span>
-                        </div>
-                        <div className="w-full bg-spiritual-accent/20 rounded-full h-2 dark:bg-spiritual-dark-accent/20">
-                          <div className="bg-gradient-to-r from-spiritual-accent to-spiritual-primary h-2 rounded-full dark:from-spiritual-dark-accent dark:to-spiritual-dark-primary" style={{width: '75%'}}></div>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="h-1.5 bg-spiritual-accent/30 rounded w-20 dark:bg-spiritual-dark-accent/30"></div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="h-1.5 bg-spiritual-accent/30 rounded w-24 dark:bg-spiritual-dark-accent/30"></div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-4 h-4 bg-spiritual-accent/30 rounded-full flex items-center justify-center dark:bg-spiritual-dark-accent/30">
-                            <span className="text-spiritual-accent text-xs dark:text-spiritual-dark-accent">○</span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="h-1.5 bg-spiritual-accent/20 rounded w-16 dark:bg-spiritual-dark-accent/20"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <Image
+                      src="/assets/frames/chat1.png"
+                      alt="Chat Screen"
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: 'center 25%' }}
+                    />
                   </div>
                 </div>
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Grow</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Track journey</p>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Chat</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Start conversations</p>
                 </div>
               </div>
             </div>

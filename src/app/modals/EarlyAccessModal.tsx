@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X, ArrowRight, Check, Mail, User, Phone, Info } from "lucide-react";
+import { X, ArrowRight, Check, Mail, User, Phone, Info, AlertCircle } from "lucide-react";
 import Image from "next/image";
+import { addWaitlistUser } from "../../services/firebase/functions";
 
 interface EarlyAccessModalProps {
   onClose: () => void;
@@ -11,22 +12,53 @@ interface EarlyAccessModalProps {
 const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setSubmitted(true);
-    setIsSubmitting(false);
-    
-    // Close modal after 3 seconds
-    setTimeout(() => {
-      onClose();
-      setSubmitted(false);
-    }, 3000);
+    try {
+      const formData = new FormData(e.currentTarget);
+      const fullName = formData.get("firstName") as string;
+      const email = formData.get("email") as string;
+      const phone = formData.get("phone") as string;
+      
+      // Validate required fields
+      if (!fullName.trim() || !email.trim() || !phone.trim()) {
+        setError('All fields are required. Please fill in everything.');
+        return;
+      }
+      
+      // Split full name into first and last name
+      const nameParts = fullName.trim().split(' ');
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(' ') || ''; // Last name is optional
+      
+      const result = await addWaitlistUser({
+        firstName,
+        lastName,
+        email: email.trim(),
+        phone: phone.trim()
+      });
+      
+      if (result.success) {
+        setSubmitted(true);
+        // Close modal after 5 seconds
+        setTimeout(() => {
+          onClose();
+          setSubmitted(false);
+        }, 5000);
+      } else {
+        setError(result.error || 'Failed to join waitlist. Please try again.');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+      console.error('Error submitting form:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -87,7 +119,18 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
         {/* Content */}
         <div className="px-6 pb-6">
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400"
+                >
+                  <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-sm">{error}</span>
+                </motion.div>
+              )}
+              <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
                 <input
@@ -103,9 +146,10 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
                 <input
                   type="text"
-                  name="name"
+                  name="firstName"
                   className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
-                  placeholder="Your name"
+                  placeholder="Your full name"
+                  required
                 />
               </div>
 
@@ -115,7 +159,8 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                   type="tel"
                   name="phone"
                   className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
-                  placeholder="Phone number (optional)"
+                  placeholder="Phone number"
+                  required
                 />
               </div>
 
@@ -133,7 +178,8 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                   </>
                 )}
               </button>
-            </form>
+              </form>
+            </>
           ) : (
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -78,6 +78,12 @@ const Header = ({ openModal }: HeaderProps) => {
             >
               Roadmap
             </button>
+            <button
+              onClick={() => openModal('contact')}
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+            >
+              Contact
+            </button>
             
             {/* Theme Toggle */}
             <ThemeToggle />
@@ -142,6 +148,15 @@ const Header = ({ openModal }: HeaderProps) => {
                   className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Roadmap
+                </button>
+                <button
+                  onClick={() => {
+                    openModal('contact');
+                    setIsMenuOpen(false);
+                  }}
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+                >
+                  Contact
                 </button>
                 <button
                   onClick={() => openModal('earlyAccess')}
