@@ -1,296 +1,426 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { getAllWaitlistUsers, updateUserStatus, WaitlistUser } from '../../services/firebase/functions';
+import { assignFullCircleSubscription, searchUsersByField, UserData, getWaitlistUsers, getAppUsers } from '../../services/firebase/adminFunctions';
 import { motion } from 'framer-motion';
-import { Users, Mail, Phone, Calendar, CheckCircle, Clock, Crown } from 'lucide-react';
+import { Mail, Phone, Search, Gift, UserCheck, Users, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function AdminDashboard() {
-  const [users, setUsers] = useState<WaitlistUser[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchField, setSearchField] = useState<'email' | 'phone' | 'name'>('email');
+  const [searchResults, setSearchResults] = useState<UserData[]>([]);
+  const [searching, setSearching] = useState(false);
+  const [assigningSubscription, setAssigningSubscription] = useState<string | null>(null);
+  
+  // New state for managing users
+  const [waitlistUsers, setWaitlistUsers] = useState<any[]>([]);
+  const [appUsers, setAppUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'waitlist' | 'invited' | 'active'>('all');
+  const [activeTab, setActiveTab] = useState<'waitlist' | 'app-users' | 'search'>('waitlist');
 
   useEffect(() => {
-    loadUsers();
+    loadAllUsers();
   }, []);
 
-  const loadUsers = async () => {
+  const loadAllUsers = async () => {
     setLoading(true);
     try {
-      const allUsers: WaitlistUser[] = await getAllWaitlistUsers();
-      setUsers(allUsers);
+      // Load waitlist users
+      const waitlist = await getWaitlistUsers();
+      setWaitlistUsers(waitlist);
+      
+      // Load app users
+      const appUsers = await getAppUsers();
+      setAppUsers(appUsers);
     } catch (error) {
       console.error('Error loading users:', error);
-      // Show user-friendly error message
-      alert('Failed to load users. Please check your Firebase configuration.');
+      alert('Failed to load users. Please check your connection.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleStatusUpdate = async (userId: string, newStatus: WaitlistUser['status']) => {
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    setSearching(true);
     try {
-      const result = await updateUserStatus(userId, newStatus, newStatus === 'invited');
-      if (result.success) {
-        await loadUsers(); // Reload the list
-      }
+      const results = await searchUsersByField(searchQuery, searchField);
+      setSearchResults(results);
     } catch (error) {
-      console.error('Error updating user status:', error);
+      console.error('Search error:', error);
+      alert('Search failed. Please try again.');
+    } finally {
+      setSearching(false);
     }
   };
 
-  const filteredUsers = users.filter(user => 
-    filter === 'all' ? true : user.status === filter
-  );
+  const handleGrantSubscription = async (userId: string) => {
+    setAssigningSubscription(userId);
+    try {
+      const result = await assignFullCircleSubscription(userId);
+      if (result.success) {
+        alert(`Successfully granted FullCircle subscription to user!`);
+        // Refresh the user list
+        await loadAllUsers();
+      } else {
+        alert(`Failed to grant subscription: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('Error granting subscription:', error);
+      alert('Failed to grant subscription. Please try again.');
+    } finally {
+      setAssigningSubscription(null);
+    }
+  };
 
-  const stats = {
-    total: users.length,
-    waitlist: users.filter(u => u.status === 'waitlist').length,
-    invited: users.filter(u => u.status === 'invited').length,
-    active: users.filter(u => u.status === 'active').length,
+  const canGrantSubscription = (user: UserData) => {
+    // Only grant subscription if user has completed onboarding
+    return user.onboardingCompleted === true;
+  };
+
+  const getOnboardingStatus = (user: UserData) => {
+    if (user.onboardingCompleted === true) {
+      return { status: 'completed', icon: <CheckCircle className="w-4 h-4 text-green-500" />, text: 'Onboarding Complete' };
+    } else if (user.onboardingCompleted === false) {
+      return { status: 'incomplete', icon: <AlertCircle className="w-4 h-4 text-yellow-500" />, text: 'Onboarding Incomplete' };
+    } else {
+      return { status: 'unknown', icon: <Clock className="w-4 h-4 text-gray-400" />, text: 'Status Unknown' };
+    }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-spiritual-background to-spiritual-secondary flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-spiritual-accent border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading users...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-spiritual-background to-spiritual-secondary p-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-spirituality font-bold text-spiritual-accent mb-4">
-            FullCircle Admin Dashboard
-          </h1>
-          <p className="text-spiritual-text-muted text-lg">
-            Manage your waitlist and prepare for launch
-          </p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">FullCircle Admin Panel</h1>
+          <p className="text-lg text-gray-600">Manage waitlist users and grant FullCircle subscriptions</p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          {[
-            { label: 'Total Users', value: stats.total, icon: Users, color: 'from-blue-500 to-blue-600' },
-            { label: 'Waitlist', value: stats.waitlist, icon: Clock, color: 'from-yellow-500 to-yellow-600' },
-            { label: 'Invited', value: stats.invited, icon: Mail, color: 'from-purple-500 to-purple-600' },
-            { label: 'Active', value: stats.active, icon: Crown, color: 'from-green-500 to-green-600' },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-xl dark:bg-spiritual-dark-card"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-spiritual-text-muted text-sm font-medium">{stat.label}</p>
-                  <p className="text-3xl font-spirituality font-bold text-spiritual-accent">{stat.value}</p>
-                </div>
-                <div className={`w-12 h-12 bg-gradient-to-r ${stat.color} rounded-full flex items-center justify-center`}>
-                  <stat.icon className="w-6 h-6 text-white" />
-                </div>
+        {/* Tab Navigation */}
+        <div className="flex space-x-1 bg-white rounded-lg p-1 mb-6 shadow-sm">
+          <button
+            onClick={() => setActiveTab('waitlist')}
+            className={`flex-1 py-2 px-4 rounded-md font-medium transition-colors ${
+              activeTab === 'waitlist'
+                ? 'bg-purple-600 text-white'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <Users className="w-4 h-4 inline mr-2" />
+            Waitlist Users ({waitlistUsers.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('app-users')}
+            className={`flex-1 py-2 px-4 rounded-md font-medium transition-colors ${
+              activeTab === 'app-users'
+                ? 'bg-purple-600 text-white'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <UserCheck className="w-4 h-4 inline mr-2" />
+            App Users ({appUsers.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('search')}
+            className={`flex-1 py-2 px-4 rounded-md font-medium transition-colors ${
+              activeTab === 'search'
+                ? 'bg-purple-600 text-white'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <Search className="w-4 h-4 inline mr-2" />
+            Search Users
+          </button>
+        </div>
+
+        {/* Waitlist Users Tab */}
+        {activeTab === 'waitlist' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg shadow-lg p-6"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <Users className="w-5 h-5 mr-2 text-purple-600" />
+              Waitlist Users
+            </h2>
+            
+            {waitlistUsers.length === 0 ? (
+              <p className="text-gray-500 text-center py-8">No waitlist users found.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {waitlistUsers.map((user, index) => (
+                      <tr key={index} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.phoneNumber || 'N/A'}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {user.createdAt ? new Date(user.createdAt.toDate()).toLocaleDateString() : 'N/A'}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                            Waitlist
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            )}
+          </motion.div>
+        )}
 
-        {/* Filters */}
-        <div className="bg-white rounded-2xl p-6 shadow-xl mb-8 dark:bg-spiritual-dark-card">
-          <div className="flex flex-wrap gap-3">
-            {[
-              { key: 'all', label: 'All Users', count: stats.total },
-              { key: 'waitlist', label: 'Waitlist', count: stats.waitlist },
-              { key: 'invited', label: 'Invited', count: stats.invited },
-              { key: 'active', label: 'Active', count: stats.active },
-            ].map((filterOption) => (
-              <button
-                key={filterOption.key}
-                onClick={() => setFilter(filterOption.key as typeof filter)}
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
-                  filter === filterOption.key
-                    ? 'bg-spiritual-accent text-white shadow-lg'
-                    : 'bg-spiritual-background text-spiritual-text-muted hover:bg-spiritual-accent/10'
-                }`}
-              >
-                {filterOption.label} ({filterOption.count})
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* App Users Tab */}
+        {activeTab === 'app-users' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg shadow-lg p-6"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <UserCheck className="w-5 h-5 mr-2 text-green-600" />
+              App Users
+            </h2>
+            
+            {appUsers.length === 0 ? (
+              <p className="text-gray-500 text-center py-8">No app users found.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Onboarding</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscription</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {appUsers.map((user) => {
+                      const onboardingStatus = getOnboardingStatus(user);
+                      const hasSubscription = user.subscription?.isActive;
+                      
+                      return (
+                        <tr key={user.userId} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="flex items-center">
+                              {onboardingStatus.icon}
+                              <span className="ml-2">{onboardingStatus.text}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {hasSubscription ? (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Active
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                None
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {canGrantSubscription(user) && !hasSubscription ? (
+                              <button
+                                onClick={() => handleGrantSubscription(user.userId)}
+                                disabled={assigningSubscription === user.userId}
+                                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {assigningSubscription === user.userId ? (
+                                  <>
+                                    <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white mr-2"></div>
+                                    Granting...
+                                  </>
+                                ) : (
+                                  <>
+                                    <Gift className="w-3 h-3 mr-1" />
+                                    Grant FullCircle
+                                  </>
+                                )}
+                              </button>
+                            ) : (
+                              <span className="text-gray-400">
+                                {!canGrantSubscription(user) ? 'Complete onboarding first' : 'Already subscribed'}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </motion.div>
+        )}
 
-        {/* Users Table */}
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden dark:bg-spiritual-dark-card">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-spiritual-background dark:bg-spiritual-dark-background">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                    User
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                    Contact
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                    Joined
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                    Status
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-spiritual-border dark:divide-spiritual-dark-border">
-                {filteredUsers.map((user, index) => (
-                  <motion.tr
-                    key={user.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="hover:bg-spiritual-background/50 dark:hover:bg-spiritual-dark-background/50"
-                  >
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                          {user.firstName} {user.lastName}
-                        </p>
-                        <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-muted">
-                          ID: {user.id}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Mail className="w-4 h-4 text-spiritual-accent" />
-                          <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                            {user.email}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Phone className="w-4 h-4 text-spiritual-accent" />
-                          <span className="text-spiritual-text-muted dark:text-spiritual-dark-text-muted">
-                            {user.phone}
-                          </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2 text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-muted">
-                        <Calendar className="w-4 h-4" />
-                        {user.timestamp?.toDate ? 
-                          user.timestamp.toDate().toLocaleDateString() : 
-                          'N/A'
-                        }
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        user.status === 'waitlist' 
-                          ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400'
-                          : user.status === 'invited'
-                          ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400'
-                          : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-                      }`}>
-                        {user.status === 'waitlist' && <Clock className="w-3 h-3 mr-1" />}
-                        {user.status === 'invited' && <Mail className="w-3 h-3 mr-1" />}
-                        {user.status === 'active' && <CheckCircle className="w-3 h-3 mr-1" />}
-                        {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        {user.status === 'waitlist' && (
-                          <button
-                            onClick={() => handleStatusUpdate(user.id!, 'invited')}
-                            className="px-3 py-1 bg-purple-500 text-white text-xs rounded-lg hover:bg-purple-600 transition-colors"
-                          >
-                            Send Invite
-                          </button>
-                        )}
-                        {user.status === 'invited' && (
-                          <button
-                            onClick={() => handleStatusUpdate(user.id!, 'active')}
-                            className="px-3 py-1 bg-green-500 text-white text-xs rounded-lg hover:bg-green-600 transition-colors"
-                          >
-                            Activate
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-12">
-              <Users className="w-16 h-16 text-spiritual-text-muted mx-auto mb-4" />
-              <p className="text-spiritual-text-muted">No users found with the selected filter.</p>
+        {/* Search Tab */}
+        {activeTab === 'search' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-lg shadow-lg p-6"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <Search className="w-5 h-5 mr-2 text-blue-600" />
+              Search Users
+            </h2>
+
+            {/* Search Instructions */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+              <h3 className="text-lg font-semibold text-blue-900 mb-2">How to Grant Subscriptions:</h3>
+              <ol className="text-blue-800 space-y-1">
+                <li>1. <strong>Search for a user</strong> by email, phone, or name</li>
+                <li>2. <strong>Check their onboarding status</strong> - must be "Onboarding Complete"</li>
+                <li>3. <strong>Click "Grant FullCircle"</strong> to give them a 1-month subscription</li>
+              </ol>
             </div>
-          )}
-        </div>
 
-        {/* Export Section */}
-        <div className="bg-white rounded-2xl p-6 shadow-xl mt-8 dark:bg-spiritual-dark-card">
-          <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4">
-            Export & Launch Tools
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button
-              onClick={() => {
-                const csv = [
-                  ['Name', 'Email', 'Phone', 'Status', 'Joined Date'],
-                  ...filteredUsers.map(user => [
-                    `${user.firstName} ${user.lastName}`,
-                    user.email,
-                    user.phone || '',
-                    user.status,
-                    user.timestamp?.toDate ? user.timestamp.toDate().toISOString() : 'N/A'
-                  ])
-                ].map(row => row.join(',')).join('\n');
-                
-                const blob = new Blob([csv], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `fullcircle-waitlist-${new Date().toISOString().split('T')[0]}.csv`;
-                a.click();
-              }}
-              className="px-4 py-2 bg-spiritual-accent text-white rounded-lg hover:bg-spiritual-accent/90 transition-colors"
-            >
-              Export to CSV
-            </button>
-            
-            <button
-              onClick={() => {
-                const emails = filteredUsers.map(user => user.email).join('\n');
-                navigator.clipboard.writeText(emails);
-                alert('Emails copied to clipboard!');
-              }}
-              className="px-4 py-2 bg-spiritual-primary text-white rounded-lg hover:bg-spiritual-primary/90 transition-colors"
-            >
-              Copy All Emails
-            </button>
-            
-            <button
-              onClick={() => {
-                const inviteUsers = users.filter(u => u.status === 'waitlist');
-                alert(`Ready to send ${inviteUsers.length} invites! Use the Send Invite buttons above.`);
-              }}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-            >
-              Prepare Launch
-            </button>
-          </div>
-        </div>
+            {/* Search Form */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              <div className="flex-1">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Enter email, phone, or name..."
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
+              </div>
+              <div className="flex gap-2">
+                <select
+                  value={searchField}
+                  onChange={(e) => setSearchField(e.target.value as 'email' | 'phone' | 'name')}
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                >
+                  <option value="email">Email</option>
+                  <option value="phone">Phone</option>
+                  <option value="name">Name</option>
+                </select>
+                <button
+                  onClick={handleSearch}
+                  disabled={searching || !searchQuery.trim()}
+                  className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {searching ? 'Searching...' : 'Search'}
+                </button>
+              </div>
+            </div>
+
+            {/* Search Results */}
+            {searchResults.length > 0 && (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Onboarding</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscription</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {searchResults.map((user) => {
+                      const onboardingStatus = getOnboardingStatus(user);
+                      const hasSubscription = user.subscription?.isActive;
+                      
+                      return (
+                        <tr key={user.userId} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <div className="flex items-center">
+                              {onboardingStatus.icon}
+                              <span className="ml-2">{onboardingStatus.text}</span>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {hasSubscription ? (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Active
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                None
+                              </span>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {canGrantSubscription(user) && !hasSubscription ? (
+                              <button
+                                onClick={() => handleGrantSubscription(user.userId)}
+                                disabled={assigningSubscription === user.userId}
+                                className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {assigningSubscription === user.userId ? (
+                                  <>
+                                    <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white mr-2"></div>
+                                    Granting...
+                                  </>
+                                ) : (
+                                  <>
+                                    <Gift className="w-3 h-3 mr-1" />
+                                    Grant FullCircle
+                                  </>
+                                )}
+                              </button>
+                            ) : (
+                              <span className="text-gray-400">
+                                {!canGrantSubscription(user) ? 'Complete onboarding first' : 'Already subscribed'}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {searchResults.length === 0 && searchQuery && !searching && (
+              <p className="text-gray-500 text-center py-8">No users found matching your search.</p>
+            )}
+          </motion.div>
+        )}
       </div>
     </div>
   );

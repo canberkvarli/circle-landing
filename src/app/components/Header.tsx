@@ -158,12 +158,6 @@ const Header = ({ openModal }: HeaderProps) => {
                 >
                   Contact
                 </button>
-                <button
-                  onClick={() => openModal('earlyAccess')}
-                  className="header-waitlist-button"
-                >
-                  Join Waitlist
-                </button>
                 
                 {/* Mobile Theme Toggle */}
                 <div className="flex justify-center pt-2">
