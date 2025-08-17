@@ -85,10 +85,10 @@ const Header = ({ openModal }: HeaderProps) => {
 
           {/* CTA Button */}
           <motion.button
-            className="hidden md:block px-8 py-3 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-100 text-lg font-spirituality tracking-wide dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
+            className="header-waitlist-button"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 10px 25px rgba(212, 165, 116, 0.3)",
+              boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => openModal('earlyAccess')}
@@ -145,7 +145,7 @@ const Header = ({ openModal }: HeaderProps) => {
                 </button>
                 <button
                   onClick={() => openModal('earlyAccess')}
-                  className="w-full py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-100 text-lg font-spirituality tracking-wide dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
+                  className="header-waitlist-button"
                 >
                   Join Waitlist
                 </button>

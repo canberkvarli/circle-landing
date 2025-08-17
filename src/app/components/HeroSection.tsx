@@ -62,7 +62,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
 
           {/* CTA Button */}
           <motion.button
-            className="px-12 py-5 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold shadow-lg text-xl relative overflow-hidden group hover:shadow-3xl transition-all duration-100 font-spirituality tracking-wide dark:from-spiritual-dark-accent dark:to-spiritual-dark-primary hover:scale-105"
+            className="vibrant-waitlist-button"
             whileHover={{
               scale: 1.08,
             }}
@@ -72,12 +72,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 1.0 }}
           >
-            <motion.div
-              className="absolute inset-0 bg-white/10"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "100%" }}
-              transition={{ duration: 0.6 }}
-            />
             <span className="relative z-10">Join FullCircle Waitlist</span>
           </motion.button>
         </div>
@@ -564,7 +558,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             >
               <button
                 onClick={() => openModal('fullcircle')}
-                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-full font-bold shadow-xl text-lg hover:shadow-2xl transition-all duration-100 hover:scale-105 font-spirituality tracking-wide border-2 border-white/20 dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
+                className="golden-member-button"
               >
                 Become a FullCircle Member
               </button>

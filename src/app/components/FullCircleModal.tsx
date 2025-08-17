@@ -73,7 +73,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
             <h2 className="text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
               What is FullCircle?
             </h2>
-            <p className="text-spiritual-text-muted text-lg dark:text-spiritual-dark-text-muted">
+            <p className="text-spiritual-text-dark text-lg dark:text-spiritual-dark-text-light">
               Your premium spiritual connection experience
             </p>
           </div>
@@ -110,7 +110,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 <h4 className="text-xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
                   {feature.title}
                 </h4>
-                <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-muted">
+                <p className="text-sm text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
                   {feature.description}
                 </p>
               </div>
@@ -131,7 +131,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               ].map((option, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
                   <div className="flex items-center space-x-3">
-                    <div className="text-sm font-medium text-spiritual-text-dark dark:text-spiritual-dark-text-light">
+                    <div className="text-sm font-semibold text-spiritual-text-dark dark:text-spiritual-dark-text-light">
                       {option.name}
                     </div>
                     {option.popular && (
@@ -173,7 +173,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-3">
                   <CheckCircle className="w-5 h-5 text-spiritual-primary flex-shrink-0 dark:text-spiritual-dark-primary" />
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">{feature}</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">{feature}</span>
                 </div>
               ))}
             </div>
@@ -186,27 +186,27 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
                   Get Early Access
                 </h3>
-                <p className="text-spiritual-text-muted mb-4 dark:text-spiritual-dark-text-muted">
+                <p className="text-spiritual-text-dark mb-4 dark:text-spiritual-dark-text-light font-medium">
                   Be among the first to experience FullCircle when we launch
                 </p>
               </div>
               
               <div className="flex gap-3">
                 <div className="flex-1 relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" style={{ marginTop: '-2.5px' }} />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-dark dark:text-spiritual-dark-text-light" style={{ marginTop: '-2.5px' }} />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-full focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
+                    className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-full focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-dark/60 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-light/60 dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent font-medium"
                     required
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-4 bg-gradient-to-r from-spiritual-primary/90 to-spiritual-secondary/90 text-white rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-100 hover:scale-105 font-spirituality text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed dark:from-spiritual-dark-primary/90 dark:to-spiritual-dark-secondary/90"
+                  className="waitlist-button"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </button>
@@ -220,7 +220,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
                 Welcome to FullCircle! 🌟
               </h3>
-              <p className="text-spiritual-text-muted dark:text-spiritual-dark-text-muted">
+              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
                 You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as we launch!
               </p>
             </div>
