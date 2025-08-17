@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Heart, Users, Shield, Sparkles } from "lucide-react";
+import { Heart, Users, Shield, BookHeart } from "lucide-react";
 
 const FeaturesSection = () => {
   const features = [
@@ -23,7 +23,7 @@ const FeaturesSection = () => {
         "A respectful environment where you can be your authentic self.",
     },
     {
-      icon: Sparkles,
+      icon: BookHeart,
       title: "Mindful Matching",
       description:
         "Our algorithm considers compatibility and shared interests.",

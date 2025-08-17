@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, HandHeart, Sprout, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 interface HeroSectionProps {
@@ -66,7 +66,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           >
             <button
               onClick={() => openModal("ouroborosInfo")}
-              className="inline-flex items-center gap-2 text-sm text-spiritual-accent/70 hover:text-spiritual-accent transition-colors duration-300 font-medium"
+              className="inline-flex items-center gap-2 text-sm text-spiritual-text-dark hover:text-spiritual-accent transition-colors duration-300 font-medium dark:text-spiritual-dark-text-light dark:hover:text-spiritual-dark-accent"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -356,7 +356,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
         >
           <div className="max-w-4xl mx-auto text-center">
             <motion.h2
-              className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-accent mb-6 tracking-wide"
+              className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-text-dark mb-6 tracking-wide dark:text-spiritual-dark-accent"
               initial={{ opacity: 0, y: 20 }}
               animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 2.6 }}
@@ -381,24 +381,24 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             >
               {[
                 {
-                  icon: "🌱",
+                  icon: <HandHeart className="w-6 h-6" />,
                   title: "Deep Connections",
                   description: "Find your tribe of like-minded souls who share your journey"
                 },
                 {
-                  icon: "✨",
+                  icon: <Sprout className="w-6 h-6" />,
                   title: "Personal Growth",
                   description: "Access curated content and practices to support your journey"
                 },
                 {
-                  icon: "🌟",
+                  icon: <Sparkles className="w-6 h-6" />,
                   title: "Enhanced Features",
                   description: "Unlock advanced matching, unlimited connections, and dedicated support"
                 }
               ].map((feature, index) => (
                 <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-3">{feature.title}</h3>
+                  <div className="mb-4 flex justify-center text-spiritual-accent dark:text-spiritual-dark-accent">{feature.icon}</div>
+                  <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-3 dark:text-spiritual-dark-accent">{feature.title}</h3>
                   <p className="text-spiritual-text-muted">{feature.description}</p>
                 </div>
               ))}
