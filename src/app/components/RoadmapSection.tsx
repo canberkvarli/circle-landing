@@ -55,8 +55,8 @@ const RoadmapSection = () => {
   };
 
   return (
-    <section id="roadmap" className="py-20 bg-white dark:bg-spiritual-dark-background">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="roadmap" className="py-24 bg-white dark:bg-spiritual-dark-background">
+      <div className="max-w-[90rem] mx-auto px-8">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -72,7 +72,7 @@ const RoadmapSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
           {roadmapItems.map((item, index) => (
             <motion.div
               key={index}
@@ -82,28 +82,30 @@ const RoadmapSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-medium text-spiritual-accent">
-                    {item.phase}
-                  </span>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getStatusColor(
-                      item.status
-                    )}`}
-                  >
-                    {item.status}
-                  </span>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
+                <div className="text-center mb-6">
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <span className="text-sm font-medium text-spiritual-accent dark:text-spiritual-dark-accent">
+                      {item.phase}
+                    </span>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getStatusColor(
+                        item.status
+                      )}`}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide dark:text-spiritual-dark-text-dark">
+                <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-4 tracking-wide dark:text-spiritual-dark-text-dark text-center">
                   {item.title}
                 </h3>
-                <p className="text-spiritual-text-muted mb-4 leading-relaxed dark:text-spiritual-dark-text-muted">
+                <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted text-center">
                   {item.description}
                 </p>
-                <div className="flex items-center text-sm text-spiritual-accent">
+                <div className="flex items-center justify-center text-sm text-spiritual-accent dark:text-spiritual-dark-accent font-medium">
                   <Clock className="w-4 h-4 mr-2" />
-                  {item.date}
+                  <span className="tracking-wide">{item.date}</span>
                 </div>
               </div>
             </motion.div>

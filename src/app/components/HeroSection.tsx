@@ -266,8 +266,8 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               </div>
             </div>
             
-            {/* Bottom: 3 Phone Frames */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {/* Bottom: 4 Phone Frames */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
               {/* Phone 1 - Connect Feature */}
               <div className="relative group">
                 <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-2">
@@ -281,7 +281,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                       alt="Connect Screen"
                       fill
                       className="object-cover"
-                      style={{ objectPosition: 'center 10%' }}
+                      style={{ objectPosition: 'center 80%' }}
                     />
                   </div>
                 </div>
@@ -306,14 +306,14 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                       alt="Kindred Screen"
                       fill
                       className="object-cover"
-                      style={{ objectPosition: 'center 25%' }}
+                      style={{ objectPosition: 'center 75%' }}
                     />
                   </div>
                 </div>
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Kindred</h4>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Kindred Spirits</h4>
                   <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Discover souls</p>
                 </div>
               </div>
@@ -331,15 +331,40 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                       alt="Chat Screen"
                       fill
                       className="object-cover"
-                      style={{ objectPosition: 'center 25%' }}
+                      style={{ objectPosition: 'center 70%' }}
                     />
                   </div>
                 </div>
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Chat</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Start conversations</p>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Soul Chats</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Start connecting</p>
+                </div>
+              </div>
+
+              {/* Phone 4 - Sacred Self Feature */}
+              <div className="relative group">
+                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-2">
+                  {/* Phone Notch */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
+                  
+                  {/* Screen Content */}
+                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
+                    <Image
+                      src="/assets/frames/self1.png"
+                      alt="Sacred Self Screen"
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: 'center 75%' }}
+                    />
+                  </div>
+                </div>
+                
+                {/* Label */}
+                <div className="text-center mt-4">
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Self</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Express yourself</p>
                 </div>
               </div>
             </div>
