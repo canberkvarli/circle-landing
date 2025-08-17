@@ -18,7 +18,7 @@ import FullCircleModal from "./FullCircleModal";
 
 const CircleLandingPage = () => {
   const [showIntro, setShowIntro] = useState(true);
-  const [activeModal, setActiveModal] = useState(null);
+  const [activeModal, setActiveModal] = useState<string | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [stats] = useState({
     signups: 1247,
@@ -68,7 +68,7 @@ const CircleLandingPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const openModal = (modalType) => {
+  const openModal = (modalType: string) => {
     console.log('Opening modal:', modalType);
     setActiveModal(modalType);
   };
@@ -79,7 +79,7 @@ const CircleLandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-spiritual-background via-spiritual-tertiary to-spiritual-secondary">
+    <div className="min-h-screen bg-gradient-to-br from-spiritual-background via-spiritual-tertiary to-spiritual-secondary dark:from-spiritual-dark-background dark:via-spiritual-dark-tertiary dark:to-spiritual-dark-secondary">
       <AnimatePresence>
         {showIntro && <IntroAnimation />}
       </AnimatePresence>
@@ -100,7 +100,7 @@ const CircleLandingPage = () => {
         <FeaturesSection />
         <RoadmapSection />
         <AboutSection />
-        <Footer openModal={openModal} />
+        <Footer showIntro={showIntro} openModal={openModal} />
       </div>
 
       {/* Modals - Outside main content so they work during intro */}
@@ -109,13 +109,13 @@ const CircleLandingPage = () => {
           <EarlyAccessModal onClose={closeModal} openModal={openModal} />
         )}
         {activeModal === "contact" && (
-          <ContactModal onClose={closeModal} />
+          <ContactModal isOpen={true} onClose={closeModal} onSubmit={async () => ({ success: true })} isSubmitting={false} />
         )}
         {activeModal === "privacy" && (
-          <PrivacyModal onClose={closeModal} />
+          <PrivacyModal isOpen={true} onClose={closeModal} />
         )}
         {activeModal === "terms" && (
-          <TermsModal onClose={closeModal} />
+          <TermsModal isOpen={true} onClose={closeModal} />
         )}
         {activeModal === "fullcircle" && (
           <FullCircleModal isOpen={true} onClose={closeModal} />
@@ -127,7 +127,7 @@ const CircleLandingPage = () => {
         {showScrollTop && (
           <motion.button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-40 flex items-center justify-center"
+            className="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-40 flex items-center justify-center dark:from-spiritual-dark-primary dark:to-spiritual-dark-secondary"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}

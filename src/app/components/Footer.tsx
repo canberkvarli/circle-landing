@@ -2,10 +2,15 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const Footer = ({ showIntro, openModal }) => {
+interface FooterProps {
+  showIntro: boolean;
+  openModal: (modalType: string) => void;
+}
+
+const Footer = ({ showIntro, openModal }: FooterProps) => {
   return (
     <motion.footer
-      className="py-12 px-6 border-t border-spiritual-primary/20 relative z-10"
+      className="py-12 px-6 border-t border-spiritual-primary/20 relative z-10 dark:border-spiritual-dark-border"
       initial={{ opacity: 0, y: 30 }}
       animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.8, delay: 4.8 }}
@@ -32,10 +37,10 @@ const Footer = ({ showIntro, openModal }) => {
               Circle
             </span>
           </motion.div>
-          <p className="text-spiritual-text-muted mb-6">
+          <p className="text-spiritual-text-muted mb-6 dark:text-spiritual-dark-text-muted">
             Connecting souls through mindful technology and conscious design.
           </p>
-          <div className="flex justify-center space-x-6 text-spiritual-text-muted mb-6 text-sm">
+          <div className="flex justify-center space-x-6 text-spiritual-text-muted mb-6 text-sm dark:text-spiritual-dark-text-muted">
             {[
               { name: "Privacy", modal: "privacy" },
               { name: "Terms", modal: "terms" },
@@ -44,7 +49,7 @@ const Footer = ({ showIntro, openModal }) => {
               <motion.button
                 key={item.name}
                 onClick={() => openModal(item.modal)}
-                className="hover:text-spiritual-secondary transition-colors"
+                className="hover:text-spiritual-secondary transition-colors dark:hover:text-spiritual-dark-secondary"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +60,7 @@ const Footer = ({ showIntro, openModal }) => {
               </motion.button>
             ))}
           </div>
-          <p className="text-spiritual-text-muted/70 text-sm">
+          <p className="text-spiritual-text-muted/70 text-sm dark:text-spiritual-dark-text-muted/70">
             © 2025 Circle. All rights reserved.
           </p>
         </motion.div>

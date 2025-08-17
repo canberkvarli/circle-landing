@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Philosopher } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 const inter = Inter({ subsets: ["latin"] });
+const philosopher = Philosopher({ 
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-philosopher"
+});
 
 export const metadata: Metadata = {
   title: "Full Circle - Sacred Connections",
@@ -51,19 +57,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Philosopher:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} ${philosopher.variable}`}>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

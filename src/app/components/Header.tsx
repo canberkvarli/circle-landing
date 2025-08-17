@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import ThemeToggle from "./ThemeToggle";
 
 interface HeaderProps {
   openModal: (modalType: string) => void;
@@ -28,7 +29,7 @@ const Header = ({ openModal }: HeaderProps) => {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-lg border-b border-spiritual-border"
+          ? "bg-white/90 backdrop-blur-md shadow-lg border-b border-spiritual-border dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border"
           : "bg-transparent"
       }`}
       initial={{ opacity: 0, y: -20 }}
@@ -46,7 +47,7 @@ const Header = ({ openModal }: HeaderProps) => {
               height={80}
               className="w-20 h-20"
             />
-            <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark">
+            <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
               circle
             </span>
           </div>
@@ -57,7 +58,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               About
             </button>
@@ -65,7 +66,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               Features
             </button>
@@ -73,15 +74,18 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               Roadmap
             </button>
+            
+            {/* Theme Toggle */}
+            <ThemeToggle />
           </nav>
 
           {/* CTA Button */}
           <motion.button
-            className="hidden md:block px-8 py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-accent-light text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-spirituality tracking-wide"
+            className="hidden md:block px-8 py-3 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-100 text-lg font-spirituality tracking-wide dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 10px 25px rgba(212, 165, 116, 0.3)",
@@ -109,7 +113,7 @@ const Header = ({ openModal }: HeaderProps) => {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-spiritual-accent/20 md:hidden"
+              className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-spiritual-accent/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border md:hidden"
             >
               <div className="px-6 py-4 space-y-4">
                 <button
@@ -117,7 +121,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   About
                 </button>
@@ -126,7 +130,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-xl font-spirituality tracking-wide"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Features
                 </button>
@@ -135,16 +139,21 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Roadmap
                 </button>
                 <button
                   onClick={() => openModal('earlyAccess')}
-                  className="w-full py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-accent-light text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-spirituality tracking-wide"
+                  className="w-full py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-100 text-lg font-spirituality tracking-wide dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
                 >
                   Join Waitlist
                 </button>
+                
+                {/* Mobile Theme Toggle */}
+                <div className="flex justify-center pt-2">
+                  <ThemeToggle />
+                </div>
               </div>
             </motion.div>
           )}

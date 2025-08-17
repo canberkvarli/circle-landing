@@ -31,7 +31,7 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="py-20 bg-white">
+    <section id="features" className="py-20 bg-white dark:bg-spiritual-dark-background">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           className="text-center mb-16"
@@ -44,7 +44,7 @@ const FeaturesSection = () => {
             Discover Circle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
-            We're building more than just a dating app - we're creating a community
+            We&apos;re building more than just a dating app - we&apos;re creating a community
             of conscious individuals who value authentic connections.
           </p>
         </motion.div>
@@ -63,10 +63,10 @@ const FeaturesSection = () => {
               <div className="w-16 h-16 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <feature.icon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-4 tracking-wide">
+              <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-4 tracking-wide dark:text-spiritual-dark-text-dark">
                 {feature.title}
               </h3>
-              <p className="text-spiritual-text-muted leading-relaxed">
+              <p className="text-spiritual-text-muted leading-relaxed dark:text-spiritual-dark-text-muted">
                 {feature.description}
               </p>
             </motion.div>

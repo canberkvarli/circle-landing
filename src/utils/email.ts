@@ -1,4 +1,4 @@
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 export const sendWaitlistEmail = async (email: string) => {
   try {

@@ -38,7 +38,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
       onClick={onClose}
     >
       <motion.div
-        className="bg-white rounded-3xl max-w-md w-full shadow-2xl"
+        className="bg-white rounded-3xl max-w-md w-full shadow-2xl dark:bg-spiritual-dark-card"
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -49,9 +49,9 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
         <div className="relative p-6 pb-4">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors"
+            className="absolute top-4 right-4 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors dark:bg-spiritual-dark-primary/10 dark:hover:bg-spiritual-dark-primary/20"
           >
-            <X className="w-5 h-5 text-spiritual-primary" />
+            <X className="w-5 h-5 text-spiritual-primary dark:text-spiritual-dark-primary" />
           </button>
           
           <div className="text-center">
@@ -64,10 +64,10 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                 className="w-20 h-20"
               />
             </div>
-            <h2 className="text-2xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide">
+            <h2 className="text-2xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
               Join the Waitlist
             </h2>
-            <p className="text-spiritual-text-muted mb-4">
+            <p className="text-spiritual-text-muted mb-4 dark:text-spiritual-dark-text-muted">
               Be among the first to experience authentic connections
             </p>
             
@@ -75,7 +75,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
             {openModal && (
               <button
                 onClick={() => openModal('fullcircle')}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-sm font-medium hover:bg-spiritual-accent/20 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-sm font-medium hover:bg-spiritual-accent/20 transition-colors dark:bg-spiritual-dark-accent/10 dark:text-spiritual-dark-accent dark:hover:bg-spiritual-dark-accent/20"
               >
                 <Info className="w-4 h-4" />
                 What is FullCircle Membership?
@@ -89,32 +89,32 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
                 <input
                   type="email"
                   name="email"
-                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
                   placeholder="Email address"
                   required
                 />
               </div>
 
               <div className="relative">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted" />
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
                 <input
                   type="text"
                   name="name"
-                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
                   placeholder="Your name"
                 />
               </div>
 
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted" />
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
                 <input
                   type="tel"
                   name="phone"
-                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
                   placeholder="Phone number (optional)"
                 />
               </div>
@@ -122,7 +122,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-accent-light text-white rounded-lg font-spirituality font-bold text-lg tracking-wide hover:shadow-xl transition-all disabled:opacity-50 flex items-center justify-center space-x-2 shadow-lg"
+                className="w-full py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-lg font-spirituality font-bold text-lg tracking-wide hover:shadow-xl transition-all duration-100 disabled:opacity-50 flex items-center justify-center space-x-2 shadow-lg dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
               >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

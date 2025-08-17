@@ -28,7 +28,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
 
   return (
     <motion.main
-      className="pt-32 pb-20 relative z-10 bg-gradient-to-br from-white via-spiritual-tertiary/30 to-spiritual-secondary/20"
+      className="pt-32 pb-20 relative z-10 bg-gradient-to-br from-white via-spiritual-tertiary/30 to-spiritual-secondary/20 dark:from-spiritual-dark-card dark:via-spiritual-dark-tertiary/30 dark:to-spiritual-dark-secondary/20"
       initial={{ opacity: 0, y: 30 }}
       animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.8, delay: 0.4 }}
@@ -42,10 +42,10 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 1, delay: 0.6 }}
           >
-            <span className="block text-spiritual-accent font-spirituality font-bold tracking-wide mb-8">
+            <span className="block text-spiritual-accent font-spirituality font-bold tracking-wide mb-8 dark:text-spiritual-dark-accent">
               Intentional
             </span>
-            <span className="block text-spiritual-text-dark font-spirituality font-bold tracking-wide text-6xl sm:text-7xl lg:text-8xl ml-12">
+            <span className="block text-spiritual-text-dark font-spirituality font-bold tracking-wide text-6xl sm:text-7xl lg:text-8xl ml-12 dark:text-spiritual-dark-text-light">
               Connections
             </span>
           </motion.h1>
@@ -62,10 +62,9 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
 
           {/* CTA Button */}
           <motion.button
-            className="px-12 py-5 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold shadow-xl text-xl relative overflow-hidden group hover:shadow-2xl transition-all duration-300 font-spirituality tracking-wide"
+            className="px-12 py-5 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold shadow-lg text-xl relative overflow-hidden group hover:shadow-3xl transition-all duration-100 font-spirituality tracking-wide dark:from-spiritual-dark-accent dark:to-spiritual-dark-primary hover:scale-105"
             whileHover={{
-              scale: 1.05,
-              boxShadow: "0 20px 40px rgba(184, 134, 11, 0.3)",
+              scale: 1.08,
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => openModal("earlyAccess")}
@@ -118,7 +117,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           }
           transition={{ duration: 0.6, delay: 1.6 }}
         >
-          <div className="max-w-lg mx-auto bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-xl">
+          <div className="max-w-lg mx-auto bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-xl dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border">
             <motion.div
               className="flex items-center justify-center space-x-2 mb-4"
               whileHover={{ scale: 1.05 }}
@@ -210,7 +209,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-spiritual-accent/20"
+            className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-spiritual-accent/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -237,12 +236,12 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               </div>
               
               {/* Title */}
-              <h3 className="text-2xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide">
+              <h3 className="text-2xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide dark:text-spiritual-dark-accent">
                 A Glimpse of Authenticity
               </h3>
               
               {/* Description */}
-              <p className="text-spiritual-text-muted mb-6 leading-relaxed">
+              <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-light">
                 Danielle brings a radiant, authentic energy to every space she holds. Her love for dance, somatic practices, and conscious connection inspires others to show up as their true selves. She’s a passionate space holder and a believer in the magic of embodied presence.
                 <br /><br />
                 You might catch her dancing, laughing, or simply holding space for others to be real. She’s just one of the many beautiful souls you’ll find in Circle.
@@ -256,7 +255,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   setShowDanielleModal(false);
                   openModal('earlyAccess');
                 }}
-                className="px-8 py-4 bg-spiritual-accent text-white rounded-full font-bold hover:bg-spiritual-accent/90 transition-colors text-lg"
+                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold hover:from-spiritual-accent/90 hover:to-spiritual-primary/90 transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:scale-105"
               >
                 <span className="font-spirituality">
                   Meet More Beautiful Souls
@@ -337,12 +336,12 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {/* Phone 1 - Connect Feature */}
               <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-2">
+                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-2">
                   {/* Phone Notch */}
                   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
                   
                   {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden">
+                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
                     {/* App Header */}
                     <div className="bg-gradient-to-r from-spiritual-accent to-spiritual-primary h-12 flex items-center justify-center">
                       <span className="text-white font-spirituality font-bold text-sm">Circle</span>
@@ -350,7 +349,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     
                     {/* Main Content - Profile Cards */}
                     <div className="p-3 space-y-3">
-                      <div className="bg-spiritual-background rounded-lg p-3">
+                      <div className="bg-spiritual-background rounded-lg p-3 dark:bg-spiritual-dark-background">
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full flex items-center justify-center">
                             <span className="text-white font-spirituality font-bold text-sm">S</span>
@@ -381,19 +380,19 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-lg font-spirituality font-bold text-spiritual-accent mb-1">Connect</h4>
-                  <p className="text-sm text-spiritual-text-dark">Find your tribe</p>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Connect</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Find your tribe</p>
                 </div>
               </div>
 
               {/* Phone 2 - Discover Feature */}
               <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">
+                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">
                   {/* Phone Notch */}
                   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
                   
                   {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden">
+                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
                     {/* App Header */}
                     <div className="bg-gradient-to-r from-spiritual-primary to-spiritual-secondary h-12 flex items-center justify-center">
                       <span className="text-white font-spirituality font-bold text-sm">Discover</span>
@@ -401,7 +400,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     
                     {/* Main Content - Practice Grid */}
                     <div className="p-3 space-y-3">
-                      <div className="bg-spiritual-background rounded-lg p-4 text-center">
+                      <div className="bg-spiritual-background rounded-lg p-4 text-center dark:bg-spiritual-dark-background">
                         <div className="w-12 h-12 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full mx-auto mb-2 flex items-center justify-center">
                           <span className="text-white font-spirituality font-bold text-sm">🧘</span>
                         </div>
@@ -429,19 +428,19 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-lg font-spirituality font-bold text-spiritual-accent mb-1">Discover</h4>
-                  <p className="text-sm text-spiritual-text-dark">New practices</p>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Discover</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">New practices</p>
                 </div>
               </div>
 
               {/* Phone 3 - Grow Feature */}
               <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-1">
+                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-1">
                   {/* Phone Notch */}
                   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
                   
                   {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden">
+                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
                     {/* App Header */}
                     <div className="bg-gradient-to-r from-spiritual-secondary to-spiritual-accent h-12 flex items-center justify-center">
                       <span className="text-white font-spirituality font-bold text-sm">Grow</span>
@@ -449,13 +448,13 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     
                     {/* Main Content - Progress Tracking */}
                     <div className="p-3 space-y-3">
-                      <div className="bg-spiritual-background rounded-lg p-3">
+                      <div className="bg-spiritual-background rounded-lg p-3 dark:bg-spiritual-dark-background">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs text-spiritual-text-dark font-medium">Daily Practice</span>
-                          <span className="text-xs font-bold text-spiritual-accent">75%</span>
+                          <span className="text-xs text-spiritual-text-dark font-medium dark:text-spiritual-dark-text-light">Daily Practice</span>
+                          <span className="text-xs font-bold text-spiritual-accent dark:text-spiritual-dark-accent">75%</span>
                         </div>
-                        <div className="w-full bg-spiritual-accent/20 rounded-full h-2">
-                          <div className="bg-gradient-to-r from-spiritual-accent to-spiritual-primary h-2 rounded-full" style={{width: '75%'}}></div>
+                        <div className="w-full bg-spiritual-accent/20 rounded-full h-2 dark:bg-spiritual-dark-accent/20">
+                          <div className="bg-gradient-to-r from-spiritual-accent to-spiritual-primary h-2 rounded-full dark:from-spiritual-dark-accent dark:to-spiritual-dark-primary" style={{width: '75%'}}></div>
                         </div>
                       </div>
                       
@@ -465,7 +464,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                             <span className="text-white text-xs">✓</span>
                           </div>
                           <div className="flex-1">
-                            <div className="h-1.5 bg-spiritual-accent/30 rounded w-20"></div>
+                            <div className="h-1.5 bg-spiritual-accent/30 rounded w-20 dark:bg-spiritual-dark-accent/30"></div>
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -473,15 +472,15 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                             <span className="text-white text-xs">✓</span>
                           </div>
                           <div className="flex-1">
-                            <div className="h-1.5 bg-spiritual-accent/30 rounded w-24"></div>
+                            <div className="h-1.5 bg-spiritual-accent/30 rounded w-24 dark:bg-spiritual-dark-accent/30"></div>
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <div className="w-4 h-4 bg-spiritual-accent/30 rounded-full flex items-center justify-center">
-                            <span className="text-spiritual-accent text-xs">○</span>
+                          <div className="w-4 h-4 bg-spiritual-accent/30 rounded-full flex items-center justify-center dark:bg-spiritual-dark-accent/30">
+                            <span className="text-spiritual-accent text-xs dark:text-spiritual-dark-accent">○</span>
                           </div>
                           <div className="flex-1">
-                            <div className="h-1.5 bg-spiritual-accent/20 rounded w-16"></div>
+                            <div className="h-1.5 bg-spiritual-accent/20 rounded w-16 dark:bg-spiritual-dark-accent/20"></div>
                           </div>
                         </div>
                       </div>
@@ -491,8 +490,8 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-lg font-spirituality font-bold text-spiritual-accent mb-1">Grow</h4>
-                  <p className="text-sm text-spiritual-text-dark">Track journey</p>
+                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Grow</h4>
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Track journey</p>
                 </div>
               </div>
             </div>
@@ -549,7 +548,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   description: "Unlock advanced matching, unlimited connections, and priority support"
                 }
               ].map((feature, index) => (
-                <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
                   <div className="text-4xl mb-4">{feature.icon}</div>
                   <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-3">{feature.title}</h3>
                   <p className="text-spiritual-text-muted">{feature.description}</p>
@@ -565,7 +564,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             >
               <button
                 onClick={() => openModal('fullcircle')}
-                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality tracking-wide border-2 border-white/20"
+                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-full font-bold shadow-xl text-lg hover:shadow-2xl transition-all duration-100 hover:scale-105 font-spirituality tracking-wide border-2 border-white/20 dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
               >
                 Become a FullCircle Member
               </button>
@@ -580,13 +579,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               <p className="text-sm text-spiritual-text-muted">
                 First 5,000 members get 1 month of FullCircle completely free
               </p>
-              <button
-                onClick={() => openModal('fullcircle')}
-                className="w-8 h-8 bg-spiritual-accent/20 rounded-full flex items-center justify-center hover:bg-spiritual-accent/30 transition-colors group"
-                title="Learn more about FullCircle"
-              >
-                <span className="text-spiritual-accent text-lg font-bold group-hover:scale-110 transition-transform">?</span>
-              </button>
             </motion.div>
           </div>
         </motion.div>

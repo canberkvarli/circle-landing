@@ -45,13 +45,25 @@ html {
   background: #E5D4B1;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #3D3B37;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #7B6B5C;
   border-radius: 4px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #C4A984;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #6B5B4F;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #D4C8B8;
 }
 
 /* Base component styles */
@@ -61,7 +73,7 @@ html {
   }
   
   .card {
-    @apply bg-white/90 backdrop-blur-sm rounded-2xl border border-spiritual-primary/20 shadow-lg;
+    @apply bg-white/90 backdrop-blur-sm rounded-2xl border border-spiritual-primary/20 shadow-lg dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border;
   }
   
   .text-gradient {
@@ -76,4 +88,9 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Dark mode transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }

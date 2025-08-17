@@ -55,7 +55,7 @@ const RoadmapSection = () => {
   };
 
   return (
-    <section id="roadmap" className="py-20 bg-white">
+    <section id="roadmap" className="py-20 bg-white dark:bg-spiritual-dark-background">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           className="text-center mb-16"
@@ -82,7 +82,7 @@ const RoadmapSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 h-full dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-medium text-spiritual-accent">
                     {item.phase}
@@ -95,10 +95,10 @@ const RoadmapSection = () => {
                     {item.status}
                   </span>
                 </div>
-                <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide">
+                <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide dark:text-spiritual-dark-text-dark">
                   {item.title}
                 </h3>
-                <p className="text-spiritual-text-muted mb-4 leading-relaxed">
+                <p className="text-spiritual-text-muted mb-4 leading-relaxed dark:text-spiritual-dark-text-muted">
                   {item.description}
                 </p>
                 <div className="flex items-center text-sm text-spiritual-accent">
