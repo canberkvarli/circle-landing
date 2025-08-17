@@ -12,6 +12,28 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  // Production optimizations
+  compress: true,
+  poweredByHeader: false,
+  // Domain configuration
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          }
+        ],
+      },
+    ];
+  },
+  // Image optimization
+  images: {
+    domains: ['joinfullcircle.app'],
+    formats: ['image/webp', 'image/avif'],
+  },
 };
 
 export default nextConfig;

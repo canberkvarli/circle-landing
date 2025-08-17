@@ -16,21 +16,28 @@ const RoadmapSection = () => {
       title: "Launch",
       description: "Public release and community building",
       status: "IN PROGRESS",
-      date: "Q2 2024",
+      date: "Q2 2025",
     },
     {
       phase: "Phase 3",
       title: "Growth",
       description: "Feature expansion and user growth",
       status: "UPCOMING",
-      date: "Q3 2024",
+      date: "Q3 2025",
     },
     {
       phase: "Phase 4",
-      title: "Evolution",
-      description: "Advanced features and AI integration",
+      title: "Sacred Communities",
+      description: "Spiritual retreats, yoga studios, and conscious spaces",
       status: "UPCOMING",
-      date: "Q4 2024",
+      date: "Q4 2025",
+    },
+    {
+      phase: "Phase 5",
+      title: "Evolution",
+      description: "Advanced AI matching and global expansion",
+      status: "UPCOMING",
+      date: "Q1 2026",
     },
   ];
 
@@ -65,7 +72,7 @@ const RoadmapSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {roadmapItems.map((item, index) => (
             <motion.div
               key={index}

@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Circle Landing Page
 
-## Getting Started
+A modern, responsive landing page for the Full Circle app built with Next.js, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Deployment
 
+### Domain: joinfullcircle.app
+
+This app is configured for deployment with the domain `joinfullcircle.app`.
+
+### Quick Deploy Options
+
+#### 1. Vercel (Recommended)
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel --prod
+
+# Add custom domain
+vercel domains add joinfullcircle.app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 2. Netlify
+```bash
+# Build the project
+npm run build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Deploy to Netlify
+# Connect your GitHub repo and set build command: npm run build
+# Set publish directory: .next
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### 3. Manual Deployment
+```bash
+# Build for production
+npm run build
 
-## Learn More
+# Start production server
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Environment Variables
+Create a `.env.local` file:
+```env
+NEXT_PUBLIC_SITE_URL=https://joinfullcircle.app
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### DNS Configuration
+Point your domain to your hosting provider:
+- **A Record**: Point to your hosting IP
+- **CNAME**: www → joinfullcircle.app
+- **CNAME**: @ → joinfullcircle.app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Development
 
-## Deploy on Vercel
+```bash
+# Install dependencies
+npm install
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Run development server
+npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Build for production
+npm run build
+
+# Start production server
+npm run start
+```
+
+## 📱 Features
+
+- Responsive design
+- Smooth animations with Framer Motion
+- Contact form integration
+- Firebase backend
+- SEO optimized
+- Performance optimized
+
+## 🌐 Tech Stack
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Backend**: Firebase
+- **Deployment**: Vercel/Netlify ready

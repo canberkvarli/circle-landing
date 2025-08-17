@@ -41,7 +41,7 @@ const FeaturesSection = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-primary mb-6 tracking-wide">
-            Why Choose Circle?
+            Discover Circle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
             We're building more than just a dating app - we're creating a community

@@ -20,21 +20,28 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
       title: "Community Building",
       status: "in-progress",
       features: ["Group circles", "Event organization", "Community guidelines", "Moderation tools"],
-      timeline: "Q2 2024"
+      timeline: "Q2 2025"
     },
     {
       phase: "Phase 3",
       title: "Advanced Features",
       status: "planned",
       features: ["AI-powered matching", "Video calls", "Meditation integration", "Wellness tracking"],
-      timeline: "Q3 2024"
+      timeline: "Q3 2025"
     },
     {
       phase: "Phase 4",
-      title: "Global Expansion",
+      title: "Sacred Communities",
       status: "planned",
-      features: ["Multi-language support", "Cultural adaptations", "Global events", "Partnerships"],
-      timeline: "Q4 2024"
+      features: ["Spiritual retreat partnerships", "Yoga studio discounts", "Meditation center access", "Conscious event discovery"],
+      timeline: "Q4 2025"
+    },
+    {
+      phase: "Phase 5",
+      title: "Global Evolution",
+      status: "planned",
+      features: ["Multi-language support", "Cultural adaptations", "Global events", "Advanced AI matching"],
+      timeline: "Q1 2026"
     }
   ];
 

@@ -6,7 +6,7 @@ import MandalaBackground from "./MandalaBackground";
 const IntroAnimation = () => {
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-spiritual-background via-spiritual-tertiary to-spiritual-secondary"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-spiritual-background/80 via-spiritual-tertiary/60 to-spiritual-secondary/80 backdrop-blur-sm"
       initial={{ opacity: 1 }}
       exit={{ 
         opacity: 0,
@@ -18,6 +18,7 @@ const IntroAnimation = () => {
       }}
       transition={{ duration: 0.8 }}
     >
+      {/* Mandala Background */}
       <MandalaBackground />
     </motion.div>
   );

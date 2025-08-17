@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock } from "lucide-react";
+import Image from "next/image";
 
 interface HeroSectionProps {
   showIntro: boolean;
@@ -32,7 +33,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
       animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.8, delay: 0.4 }}
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Main Hero Content */}
         <div className="text-center mb-20">
           <motion.h1
@@ -42,7 +43,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             transition={{ duration: 1, delay: 0.6 }}
           >
             <span className="block text-spiritual-accent font-spirituality font-bold tracking-wide mb-8">
-              Conscious
+              Intentional
             </span>
             <span className="block text-spiritual-text-dark font-spirituality font-bold tracking-wide text-6xl sm:text-7xl lg:text-8xl ml-12">
               Connections
@@ -224,41 +225,42 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             
             {/* Modal Content */}
             <div className="text-center">
-              {/* Danielle's Avatar */}
-              <div className="w-20 h-20 bg-gradient-to-br from-spiritual-accent to-spiritual-primary rounded-full mx-auto mb-6 flex items-center justify-center shadow-xl">
-                <span className="text-white font-spirituality font-bold text-2xl">D</span>
+              {/* Danielle's Vibe Avatar */}
+              <div className="flex justify-center mx-auto mb-6">
+                <Image
+                  src="/assets/circle.svg"
+                  alt="Circle"
+                  width={80}
+                  height={80}
+                  className="w-20 h-20"
+                />
               </div>
               
               {/* Title */}
               <h3 className="text-2xl font-spirituality font-bold text-spiritual-text-dark mb-3 tracking-wide">
-                Meet Danielle
+                A Glimpse of Authenticity
               </h3>
               
               {/* Description */}
               <p className="text-spiritual-text-muted mb-6 leading-relaxed">
-                Danielle is a passionate meditation teacher and energy healer who believes in the power of conscious connections. 
-                She&apos;s one of the many amazing people you can meet on Circle.
+                Danielle brings a radiant, authentic energy to every space she holds. Her love for dance, somatic practices, and conscious connection inspires others to show up as their true selves. She’s a passionate space holder and a believer in the magic of embodied presence.
+                <br /><br />
+                You might catch her dancing, laughing, or simply holding space for others to be real. She’s just one of the many beautiful souls you’ll find in Circle.
               </p>
               
-              {/* Practice Tags */}
-              <div className="flex flex-wrap justify-center gap-2 mb-6">
-                <span className="px-3 py-1 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-sm font-medium">
-                  Meditation
-                </span>
-                <span className="px-3 py-1 bg-spiritual-primary/10 text-spiritual-primary rounded-full text-sm font-medium">
-                  Energy Healing
-                </span>
-                <span className="px-3 py-1 bg-spiritual-secondary/10 text-spiritual-secondary rounded-full text-sm font-medium">
-                  Mindfulness
-                </span>
-              </div>
+
               
               {/* CTA */}
               <button
-                onClick={() => setShowDanielleModal(false)}
-                className="px-6 py-3 bg-spiritual-accent text-white rounded-full font-medium hover:bg-spiritual-accent/90 transition-colors"
+                onClick={() => {
+                  setShowDanielleModal(false);
+                  openModal('earlyAccess');
+                }}
+                className="px-8 py-4 bg-spiritual-accent text-white rounded-full font-bold hover:bg-spiritual-accent/90 transition-colors text-lg"
               >
-                Join Circle
+                <span className="font-spirituality">
+                  Meet More Beautiful Souls
+                </span>
               </button>
             </div>
           </motion.div>
@@ -272,8 +274,8 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <h3 className="text-4xl font-spirituality font-bold text-spiritual-accent mb-16 text-center tracking-wide">
-            See Circle in Action
+          <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight min-h-[150px] flex flex-col justify-center font-spirituality text-spiritual-accent mb-8 text-center tracking-wide">
+            See circle in Action
           </h3>
           
           {/* Pyramid Layout: Video at top, 3 phones below */}
@@ -285,7 +287,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
                 
                 {/* Info Icon - Top Right Corner of Phone Frame */}
-                <div className="absolute top-2 right-2 z-20">
+                <div className="absolute top-5 right-5 z-20">
                   <button 
                     onClick={() => setShowDanielleModal(true)}
                     className="w-10 h-10 bg-spiritual-accent/90 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-white/30 shadow-xl hover:scale-110 transition-all duration-300 hover:bg-spiritual-accent"
@@ -310,25 +312,20 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   </video>
                   
                   {/* App Overlay - Cleaner design */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-transparent flex flex-col justify-between">
-                    {/* Top Section - Just Title */}
-                    <div className="flex-1 flex flex-col items-center justify-center pt-16">
-                      {/* Title */}
-                      <div className="text-center mb-8">
-                        <h4 className="text-white font-spirituality font-bold text-3xl mb-2 tracking-wide">circle</h4>
-                      </div>
-                    </div>
-                    
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-transparent flex flex-col justify-between">                    
                     {/* Bottom Section - Smaller Buttons */}
-                    <div className="p-6 space-y-3">
-                      {/* Create Account Button */}
-                      <div className="w-full bg-spiritual-accent rounded-full py-3 px-6 text-center">
-                        <span className="text-white font-spirituality font-bold text-base tracking-wide">Create account</span>
-                      </div>
-                      
-                      {/* Sign In Button */}
-                      <div className="w-full bg-white/15 backdrop-blur-sm rounded-full py-3 px-6 text-center border-2 border-spiritual-accent">
-                        <span className="text-white font-spirituality font-bold text-base tracking-wide">Sign In</span>
+                    <div className="p-6 flex flex-col flex-1 pt-16">
+                      <div className="flex-1" />
+                      <div className="space-y-3">
+                        {/* Create Account Button */}
+                        <div className="w-full bg-spiritual-accent rounded-full py-3 px-6 text-center">
+                          <span className="text-white font-spirituality font-bold text-base tracking-wide">Create account</span>
+                        </div>
+                        
+                        {/* Sign In Button */}
+                        <div className="w-full bg-white/15 backdrop-blur-sm rounded-full py-3 px-6 text-center border-2 border-spiritual-accent">
+                          <span className="text-white font-spirituality font-bold text-base tracking-wide">Sign In</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -561,23 +558,16 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             </motion.div>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6"
+              className="flex justify-center items-center mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 3.2 }}
             >
               <button
                 onClick={() => openModal('fullcircle')}
-                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-black shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality tracking-wide border-2 border-white/20"
+                className="px-8 py-4 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-bold shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality tracking-wide border-2 border-white/20"
               >
                 Become a FullCircle Member
-              </button>
-              
-              <button
-                onClick={() => openModal('earlyAccess')}
-                className="px-8 py-4 bg-white/90 backdrop-blur-sm text-spiritual-accent rounded-full font-medium border-2 border-spiritual-accent shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                Join Waitlist (Free)
               </button>
             </motion.div>
 
@@ -588,7 +578,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               transition={{ duration: 0.6, delay: 3.4 }}
             >
               <p className="text-sm text-spiritual-text-muted">
-                First 1,000 members get 1 month of FullCircle completely free
+                First 5,000 members get 1 month of FullCircle completely free
               </p>
               <button
                 onClick={() => openModal('fullcircle')}
