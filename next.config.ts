@@ -3,6 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   // Disable SSR for components with random values to prevent hydration mismatches
   webpack: (config) => {
@@ -29,9 +37,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Image optimization
+  // Image optimization - updated to use remotePatterns instead of domains
   images: {
-    domains: ['joinfullcircle.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'joinfullcircle.app',
+        port: '',
+        pathname: '/**',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
   },
 };

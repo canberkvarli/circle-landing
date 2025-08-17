@@ -41,12 +41,6 @@ npm run build
 npm run start
 ```
 
-### Environment Variables
-Create a `.env.local` file:
-```env
-NEXT_PUBLIC_SITE_URL=https://joinfullcircle.app
-```
-
 ### DNS Configuration
 Point your domain to your hosting provider:
 - **A Record**: Point to your hosting IP
@@ -73,8 +67,7 @@ npm run start
 
 - Responsive design
 - Smooth animations with Framer Motion
-- Contact form integration
-- Firebase backend
+- Contact form integration with Resend
 - SEO optimized
 - Performance optimized
 
@@ -85,5 +78,5 @@ npm run start
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **Backend**: Firebase
+- **Email Service**: Resend
 - **Deployment**: Vercel/Netlify ready

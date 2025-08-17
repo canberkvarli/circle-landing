@@ -71,6 +71,11 @@ html {
 /* Base component styles */
 /* stylelint-disable at-rule-no-unknown */
 @layer components {
+  .site-icon {
+    width: 256px;
+    height: 256px;
+  }
+  
   .btn-primary {
     @apply px-6 py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300;
   }

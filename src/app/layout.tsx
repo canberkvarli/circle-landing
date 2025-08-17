@@ -11,7 +11,7 @@ const philosopher = Philosopher({
 });
 
 export const metadata: Metadata = {
-  title: "Full Circle - Meaningful Connections",
+  title: "Circle - Meaningful Connections",
   description:
     "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
   keywords:
@@ -58,8 +58,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/svg+xml" href="/assets/circle.svg" sizes="32x32 48x48 64x64 96x96 128x128 256x256" />
-        <link rel="icon" type="image/svg+xml" href="/assets/circle.svg" sizes="any" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
       </head>
       <body className={`${inter.className} ${philosopher.variable}`}>
         <ThemeProvider>
