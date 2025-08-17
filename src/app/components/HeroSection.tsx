@@ -51,13 +51,13 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           </motion.h1>
 
           <motion.p
-            className="text-xl sm:text-2xl text-spiritual-text-muted mb-8 leading-relaxed max-w-3xl mx-auto"
+            className="text-xl text-spiritual-text-muted mb-8 leading-relaxed max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 1, delay: 0.8 }}
           >
             Connect with fellow seekers who practice meditation, yoga, energy
-            healing, and embrace conscious living.
+            healing, and embrace mindful living.
           </motion.p>
 
           {/* CTA Button */}
@@ -236,7 +236,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               
               {/* Description */}
               <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-light">
-                Danielle brings a radiant, authentic energy to every space she holds. Her love for dance, somatic practices, and conscious connection inspires others to show up as their true selves. She’s a passionate space holder and a believer in the magic of embodied presence.
+                Danielle brings a radiant, authentic energy to every space she holds. Her love for dance, somatic practices, and mindful connection inspires others to show up as their true selves. She’s a passionate space holder and a believer in the magic of embodied presence.
                 <br /><br />
                 You might catch her dancing, laughing, or simply holding space for others to be real. She’s just one of the many beautiful souls you’ll find in Circle.
               </p>
@@ -516,7 +516,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 2.8 }}
             >
-              Join thousands of conscious seekers who are already transforming their lives through meaningful connections and guided growth.
+              Join thousands of mindful seekers who are already transforming their lives through meaningful connections and personal growth.
             </motion.p>
 
             <motion.div
@@ -529,17 +529,17 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 {
                   icon: "🌱",
                   title: "Deep Connections",
-                  description: "Find your tribe of like-minded souls who share your spiritual journey"
+                  description: "Find your tribe of like-minded souls who share your journey"
                 },
                 {
                   icon: "✨",
-                  title: "Guided Growth",
-                  description: "Access exclusive content and practices to accelerate your evolution"
+                  title: "Personal Growth",
+                  description: "Access curated content and practices to support your journey"
                 },
                 {
                   icon: "🌟",
-                  title: "Premium Features",
-                  description: "Unlock advanced matching, unlimited connections, and priority support"
+                  title: "Enhanced Features",
+                  description: "Unlock advanced matching, unlimited connections, and dedicated support"
                 }
               ].map((feature, index) => (
                 <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">

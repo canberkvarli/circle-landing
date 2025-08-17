@@ -21,12 +21,12 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
     {
       icon: <Sparkles className="w-6 h-6" />,
       title: "Intention Matching",
-      description: "Our AI connects you with people who align with your energy and spiritual goals."
+      description: "Our AI connects you with people who align with your energy and personal goals."
     },
     {
       icon: <Star className="w-6 h-6" />,
-      title: "Premium Features",
-      description: "Unlock advanced matching, unlimited connections, and priority visibility."
+      title: "Enhanced Features",
+      description: "Unlock advanced matching, unlimited connections, and enhanced visibility."
     },
     {
       icon: <Shield className="w-6 h-6" />,
@@ -70,7 +70,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
               Features
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              Discover the powerful tools and features that make Circle the ultimate platform for conscious connections.
+              Discover the powerful tools and features that make Circle the ultimate platform for meaningful connections.
             </p>
           </div>
         </div>
@@ -108,7 +108,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
               Ready to Join Circle?
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Join thousands of conscious seekers who are already transforming their connections through Circle.
+              Join thousands of mindful seekers who are already transforming their connections through Circle.
             </p>
             <div className="text-center">
               <button

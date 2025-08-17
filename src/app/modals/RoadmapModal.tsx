@@ -31,9 +31,9 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
     },
     {
       phase: "Phase 4",
-      title: "Sacred Communities",
+      title: "Mindful Communities",
       status: "planned",
-      features: ["Spiritual retreat partnerships", "Yoga studio discounts", "Meditation center access", "Conscious event discovery"],
+      features: ["Wellness retreat partnerships", "Yoga studio discounts", "Meditation center access", "Mindful event discovery"],
       timeline: "Q4 2025"
     },
     {
@@ -101,7 +101,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
               Development Roadmap
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              See how Circle is evolving and what&apos;s coming next in our journey to transform conscious connections.
+              See how Circle is evolving and what&apos;s coming next in our journey to transform meaningful connections.
             </p>
           </div>
         </div>
@@ -151,7 +151,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
               Be Part of Our Journey
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Join our community and help shape the future of conscious connections. Your feedback and participation drive our development.
+              Join our community and help shape the future of meaningful connections. Your feedback and participation drive our development.
             </p>
             <div className="text-center">
               <button

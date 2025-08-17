@@ -38,7 +38,7 @@ const TermsModal = ({
           <h4 className="text-spiritual-primary font-semibold mb-2">User Conduct</h4>
           <p>
             You agree to use our platform in a respectful manner that aligns
-            with mindful and conscious values. Harassment, hate speech, or
+            with mindful and authentic values. Harassment, hate speech, or
             inappropriate behavior is not tolerated.
           </p>
         </div>

@@ -32,16 +32,16 @@ const AboutSection = () => {
               Our Mission
             </h3>
             <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted">
-              Circle is more than a dating app - it&apos;s a sanctuary for conscious souls
+              Circle is more than a dating app - it&apos;s a sanctuary for mindful souls
               seeking meaningful connections. We understand that true compatibility
-              goes beyond surface-level interests and delves into the spiritual,
-              emotional, and intellectual realms.
+              goes beyond surface-level interests and delves into the emotional,
+              intellectual, and personal growth realms.
             </p>
             <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted">
               Our platform is designed to foster authentic relationships based on
-              shared values, spiritual practices, and conscious living principles.
+              shared values, personal practices, and mindful living principles.
               Whether you&apos;re into meditation, yoga, energy healing, or simply
-              living mindfully, Circle helps you find your tribe.
+              living intentionally, Circle helps you find your tribe.
             </p>
             <div className="flex items-center space-x-1 justify-start">
               <Image
@@ -52,7 +52,7 @@ const AboutSection = () => {
                 className="w-16 h-16"
               />
               <span className="text-spiritual-primary font-medium">
-                Join the conscious revolution
+                Join the mindful movement
               </span>
             </div>
           </motion.div>
@@ -71,19 +71,23 @@ const AboutSection = () => {
               <ul className="space-y-3">
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Spiritual compatibility matching</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Dual Intent Matching: Date, make friends, or both</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Conscious community events</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Mindful Compatibility: Match by practices, draws & healing modalities</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Mindful conversation prompts</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Kindred Souls Discovery: Find people who resonate with your energy</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Authentic profile verification</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Connection Styles: Match by how you prefer to connect</span>
+                </li>
+                <li className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">FullCircle Enhanced Features: Deeper matching and community access</span>
                 </li>
               </ul>
             </div>

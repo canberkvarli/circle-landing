@@ -56,7 +56,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               {
                 icon: <Users className="w-6 h-6" />,
                 title: "Unlimited Connections",
-                description: "Connect with unlimited conscious seekers"
+                description: "Connect with unlimited mindful seekers"
               },
               {
                 icon: <Heart className="w-6 h-6" />,
@@ -66,7 +66,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               {
                 icon: <Star className="w-6 h-6" />,
                 title: "Advanced Filters",
-                description: "Find your perfect spiritual match"
+                description: "Find your perfect mindful match"
               },
               {
                 icon: <Sparkles className="w-6 h-6" />,
@@ -93,7 +93,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           {/* Pricing Plans */}
           <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-6 mb-6 border border-amber-200">
             <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4 text-center">
-              Choose Your Sacred Path
+              Choose Your Path
             </h3>
             <div className="space-y-3">
               {[
@@ -133,14 +133,14 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           {/* Benefits */}
           <div className="bg-spiritual-background rounded-2xl p-6 mb-6">
             <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-4 text-center">
-              Sacred Features Unlocked
+              Enhanced Features Unlocked
             </h3>
             <div className="space-y-3">
               {[
-                "Unlimited Soul Connections",
+                "Unlimited Meaningful Connections",
                 "See Who Resonates With You", 
-                "Advanced Spiritual Filters",
-                "Priority Likes with the Lotus Flower"
+                "Advanced Mindful Filters",
+                "Enhanced Likes with the Lotus Flower"
               ].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0" />

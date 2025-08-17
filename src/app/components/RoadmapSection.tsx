@@ -27,8 +27,8 @@ const RoadmapSection = () => {
     },
     {
       phase: "Phase 4",
-      title: "Sacred Communities",
-      description: "Spiritual retreats, yoga studios, and conscious spaces",
+      title: "Mindful Communities",
+      description: "Wellness retreats, yoga studios, and mindful spaces",
       status: "UPCOMING",
       date: "Q4 2025",
     },
@@ -68,7 +68,7 @@ const RoadmapSection = () => {
             Our Journey
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
-            Follow our path as we build the future of conscious connections
+            Follow our path as we build the future of meaningful connections
           </p>
         </motion.div>
 

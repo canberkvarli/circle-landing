@@ -8,13 +8,13 @@ const FeaturesSection = () => {
       icon: Heart,
       title: "Authentic Connections",
       description:
-        "Connect with people who share your spiritual journey and values.",
+        "Connect with people who share your journey and values.",
     },
     {
       icon: Users,
       title: "Community Building",
       description:
-        "Join groups and events that align with your spiritual practices.",
+        "Join groups and events that align with your practices and interests.",
     },
     {
       icon: Shield,
@@ -26,7 +26,7 @@ const FeaturesSection = () => {
       icon: Sparkles,
       title: "Mindful Matching",
       description:
-        "Our algorithm considers spiritual compatibility and shared interests.",
+        "Our algorithm considers compatibility and shared interests.",
     },
   ];
 
@@ -44,8 +44,8 @@ const FeaturesSection = () => {
             Discover Circle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
-            We&apos;re building more than just a dating app - we&apos;re creating a community
-            of conscious individuals who value authentic connections.
+            Circle is building more than just a dating app - it&apos;s creating a community
+            of mindful individuals who value authentic connections.
           </p>
         </motion.div>
 

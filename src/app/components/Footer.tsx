@@ -38,7 +38,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             </span>
           </motion.div>
           <p className="text-spiritual-text-muted mb-6 dark:text-spiritual-dark-text-muted">
-            Connecting souls through mindful technology and conscious design.
+            Connecting souls through mindful technology and mindful design.
           </p>
           <div className="flex justify-center space-x-6 text-spiritual-text-muted mb-6 text-sm dark:text-spiritual-dark-text-muted">
             {[
