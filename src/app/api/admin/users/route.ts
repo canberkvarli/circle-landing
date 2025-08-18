@@ -17,7 +17,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { action, userId, data } = await request.json();
+    const { action, userId, data, amount, reason } = await request.json();
     if (!action || !userId) {
       return NextResponse.json({ success: false, message: 'Missing action or userId' }, { status: 400 });
     }
@@ -60,6 +60,82 @@ export async function POST(request: NextRequest) {
         { merge: true }
       );
       return NextResponse.json({ success: true });
+    }
+
+    if (action === 'grantLotus') {
+      if (!amount || !reason) {
+        return NextResponse.json({ success: false, message: 'Missing amount or reason' }, { status: 400 });
+      }
+
+      const userDoc = await userRef.get();
+      if (!userDoc.exists) {
+        return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
+      }
+
+      const userData = userDoc.data();
+      const currentLotus = userData?.lotusCount || 0;
+      const newBalance = currentLotus + amount;
+
+      // Update user's lotus count
+      await userRef.set(
+        {
+          lotusCount: newBalance,
+          updatedAt: new Date(),
+        },
+        { merge: true }
+      );
+
+      // Record transaction
+      const transactionRef = db.collection('lotusTransactions').doc();
+      await transactionRef.set({
+        id: transactionRef.id,
+        userId,
+        amount,
+        type: 'grant',
+        reason,
+        adminId: 'admin', // TODO: Get actual admin ID
+        timestamp: new Date(),
+      });
+
+      return NextResponse.json({ success: true, newBalance });
+    }
+
+    if (action === 'revokeLotus') {
+      if (!amount || !reason) {
+        return NextResponse.json({ success: false, message: 'Missing amount or reason' }, { status: 400 });
+      }
+
+      const userDoc = await userRef.get();
+      if (!userDoc.exists) {
+        return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
+      }
+
+      const userData = userDoc.data();
+      const currentLotus = userData?.lotusCount || 0;
+      const newBalance = Math.max(0, currentLotus - amount);
+
+      // Update user's lotus count
+      await userRef.set(
+        {
+          lotusCount: newBalance,
+          updatedAt: new Date(),
+        },
+        { merge: true }
+      );
+
+      // Record transaction
+      const transactionRef = db.collection('lotusTransactions').doc();
+      await transactionRef.set({
+        id: transactionRef.id,
+        userId,
+        amount,
+        type: 'revoke',
+        reason,
+        adminId: 'admin', // TODO: Get actual admin ID
+        timestamp: new Date(),
+      });
+
+      return NextResponse.json({ success: true, newBalance });
     }
 
     if (action === 'update') {

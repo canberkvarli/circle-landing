@@ -22,6 +22,8 @@ export interface UserData {
   onboardingCompleted?: boolean;
   createdAt?: Date;
   lastActive?: Date;
+  numOfLotus?: number; // Updated to match mobile app
+  activeBoosts?: number; // Added for radiance boosts
 }
 
 export interface WaitlistUser {
@@ -64,6 +66,8 @@ export async function searchUsersByField(
       onboardingCompleted: u.onboardingCompleted as boolean | undefined,
       createdAt: u.createdAt as Date | undefined,
       lastActive: u.lastActive as Date | undefined,
+      numOfLotus: u.numOfLotus as number | undefined, // Updated field name
+      activeBoosts: u.activeBoosts as number | undefined, // Added field
     }));
   } catch (error) {
     console.error('Error searching users:', error);
@@ -113,6 +117,8 @@ export async function getAppUsers(): Promise<UserData[]> {
       onboardingCompleted: u.onboardingCompleted as boolean | undefined,
       createdAt: u.createdAt as Date | undefined,
       lastActive: u.lastActive as Date | undefined,
+      numOfLotus: u.numOfLotus as number | undefined, // Updated field name
+      activeBoosts: u.activeBoosts as number | undefined, // Added field
     }));
   } catch (error) {
     console.error('Firebase: Error getting app users:', error);
@@ -143,28 +149,29 @@ export async function assignFullCircleSubscription(userId: string): Promise<Subs
 }
 
 /**
- * Get all users with active FullCircle subscriptions
+ * Grant lotus flowers to a user
  */
-export async function getActiveSubscribers(): Promise<UserData[]> {
-  // For now, fetch all then filter client-side; could add a dedicated API if needed
-  const all = await getAppUsers();
-  return all.filter((u) => u.subscription?.isActive);
-}
-
-/**
- * Revoke a user's FullCircle subscription
- */
-export async function revokeSubscription(userId: string): Promise<SubscriptionAssignmentResult> {
+export async function grantLotusFlowers(
+  userId: string, 
+  amount: number, 
+  reason: string
+): Promise<{ success: boolean; error?: string; newBalance?: number }> {
   try {
     const res = await fetch('/api/admin/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'revokeSubscription', userId }),
+      body: JSON.stringify({ 
+        action: 'grantLotus', 
+        userId, 
+        amount, 
+        reason 
+      }),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return { success: true };
+    const data = await res.json();
+    return { success: true, newBalance: data.newBalance };
   } catch (error) {
-    console.error('Error revoking subscription:', error);
+    console.error('Error granting lotus flowers:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred',
@@ -173,22 +180,189 @@ export async function revokeSubscription(userId: string): Promise<SubscriptionAs
 }
 
 /**
- * Update arbitrary user fields (server-side via Admin SDK)
+ * Revoke lotus flowers from a user
  */
-export async function updateUserFields(
-  userId: string,
-  data: Partial<UserData>
-): Promise<{ success: boolean; error?: string }> {
+export async function revokeLotusFlowers(
+  userId: string, 
+  amount: number, 
+  reason: string
+): Promise<{ success: boolean; error?: string; newBalance?: number }> {
   try {
     const res = await fetch('/api/admin/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'update', userId, data }),
+      body: JSON.stringify({ 
+        action: 'revokeLotus', 
+        userId, 
+        amount, 
+        reason 
+      }),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return { success: true };
+    const data = await res.json();
+    return { success: true, newBalance: data.newBalance };
   } catch (error) {
-    console.error('Error updating user fields:', error);
+    console.error('Error revoking lotus flowers:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Grant radiance boosts to a user
+ */
+export async function grantRadianceBoosts(
+  userId: string, 
+  amount: number, 
+  reason: string
+): Promise<{ success: boolean; error?: string; newBalance?: number }> {
+  try {
+    const res = await fetch(`/api/admin/users/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        action: 'grantRadiance', 
+        data: { amount, reason } 
+      }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { success: true, newBalance: data.newBalance };
+  } catch (error) {
+    console.error('Error granting radiance boosts:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Revoke radiance boosts from a user
+ */
+export async function revokeRadianceBoosts(
+  userId: string, 
+  amount: number, 
+  reason: string
+): Promise<{ success: boolean; error?: string; newBalance?: number }> {
+  try {
+    const res = await fetch(`/api/admin/users/${userId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        action: 'revokeRadiance', 
+        data: { amount, reason } 
+      }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { success: true, newBalance: data.newBalance };
+  } catch (error) {
+    console.error('Error revoking radiance boosts:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Send notification to user(s)
+ */
+export async function sendNotification(
+  userIds: string[] | null, // null for broadcast
+  title: string,
+  message: string,
+  type: 'email' | 'push' | 'both' = 'both'
+): Promise<{ success: boolean; error?: string; notificationId?: string }> {
+  try {
+    const res = await fetch('/api/admin/notifications', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        userIds, 
+        title, 
+        message, 
+        type 
+      }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { success: true, notificationId: data.notificationId };
+  } catch (error) {
+    console.error('Error sending notification:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Get admin dashboard statistics
+ */
+export async function getAdminStats(): Promise<{
+  success: boolean;
+  stats?: any;
+  error?: string;
+}> {
+  try {
+    const res = await fetch('/api/admin/stats', { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { success: true, stats: data.stats };
+  } catch (error) {
+    console.error('Error getting admin stats:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Get lotus transaction history for a user
+ */
+export async function getUserLotusHistory(userId: string): Promise<{
+  success: boolean;
+  transactions?: any[];
+  error?: string;
+}> {
+  try {
+    const res = await fetch(`/api/admin/users/${userId}/lotus-history`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return { success: true, transactions: data.transactions };
+  } catch (error) {
+    console.error('Error getting lotus history:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    };
+  }
+}
+
+/**
+ * Bulk operations for multiple users
+ */
+export async function performBulkOperation(
+  type: 'grantLotus' | 'revokeLotus' | 'grantRadiance' | 'revokeRadiance' | 'sendNotification' | 'grantSubscription' | 'revokeSubscription',
+  userIds: string[],
+  data?: any
+): Promise<{ success: boolean; error?: string; operationId?: string }> {
+  try {
+    const res = await fetch('/api/admin/bulk-operations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, userIds, data }),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const responseData = await res.json();
+    return { success: true, operationId: responseData.operationId };
+  } catch (error) {
+    console.error('Error performing bulk operation:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error occurred',
