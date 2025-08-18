@@ -4,8 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { assignFullCircleSubscription, searchUsersByField, UserData, getWaitlistUsers, getAppUsers, WaitlistUser } from '../../services/firebase/adminFunctions';
 import { motion } from 'framer-motion';
 import { Search, Gift, UserCheck, Users, Clock, CheckCircle, AlertCircle } from 'lucide-react';
-import { collection } from 'firebase/firestore';
-import { db } from '../../services/firebase/config';
 
 export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,29 +19,8 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'waitlist' | 'app-users' | 'search'>('waitlist');
 
   useEffect(() => {
-    // Test Firebase connection first
-    const testFirebaseConnection = async () => {
-      try {
-        console.log('Testing Firebase connection...');
-        console.log('Firebase config:', db);
-        
-        // Try to get a simple collection reference
-        const testRef = collection(db, 'test');
-        console.log('Test collection reference created:', testRef);
-        
-        // If we get here, Firebase is connected
-        console.log('Firebase connection successful!');
-        
-        // Now load the actual users
-        await loadAllUsers();
-      } catch (error) {
-        console.error('Firebase connection test failed:', error);
-        setLoading(false);
-        alert(`Firebase connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      }
-    };
-    
-    testFirebaseConnection();
+    // Load users directly via server API routes
+    loadAllUsers();
   }, []);
 
   const loadAllUsers = async () => {
