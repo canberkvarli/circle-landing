@@ -40,7 +40,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             transition={{ duration: 1, delay: 0.6 }}
           >
             <span className="block text-spiritual-accent font-spirituality font-bold tracking-wide mb-8 dark:text-spiritual-dark-accent">
-              Intentional
+              Meaningful
             </span>
             <span className="block text-spiritual-text-dark font-spirituality font-bold tracking-wide text-6xl sm:text-7xl lg:text-8xl ml-12 dark:text-spiritual-dark-text-light">
               Connections
@@ -220,7 +220,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           transition={{ duration: 1, delay: 0.8 }}
         >
           <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight min-h-[150px] flex flex-col justify-center font-spirituality text-spiritual-accent mb-8 text-center tracking-wide">
-            See circle in Action
+            See Circle in Action
           </h3>
           
           {/* Pyramid Layout: Video at top, 3 phones below */}

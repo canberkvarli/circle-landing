@@ -50,7 +50,7 @@ const Header = ({ openModal }: HeaderProps) => {
                 className="w-20 h-20"
               />
               <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
-                circle
+                Circle
               </span>
             </div>
 
@@ -122,7 +122,7 @@ const Header = ({ openModal }: HeaderProps) => {
               className="w-20 h-20"
             />
             <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
-              circle
+              Circle
             </span>
           </div>
 

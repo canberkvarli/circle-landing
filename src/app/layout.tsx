@@ -11,11 +11,11 @@ const philosopher = Philosopher({
 });
 
 export const metadata: Metadata = {
-  title: "Circle - Intentional Connections",
+  title: "Circle - Meaningful Connections",
   description:
     "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
   keywords:
-    "mindful dating, intentional relationships, meditation, yoga, energy healing, authentic connections, full circle app",
+    "mindful dating, meaningful relationships, meditation, yoga, energy healing, authentic connections, full circle app",
   authors: [{ name: "Full Circle" }],
   creator: "Full Circle",
   publisher: "Full Circle",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "https://joinfullcircle.app",
   },
   openGraph: {
-    title: "Circle - Intentional Connections",
+    title: "Circle - Meaningful Connections",
     description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
     url: "https://joinfullcircle.app",
     siteName: "Circle",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         url: "https://joinfullcircle.app/assets/circle.svg",
         width: 1200,
         height: 630,
-        alt: "Circle - Intentional Connections",
+        alt: "Circle - Meaningful Connections",
       },
     ],
     locale: "en_US",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Circle - Intentional Connections",
+    title: "Circle - Meaningful Connections",
     description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
     images: ["https://joinfullcircle.app/assets/circle.svg"],
   },

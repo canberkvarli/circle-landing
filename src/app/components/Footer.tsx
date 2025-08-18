@@ -29,11 +29,11 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             <Image
               src="/assets/circle.svg"
               alt="Circle"
-              width={48}
-              height={48}
-              className="w-12 h-12"
+              width={64}
+              height={64}
+              className="w-16 h-16"
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
+            <span className="text-3xl font-spirituality text-spiritual-primary dark:text-spiritual-dark-primary ml-2">
               Circle
             </span>
           </motion.div>
