@@ -23,6 +23,7 @@ const CircleLandingPage = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | undefined>(undefined);
+  const [mounted, setMounted] = useState(false);
   const [stats] = useState({
     signups: 1247,
     connections: 89,
@@ -36,6 +37,7 @@ const CircleLandingPage = () => {
   });
 
   useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => {
       setShowIntro(false);
     }, 2500);
@@ -44,15 +46,17 @@ const CircleLandingPage = () => {
   }, []);
 
   useEffect(() => {
+    if (!mounted) return;
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mounted]);
 
   useEffect(() => {
+    if (!mounted) return;
     const interval = setInterval(() => {
       setCountdown((prev) => {
         if (prev.seconds > 0) {
@@ -69,7 +73,7 @@ const CircleLandingPage = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
 
   const openModal = (modalType: string) => {
     console.log('Opening modal:', modalType);

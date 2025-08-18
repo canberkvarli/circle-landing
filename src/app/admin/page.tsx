@@ -185,7 +185,7 @@ export default function AdminDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.phoneNumber || 'N/A'}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                          {user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
