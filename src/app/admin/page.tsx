@@ -726,7 +726,7 @@ export default function AdminDashboard() {
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simple password check - you can change this to whatever password you want
-    if (password === 'admin123') {
+    if (password === 'bean') {
       setIsAuthenticated(true);
       setPasswordError('');
     } else {
