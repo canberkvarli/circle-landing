@@ -1,5 +1,6 @@
 import { db } from './config';
 import { collection, addDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { getWaitlistConfirmationEmail } from "@/utils/emailTemplates"
 
 export interface WaitlistUser {
   id?: string;
@@ -52,38 +53,7 @@ const sendConfirmationEmail = async (email: string, firstName: string) => {
       body: JSON.stringify({
         to: email,
         subject: 'Welcome to FullCircle Waitlist! 🌟',
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="text-align: center; margin-bottom: 30px;">
-              <h1 style="color: #8B5CF6; font-size: 28px; margin: 0;">🌟 FullCircle Waitlist 🌟</h1>
-            </div>
-            
-            <div style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px;">
-              <h2 style="color: #8B5CF6; font-size: 24px; margin: 0 0 20px 0;">Welcome, ${firstName}!</h2>
-              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
-                Thank you for joining our exclusive waitlist! You're now part of a community of mindful seekers 
-                who are ready to experience authentic spiritual connections.
-              </p>
-              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0;">
-                We'll notify you as soon as the FullCircle app launches with your exclusive early access.
-              </p>
-              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0;">
-                Stay tuned for updates and be ready to start your spiritual connection journey!
-              </p>
-            </div>
-            
-            <div style="text-align: center; padding: 20px; background: #8B5CF6; border-radius: 15px; color: white;">
-              <p style="margin: 0; font-size: 18px; font-weight: bold;">✨ You're on the list! ✨</p>
-              <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">
-                First 5,000 members get 1 month completely free
-              </p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px; color: #6B7280; font-size: 14px;">
-              <p style="margin: 0;">With gratitude,<br><strong>The FullCircle Team</strong></p>
-            </div>
-          </div>
-        `
+        html: getWaitlistConfirmationEmail({ firstName })
       })
     });
     

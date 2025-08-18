@@ -23,12 +23,16 @@ export async function POST(request: NextRequest) {
       to: [to],
       subject: subject,
       html: html,
+      replyTo: 'support@joinfullcircle.app', // Add reply-to address
     });
+
+    console.log('Resend API response:', { data, error });
 
     if (error) {
       console.error('Resend error:', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
       return NextResponse.json(
-        { success: false, message: 'Failed to send email via Resend' },
+        { success: false, message: 'Failed to send email via Resend', error: error },
         { status: 500 }
       );
     }

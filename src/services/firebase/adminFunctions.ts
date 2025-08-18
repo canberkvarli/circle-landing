@@ -58,6 +58,12 @@ export interface SubscriptionAssignmentResult {
   subscriptionId?: string;
 }
 
+export interface DeleteWaitlistUserResult {
+  success: boolean;
+  error?: string;
+  deletedCount?: number;
+}
+
 /**
  * Search for users by email, phone number, or name
  * Priority: Email > Phone > Name (most reliable to least reliable)
@@ -121,6 +127,29 @@ export async function getWaitlistUsers(): Promise<WaitlistUser[]> {
   } catch (error) {
     console.error('Firebase: Error getting waitlist users:', error);
     throw new Error(`Failed to get waitlist users: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+export async function deleteWaitlistUser(userId: string): Promise<DeleteWaitlistUserResult> {
+  try {
+    const res = await fetch(`/api/admin/waitlist/${userId}`, {
+      method: 'DELETE',
+      cache: 'no-store'
+    });
+    
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || `HTTP ${res.status}`);
+    }
+    
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('Error deleting waitlist user:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to delete waitlist user'
+    };
   }
 }
 

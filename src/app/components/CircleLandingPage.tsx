@@ -16,6 +16,7 @@ import PrivacyModal from "../modals/PrivacyModal";
 import TermsModal from "../modals/TermsModal";
 import FullCircleModal from "./FullCircleModal";
 import OuroborosInfoModal from "../modals/OuroborosInfoModal";
+import { getContactFormEmail } from "@/utils/emailTemplates";
 
 const CircleLandingPage = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -110,15 +111,13 @@ const CircleLandingPage = () => {
       const emailData = {
         to: 'canberkvarli@gmail.com', // Your email address
         subject: `Contact Form: ${data.subject}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${data.name}</p>
-          <p><strong>Email:</strong> ${data.email}</p>
-          <p><strong>Subject:</strong> ${data.subject}</p>
-          <p><strong>Message:</strong></p>
-          <p>${data.message}</p>
-          <p><strong>Timestamp:</strong> ${data.timestamp}</p>
-        `
+        html: getContactFormEmail({
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+          timestamp: data.timestamp
+        })
       };
 
       // Send email via API

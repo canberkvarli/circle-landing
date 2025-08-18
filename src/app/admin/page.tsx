@@ -6,11 +6,12 @@ import {
   Search, Filter, Download, Save, X, Plus, Minus, Gift, Flower, Zap,
   Users, UserCheck, Eye, 
   ChevronDown, ChevronUp, BarChart3,
-  Bell, CheckCircle, AlertCircle, Clock, Send
+  Bell, CheckCircle, AlertCircle, Clock, Send, Lock
 } from 'lucide-react';
 import { 
   getAppUsers, 
   getWaitlistUsers, 
+  deleteWaitlistUser,
   assignFullCircleSubscription,
   grantLotusFlowers,
   revokeLotusFlowers,
@@ -130,6 +131,11 @@ const FILTER_PRESETS: FilterPreset[] = [
 ];
 
 export default function AdminDashboard() {
+  // Password protection state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   // Existing state
   const [assigningSubscription, setAssigningSubscription] = useState<string | null>(null);
   const [waitlistUsers, setWaitlistUsers] = useState<WaitlistUser[]>([]);
@@ -149,6 +155,8 @@ export default function AdminDashboard() {
   const [showLotusModal, setShowLotusModal] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [showBulkModal, setShowBulkModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<WaitlistUser | null>(null);
   const [processing, setProcessing] = useState(false);
 
   // New advanced filtering state
@@ -363,6 +371,70 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Error performing bulk operation:', error);
       alert('Failed to perform bulk operation. Please try again.');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleDeleteWaitlistUser = async (user: WaitlistUser) => {
+    if (!user.id) {
+      alert('Cannot delete user: No user ID found');
+      return;
+    }
+
+    setUserToDelete(user);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteWaitlistUser = async () => {
+    if (!userToDelete?.id) return;
+
+    setProcessing(true);
+    try {
+      const result = await deleteWaitlistUser(userToDelete.id);
+      if (result.success) {
+        alert(`Successfully deleted waitlist user: ${userToDelete.email}`);
+        setShowDeleteModal(false);
+        setUserToDelete(null);
+        await loadAllUsers();
+        await loadAdminStats();
+      } else {
+        alert(`Failed to delete user: ${result.error}`);
+      }
+    } catch (error) {
+      console.error('Error deleting waitlist user:', error);
+      alert('Failed to delete waitlist user. Please try again.');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const confirmBulkDeleteWaitlistUsers = async () => {
+    if (selectedUsers.length === 0) return;
+
+    setProcessing(true);
+    try {
+      let successCount = 0;
+      let errorCount = 0;
+
+      for (const userId of selectedUsers) {
+        const result = await deleteWaitlistUser(userId);
+        if (result.success) {
+          successCount++;
+        } else {
+          errorCount++;
+        }
+      }
+
+      alert(`Bulk deletion completed!\n\n✅ Successfully deleted: ${successCount} users\n❌ Failed to delete: ${errorCount} users`);
+      
+      setShowDeleteModal(false);
+      setSelectedUsers([]);
+      await loadAllUsers();
+      await loadAdminStats();
+    } catch (error) {
+      console.error('Error during bulk deletion:', error);
+      alert('Failed to complete bulk deletion. Please try again.');
     } finally {
       setProcessing(false);
     }
@@ -650,6 +722,71 @@ export default function AdminDashboard() {
     setActiveFilters(active);
   }, [filterOptions]);
 
+  // Password authentication
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simple password check - you can change this to whatever password you want
+    if (password === 'admin123') {
+      setIsAuthenticated(true);
+      setPasswordError('');
+    } else {
+      setPasswordError('Incorrect password');
+      setPassword('');
+    }
+  };
+
+  // Show password form if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center p-6">
+        <div className="max-w-md w-full">
+          <div className="bg-white rounded-lg shadow-xl p-8">
+            <div className="text-center mb-8">
+              <div className="mx-auto w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                <Lock className="w-8 h-8 text-purple-600" />
+              </div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin Access</h1>
+              <p className="text-gray-600">Enter password to access the admin dashboard</p>
+            </div>
+            
+            <form onSubmit={handlePasswordSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900 placeholder-gray-500"
+                  placeholder="Enter admin password"
+                  required
+                />
+                {passwordError && (
+                  <p className="mt-2 text-sm text-red-600">{passwordError}</p>
+                )}
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors font-medium"
+              >
+                Access Dashboard
+              </button>
+            </form>
+            
+            <div className="mt-6 text-center">
+              <p className="text-xs text-gray-500">
+                Contact the system administrator for access credentials
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
@@ -884,10 +1021,40 @@ export default function AdminDashboard() {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white rounded-lg shadow-lg p-6"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-              <Users className="w-5 h-5 mr-2 text-purple-600" />
-              Waitlist Users
-            </h2>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center">
+                <Users className="w-5 h-5 mr-2 text-purple-600" />
+                Waitlist Users
+              </h2>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    if (selectedUsers.length === 0) {
+                      alert('Please select users to delete');
+                      return;
+                    }
+                    setShowDeleteModal(true);
+                  }}
+                  disabled={selectedUsers.length === 0}
+                  className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Delete Selected ({selectedUsers.length})
+                </button>
+                <button
+                  onClick={selectAllUsers}
+                  className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  Select All
+                </button>
+                <button
+                  onClick={clearSelection}
+                  className="px-3 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+                >
+                  Clear Selection
+                </button>
+              </div>
+            </div>
             
             {waitlistUsers.length === 0 ? (
               <p className="text-gray-500 text-center py-8">No waitlist users found.</p>
@@ -896,6 +1063,14 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <input
+                          type="checkbox"
+                          checked={selectedUsers.length === waitlistUsers.length && waitlistUsers.length > 0}
+                          onChange={(e) => e.target.checked ? selectAllUsers() : clearSelection()}
+                          className="rounded border-gray-400 text-purple-600 focus:ring-purple-500"
+                        />
+                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
@@ -906,6 +1081,14 @@ export default function AdminDashboard() {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {waitlistUsers.map((user, index) => (
                       <tr key={index} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <input
+                            type="checkbox"
+                            checked={selectedUsers.includes(user.id || '')}
+                            onChange={() => toggleUserSelection(user.id || '')}
+                            className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                          />
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
                         </td>
@@ -915,9 +1098,18 @@ export default function AdminDashboard() {
                           {user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                            Waitlist
-                          </span>
+                          <div className="flex items-center space-x-2">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                              Waitlist
+                            </span>
+                            <button
+                              onClick={() => handleDeleteWaitlistUser(user)}
+                              className="inline-flex items-center px-2 py-1 border border-red-300 text-xs font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                              title="Delete from waitlist"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -2249,6 +2441,54 @@ export default function AdminDashboard() {
                   className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 transition-colors"
                 >
                   {processing ? 'Processing...' : 'Execute Operation'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Delete Waitlist User Modal */}
+        {showDeleteModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Confirm Deletion</h3>
+              {userToDelete ? (
+                // Single user deletion
+                <>
+                  <p className="text-gray-600 mb-4">
+                    Are you sure you want to delete <strong>{userToDelete.email}</strong> from the waitlist?
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    This action cannot be undone. The user will be permanently removed from the waitlist.
+                  </p>
+                </>
+              ) : (
+                // Bulk deletion
+                <>
+                  <p className="text-gray-600 mb-4">
+                    Are you sure you want to delete <strong>{selectedUsers.length} users</strong> from the waitlist?
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    This action cannot be undone. All selected users will be permanently removed from the waitlist.
+                  </p>
+                </>
+              )}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setShowDeleteModal(false);
+                    setUserToDelete(null);
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={userToDelete ? confirmDeleteWaitlistUser : confirmBulkDeleteWaitlistUsers}
+                  disabled={processing}
+                  className="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50 transition-colors"
+                >
+                  {processing ? 'Deleting...' : (userToDelete ? 'Delete User' : `Delete ${selectedUsers.length} Users`)}
                 </button>
               </div>
             </div>

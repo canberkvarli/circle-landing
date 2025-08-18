@@ -40,6 +40,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }
   }, []);
 
+  // Use a ref to track if we're in the browser
+  const isBrowser = typeof window !== 'undefined';
+
   useEffect(() => {
     if (!mounted) return;
     // Update document class and save preference
@@ -52,10 +55,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   // Prevent hydration mismatch by not rendering theme-dependent content until mounted
-  if (!mounted) {
+  if (!mounted || !isBrowser) {
     return (
       <ThemeContext.Provider value={{ theme: 'dark', toggleTheme }}>
-        {children}
+        <div className="dark">
+          {children}
+        </div>
       </ThemeContext.Provider>
     );
   }

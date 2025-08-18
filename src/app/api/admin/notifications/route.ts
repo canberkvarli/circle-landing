@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
 import { CollectionReference, Query, DocumentData } from 'firebase-admin/firestore';
 import { Resend } from 'resend';
+import { getAdminNotificationEmail } from '@/utils/emailTemplates';
 
 // Expo push notification service
 const EXPO_PUSH_URL = 'https://exp.host/--/api/v2/push/send';
@@ -70,30 +71,12 @@ async function sendEmailNotification(email: string, payload: NotificationPayload
       from: 'FullCircle <onboarding@resend.dev>',
       to: [email],
       subject: payload.title,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
-            ${payload.title}
-          </h2>
-          <p style="color: #666; line-height: 1.6; font-size: 16px;">
-            ${payload.body}
-          </p>
-          ${payload.data?.actionUrl ? `
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="${payload.data.actionUrl}" 
-                 style="background-color: #007bff; color: white; padding: 12px 24px; 
-                        text-decoration: none; border-radius: 5px; display: inline-block;">
-                ${payload.data.actionText || 'Learn More'}
-              </a>
-            </div>
-          ` : ''}
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; 
-                      color: #999; font-size: 12px; text-align: center;">
-            <p>This is an automated notification from FullCircle.</p>
-            <p>You can manage your notification preferences in the app settings.</p>
-          </div>
-        </div>
-      `,
+      html: getAdminNotificationEmail({
+        title: payload.title,
+        body: payload.body,
+        actionUrl: payload.data?.actionUrl,
+        actionText: payload.data?.actionText
+      }),
     });
 
     if (error) {
@@ -263,25 +246,15 @@ export async function POST(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Record notification in database
+    // Process notification without storing in database
     const targetUserIds = emailOnly ? emailOnlyUsers.map(u => u.userId) : targetUsers.map(u => u.userId);
     const totalRecipients = emailOnly ? emailOnlyUsers.length : targetUsers.length;
     
-    const notificationRef = await getAdminDb().collection('notifications').add({
-      title,
-      body,
-      data: data || {},
-      type: type || 'custom',
-      targetUserIds,
-      broadcast: broadcast || false,
-      sentAt: new Date(),
-      status: 'sending',
-      totalRecipients,
-      successfulDeliveries: 0,
-      failedDeliveries: 0,
-      emailOnly,
-      sendEmail: emailOnly || sendEmail
-    });
+    // Create a mock reference for tracking (no database storage)
+    const mockNotificationRef = {
+      id: 'notification-' + Date.now(),
+      update: async (data: any) => console.log('Mock notification update:', data)
+    };
 
     // Send push notifications (only if not email-only mode)
     let pushResults: PromiseSettledResult<{ success: boolean; response?: unknown; error?: string }>[] = [];
@@ -328,8 +301,8 @@ export async function POST(request: NextRequest) {
     const totalSuccessful = successfulPush + successfulEmail;
     const totalFailed = failedPush + failedEmail;
 
-    // Update notification status
-    await notificationRef.update({
+    // Update notification status (mock update)
+    await mockNotificationRef.update({
       status: 'sent',
       successfulDeliveries: totalSuccessful,
       failedDeliveries: totalFailed,
@@ -340,7 +313,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      notificationId: notificationRef.id,
+      notificationId: mockNotificationRef.id,
       totalRecipients,
       successfulDeliveries: totalSuccessful,
       failedDeliveries: totalFailed,

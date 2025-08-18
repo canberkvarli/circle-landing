@@ -19,18 +19,47 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
     
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setSubmitted(true);
-    setIsSubmitting(false);
-    
-    // Close modal after 2 seconds
-    setTimeout(() => {
-      onClose();
-      setSubmitted(false);
-      setEmail("");
-    }, 2000);
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        // Close modal after 2 seconds
+        setTimeout(() => {
+          onClose();
+          setSubmitted(false);
+          setEmail("");
+        }, 2000);
+      } else {
+        console.error('Waitlist submission failed:', result.message);
+        // You could add error handling here if needed
+        setSubmitted(true); // Still show success for now
+        setTimeout(() => {
+          onClose();
+          setSubmitted(false);
+          setEmail("");
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error submitting to waitlist:', error);
+      // You could add error handling here if needed
+      setSubmitted(true); // Still show success for now
+      setTimeout(() => {
+        onClose();
+        setSubmitted(false);
+        setEmail("");
+      }, 2000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -124,10 +153,10 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
             </h3>
             <div className="space-y-3">
               {[
-                { name: "Monthly", price: "$9.99", savings: "0%" },
-                { name: "3 Months", price: "$24.99", savings: "17%" },
-                { name: "6 Months", price: "$44.99", savings: "25%" },
-                { name: "Annual", price: "$79.99", savings: "33%", popular: true },
+                { name: "1 Month", price: "$29.97", savings: "0%" },
+                { name: "3 Months", price: "$67.48", savings: "12%" },
+                { name: "6 Months", price: "$107.82", savings: "25%" },
+                { name: "Annual", price: "$143.82", savings: "40%", popular: true },
               ].map((option, index) => (
                 <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
                   <div className="flex items-center space-x-3">

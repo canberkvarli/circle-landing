@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { X, ArrowRight, Check, Mail, User, Phone, Info, AlertCircle } from "lucide-react";
 import Image from "next/image";
-import { addWaitlistUser } from "../../services/firebase/functions";
 
 interface EarlyAccessModalProps {
   onClose: () => void;
@@ -36,12 +35,21 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
       const firstName = nameParts[0];
       const lastName = nameParts.slice(1).join(' ') || ''; // Last name is optional
       
-      const result = await addWaitlistUser({
-        firstName,
-        lastName,
-        email: email.trim(),
-        phone: phone.trim()
+      // Call the new waitlist API endpoint
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          firstName,
+          lastName,
+          phone: phone.trim()
+        }),
       });
+
+      const result = await response.json();
       
       if (result.success) {
         setSubmitted(true);
@@ -51,7 +59,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
           setSubmitted(false);
         }, 5000);
       } else {
-        setError(result.error || 'Failed to join waitlist. Please try again.');
+        setError(result.message || 'Failed to join waitlist. Please try again.');
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');

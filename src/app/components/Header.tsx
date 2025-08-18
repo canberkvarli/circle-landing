@@ -42,13 +42,14 @@ const Header = ({ openModal }: HeaderProps) => {
           <div className="flex items-center justify-between h-24">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <Image
-                src="/assets/circle.svg"
-                alt="Circle"
-                width={80}
-                height={80}
-                className="w-20 h-20"
-              />
+                          <Image
+              src="/assets/circle.svg"
+              alt="Circle"
+              width={80}
+              height={80}
+              className="w-20 h-20"
+              priority
+            />
               <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
                 Circle
               </span>
@@ -120,6 +121,7 @@ const Header = ({ openModal }: HeaderProps) => {
               width={80}
               height={80}
               className="w-20 h-20"
+              priority
             />
             <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
               Circle
