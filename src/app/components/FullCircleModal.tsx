@@ -191,7 +191,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 </p>
               </div>
               
-              <div className="flex gap-3">
+              <div className="flex flex-col md:flex-row gap-3">
                 <div className="flex-1 relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-dark dark:text-spiritual-dark-text-light" style={{ marginTop: '-2.5px' }} />
                   <input
@@ -206,7 +206,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="waitlist-button"
+                  className="waitlist-button w-full md:w-auto"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </button>

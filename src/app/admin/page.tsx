@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { assignFullCircleSubscription, searchUsersByField, UserData, getWaitlistUsers, getAppUsers } from '../../services/firebase/adminFunctions';
+import { assignFullCircleSubscription, searchUsersByField, UserData, getWaitlistUsers, getAppUsers, WaitlistUser } from '../../services/firebase/adminFunctions';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Search, Gift, UserCheck, Users, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Search, Gift, UserCheck, Users, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { collection } from 'firebase/firestore';
+import { db } from '../../services/firebase/config';
 
 export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,13 +15,35 @@ export default function AdminDashboard() {
   const [assigningSubscription, setAssigningSubscription] = useState<string | null>(null);
   
   // New state for managing users
-  const [waitlistUsers, setWaitlistUsers] = useState<any[]>([]);
+  const [waitlistUsers, setWaitlistUsers] = useState<WaitlistUser[]>([]);
   const [appUsers, setAppUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'waitlist' | 'app-users' | 'search'>('waitlist');
 
   useEffect(() => {
-    loadAllUsers();
+    // Test Firebase connection first
+    const testFirebaseConnection = async () => {
+      try {
+        console.log('Testing Firebase connection...');
+        console.log('Firebase config:', db);
+        
+        // Try to get a simple collection reference
+        const testRef = collection(db, 'test');
+        console.log('Test collection reference created:', testRef);
+        
+        // If we get here, Firebase is connected
+        console.log('Firebase connection successful!');
+        
+        // Now load the actual users
+        await loadAllUsers();
+      } catch (error) {
+        console.error('Firebase connection test failed:', error);
+        setLoading(false);
+        alert(`Firebase connection failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
+    };
+    
+    testFirebaseConnection();
   }, []);
 
   const loadAllUsers = async () => {
@@ -27,14 +51,14 @@ export default function AdminDashboard() {
     try {
       // Load waitlist users
       const waitlist = await getWaitlistUsers();
-      setWaitlistUsers(waitlist);
-      
+      setWaitlistUsers(waitlist ?? []);
+
       // Load app users
-      const appUsers = await getAppUsers();
-      setAppUsers(appUsers);
+      const appUsersList = await getAppUsers();
+      setAppUsers(appUsersList ?? []);
     } catch (error) {
       console.error('Error loading users:', error);
-      alert('Failed to load users. Please check your connection.');
+      alert(`Failed to load users: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -184,7 +208,7 @@ export default function AdminDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.phoneNumber || 'N/A'}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.createdAt ? new Date(user.createdAt.toDate()).toLocaleDateString() : 'N/A'}
+                          {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -306,8 +330,8 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-semibold text-blue-900 mb-2">How to Grant Subscriptions:</h3>
               <ol className="text-blue-800 space-y-1">
                 <li>1. <strong>Search for a user</strong> by email, phone, or name</li>
-                <li>2. <strong>Check their onboarding status</strong> - must be "Onboarding Complete"</li>
-                <li>3. <strong>Click "Grant FullCircle"</strong> to give them a 1-month subscription</li>
+                <li>2. <strong>Check their onboarding status</strong> - must be &quot;Onboarding Complete&quot;</li>
+                <li>3. <strong>Click &quot;Grant FullCircle&quot;</strong> to give them a 1-month subscription</li>
               </ol>
             </div>
 

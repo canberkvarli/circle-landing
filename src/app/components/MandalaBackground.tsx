@@ -13,7 +13,7 @@ const MandalaBackground = () => {
           opacity: 0.7 
         }}
         animate={{ 
-          rotate: 1440, // 4 full rotations (4 * 360 = 1440 degrees)
+          rotate: -1440, // 4 full rotations counterclockwise (-4 * 360 = -1440 degrees)
           opacity: 1
         }}
         transition={{

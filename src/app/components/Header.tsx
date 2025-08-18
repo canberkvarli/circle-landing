@@ -136,7 +136,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-medium text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Features
                 </button>
