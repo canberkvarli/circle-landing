@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { 
@@ -18,13 +18,7 @@ export default function UserDetailPage() {
   const [editedUser, setEditedUser] = useState<UserDataType | null>(null);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    if (userId) {
-      loadUserData();
-    }
-  }, [userId]);
-
-  const loadUserData = async () => {
+  const loadUserData = useCallback(async () => {
     try {
       setLoading(true);
       // TODO: Replace with actual API call to get user data
@@ -41,7 +35,13 @@ export default function UserDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId) {
+      loadUserData();
+    }
+  }, [userId, loadUserData]);
 
   const handleSave = async () => {
     if (!editedUser) return;

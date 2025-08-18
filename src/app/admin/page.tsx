@@ -1,33 +1,136 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  assignFullCircleSubscription, 
-  searchUsersByField, 
-  UserData, 
-  getWaitlistUsers, 
+  Search, Filter, Download, Save, X, Plus, Minus, Gift, Flower, Zap,
+  Users, UserCheck, Eye, 
+  ChevronDown, ChevronUp, BarChart3,
+  Bell, CheckCircle, AlertCircle, Clock, Send
+} from 'lucide-react';
+import { 
   getAppUsers, 
-  WaitlistUser,
+  getWaitlistUsers, 
+  assignFullCircleSubscription,
   grantLotusFlowers,
   revokeLotusFlowers,
   sendNotification,
   getAdminStats,
   performBulkOperation
-} from '../../services/firebase/adminFunctions';
-import { motion } from 'framer-motion';
-import { 
-  Search, Gift, UserCheck, Users, Clock, CheckCircle, AlertCircle, 
-  Flower, Bell, BarChart3, Zap,
-  Plus, Minus, Send, Eye,
-} from 'lucide-react';
-import { AdminStats } from '@/types';
+} from '@/services/firebase/adminFunctions';
+import { WaitlistUser, AdminStats } from '@/types';
+import { UserData } from '@/services/firebase/adminFunctions';
+
+// Define types for filter presets to avoid hydration issues
+interface FilterPreset {
+  id: string;
+  name: string;
+  filters: {
+    dateRange: { start: string | null; end: string | null };
+    lotusCount: { min: number | null; max: number | null };
+    radianceBoosts: { min: number | null; max: number | null };
+    subscriptionStatus: string;
+    onboardingStatus: string;
+    location: string;
+    spiritualPractices: string[];
+    connectionIntent: string;
+    hasPhotos: boolean | null;
+    isSeedUser: boolean | null;
+    lastActive: { start: string | null; end: string | null };
+  };
+}
+
+// Filter presets for common queries - using relative dates to avoid hydration issues
+const FILTER_PRESETS: FilterPreset[] = [
+  {
+    id: 'new-users',
+    name: 'New Users (Last 7 Days)',
+    filters: {
+      dateRange: { start: '7days', end: 'now' }, // Use relative dates
+      onboardingStatus: 'incomplete',
+      lotusCount: { min: null, max: null },
+      radianceBoosts: { min: null, max: null },
+      subscriptionStatus: '',
+      location: '',
+      spiritualPractices: [],
+      connectionIntent: '',
+      hasPhotos: null,
+      isSeedUser: null,
+      lastActive: { start: null, end: null }
+    }
+  },
+  {
+    id: 'active-subscribers',
+    name: 'Active Subscribers',
+    filters: {
+      dateRange: { start: null, end: null },
+      onboardingStatus: 'completed',
+      lotusCount: { min: null, max: null },
+      radianceBoosts: { min: null, max: null },
+      subscriptionStatus: 'active',
+      location: '',
+      spiritualPractices: [],
+      connectionIntent: '',
+      hasPhotos: null,
+      isSeedUser: null,
+      lastActive: { start: null, end: null }
+    }
+  },
+  {
+    id: 'lotus-spenders',
+    name: 'High Lotus Users',
+    filters: {
+      dateRange: { start: null, end: null },
+      onboardingStatus: '',
+      lotusCount: { min: 10, max: null },
+      radianceBoosts: { min: null, max: null },
+      subscriptionStatus: '',
+      location: '',
+      spiritualPractices: [],
+      connectionIntent: '',
+      hasPhotos: null,
+      isSeedUser: null,
+      lastActive: { start: null, end: null }
+    }
+  },
+  {
+    id: 'inactive-users',
+    name: 'Inactive Users (30+ Days)',
+    filters: {
+      dateRange: { start: null, end: null },
+      onboardingStatus: '',
+      lotusCount: { min: null, max: null },
+      radianceBoosts: { min: null, max: null },
+      subscriptionStatus: '',
+      location: '',
+      spiritualPractices: [],
+      connectionIntent: '',
+      hasPhotos: null,
+      isSeedUser: null,
+      lastActive: { start: '30days', end: null } // Use relative dates
+    }
+  },
+  {
+    id: 'spiritual-practitioners',
+    name: 'Spiritual Practitioners',
+    filters: {
+      dateRange: { start: null, end: null },
+      onboardingStatus: '',
+      lotusCount: { min: null, max: null },
+      radianceBoosts: { min: null, max: null },
+      subscriptionStatus: '',
+      location: '',
+      spiritualPractices: ['meditation', 'yoga', 'crystal-healing'],
+      connectionIntent: '',
+      hasPhotos: null,
+      isSeedUser: null,
+      lastActive: { start: null, end: null }
+    }
+  }
+];
 
 export default function AdminDashboard() {
   // Existing state
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchField, setSearchField] = useState<'email' | 'phone' | 'name'>('email');
-  const [searchResults, setSearchResults] = useState<UserData[]>([]);
-  const [searching, setSearching] = useState(false);
   const [assigningSubscription, setAssigningSubscription] = useState<string | null>(null);
   const [waitlistUsers, setWaitlistUsers] = useState<WaitlistUser[]>([]);
   const [appUsers, setAppUsers] = useState<UserData[]>([]);
@@ -48,6 +151,37 @@ export default function AdminDashboard() {
   const [showBulkModal, setShowBulkModal] = useState(false);
   const [processing, setProcessing] = useState(false);
 
+  // New advanced filtering state
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<Record<string, unknown>>({});
+  const [savedFilterPresets, setSavedFilterPresets] = useState(FILTER_PRESETS);
+  const [currentFilterPreset, setCurrentFilterPreset] = useState<string | ''>('');
+  const [filterPresetName, setFilterPresetName] = useState('');
+  const [showSavePresetModal, setShowSavePresetModal] = useState(false);
+
+  // Advanced filter options
+  const [filterOptions, setFilterOptions] = useState({
+    dateRange: { start: null as string | null, end: null as string | null },
+    lotusCount: { min: null as number | null, max: null as number | null },
+    radianceBoosts: { min: null as number | null, max: null as number | null },
+    subscriptionStatus: '' as string,
+    onboardingStatus: '' as string,
+    location: '' as string,
+    spiritualPractices: [] as string[],
+    connectionIntent: '' as string,
+    hasPhotos: null as boolean | null,
+    isSeedUser: null as boolean | null,
+    lastActive: { start: null as string | null, end: null as string | null }
+  });
+
+  // User selection and search state
+  const [userSearchQuery, setUserSearchQuery] = useState('');
+  const [userFilterType, setUserFilterType] = useState<'all' | 'withPush' | 'withoutPush'>('all');
+  const [currentUserPage, setCurrentUserPage] = useState(1);
+  const [usersPerPage] = useState(10);
+  
+
+
   useEffect(() => {
     loadAllUsers();
     loadAdminStats();
@@ -59,7 +193,12 @@ export default function AdminDashboard() {
       const waitlist = await getWaitlistUsers();
       setWaitlistUsers(waitlist ?? []);
       const appUsersList = await getAppUsers();
-      setAppUsers(appUsersList ?? []);
+      setAppUsers(
+        (appUsersList ?? []).map((user: UserData) => ({
+          ...user,
+          // These properties are already defined in the UserData interface now
+        }))
+      );
     } catch (error) {
       console.error('Error loading users:', error);
       alert(`Failed to load users: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -72,30 +211,14 @@ export default function AdminDashboard() {
     try {
       const result = await getAdminStats();
       if (result.success && result.stats) {
-        setAdminStats(result.stats);
+        setAdminStats(result.stats as unknown as AdminStats);
       }
     } catch (error) {
       console.error('Error loading admin stats:', error);
     }
   };
 
-  const handleSearch = async () => {
-    if (!searchQuery.trim()) {
-      setSearchResults([]);
-      return;
-    }
 
-    setSearching(true);
-    try {
-      const results = await searchUsersByField(searchQuery, searchField);
-      setSearchResults(results);
-    } catch (error) {
-      console.error('Search error:', error);
-      alert('Search failed. Please try again.');
-    } finally {
-      setSearching(false);
-    }
-  };
 
   const handleGrantSubscription = async (userId: string) => {
     setAssigningSubscription(userId);
@@ -195,13 +318,14 @@ export default function AdminDashboard() {
       const userIds = selectedUsers.length > 0 ? selectedUsers : null; // null for broadcast
       const result = await sendNotification(userIds, notificationTitle, notificationMessage, notificationType);
       if (result.success) {
-        alert('Notification sent successfully!');
+        const message = `✅ Notification sent successfully!\n\n📊 Delivery Results:\n• Total Recipients: ${result.totalRecipients}\n• Successful: ${result.successfulDeliveries}\n• Failed: ${result.failedDeliveries || 0}\n\n🆔 Notification ID: ${result.notificationId}`;
+        alert(message);
         setShowNotificationModal(false);
         setNotificationTitle('');
         setNotificationMessage('');
         setSelectedUsers([]);
       } else {
-        alert(`Failed to send notification: ${result.error}`);
+        alert(`❌ Failed to send notification: ${result.error}`);
       }
     } catch (error) {
       console.error('Error sending notification:', error);
@@ -220,7 +344,7 @@ export default function AdminDashboard() {
     setProcessing(true);
     try {
       let data = {};
-      if (bulkOperationType.includes('Lotus')) {
+      if (bulkOperationType === 'grantLotus' || bulkOperationType === 'revokeLotus') {
         data = { amount: lotusAmount, reason: lotusReason };
       } else if (bulkOperationType === 'sendNotification') {
         data = { title: notificationTitle, message: notificationMessage, type: notificationType };
@@ -259,6 +383,272 @@ export default function AdminDashboard() {
   const clearSelection = () => {
     setSelectedUsers([]);
   };
+
+  // Advanced filtering functions
+  // Apply filters to users with stable date handling to prevent hydration mismatches
+  const applyFilters = useCallback((users: UserData[]) => {
+    return users.filter(user => {
+      // Helper function to convert relative date strings to Date objects
+      // Uses stable reference dates to ensure consistent server/client rendering
+      const getRelativeDate = (relativeDate: string | null): Date | null => {
+        if (!relativeDate) return null;
+        
+        // Use stable reference dates to avoid hydration mismatches
+        const stableNow = new Date('2024-01-01T00:00:00Z');
+        
+        switch (relativeDate) {
+          case 'now':
+            return stableNow;
+          case '7days':
+            return new Date(stableNow.getTime() - 7 * 24 * 60 * 60 * 1000);
+          case '30days':
+            return new Date(stableNow.getTime() - 30 * 24 * 60 * 60 * 1000);
+          default:
+            // If it's a regular date string, try to parse it
+            const parsedDate = new Date(relativeDate);
+            return isNaN(parsedDate.getTime()) ? null : parsedDate;
+        }
+      };
+
+      // Date range filter
+      const startDate = getRelativeDate(filterOptions.dateRange.start);
+      const endDate = getRelativeDate(filterOptions.dateRange.end);
+      
+      if (startDate && user.createdAt) {
+        const userDate = new Date(user.createdAt);
+        if (userDate < startDate) return false;
+      }
+      if (endDate && user.createdAt) {
+        const userDate = new Date(user.createdAt);
+        if (userDate > endDate) return false;
+      }
+
+      // Lotus count filter
+      if (filterOptions.lotusCount.min !== null && (user.numOfLotus || 0) < filterOptions.lotusCount.min) return false;
+      if (filterOptions.lotusCount.max !== null && (user.numOfLotus || 0) > filterOptions.lotusCount.max) return false;
+
+      // Radiance boosts filter
+      if (filterOptions.radianceBoosts.min !== null && (user.activeBoosts || 0) < filterOptions.radianceBoosts.min) return false;
+      if (filterOptions.radianceBoosts.max !== null && (user.activeBoosts || 0) > filterOptions.radianceBoosts.max) return false;
+
+      // Subscription status filter
+      if (filterOptions.subscriptionStatus && user.subscription?.isActive !== (filterOptions.subscriptionStatus === 'active')) return false;
+
+      // Onboarding status filter
+      if (filterOptions.onboardingStatus === 'completed' && !user.onboardingCompleted) return false;
+      if (filterOptions.onboardingStatus === 'incomplete' && user.onboardingCompleted) return false;
+
+      // Location filter
+      if (filterOptions.location && user.regionName && !user.regionName.toLowerCase().includes(filterOptions.location.toLowerCase())) return false;
+
+      // Spiritual practices filter
+      if (filterOptions.spiritualPractices.length > 0 && user.spiritualProfile?.practices) {
+        const hasPractice = filterOptions.spiritualPractices.some(practice => 
+          user.spiritualProfile?.practices?.includes(practice)
+        );
+        if (!hasPractice) return false;
+      }
+
+      // Connection intent filter
+      if (filterOptions.connectionIntent && user.matchPreferences?.connectionIntent !== filterOptions.connectionIntent) return false;
+
+      // Photos filter
+      if (filterOptions.hasPhotos !== null) {
+        const hasPhotos = user.photos && user.photos.length > 0;
+        if (hasPhotos !== filterOptions.hasPhotos) return false;
+      }
+
+      // Seed user filter
+      if (filterOptions.isSeedUser !== null && user.isSeedUser !== filterOptions.isSeedUser) return false;
+
+      // Last active filter
+      const lastActiveStart = getRelativeDate(filterOptions.lastActive.start);
+      const lastActiveEnd = getRelativeDate(filterOptions.lastActive.end);
+      
+      if (lastActiveStart && user.lastActive) {
+        const lastActiveDate = new Date(user.lastActive);
+        if (lastActiveDate > lastActiveStart) return false;
+      }
+      if (lastActiveEnd && user.lastActive) {
+        const lastActiveDate = new Date(user.lastActive);
+        if (lastActiveDate < lastActiveEnd) return false;
+      }
+
+      return true;
+    });
+  }, [filterOptions]);
+
+  const filteredUsers = useMemo(() => {
+    return applyFilters(appUsers);
+  }, [appUsers, applyFilters]);
+
+  // Computed values for user selection
+  // Note: Using stable date references to prevent hydration mismatches
+  const filteredUsersForSelection = useMemo(() => {
+    let filtered = appUsers;
+    
+    // Apply search filter
+    if (userSearchQuery.trim()) {
+      const query = userSearchQuery.toLowerCase();
+      filtered = filtered.filter(user => 
+        (user.fullName && user.fullName.toLowerCase().includes(query)) ||
+        (user.firstName && user.firstName.toLowerCase().includes(query)) ||
+        (user.familyName && user.familyName.toLowerCase().includes(query)) ||
+        (user.email && user.email.toLowerCase().includes(query))
+      );
+    }
+    
+    // Apply type filter
+    if (userFilterType === 'withPush') {
+      filtered = filtered.filter(user => user.settings?.pushToken);
+    } else if (userFilterType === 'withoutPush') {
+      filtered = filtered.filter(user => !user.settings?.pushToken);
+    }
+    
+    return filtered;
+  }, [appUsers, userSearchQuery, userFilterType]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentUserPage(1);
+  }, [userSearchQuery, userFilterType]);
+
+  const paginatedUsersForSelection = useMemo(() => {
+    const startIndex = (currentUserPage - 1) * usersPerPage;
+    const endIndex = startIndex + usersPerPage;
+    return filteredUsersForSelection.slice(startIndex, endIndex);
+  }, [filteredUsersForSelection, currentUserPage, usersPerPage]);
+
+  const loadFilterPreset = (presetId: string) => {
+    const preset = savedFilterPresets.find(p => p.id === presetId);
+    if (preset) {
+      // Convert relative dates to actual Date objects
+      const convertedFilters = { ...preset.filters };
+      // Convert relative date strings to ISO strings to match filterOptions type
+      // Use stable reference dates to avoid hydration mismatches
+      const stableNow = new Date('2024-01-01T00:00:00Z');
+      if (preset.filters.dateRange.start === '7days') {
+        convertedFilters.dateRange.start = new Date(stableNow.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      }
+      if (preset.filters.dateRange.end === 'now') {
+        convertedFilters.dateRange.end = stableNow.toISOString();
+      }
+      if (preset.filters.lastActive.start === '30days') {
+        convertedFilters.lastActive.start = new Date(stableNow.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      }
+      setFilterOptions(convertedFilters);
+      setCurrentFilterPreset(presetId);
+    }
+  };
+
+  const saveFilterPreset = () => {
+    if (!filterPresetName.trim()) return;
+    
+    const newPreset: FilterPreset = {
+      id: `custom_${Math.floor(Math.random() * 1000000)}`,
+      name: filterPresetName,
+      filters: { 
+        dateRange: { 
+          start: filterOptions.dateRange.start, 
+          end: filterOptions.dateRange.end 
+        },
+        lotusCount: { 
+          min: filterOptions.lotusCount.min, 
+          max: filterOptions.lotusCount.max 
+        },
+        radianceBoosts: { 
+          min: filterOptions.radianceBoosts.min, 
+          max: filterOptions.radianceBoosts.max 
+        },
+        subscriptionStatus: filterOptions.subscriptionStatus,
+        onboardingStatus: filterOptions.onboardingStatus,
+        location: filterOptions.location,
+        spiritualPractices: filterOptions.spiritualPractices,
+        connectionIntent: filterOptions.connectionIntent,
+        hasPhotos: filterOptions.hasPhotos,
+        isSeedUser: filterOptions.isSeedUser,
+        lastActive: { 
+          start: filterOptions.lastActive.start, 
+          end: filterOptions.lastActive.end 
+        }
+      }
+    };
+    
+    setSavedFilterPresets(prev => [...prev, newPreset]);
+    setFilterPresetName('');
+    setShowSavePresetModal(false);
+  };
+
+  const clearFilters = () => {
+    setFilterOptions({
+      dateRange: { start: null, end: null },
+      lotusCount: { min: null, max: null },
+      radianceBoosts: { min: null, max: null },
+      subscriptionStatus: '',
+      onboardingStatus: '',
+      location: '',
+      spiritualPractices: [],
+      connectionIntent: '',
+      hasPhotos: null,
+      isSeedUser: null,
+      lastActive: { start: null, end: null }
+    });
+    setCurrentFilterPreset('');
+  };
+
+  const exportToCSV = () => {
+    const headers = [
+      'User ID', 'Name', 'Email', 'Phone', 'Lotus Count', 'Radiance Boosts',
+      'Onboarding Status', 'Subscription Status', 'Created Date', 'Last Active',
+      'Region', 'Connection Intent', 'Spiritual Practices'
+    ];
+
+    const csvData = filteredUsers.map(user => [
+      user.userId,
+      user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A',
+      user.email,
+      user.phoneNumber || 'N/A',
+      user.numOfLotus || 0,
+      user.activeBoosts || 0,
+      user.onboardingCompleted ? 'Completed' : 'Incomplete',
+      user.subscription?.isActive ? 'Active' : 'Inactive',
+              user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A',
+        user.lastActive ? new Date(user.lastActive).toISOString().split('T')[0] : 'N/A',
+      user.regionName || 'N/A',
+      user.matchPreferences?.connectionIntent || 'N/A',
+      user.spiritualProfile?.practices?.join(', ') || 'N/A'
+    ]);
+
+    const csvContent = [headers, ...csvData]
+      .map(row => row.map(cell => `"${cell}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `users_export.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  // Update active filters when filter options change
+  useEffect(() => {
+    const active: Record<string, boolean> = {};
+    if (filterOptions.dateRange.start || filterOptions.dateRange.end) active.dateRange = true;
+    if (filterOptions.lotusCount.min !== null || filterOptions.lotusCount.max !== null) active.lotusCount = true;
+    if (filterOptions.radianceBoosts.min !== null || filterOptions.radianceBoosts.max !== null) active.radianceBoosts = true;
+    if (filterOptions.subscriptionStatus) active.subscriptionStatus = true;
+    if (filterOptions.onboardingStatus) active.onboardingStatus = true;
+    if (filterOptions.location) active.location = true;
+    if (filterOptions.spiritualPractices.length > 0) active.spiritualPractices = true;
+    if (filterOptions.connectionIntent) active.connectionIntent = true;
+    if (filterOptions.hasPhotos !== null) active.hasPhotos = true;
+    if (filterOptions.isSeedUser !== null) active.isSeedUser = true;
+    if (filterOptions.lastActive.start || filterOptions.lastActive.end) active.lastActive = true;
+    
+    setActiveFilters(active);
+  }, [filterOptions]);
 
   if (loading) {
     return (
@@ -549,9 +939,44 @@ export default function AdminDashboard() {
               <UserCheck className="w-5 h-5 mr-2 text-green-600" />
               App Users
             </h2>
+
+            {/* Users Summary */}
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-gray-600">
+                  Showing <span className="font-semibold">{filteredUsers.length}</span> of <span className="font-semibold">{appUsers.length}</span> users
+                  {Object.keys(activeFilters).length > 0 && (
+                    <span className="ml-2 text-purple-600">
+                      (filtered by {Object.keys(activeFilters).length} criteria)
+                    </span>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setActiveTab('search')}
+                    className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center"
+                  >
+                    <Filter className="w-4 h-4 mr-1" />
+                    Advanced Filters
+                  </button>
+                  <button
+                    onClick={exportToCSV}
+                    className="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Export to CSV
+                  </button>
+                </div>
+              </div>
+            </div>
             
-            {appUsers.length === 0 ? (
-              <p className="text-gray-500 text-center py-8">No app users found.</p>
+            {filteredUsers.length === 0 ? (
+              <p className="text-gray-500 text-center py-8">
+                {Object.keys(activeFilters).length > 0 
+                  ? 'No users match your current filters. Try adjusting your criteria.'
+                  : 'No app users found.'
+                }
+              </p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -560,7 +985,7 @@ export default function AdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                         <input
                           type="checkbox"
-                          checked={selectedUsers.length === appUsers.length && appUsers.length > 0}
+                          checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
                           onChange={(e) => e.target.checked ? selectAllUsers() : clearSelection()}
                           className="rounded border-gray-400 text-purple-600 focus:ring-purple-500"
                         />
@@ -576,7 +1001,7 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {appUsers.map((user) => {
+                    {filteredUsers.map((user) => {
                       const onboardingStatus = getOnboardingStatus(user);
                       const hasSubscription = user.subscription?.isActive;
                       
@@ -986,6 +1411,67 @@ export default function AdminDashboard() {
                     <Send className="w-4 h-4 inline mr-2" />
                     Send Notification
                   </button>
+                  
+                  {/* Debug Button */}
+                  <button
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/api/admin/debug-users');
+                        const data = await response.json();
+                        if (data.success) {
+                          console.log('User Debug Info:', data.debug);
+                          alert(`Debug Info:\n\nTotal Users: ${data.debug.totalUsers}\nUsers with Push Tokens: ${data.debug.usersWithTokens}\nUsers with Notification Settings: ${data.debug.usersWithNotificationSettings}\n\nCheck console for detailed user info.`);
+                        } else {
+                          alert('Debug failed: ' + data.message);
+                        }
+                      } catch (error) {
+                        alert('Debug error: ' + error);
+                      }
+                    }}
+                    className="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors mt-2"
+                  >
+                    🔍 Debug User Notification Settings
+                  </button>
+                  
+                  {/* Test Connection Button */}
+                  <button
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/api/admin/test-connection');
+                        const data = await response.json();
+                        if (data.success) {
+                          alert(`✅ Connection Test Successful!\n\nFound ${data.userCount} users in database.\n\nFirebase Admin SDK is working correctly.`);
+                        } else {
+                          alert(`❌ Connection Test Failed:\n\n${data.message}\n\nMissing Variables: ${data.missingEnvironmentVariables?.join(', ') || 'None'}\n\nSuggestion: ${data.suggestion}`);
+                        }
+                      } catch (error) {
+                        alert('Connection test error: ' + error);
+                      }
+                    }}
+                    className="w-full px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors mt-2"
+                  >
+                    🔌 Test Firebase Connection
+                  </button>
+                  
+                  {/* Test Notifications Route Button */}
+                  <button
+                    onClick={async () => {
+                      try {
+                        const response = await fetch('/api/admin/notifications');
+                        const data = await response.json();
+                        if (data.success) {
+                          alert(`✅ Notifications Route Test Successful!\n\n${data.message}\n\nRoute is properly registered and accessible.`);
+                        } else {
+                          alert(`❌ Notifications Route Test Failed:\n\n${data.message}`);
+                        }
+                      } catch (error) {
+                        alert('Notifications route test error: ' + error);
+                      }
+                    }}
+                    className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors mt-2"
+                  >
+                    🧪 Test Notifications Route
+                  </button>
                 </div>
                 
                 <div className="border border-gray-200 rounded-lg p-4">
@@ -997,7 +1483,7 @@ export default function AdminDashboard() {
                     }
                   </p>
                   
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 mb-4">
                     <button
                       onClick={selectAllUsers}
                       className="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
@@ -1010,6 +1496,136 @@ export default function AdminDashboard() {
                     >
                       Clear Selection
                     </button>
+                  </div>
+                  
+                  {/* User List for Selection */}
+                  <div className="border border-gray-200 rounded-md">
+                    {/* Search and Filter Header */}
+                    <div className="p-3 bg-gray-50 border-b border-gray-200">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-medium text-gray-700">Available Users</span>
+                        <span className="text-xs text-gray-500">{appUsers.length} total</span>
+                      </div>
+                      
+                      {/* Search Bar */}
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Search users by name or email..."
+                          value={userSearchQuery}
+                          onChange={(e) => setUserSearchQuery(e.target.value)}
+                          className="w-full px-3 py-2 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 placeholder-gray-600 text-sm"
+                        />
+                        <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                      </div>
+                      
+                      {/* Quick Filters */}
+                      <div className="flex gap-2 mt-2">
+                        <button
+                          onClick={() => setUserFilterType('all')}
+                          className={`px-2 py-1 text-xs rounded-md transition-colors ${
+                            userFilterType === 'all' 
+                              ? 'bg-blue-100 text-blue-700 border border-blue-200' 
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
+                        >
+                          All Users
+                        </button>
+                        <button
+                          onClick={() => setUserFilterType('withPush')}
+                          className={`px-2 py-1 text-xs rounded-md transition-colors ${
+                            userFilterType === 'withPush' 
+                              ? 'bg-green-100 text-green-700 border border-green-200' 
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
+                        >
+                          📱 With Push
+                        </button>
+                        <button
+                          onClick={() => setUserFilterType('withoutPush')}
+                          className={`px-2 py-1 text-xs rounded-md transition-colors ${
+                            userFilterType === 'withoutPush' 
+                              ? 'bg-red-100 text-red-700 border border-red-200' 
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          }`}
+                        >
+                          ❌ No Push
+                        </button>
+                      </div>
+                    </div>
+                    
+                    {/* User List */}
+                    <div className="max-h-64 overflow-y-auto">
+                      {filteredUsersForSelection.length === 0 ? (
+                        <div className="p-4 text-center text-gray-500">
+                          {appUsers.length === 0 
+                            ? 'No users loaded. Check the "App Users" tab first.'
+                            : 'No users match your search criteria.'
+                          }
+                        </div>
+                      ) : (
+                        <div className="divide-y divide-gray-200">
+                          {paginatedUsersForSelection.map((user) => (
+                            <div key={user.userId} className="flex items-center p-3 hover:bg-gray-50">
+                              <input
+                                type="checkbox"
+                                checked={selectedUsers.includes(user.userId)}
+                                onChange={() => toggleUserSelection(user.userId)}
+                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                              />
+                              <div className="ml-3 flex-1 min-w-0">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <p className="text-sm font-medium text-gray-900 truncate">
+                                      {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
+                                    </p>
+                                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="text-xs text-gray-400">
+                                      {user.settings?.pushToken ? '📱' : '❌'} Push
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                      {user.numOfLotus || 0} 🌸
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Pagination */}
+                    {filteredUsersForSelection.length > usersPerPage && (
+                      <div className="p-3 bg-gray-50 border-t border-gray-200">
+                        <div className="flex items-center justify-between">
+                          <div className="text-xs text-gray-500">
+                            Showing {((currentUserPage - 1) * usersPerPage) + 1} to {Math.min(currentUserPage * usersPerPage, filteredUsersForSelection.length)} of {filteredUsersForSelection.length} users
+                          </div>
+                          <div className="flex gap-1">
+                            <button
+                              onClick={() => setCurrentUserPage(prev => Math.max(1, prev - 1))}
+                              disabled={currentUserPage === 1}
+                              className="px-2 py-1 text-xs bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              ←
+                            </button>
+                            <span className="px-2 py-1 text-xs text-gray-600">
+                              {currentUserPage} / {Math.ceil(filteredUsersForSelection.length / usersPerPage)}
+                            </span>
+                            <button
+                              onClick={() => setCurrentUserPage(prev => Math.min(Math.ceil(filteredUsersForSelection.length / usersPerPage), prev + 1))}
+                              disabled={currentUserPage >= Math.ceil(filteredUsersForSelection.length / usersPerPage)}
+                              className="px-2 py-1 text-xs bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                              →
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1052,7 +1668,7 @@ export default function AdminDashboard() {
                     </select>
                   </div>
                   
-                  {(bulkOperationType.includes('Lotus')) && (
+                  {(bulkOperationType === 'grantLotus' || bulkOperationType === 'revokeLotus') && (
                     <>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Lotus Amount</label>
@@ -1163,68 +1779,264 @@ export default function AdminDashboard() {
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
               <Search className="w-5 h-5 mr-2 text-blue-600" />
-              Search Users
+              Advanced User Search & Filtering
             </h2>
 
-            {/* Search Instructions */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-              <h3 className="text-lg font-semibold text-blue-900 mb-2">How to Grant Subscriptions:</h3>
-              <ol className="text-blue-800 space-y-1">
-                <li>1. <strong>Search for a user</strong> by email, phone, or name</li>
-                <li>2. <strong>Check their onboarding status</strong> - must be &quot;Onboarding Complete&quot;</li>
-                <li>3. <strong>Click &quot;Grant FullCircle&quot;</strong> to give them a 1-month subscription</li>
-              </ol>
-            </div>
-
-            {/* Search Form */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
-              <div className="flex-1">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Enter email, phone, or name..."
-                  className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900 placeholder-gray-600"
-                />
+            {/* Filter Presets */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Quick Filter Presets</h3>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setShowSavePresetModal(true)}
+                    className="px-3 py-1 text-sm bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center"
+                  >
+                    <Save className="w-4 h-4 mr-1" />
+                    Save Current Filters
+                  </button>
+                  <button
+                    onClick={clearFilters}
+                    className="px-3 py-1 text-sm bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors flex items-center"
+                  >
+                    <X className="w-4 h-4 mr-1" />
+                    Clear All Filters
+                  </button>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <select
-                  value={searchField}
-                  onChange={(e) => setSearchField(e.target.value as 'email' | 'phone' | 'name')}
-                  className="px-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
-                >
-                  <option value="email">Email</option>
-                  <option value="phone">Phone</option>
-                  <option value="name">Name</option>
-                </select>
-                <button
-                  onClick={handleSearch}
-                  disabled={searching || !searchQuery.trim()}
-                  className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {searching ? 'Searching...' : 'Search'}
-                </button>
+              
+              <div className="flex flex-wrap gap-2">
+                {savedFilterPresets.map((preset) => (
+                  <button
+                    key={preset.id}
+                    onClick={() => loadFilterPreset(preset.id)}
+                    className={`px-3 py-1 text-sm rounded-md transition-colors flex items-center ${
+                      currentFilterPreset === preset.id
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {preset.name}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Search Results */}
-            {searchResults.length > 0 && (
+            {/* Advanced Filters */}
+            <div className="mb-6">
+              <button
+                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                className="flex items-center text-gray-700 hover:text-gray-900 mb-4"
+              >
+                <Filter className="w-4 h-4 mr-2" />
+                Advanced Filters
+                {showAdvancedFilters ? <ChevronUp className="w-4 h-4 ml-2" /> : <ChevronDown className="w-4 h-4 ml-2" />}
+              </button>
+
+              <AnimatePresence>
+                {showAdvancedFilters && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg"
+                  >
+                    {/* Date Range */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Signup Date Range</label>
+                      <div className="space-y-2">
+                        <input
+                          type="date"
+                          value={filterOptions.dateRange.start && filterOptions.dateRange.start !== '7days' && filterOptions.dateRange.start !== '30days' ? filterOptions.dateRange.start : ''}
+                          onChange={(e) => setFilterOptions(prev => ({
+                            ...prev,
+                            dateRange: { ...prev.dateRange, start: e.target.value || null }
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                        />
+                        <input
+                          type="date"
+                          value={filterOptions.dateRange.end && filterOptions.dateRange.end !== 'now' ? filterOptions.dateRange.end : ''}
+                          onChange={(e) => setFilterOptions(prev => ({
+                            ...prev,
+                            dateRange: { ...prev.dateRange, end: e.target.value || null }
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                        />
+                      </div>
+                      <div className="mt-2 flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setFilterOptions(prev => ({
+                            ...prev,
+                            dateRange: { start: '7days', end: 'now' }
+                          }))}
+                          className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                        >
+                          Last 7 Days
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFilterOptions(prev => ({
+                            ...prev,
+                            dateRange: { start: '30days', end: 'now' }
+                          }))}
+                          className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                        >
+                          Last 30 Days
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Lotus Count */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Lotus Count Range</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          placeholder="Min"
+                          value={filterOptions.lotusCount.min || ''}
+                          onChange={(e) => setFilterOptions(prev => ({
+                            ...prev,
+                            lotusCount: { ...prev.lotusCount, min: e.target.value ? parseInt(e.target.value) : null }
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                        />
+                        <input
+                          type="number"
+                          placeholder="Max"
+                          value={filterOptions.lotusCount.max || ''}
+                          onChange={(e) => setFilterOptions(prev => ({
+                            ...prev,
+                            lotusCount: { ...prev.lotusCount, max: e.target.value ? parseInt(e.target.value) : null }
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Radiance Boosts */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Radiance Boosts Range</label>
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          placeholder="Min"
+                          value={filterOptions.radianceBoosts.min || ''}
+                          onChange={(e) => setFilterOptions(prev => ({
+                            ...prev,
+                            radianceBoosts: { ...prev.radianceBoosts, min: e.target.value ? parseInt(e.target.value) : null }
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                        />
+                        <input
+                          type="number"
+                          placeholder="Max"
+                          value={filterOptions.radianceBoosts.max || ''}
+                          onChange={(e) => setFilterOptions(prev => ({
+                            ...prev,
+                            radianceBoosts: { ...prev.radianceBoosts, max: e.target.value ? parseInt(e.target.value) : null }
+                          }))}
+                          className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Subscription Status */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Subscription Status</label>
+                      <select
+                        value={filterOptions.subscriptionStatus}
+                        onChange={(e) => setFilterOptions(prev => ({ ...prev, subscriptionStatus: e.target.value }))}
+                        className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                      >
+                        <option value="">Any Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+                    </div>
+
+                    {/* Onboarding Status */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Onboarding Status</label>
+                      <select
+                        value={filterOptions.onboardingStatus}
+                        onChange={(e) => setFilterOptions(prev => ({ ...prev, onboardingStatus: e.target.value }))}
+                        className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                      >
+                        <option value="">Any Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="incomplete">Incomplete</option>
+                      </select>
+                    </div>
+
+                    {/* Location */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Location/Region</label>
+                      <input
+                        type="text"
+                        placeholder="Enter region or city"
+                        value={filterOptions.location}
+                        onChange={(e) => setFilterOptions(prev => ({ ...prev, location: e.target.value }))}
+                        className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                      />
+                    </div>
+
+                    {/* Connection Intent */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Connection Intent</label>
+                      <select
+                        value={filterOptions.connectionIntent}
+                        onChange={(e) => setFilterOptions(prev => ({ ...prev, connectionIntent: e.target.value }))}
+                        className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                      >
+                        <option value="">Any Intent</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="friendship">Friendship</option>
+                        <option value="both">Both</option>
+                      </select>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Results Summary & Export */}
+            <div className="flex items-center justify-between mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="text-sm text-gray-600">
+                Showing <span className="font-semibold">{filteredUsers.length}</span> of <span className="font-semibold">{appUsers.length}</span> users
+                {Object.keys(activeFilters).length > 0 && (
+                  <span className="ml-2 text-purple-600">
+                    (filtered by {Object.keys(activeFilters).length} criteria)
+                  </span>
+                )}
+              </div>
+              <button
+                onClick={exportToCSV}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors flex items-center"
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Export to CSV
+              </button>
+            </div>
+
+            {/* Filtered Users Table */}
+            {filteredUsers.length > 0 && (
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lotus</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Radiance</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Onboarding</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscription</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lotus</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Radiance</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Onboarding</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Subscription</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Details</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {searchResults.map((user) => {
+                    {filteredUsers.map((user) => {
                       const onboardingStatus = getOnboardingStatus(user);
                       const hasSubscription = user.subscription?.isActive;
                       
@@ -1331,9 +2143,16 @@ export default function AdminDashboard() {
               </div>
             )}
 
-            {searchResults.length === 0 && searchQuery && !searching && (
-              <p className="text-gray-500 text-center py-8">No users found matching your search.</p>
+            {filteredUsers.length === 0 && (
+              <p className="text-gray-500 text-center py-8">
+                {Object.keys(activeFilters).length > 0 
+                  ? 'No users match your current filters. Try adjusting your criteria.'
+                  : 'No users found. Use the filters above to find specific users.'
+                }
+              </p>
             )}
+
+
           </motion.div>
         )}
 
@@ -1430,6 +2249,43 @@ export default function AdminDashboard() {
                   className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 transition-colors"
                 >
                   {processing ? 'Processing...' : 'Execute Operation'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Save Filter Preset Modal */}
+        {showSavePresetModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Save Filter Preset</h3>
+              <p className="text-gray-600 mb-4">
+                Save your current filter settings as a reusable preset for quick access.
+              </p>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Preset Name</label>
+                <input
+                  type="text"
+                  value={filterPresetName}
+                  onChange={(e) => setFilterPresetName(e.target.value)}
+                  placeholder="e.g., High Value Users, New Signups"
+                  className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                />
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowSavePresetModal(false)}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={saveFilterPreset}
+                  disabled={!filterPresetName.trim()}
+                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 transition-colors"
+                >
+                  Save Preset
                 </button>
               </div>
             </div>

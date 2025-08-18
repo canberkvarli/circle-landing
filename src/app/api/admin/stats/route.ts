@@ -1,5 +1,28 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
+
+// Define interfaces for the data we're working with
+interface UserData {
+  id: string;
+  subscription?: {
+    isActive?: boolean;
+    createdAt?: Date | string;
+  };
+  createdAt?: Date | string;
+  onboardingCompleted?: boolean;
+  lotusCount?: number;
+  numOfLotus?: number;
+}
+
+interface WaitlistUser {
+  id: string;
+}
+
+interface LotusTransaction {
+  id: string;
+  type?: string;
+  amount?: number;
+}
 
 export const runtime = 'nodejs';
 
@@ -9,15 +32,15 @@ export async function GET() {
     
     // Get all users
     const usersSnap = await db.collection('users').get();
-    const users = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const users = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })) as UserData[];
     
     // Get waitlist users
     const waitlistSnap = await db.collection('waitlist').get();
-    const waitlistUsers = waitlistSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const waitlistUsers = waitlistSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })) as WaitlistUser[];
     
     // Get lotus transactions
     const lotusSnap = await db.collection('lotusTransactions').get();
-    const lotusTransactions = lotusSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const lotusTransactions = lotusSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })) as LotusTransaction[];
     
     // Calculate statistics
     const totalUsers = users.length;
@@ -53,8 +76,8 @@ export async function GET() {
       totalLotusSpent,
       recentSignups,
       recentSubscriptions,
-      totalLotusBalance: users.reduce((sum, user) => sum + (user.lotusCount || 0), 0),
-      averageLotusPerUser: totalUsers > 0 ? (users.reduce((sum, user) => sum + (user.lotusCount || 0), 0) / totalUsers).toFixed(1) : 0,
+      totalLotusBalance: users.reduce((sum, user) => sum + (user.numOfLotus || 0), 0),
+      averageLotusPerUser: totalUsers > 0 ? (users.reduce((sum, user) => sum + (user.numOfLotus || 0), 0) / totalUsers).toFixed(1) : 0,
       onboardingCompletionRate: totalUsers > 0 ? ((users.filter(user => user.onboardingCompleted).length / totalUsers) * 100).toFixed(1) : 0
     };
 

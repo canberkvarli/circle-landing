@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
+import { FieldValue } from 'firebase-admin/firestore';
 
 export const runtime = 'nodejs';
 
 // GET: Retrieve individual user data
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const { userId } = params;
+    const { userId } = await context.params;
     
     if (!userId) {
       return NextResponse.json({ 
@@ -46,10 +47,10 @@ export async function GET(
 // PUT: Update user data
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const { userId } = params;
+    const { userId } = await context.params;
     const updateData = await request.json();
     
     if (!userId) {
@@ -106,10 +107,10 @@ export async function PUT(
 // POST: Perform specific actions on user
 export async function POST(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const { userId } = params;
+    const { userId } = await context.params;
     const { action, data } = await request.json();
     
     if (!userId || !action) {
@@ -160,7 +161,7 @@ export async function POST(
 
         await userRef.set({
           numOfLotus: newLotusBalance,
-          lotusPurchases: admin.firestore.FieldValue.arrayUnion(lotusPurchase),
+          lotusPurchases: FieldValue.arrayUnion(lotusPurchase),
           lastLotusAssignedAt: now,
           updatedAt: now
         }, { merge: true });
@@ -196,7 +197,7 @@ export async function POST(
 
         await userRef.set({
           numOfLotus: newLotusBalanceAfterRevoke,
-          lotusPurchases: admin.firestore.FieldValue.arrayUnion(lotusRevocation),
+          lotusPurchases: FieldValue.arrayUnion(lotusRevocation),
           updatedAt: now
         }, { merge: true });
 
@@ -231,7 +232,7 @@ export async function POST(
 
         await userRef.set({
           activeBoosts: newBoostBalance,
-          boostPurchases: admin.firestore.FieldValue.arrayUnion(boostPurchase),
+          boostPurchases: FieldValue.arrayUnion(boostPurchase),
           updatedAt: now
         }, { merge: true });
 
@@ -266,7 +267,7 @@ export async function POST(
 
         await userRef.set({
           activeBoosts: newBoostBalanceAfterRevoke,
-          boostPurchases: admin.firestore.FieldValue.arrayUnion(boostRevocation),
+          boostPurchases: FieldValue.arrayUnion(boostRevocation),
           updatedAt: now
         }, { merge: true });
 

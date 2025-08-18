@@ -2,11 +2,17 @@
 
 export interface UserData {
   userId: string;
+  isSeedUser: boolean;
   firstName?: string;
   familyName?: string;
   fullName?: string;
   email: string;
   phoneNumber?: string;
+  currentOnboardingScreen?: string | null;
+  countryCode?: string;
+  areaCode?: string;
+  number?: string;
+  regionName?: string;
   subscription?: {
     isActive: boolean;
     stripeCustomerId?: string;
@@ -24,6 +30,16 @@ export interface UserData {
   lastActive?: Date;
   numOfLotus?: number; // Updated to match mobile app
   activeBoosts?: number; // Added for radiance boosts
+  spiritualProfile?: {
+    practices?: string[];
+  };
+  matchPreferences?: {
+    connectionIntent?: string;
+  };
+  photos?: string[];
+  settings?: {
+    pushToken?: string;
+  };
 }
 
 export interface WaitlistUser {
@@ -57,17 +73,27 @@ export async function searchUsersByField(
     const data = await res.json();
     return (data.users || []).map((u: Record<string, unknown>) => ({
       userId: u.id as string,
+      isSeedUser: u.isSeedUser as boolean || false,
       firstName: u.firstName as string | undefined,
       familyName: u.familyName as string | undefined,
       fullName: u.fullName as string | undefined,
       email: u.email as string,
       phoneNumber: u.phoneNumber as string | undefined,
+      currentOnboardingScreen: u.currentOnboardingScreen as string | null | undefined,
+      countryCode: u.countryCode as string | undefined,
+      areaCode: u.areaCode as string | undefined,
+      number: u.number as string | undefined,
+      regionName: u.regionName as string | undefined,
       subscription: u.subscription as UserData['subscription'],
       onboardingCompleted: u.onboardingCompleted as boolean | undefined,
       createdAt: u.createdAt as Date | undefined,
       lastActive: u.lastActive as Date | undefined,
       numOfLotus: u.numOfLotus as number | undefined, // Updated field name
       activeBoosts: u.activeBoosts as number | undefined, // Added field
+      spiritualProfile: u.spiritualProfile as { practices?: string[] } | undefined,
+      matchPreferences: u.matchPreferences as { connectionIntent?: string } | undefined,
+      photos: u.photos as string[] | undefined,
+      settings: u.settings as { pushToken?: string } | undefined,
     }));
   } catch (error) {
     console.error('Error searching users:', error);
@@ -108,17 +134,27 @@ export async function getAppUsers(): Promise<UserData[]> {
     const data = await res.json();
     return (data.users || []).map((u: Record<string, unknown>) => ({
       userId: u.id as string,
+      isSeedUser: u.isSeedUser as boolean || false,
       firstName: u.firstName as string | undefined,
       familyName: u.familyName as string | undefined,
       fullName: u.fullName as string | undefined,
       email: u.email as string,
       phoneNumber: u.phoneNumber as string | undefined,
+      currentOnboardingScreen: u.currentOnboardingScreen as string | null | undefined,
+      countryCode: u.countryCode as string | undefined,
+      areaCode: u.areaCode as string | undefined,
+      number: u.number as string | undefined,
+      regionName: u.regionName as string | undefined,
       subscription: u.subscription as UserData['subscription'],
       onboardingCompleted: u.onboardingCompleted as boolean | undefined,
       createdAt: u.createdAt as Date | undefined,
       lastActive: u.lastActive as Date | undefined,
       numOfLotus: u.numOfLotus as number | undefined, // Updated field name
       activeBoosts: u.activeBoosts as number | undefined, // Added field
+      spiritualProfile: u.spiritualProfile as { practices?: string[] } | undefined,
+      matchPreferences: u.matchPreferences as { connectionIntent?: string } | undefined,
+      photos: u.photos as string[] | undefined,
+      settings: u.settings as { pushToken?: string } | undefined,
     }));
   } catch (error) {
     console.error('Firebase: Error getting app users:', error);
@@ -272,25 +308,54 @@ export async function revokeRadianceBoosts(
  * Send notification to user(s)
  */
 export async function sendNotification(
-  userIds: string[] | null, // null for broadcast
+  userIds: string[] | null,
   title: string,
   message: string,
-  type: 'email' | 'push' | 'both' = 'both'
-): Promise<{ success: boolean; error?: string; notificationId?: string }> {
+  type: 'email' | 'push' | 'both' = 'push'
+): Promise<{ success: boolean; error?: string; notificationId?: string; totalRecipients?: number; successfulDeliveries?: number; failedDeliveries?: number }> {
   try {
+    const payload: {
+      title: string;
+      body: string;
+      notificationType: string;
+      data: { source: string; timestamp: number };
+      userIds?: string[];
+      broadcast?: boolean;
+    } = {
+      title,
+      body: message,
+      notificationType: type,
+      data: {
+        source: 'admin-dashboard',
+        timestamp: Date.now()
+      }
+    };
+
+    if (userIds && userIds.length > 0) {
+      payload.userIds = userIds;
+    } else {
+      payload.broadcast = true;
+    }
+
     const res = await fetch('/api/admin/notifications', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        userIds, 
-        title, 
-        message, 
-        type 
-      }),
+      body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || `HTTP ${res.status}`);
+    }
+
     const data = await res.json();
-    return { success: true, notificationId: data.notificationId };
+    return {
+      success: true,
+      notificationId: data.notificationId,
+      totalRecipients: data.totalRecipients,
+      successfulDeliveries: data.successfulDeliveries,
+      failedDeliveries: data.failedDeliveries
+    };
   } catch (error) {
     console.error('Error sending notification:', error);
     return {
@@ -305,7 +370,7 @@ export async function sendNotification(
  */
 export async function getAdminStats(): Promise<{
   success: boolean;
-  stats?: any;
+  stats?: Record<string, unknown>;
   error?: string;
 }> {
   try {
@@ -327,7 +392,7 @@ export async function getAdminStats(): Promise<{
  */
 export async function getUserLotusHistory(userId: string): Promise<{
   success: boolean;
-  transactions?: any[];
+  transactions?: Record<string, unknown>[];
   error?: string;
 }> {
   try {
@@ -350,7 +415,7 @@ export async function getUserLotusHistory(userId: string): Promise<{
 export async function performBulkOperation(
   type: 'grantLotus' | 'revokeLotus' | 'grantRadiance' | 'revokeRadiance' | 'sendNotification' | 'grantSubscription' | 'revokeSubscription',
   userIds: string[],
-  data?: any
+  data?: Record<string, unknown>
 ): Promise<{ success: boolean; error?: string; operationId?: string }> {
   try {
     const res = await fetch('/api/admin/bulk-operations', {
