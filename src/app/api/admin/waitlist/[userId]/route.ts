@@ -3,7 +3,24 @@ import { getAdminDb } from '@/services/firebase/adminApp';
 
 export const runtime = 'nodejs';
 
+// ✅ Support both DELETE and POST methods
 export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  return handleWaitlistDeletion(request, { params });
+}
+
+// ✅ Add POST method as fallback (some environments prefer POST)
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  return handleWaitlistDeletion(request, { params });
+}
+
+// ✅ Helper function to handle the deletion logic
+async function handleWaitlistDeletion(
   request: NextRequest,
   { params }: { params: Promise<{ userId: string }> }
 ) {

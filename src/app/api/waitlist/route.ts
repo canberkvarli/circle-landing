@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
 
       console.log('Email HTML generated, length:', emailHtml.length);
 
-      const emailUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'}/api/send-email`;
+      const emailUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-email`;
       console.log('Sending email request to:', emailUrl);
 
       const emailResponse = await fetch(emailUrl, {
