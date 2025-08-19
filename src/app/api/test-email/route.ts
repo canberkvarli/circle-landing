@@ -5,9 +5,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { to, subject, html } = await request.json();
+    const { to } = await request.json();
 
-    console.log('Email API called with:', { to, subject, html: html.substring(0, 100) + '...' });
+    console.log('Test email API called with:', { to });
     console.log('Environment check - RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
     console.log('Environment check - RESEND_API_KEY length:', process.env.RESEND_API_KEY?.length || 0);
 
@@ -19,34 +19,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send email using Resend
-    console.log('Attempting to send email via Resend to:', to);
-    console.log('Using from address: FullCircle <onboarding@resend.dev>');
-    
+    // Send a simple test email
     const { data, error } = await resend.emails.send({
-      from: 'FullCircle <onboarding@resend.dev>', // Using your onboarding domain for now
+      from: 'FullCircle <onboarding@resend.dev>',
       to: [to],
-      subject: subject,
-      html: html,
-      replyTo: 'support@joinfullcircle.app', // Add reply-to address
+      subject: '🧪 Test Email from FullCircle',
+      html: `
+        <h1>Test Email</h1>
+        <p>This is a test email to verify that the email service is working correctly.</p>
+        <p>If you receive this, the email configuration is working!</p>
+        <p>Sent at: ${new Date().toISOString()}</p>
+      `,
     });
 
     console.log('Resend API response:', { data, error });
 
     if (error) {
       console.error('Resend error:', error);
-      console.error('Error details:', JSON.stringify(error, null, 2));
       return NextResponse.json(
-        { success: false, message: 'Failed to send email via Resend', error: error },
+        { success: false, message: 'Failed to send test email via Resend', error: error },
         { status: 500 }
       );
     }
 
     if (data) {
-      console.log('Email sent successfully:', data);
+      console.log('Test email sent successfully:', data);
       return NextResponse.json({ 
         success: true, 
-        message: 'Email sent successfully via Resend',
+        message: 'Test email sent successfully via Resend',
         id: data.id 
       });
     }
@@ -57,9 +57,9 @@ export async function POST(request: NextRequest) {
     );
 
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending test email:', error);
     return NextResponse.json(
-      { success: false, message: 'Internal server error' },
+      { success: false, message: 'Internal server error', error: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

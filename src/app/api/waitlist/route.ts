@@ -80,6 +80,7 @@ export async function POST(request: NextRequest) {
       });
 
       console.log('Email API response status:', emailResponse.status);
+      console.log('Email API response headers:', Object.fromEntries(emailResponse.headers.entries()));
 
       if (emailResponse.ok) {
         const emailResult = await emailResponse.json();
@@ -87,6 +88,12 @@ export async function POST(request: NextRequest) {
       } else {
         const errorText = await emailResponse.text();
         console.error('Failed to send confirmation email:', emailResponse.status, errorText);
+        console.error('Full email request details:', {
+          url: emailUrl,
+          to: email.toLowerCase().trim(),
+          subject: '🌟 Welcome to FullCircle Waitlist! 🌟',
+          htmlLength: emailHtml.length
+        });
       }
     } catch (emailError) {
       console.error('Error sending confirmation email:', emailError);
