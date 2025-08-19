@@ -12,6 +12,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.ok && result.success) {
         setSubmitted(true);
         // Close modal after 2 seconds
         setTimeout(() => {
@@ -39,14 +40,13 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           setEmail("");
         }, 2000);
       } else {
-        console.error('Waitlist submission failed:', result.message);
-        // You could add error handling here if needed
-        setSubmitted(true); // Still show success for now
-        setTimeout(() => {
-          onClose();
-          setSubmitted(false);
-          setEmail("");
-        }, 2000);
+        // Handle specific error cases
+        if (response.status === 409) {
+          setError('This email is already on our waitlist! You\'re all set.');
+        } else {
+          console.error('Waitlist submission failed:', result.message);
+          setError(result.message || 'Failed to join waitlist. Please try again.');
+        }
       }
     } catch (error) {
       console.error('Error submitting to waitlist:', error);
@@ -226,7 +226,10 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                   <input
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (error) setError(""); // Clear error when user types
+                    }}
                     placeholder="Enter your email address"
                     className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-full focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-dark/60 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-light/60 dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent font-medium"
                     required
@@ -240,6 +243,15 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </button>
               </div>
+              
+              {/* Error Display */}
+              {error && (
+                <div className="text-center">
+                  <p className="text-red-600 dark:text-red-400 text-sm font-medium">
+                    {error}
+                  </p>
+                </div>
+              )}
             </form>
           ) : (
             <div className="text-center py-8">

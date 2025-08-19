@@ -51,7 +51,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
 
       const result = await response.json();
       
-      if (result.success) {
+      if (response.ok && result.success) {
         setSubmitted(true);
         // Close modal after 5 seconds
         setTimeout(() => {
@@ -59,7 +59,12 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
           setSubmitted(false);
         }, 5000);
       } else {
-        setError(result.message || 'Failed to join waitlist. Please try again.');
+        // Handle specific error cases
+        if (response.status === 409) {
+          setError('This email is already on our waitlist! You\'re all set.');
+        } else {
+          setError(result.message || 'Failed to join waitlist. Please try again.');
+        }
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
