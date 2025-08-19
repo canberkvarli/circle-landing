@@ -74,8 +74,8 @@ async function sendEmailNotification(email: string, payload: NotificationPayload
       html: getAdminNotificationEmail({
         title: payload.title,
         body: payload.body,
-        actionUrl: payload.data?.actionUrl,
-        actionText: payload.data?.actionText
+        actionUrl: typeof payload.data?.actionUrl === 'string' ? payload.data.actionUrl : undefined,
+        actionText: typeof payload.data?.actionText === 'string' ? payload.data.actionText : undefined
       }),
     });
 
@@ -250,13 +250,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Process notification without storing in database
-    const targetUserIds = emailOnly ? emailOnlyUsers.map(u => u.userId) : targetUsers.map(u => u.userId);
     const totalRecipients = emailOnly ? emailOnlyUsers.length : targetUsers.length;
     
     // Create a mock reference for tracking (no database storage)
     const mockNotificationRef = {
       id: 'notification-' + Date.now(),
-      update: async (data: any) => console.log('Mock notification update:', data)
+      update: async (data: Record<string, unknown>) => console.log('Mock notification update:', data)
     };
 
     // Send push notifications (only if not email-only mode)

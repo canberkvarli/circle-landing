@@ -1,11 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    // Create response with success
     const response = NextResponse.json({ success: true, message: 'Logged out successfully' });
-    
-    // Clear the admin session cookie
     response.cookies.set('admin-session', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -13,7 +10,6 @@ export async function POST(request: NextRequest) {
       expires: new Date(0), // Expire immediately
       path: '/'
     });
-    
     return response;
   } catch (error) {
     console.error('Admin logout error:', error);

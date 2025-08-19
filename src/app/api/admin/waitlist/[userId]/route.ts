@@ -5,10 +5,10 @@ export const runtime = 'nodejs';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { userId: string } }
+  { params }: { params: Promise<{ userId: string }> }
 ) {
   try {
-    const { userId } = params;
+    const { userId } = await params;
 
     if (!userId) {
       return NextResponse.json(

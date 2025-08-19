@@ -3,15 +3,27 @@ import { getAdminDb } from '@/services/firebase/adminApp';
 
 export const runtime = 'nodejs';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
+    console.log('🔍 Admin users route called');
+    
     const db = getAdminDb();
+    console.log('✅ Database connection successful');
+    
+    // Get all users
     const usersSnap = await db.collection('users').get();
-    const users = usersSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const users = usersSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    console.log(`✅ Found ${users.length} users`);
     return NextResponse.json({ success: true, users });
+    
   } catch (error) {
-    console.error('Admin users list error:', error);
-    return NextResponse.json({ success: false, message: 'Failed to list users' }, { status: 400 });
+    console.error('❌ Admin users error:', error);
+    return NextResponse.json({ 
+      success: false, 
+      message: 'Failed to list users',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
 
