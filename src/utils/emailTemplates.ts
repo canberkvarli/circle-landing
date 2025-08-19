@@ -289,12 +289,7 @@ const getBaseEmailTemplate = (content: string): string => `
         <div class="header">
             <div class="logo-container">
                 <div class="logo">
-                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="50" cy="50" r="45" fill="#C17767"/>
-                        <circle cx="50" cy="50" r="35" fill="none" stroke="#FFFFFF" stroke-width="3"/>
-                        <circle cx="50" cy="50" r="25" fill="#7B6B5C"/>
-                        <circle cx="50" cy="50" r="15" fill="none" stroke="#FFFFFF" stroke-width="2"/>
-                    </svg>
+                    <img src="https://joinfullcircle.app/assets/circle.svg" alt="Circle Logo" width="60" height="60" style="width: 60px; height: 60px;" />
                 </div>
                 <h1 class="header-title">Circle</h1>
                 <p class="header-subtitle">Meaningful Connections</p>
@@ -309,10 +304,10 @@ const getBaseEmailTemplate = (content: string): string => `
             <p class="footer-text">This is an automated message from Circle</p>
             <p class="footer-text">You can manage your preferences in the app settings</p>
             <div class="social-links">
-                <a href="#" class="social-link">🌟</a>
-                <a href="#" class="social-link">💫</a>
-                <a href="#" class="social-link">✨</a>
-                <a href="#" class="social-link">⭐</a>
+                <a href="#" class="social-link">●</a>
+                <a href="#" class="social-link">○</a>
+                <a href="#" class="social-link">◐</a>
+                <a href="#" class="social-link">◑</a>
             </div>
             <div class="spacer"></div>
             <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The FullCircle Team</span></p>
@@ -344,28 +339,28 @@ export const getWelcomeEmail = (data: EmailTemplateData): string => {
         <p class="highlight-subtitle">Connect with people who share your interests and values</p>
     </div>
     
-    <div class="feature-grid">
-        <div class="feature-item">
-            <span class="feature-icon">🌟</span>
-            <h4 class="feature-title">Mindful Matching</h4>
-            <p class="feature-text">Find connections based on shared interests and values</p>
+            <div class="feature-grid">
+            <div class="feature-item">
+                <span class="feature-icon">●</span>
+                <h4 class="feature-title">Mindful Matching</h4>
+                <p class="feature-text">Find connections based on shared interests and values</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">○</span>
+                <h4 class="feature-title">Community Spaces</h4>
+                <p class="feature-text">Join circles and groups that matter to you</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">◐</span>
+                <h4 class="feature-title">Natural Growth</h4>
+                <p class="feature-text">Nurture relationships that evolve organically</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">◑</span>
+                <h4 class="feature-title">Authentic Connections</h4>
+                <p class="feature-text">Connect with genuine people</p>
+            </div>
         </div>
-        <div class="feature-item">
-            <span class="feature-icon">💫</span>
-            <h4 class="feature-title">Community Spaces</h4>
-            <p class="feature-text">Join circles and groups that matter to you</p>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">🌿</span>
-            <h4 class="feature-title">Natural Growth</h4>
-            <p class="feature-text">Nurture relationships that evolve organically</p>
-        </div>
-        <div class="feature-item">
-            <span class="feature-icon">⭐</span>
-            <h4 class="feature-title">Authentic Connections</h4>
-            <p class="feature-text">Connect with genuine people</p>
-        </div>
-    </div>
     
     <div style="text-align: center; margin: 35px 0;">
         <a href="#" class="cta-button">Begin Your Journey</a>
@@ -402,11 +397,11 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
         <h3 style="color: #7B6B5C; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">What to expect next:</h3>
         <div style="background: rgba(255, 255, 255, 0.7); padding: 30px; border-radius: 20px; border: 1px solid rgba(232, 224, 213, 0.5);">
             <ul style="color: #6B5B4F; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 25px; text-align: left;">
-                <li style="margin-bottom: 12px;">🌟 Early access notification when we launch</li>
-                <li style="margin-bottom: 12px;">💫 Community updates and insights</li>
-                <li style="margin-bottom: 12px;">✨ Special offers and bonuses for waitlist members</li>
-                <li style="margin-bottom: 12px;">⭐ Behind-the-scenes content and wisdom</li>
-                <li style="margin-bottom: 0;">🌟 Guided practices and activities</li>
+                <li style="margin-bottom: 12px;">● Early access notification when we launch</li>
+                <li style="margin-bottom: 12px;">○ Community updates and insights</li>
+                <li style="margin-bottom: 12px;">◐ Special offers and bonuses for waitlist members</li>
+                <li style="margin-bottom: 12px;">◑ Behind-the-scenes content and wisdom</li>
+                <li style="margin-bottom: 0;">● Guided practices and activities</li>
             </ul>
         </div>
     </div>
@@ -447,22 +442,22 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
         <h3 style="color: #7B6B5C; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">What happens next:</h3>
         <div class="feature-grid">
             <div class="feature-item">
-                <span class="feature-icon">📱</span>
+                <span class="feature-icon">●</span>
                 <h4 class="feature-title">Create Profile</h4>
                 <p class="feature-text">Share your journey and interests</p>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">🔍</span>
+                <span class="feature-icon">○</span>
                 <h4 class="feature-title">Find Matches</h4>
                 <p class="feature-text">Discover people aligned with your interests</p>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">💬</span>
+                <span class="feature-icon">◐</span>
                 <h4 class="feature-title">Start Connecting</h4>
                 <p class="feature-text">Begin meaningful conversations</p>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">🌱</span>
+                <span class="feature-icon">◑</span>
                 <h4 class="feature-title">Grow Together</h4>
                 <p class="feature-text">Nurture meaningful friendships</p>
             </div>
@@ -495,15 +490,15 @@ export const getWeeklyInspirationEmail = (data: EmailTemplateData): string => {
         <h3 style="color: #7B6B5C; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">Daily Practices for Inner Peace:</h3>
         <div style="background: rgba(255, 255, 255, 0.7); padding: 30px; border-radius: 20px; border: 1px solid rgba(232, 224, 213, 0.5);">
             <div style="margin-bottom: 20px; padding: 20px; background: rgba(232, 180, 160, 0.1); border-radius: 16px;">
-                <h4 style="color: #C17767; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">🌅 Morning: 5-Minute Breathing</h4>
+                <h4 style="color: #C17767; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">● Morning: 5-Minute Breathing</h4>
                 <p style="color: #6B5B4F; font-size: 15px; margin: 0; line-height: 1.6;">Start your day with conscious breathing to center yourself</p>
             </div>
             <div style="margin-bottom: 20px; padding: 20px; background: rgba(232, 180, 160, 0.1); border-radius: 16px;">
-                <h4 style="color: #C17767; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">✨ Afternoon: Nature Connection</h4>
+                <h4 style="color: #C17767; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">○ Afternoon: Nature Connection</h4>
                 <p style="color: #6B5B4F; font-size: 15px; margin: 0; line-height: 1.6;">Take a mindful walk and connect with the natural world</p>
             </div>
             <div style="padding: 20px; background: rgba(232, 180, 160, 0.1); border-radius: 16px;">
-                <h4 style="color: #C17767; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">⭐ Evening: Gratitude Reflection</h4>
+                <h4 style="color: #C17767; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">◐ Evening: Gratitude Reflection</h4>
                 <p style="color: #6B5B4F; font-size: 15px; margin: 0; line-height: 1.6;">End your day by reflecting on three things you're grateful for</p>
             </div>
         </div>

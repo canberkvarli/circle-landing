@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X, CheckCircle, Mail } from "lucide-react";
+import { X, CheckCircle, Mail, Sparkles, Leaf, Star, Crown } from "lucide-react";
 import Image from "next/image";
 
 interface FullCircleModalProps {
@@ -114,28 +114,28 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {[
               {
-                icon: "💫",
+                icon: <Sparkles className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Soul Matching",
                 description: "Advanced algorithm that connects you with compatible spiritual seekers"
               },
               {
-                icon: "🌿",
+                icon: <Leaf className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Mindful Community",
                 description: "Join exclusive events and connect with like-minded souls"
               },
               {
-                icon: "✨",
+                icon: <Star className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Premium Support",
                 description: "Get dedicated assistance from our connection experts"
               },
               {
-                icon: "🌟",
+                icon: <Crown className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Exclusive Content",
                 description: "Access to guided meditations, mindful practices, and growth resources"
               }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-xl p-4 border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
-                <div className="text-3xl mb-3">{feature.icon}</div>
+                <div className="mb-3">{feature.icon}</div>
                 <h4 className="text-xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
                   {feature.title}
                 </h4>
