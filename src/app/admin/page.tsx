@@ -135,6 +135,7 @@ export default function AdminDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   // Existing state
   const [assigningSubscription, setAssigningSubscription] = useState<string | null>(null);
@@ -191,9 +192,16 @@ export default function AdminDashboard() {
 
 
   useEffect(() => {
-    loadAllUsers();
-    loadAdminStats();
-  }, []);
+    console.log('🔍 useEffect triggered, isAuthenticated:', isAuthenticated);
+    // Only load data if user is authenticated
+    if (isAuthenticated) {
+      console.log('✅ User is authenticated, loading data...');
+      loadAllUsers();
+      loadAdminStats();
+    } else {
+      console.log('❌ User is not authenticated, skipping data load');
+    }
+  }, [isAuthenticated]);
 
   const loadAllUsers = async () => {
     setLoading(true);
@@ -723,15 +731,66 @@ export default function AdminDashboard() {
   }, [filterOptions]);
 
   // Password authentication
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple password check - you can change this to whatever password you want
-    if (password === 'bean') {
-      setIsAuthenticated(true);
-      setPasswordError('');
-    } else {
-      setPasswordError('Incorrect password');
+    console.log('🔐 Password submission started');
+    setPasswordError('');
+    setIsAuthenticating(true);
+    
+    try {
+      console.log('📡 Calling auth API...');
+      const response = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      
+      console.log('📥 Auth response received:', response.status);
+      const data = await response.json();
+      console.log('📋 Auth response data:', data);
+      
+      if (data.success) {
+        console.log('✅ Authentication successful, setting state...');
+        setIsAuthenticated(true);
+        setPassword('');
+        console.log('✅ Authentication state updated');
+      } else {
+        console.log('❌ Authentication failed:', data.message);
+        setPasswordError(data.message || 'Incorrect password');
+        setPassword('');
+      }
+    } catch (error) {
+      console.error('❌ Authentication error:', error);
+      setPasswordError('Authentication failed. Please try again.');
       setPassword('');
+    } finally {
+      setIsAuthenticating(false);
+      console.log('🔚 Authentication process completed');
+    }
+  };
+
+  // Logout function
+  const handleLogout = async () => {
+    try {
+      // Call logout API to clear server-side session
+      await fetch('/api/admin/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Clear client-side state
+      setIsAuthenticated(false);
+      // Reset all state
+      setWaitlistUsers([]);
+      setAppUsers([]);
+      setAdminStats(null);
+      setActiveTab('dashboard');
     }
   };
 
@@ -770,9 +829,17 @@ export default function AdminDashboard() {
               
               <button
                 type="submit"
-                className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors font-medium"
+                disabled={isAuthenticating}
+                className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Access Dashboard
+                {isAuthenticating ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white inline mr-2"></div>
+                    Authenticating...
+                  </>
+                ) : (
+                  'Access Dashboard'
+                )}
               </button>
             </form>
             
@@ -802,9 +869,17 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">FullCircle Admin Panel</h1>
-          <p className="text-lg text-gray-700">Comprehensive user management, lotus flowers, notifications, and analytics</p>
+        <div className="flex justify-between items-center mb-8">
+          <div className="text-center flex-1">
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">FullCircle Admin Panel</h1>
+            <p className="text-lg text-gray-700">Comprehensive user management, lotus flowers, notifications, and analytics</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors font-medium"
+          >
+            Logout
+          </button>
         </div>
 
         {/* Tab Navigation */}

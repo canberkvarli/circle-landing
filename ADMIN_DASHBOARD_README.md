@@ -151,9 +151,37 @@ The FullCircle Admin Dashboard has been completely enhanced to provide comprehen
 ## Security Features
 
 - **Admin-only Access**: Restricted to authenticated admin users
+- **Password Protection**: Secure admin authentication using environment variables
+- **Server-side Validation**: All authentication happens on the server, not client-side
 - **Audit Logging**: All operations are logged with admin identification
 - **Transaction Tracking**: Complete history of lotus flower operations
 - **Error Handling**: Graceful failure handling with detailed error messages
+
+### 🔐 Admin Authentication Setup
+
+The admin dashboard is protected by a password system that uses environment variables for security:
+
+1. **Set Environment Variable**: Add `ADMIN_PASSWORD=your_secure_password` to your `.env` file
+2. **Never Commit Passwords**: Ensure `.env` is in your `.gitignore` file
+3. **Use Strong Passwords**: Choose a complex, unique password for production
+4. **Environment-specific**: Use different passwords for development, staging, and production
+
+#### Environment Configuration
+```bash
+# .env (DO NOT COMMIT THIS FILE)
+ADMIN_PASSWORD=your_secure_admin_password
+
+# .env.example (Safe to commit - shows required variables)
+ADMIN_PASSWORD=your_secure_admin_password
+```
+
+#### Security Best Practices
+- ✅ Use environment variables for sensitive data
+- ✅ Never hardcode passwords in source code
+- ✅ Use different passwords per environment
+- ✅ Regularly rotate admin passwords
+- ❌ Don't commit `.env` files to version control
+- ❌ Don't use simple passwords like "admin" or "123456"
 
 ## Performance Considerations
 

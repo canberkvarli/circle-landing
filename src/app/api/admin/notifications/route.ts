@@ -182,6 +182,9 @@ export async function POST(request: NextRequest) {
   console.log('🔔 POST /api/admin/notifications called');
   
   try {
+    // Check authentication
+    // The authentication middleware now handles this, so we can proceed directly
+
     const { title, body, data, type, userIds, broadcast, sendEmail = false, emailOnly = false }: NotificationPayload = await request.json();
 
     if (!title || !body) {

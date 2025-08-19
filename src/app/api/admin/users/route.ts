@@ -3,7 +3,7 @@ import { getAdminDb } from '@/services/firebase/adminApp';
 
 export const runtime = 'nodejs';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const db = getAdminDb();
     const usersSnap = await db.collection('users').get();
@@ -11,7 +11,7 @@ export async function GET() {
     return NextResponse.json({ success: true, users });
   } catch (error) {
     console.error('Admin users list error:', error);
-    return NextResponse.json({ success: false, message: 'Failed to list users' }, { status: 500 });
+    return NextResponse.json({ success: false, message: 'Failed to list users' }, { status: 400 });
   }
 }
 

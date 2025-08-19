@@ -1,17 +1,60 @@
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
 
 export const runtime = 'nodejs';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const db = getAdminDb();
+    console.log('🔍 Admin waitlist route called - STEP 1');
+    
+    // Simple authentication check (temporarily bypassing middleware)
+    const adminSession = request.cookies.get('admin-session');
+    console.log('🍪 Admin session cookie:', adminSession ? adminSession.value : 'not found');
+    
+    if (!adminSession || adminSession.value !== 'authenticated') {
+      console.log('❌ Authentication failed, returning 401');
+      return NextResponse.json({ 
+        success: false, 
+        message: 'Unauthorized access',
+        error: 'No valid admin session'
+      }, { status: 401 });
+    }
+    
+    console.log('✅ Authentication successful, proceeding with database operations...');
+    console.log('🔍 Admin waitlist route called - STEP 2: About to get database connection');
+    
+    // Check if we can get the database connection
+    let db;
+    try {
+      db = getAdminDb();
+      console.log('✅ Database connection successful');
+    } catch (dbError) {
+      console.error('❌ Database connection failed:', dbError);
+      return NextResponse.json({ 
+        success: false, 
+        message: 'Database connection failed',
+        error: dbError instanceof Error ? dbError.message : 'Unknown database error'
+      }, { status: 500 });
+    }
+    
+    console.log('🔍 Admin waitlist route called - STEP 3: About to fetch data');
+    
+    console.log('📋 Fetching waitlist collection...');
     const snap = await db.collection('waitlist').get();
     const users = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    console.log(`✅ Found ${users.length} waitlist users`);
+    
     return NextResponse.json({ success: true, users });
+    
   } catch (error) {
-    console.error('Admin waitlist error:', error);
-    return NextResponse.json({ success: false, message: 'Failed to list waitlist' }, { status: 500 });
+    console.error('❌ Admin waitlist error:', error);
+    return NextResponse.json({ 
+      success: false, 
+      message: 'Failed to list waitlist',
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    }, { status: 500 });
   }
 }
 
