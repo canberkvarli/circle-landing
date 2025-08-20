@@ -259,7 +259,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
               </div>
               <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
-                Welcome to FullCircle! 🌟
+                Welcome to Circle! 🌟
               </h3>
               <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
                 You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as we launch!

@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
         },
         body: JSON.stringify({
           to: email.toLowerCase().trim(),
-          subject: '🌟 Welcome to FullCircle Waitlist! 🌟',
+          subject: '🌟 Welcome to Circle Waitlist! 🌟',
           html: emailHtml,
         }),
       });
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
         console.error('Full email request details:', {
           url: emailUrl,
           to: email.toLowerCase().trim(),
-          subject: '🌟 Welcome to FullCircle Waitlist! 🌟',
+          subject: '🌟 Welcome to Circle Waitlist! 🌟',
           htmlLength: emailHtml.length
         });
       }

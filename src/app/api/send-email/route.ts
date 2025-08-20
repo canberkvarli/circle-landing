@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
     const { to, subject, html } = await request.json();
 
     console.log('Email API called with:', { to, subject, html: html.substring(0, 100) + '...' });
+    console.log('HTML contains logo reference:', html.includes('cid:email-logo'));
     console.log('Environment check - RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
     console.log('Environment check - RESEND_API_KEY length:', process.env.RESEND_API_KEY?.length || 0);
 
@@ -31,6 +32,7 @@ export async function POST(request: NextRequest) {
     let logoAttachment = null;
     
     try {
+        console.log('Looking for logo at:', logoPath);
       if (fs.existsSync(logoPath)) {
         const logoBuffer = fs.readFileSync(logoPath);
         logoAttachment = {
@@ -39,12 +41,25 @@ export async function POST(request: NextRequest) {
           contentId: EMAIL_LOGO_CONFIG.contentId,
           contentType: 'image/png'
         };
-        console.log('PNG logo attachment prepared successfully');
+        console.log('PNG logo attachment prepared successfully, size:', logoBuffer.length, 'bytes');
       } else {
         console.warn('Logo file not found at:', logoPath);
+        console.log('Current working directory:', process.cwd());
+        console.log('Public directory contents:', fs.readdirSync(path.join(process.cwd(), 'public')));
       }
     } catch (logoError) {
       console.warn('Failed to read logo file:', logoError);
+    }
+    
+    console.log('Logo attachment details:', logoAttachment ? {
+      filename: logoAttachment.filename,
+      contentId: logoAttachment.contentId,
+      contentType: logoAttachment.contentType,
+      contentLength: logoAttachment.content.length
+    } : 'No logo attachment');
+    
+    if (logoAttachment) {
+      console.log('Logo contentId matches EMAIL_LOGO_CONFIG:', logoAttachment.contentId === EMAIL_LOGO_CONFIG.contentId);
     }
     
     const { data, error } = await resend.emails.send({
@@ -54,6 +69,10 @@ export async function POST(request: NextRequest) {
       html: html,
       replyTo: 'support@joinfullcircle.app', // Add reply-to address
       attachments: logoAttachment ? [logoAttachment] : undefined,
+      tags: [
+        { name: 'category', value: 'waitlist' },
+        { name: 'template', value: 'confirmation' }
+      ]
     });
 
     console.log('Resend API response:', { data, error });

@@ -22,8 +22,11 @@ const getBaseEmailTemplate = (content: string): string => `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
     <title>Circle</title>
     <style>
+        /* Font fallbacks for better email client compatibility */
         @font-face {
             font-family: 'Spirituality', 'Georgia', serif;
             src: local('Georgia'), local('serif');
@@ -34,7 +37,7 @@ const getBaseEmailTemplate = (content: string): string => `
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
             background: linear-gradient(135deg, #1A1815 0%, #252320 100%);
             color: #F5E6D3;
             line-height: 1.6;
@@ -43,6 +46,7 @@ const getBaseEmailTemplate = (content: string): string => `
         .email-container {
             max-width: 650px;
             margin: 20px auto;
+            background: #252320; /* Fallback for email clients that don't support gradients */
             background: linear-gradient(180deg, #252320 0%, #1A1815 100%);
             border-radius: 32px;
             overflow: hidden;
@@ -105,6 +109,7 @@ const getBaseEmailTemplate = (content: string): string => `
         }
         
         .header-subtitle {
+            font-family: 'Spirituality', 'Georgia', serif;
             color: rgba(245, 230, 211, 0.9);
             font-size: 18px;
             margin: 15px 0 0 0;
@@ -140,9 +145,12 @@ const getBaseEmailTemplate = (content: string): string => `
         .section-text {
             color: #F5E6D3;
             font-size: 17px;
-            line-height: 1.7;
+            line-height: 1.8;
             margin: 0 0 15px 0;
             text-align: center;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
         
         .highlight-box {
@@ -168,7 +176,9 @@ const getBaseEmailTemplate = (content: string): string => `
             font-size: 16px;
             opacity: 0.9;
             margin: 0;
-            font-weight: 500;
+            font-weight: 400;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            letter-spacing: 0.2px;
         }
         
         .feature-grid {
@@ -204,8 +214,11 @@ const getBaseEmailTemplate = (content: string): string => `
         .feature-text {
             color: #F5E6D3;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             margin: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: 400;
+            letter-spacing: 0.2px;
         }
         
         .cta-button {
@@ -384,15 +397,15 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
   
   const content = `
     <div class="section">
-        <h2 class="section-title">🌿 You're on the Sacred List! 🌿</h2>
+        <h2 class="section-title">🌿 You're on the List! 🌿</h2>
         <p class="section-text">
             Thank you for joining our exclusive waitlist, ${firstName}! You're now part of a 
-            carefully curated community of spiritual seekers who are ready to experience 
-            authentic soul-to-soul connections.
+            carefully curated community of people who are ready to experience 
+            authentic connections and meaningful relationships.
         </p>
         <p class="section-text">
             We'll notify you as soon as the FullCircle app launches with your exclusive early access.
-            Get ready to step into a world of meaningful spiritual relationships!
+            Get ready to step into a world of genuine human connection!
         </p>
     </div>
     
@@ -406,10 +419,10 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
         <div style="background: rgba(196, 169, 132, 0.1); padding: 20px; border-radius: 20px; border: 1px solid rgba(196, 169, 132, 0.3);">
             <ul style="color: #F5E6D3; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 25px; text-align: left;">
                 <li style="margin-bottom: 10px;">🌟 Early access notification when we launch</li>
-                <li style="margin-bottom: 10px;">🧘 Exclusive community updates and spiritual insights</li>
-                <li style="margin-bottom: 10px;">💫 Special offers and bonuses for waitlist members</li>
-                <li style="margin-bottom: 10px;">✨ Behind-the-scenes content and spiritual wisdom</li>
-                <li style="margin-bottom: 0;">🌿 Guided meditations and spiritual practices</li>
+                <li style="margin-bottom: 10px;">💫 Exclusive community updates and behind-the-scenes content</li>
+                <li style="margin-bottom: 10px;">🎁 Special offers and bonuses for waitlist members</li>
+                <li style="margin-bottom: 10px;">✨ First look at new features and community events</li>
+                <li style="margin-bottom: 0;">🌿 Priority access to our growing community</li>
             </ul>
         </div>
     </div>
