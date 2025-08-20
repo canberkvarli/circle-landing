@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import IntroAnimation from "./IntroAnimation";
@@ -25,17 +25,60 @@ const CircleLandingPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | undefined>(undefined);
   const [mounted, setMounted] = useState(false);
-  const [stats] = useState({
-    signups: 1247,
-    connections: 89,
+  const [stats, setStats] = useState({
+    signups: 0,
+    connections: 0,
     totalSpots: 5000,
   });
   const [countdown, setCountdown] = useState({
-    days: 14,
-    hours: 23,
-    minutes: 45,
-    seconds: 30,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
+
+  // Calculate launch date (45 days from now)
+  const calculateLaunchDate = useCallback(() => {
+    const now = new Date();
+    const launchDate = new Date(now.getTime() + (45 * 24 * 60 * 60 * 1000)); // 45 days from now
+    return launchDate;
+  }, []);
+
+  // Calculate countdown to launch
+  const calculateCountdown = useCallback(() => {
+    const now = new Date();
+    const launchDate = calculateLaunchDate();
+    const diff = launchDate.getTime() - now.getTime();
+    
+    if (diff <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    return { days, hours, minutes, seconds };
+  }, [calculateLaunchDate]);
+
+  // Fetch real waitlist data
+  const fetchWaitlistData = async () => {
+    try {
+      const response = await fetch('/api/waitlist');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setStats(prev => ({
+            ...prev,
+            signups: data.count || 0
+          }));
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch waitlist data:', error);
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -43,8 +86,14 @@ const CircleLandingPage = () => {
       setShowIntro(false);
     }, 2500);
 
+    // Fetch waitlist data
+    fetchWaitlistData();
+
+    // Set initial countdown
+    setCountdown(calculateCountdown());
+
     return () => clearTimeout(timer);
-  }, []);
+  }, [calculateCountdown]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -74,7 +123,7 @@ const CircleLandingPage = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [mounted]);
+  }, [mounted, calculateCountdown]);
 
   const openModal = (modalType: string) => {
     console.log('Opening modal:', modalType);

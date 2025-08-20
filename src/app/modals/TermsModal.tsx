@@ -10,13 +10,13 @@ const TermsModal = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Terms of Service">
-      <div className="text-spiritual-text-muted leading-relaxed space-y-4 max-h-96 overflow-y-auto">
+      <div className="text-spiritual-dark-text-muted leading-relaxed space-y-4 max-h-96 overflow-y-auto">
         <p>
-          <strong className="text-spiritual-primary">Last updated: January 2025</strong>
+          <strong className="text-spiritual-dark-accent">Last updated: January 2025</strong>
         </p>
 
         <div>
-          <h4 className="text-spiritual-primary font-semibold mb-2">
+          <h4 className="text-spiritual-dark-accent font-semibold mb-2">
             Acceptance of Terms
           </h4>
           <p>
@@ -26,7 +26,7 @@ const TermsModal = ({
         </div>
 
         <div>
-          <h4 className="text-spiritual-primary font-semibold mb-2">Use License</h4>
+          <h4 className="text-spiritual-dark-accent font-semibold mb-2">Use License</h4>
           <p>
             Permission is granted to temporarily download one copy of our app
             for personal, non-commercial transitory viewing only. This is the
@@ -35,7 +35,7 @@ const TermsModal = ({
         </div>
 
         <div>
-          <h4 className="text-spiritual-primary font-semibold mb-2">User Conduct</h4>
+          <h4 className="text-spiritual-dark-accent font-semibold mb-2">User Conduct</h4>
           <p>
             You agree to use our platform in a respectful manner that aligns
             with mindful and authentic values. Harassment, hate speech, or
@@ -44,7 +44,7 @@ const TermsModal = ({
         </div>
 
         <div>
-          <h4 className="text-spiritual-primary font-semibold mb-2">
+          <h4 className="text-spiritual-dark-accent font-semibold mb-2">
             Community Guidelines
           </h4>
           <p>
@@ -55,7 +55,7 @@ const TermsModal = ({
         </div>
 
         <div>
-          <h4 className="text-spiritual-primary font-semibold mb-2">Disclaimer</h4>
+          <h4 className="text-spiritual-dark-accent font-semibold mb-2">Disclaimer</h4>
           <p>
             The materials on our platform are provided on an &apos;as is&apos;
             basis. We make no warranties, expressed or implied, and hereby
@@ -67,7 +67,7 @@ const TermsModal = ({
         </div>
 
         <div>
-          <h4 className="text-spiritual-primary font-semibold mb-2">
+          <h4 className="text-spiritual-dark-accent font-semibold mb-2">
             Contact Information
           </h4>
           <p>

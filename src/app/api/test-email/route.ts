@@ -28,7 +28,15 @@ export async function POST(request: NextRequest) {
         <h1>Test Email</h1>
         <p>This is a test email to verify that the email service is working correctly.</p>
         <p>If you receive this, the email configuration is working!</p>
-        <p>Sent at: ${new Date().toISOString()}</p>
+        <p>Sent at: ${new Date().toLocaleString('en-US', { 
+          timeZone: 'America/Los_Angeles',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZoneName: 'short'
+        })}</p>
       `,
     });
 

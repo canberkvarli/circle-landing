@@ -7,41 +7,55 @@ interface RoadmapModalProps {
 }
 
 const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
+  // Calculate realistic dates based on current month
+  const getCurrentQuarter = () => {
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+    
+    if (month < 3) return { quarter: 1, year };
+    if (month < 6) return { quarter: 2, year };
+    if (month < 9) return { quarter: 3, year };
+    return { quarter: 4, year };
+  };
+
+  const { quarter: currentQuarter, year: currentYear } = getCurrentQuarter();
+
   const roadmapItems = [
     {
       phase: "Phase 1",
       title: "Foundation & Launch",
       status: "completed",
       features: ["Core matching algorithm", "User profiles", "Basic messaging", "iOS & Android apps"],
-      timeline: "Q1 2024"
+      timeline: `Q1 ${currentYear - 1}`
     },
     {
       phase: "Phase 2",
       title: "Community Building",
       status: "in-progress",
       features: ["Group circles", "Event organization", "Community guidelines", "Moderation tools"],
-      timeline: "Q2 2025"
+      timeline: `Q${currentQuarter} ${currentYear}`
     },
     {
       phase: "Phase 3",
       title: "Advanced Features",
       status: "planned",
       features: ["AI-powered matching", "Video calls", "Meditation integration", "Wellness tracking"],
-      timeline: "Q3 2025"
+      timeline: currentQuarter < 4 ? `Q${currentQuarter + 1} ${currentYear}` : `Q1 ${currentYear + 1}`
     },
     {
       phase: "Phase 4",
       title: "Mindful Communities",
       status: "planned",
       features: ["Wellness retreat partnerships", "Yoga studio discounts", "Meditation center access", "Mindful event discovery"],
-      timeline: "Q4 2025"
+      timeline: currentQuarter < 3 ? `Q${currentQuarter + 2} ${currentYear}` : currentQuarter === 3 ? `Q1 ${currentYear + 1}` : `Q2 ${currentYear + 1}`
     },
     {
       phase: "Phase 5",
       title: "Global Evolution",
       status: "planned",
       features: ["Multi-language support", "Cultural adaptations", "Global events", "Advanced AI matching"],
-      timeline: "Q1 2026"
+      timeline: currentQuarter < 2 ? `Q${currentQuarter + 3} ${currentYear}` : currentQuarter === 2 ? `Q1 ${currentYear + 1}` : currentQuarter === 3 ? `Q2 ${currentYear + 1}` : `Q3 ${currentYear + 1}`
     }
   ];
 

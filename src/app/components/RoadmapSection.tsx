@@ -3,41 +3,55 @@ import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 
 const RoadmapSection = () => {
+  // Calculate realistic dates based on current month
+  const getCurrentQuarter = () => {
+    const now = new Date();
+    const month = now.getMonth();
+    const year = now.getFullYear();
+    
+    if (month < 3) return { quarter: 1, year };
+    if (month < 6) return { quarter: 2, year };
+    if (month < 9) return { quarter: 3, year };
+    return { quarter: 4, year };
+  };
+
+  const { quarter: currentQuarter, year: currentYear } = getCurrentQuarter();
+  
   const roadmapItems = [
     {
       phase: "Phase 1",
       title: "Foundation",
       description: "Core app development and beta testing",
       status: "COMPLETED",
-      date: "Q1 2024",
+      date: `Q1 ${currentYear - 1}`,
     },
     {
       phase: "Phase 2",
       title: "Launch",
       description: "Public release and community building",
       status: "IN PROGRESS",
-      date: "Q2 2025",
+      date: `Q${currentQuarter} ${currentYear}`,
     },
     {
       phase: "Phase 3",
       title: "Growth",
       description: "Feature expansion and user growth",
       status: "UPCOMING",
-      date: "Q3 2025",
+      date: currentQuarter < 4 ? `Q${currentQuarter + 1} ${currentYear}` : `Q1 ${currentYear + 1}`,
     },
     {
       phase: "Phase 4",
       title: "Mindful Communities",
       description: "Wellness retreats, yoga studios, and mindful spaces",
       status: "UPCOMING",
-      date: "Q4 2025",
+      date: currentQuarter < 3 ? `Q${currentQuarter + 2} ${currentYear}` : currentQuarter === 3 ? `Q1 ${currentYear + 1}` : `Q2 ${currentYear + 1}`,
     },
     {
       phase: "Phase 5",
       title: "Evolution",
       description: "Advanced AI matching and global expansion",
       status: "UPCOMING",
-      date: "Q1 2026",
+      date: currentQuarter < 2 ? `Q${currentQuarter + 3} ${currentYear}` : currentQuarter === 2 ? `Q1 ${currentYear + 1}` : currentQuarter === 3 ? `Q2 ${currentYear + 1}` : `Q3 ${currentYear + 1}`,
     },
   ];
 
