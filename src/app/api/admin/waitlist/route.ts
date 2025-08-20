@@ -58,4 +58,48 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// ✅ Add DELETE method to handle user deletion
+export async function DELETE(request: NextRequest) {
+  try {
+    console.log('🗑️ Admin waitlist DELETE route called');
+    
+    // Get the userId from the URL search params
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
+    
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, message: 'User ID is required' },
+        { status: 400 }
+      );
+    }
+
+    console.log('🗑️ Deleting waitlist user:', userId);
+
+    const db = getAdminDb();
+    
+    // Delete the user from the waitlist collection
+    await db.collection('waitlist').doc(userId).delete();
+
+    console.log('✅ Waitlist user deleted successfully:', userId);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Waitlist user deleted successfully',
+      deletedCount: 1
+    });
+
+  } catch (error) {
+    console.error('❌ Error deleting waitlist user:', error);
+    return NextResponse.json(
+      { 
+        success: false, 
+        message: 'Failed to delete waitlist user',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}
+
 

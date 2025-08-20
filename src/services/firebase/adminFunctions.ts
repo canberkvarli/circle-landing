@@ -132,7 +132,7 @@ export async function getWaitlistUsers(): Promise<WaitlistUser[]> {
 
 export async function deleteWaitlistUser(userId: string): Promise<DeleteWaitlistUserResult> {
   try {
-    const res = await fetch(`/api/admin/waitlist/${userId}`, {
+    const res = await fetch(`/api/admin/waitlist?userId=${userId}`, {
       method: 'DELETE',
       cache: 'no-store'
     });
