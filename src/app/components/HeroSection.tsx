@@ -166,47 +166,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           </div>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          className="border-t border-spiritual-accent/20 pt-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 1.8 }}
-        >
-          <div className="grid grid-cols-2 gap-8">
-            {[
-              {
-                value: stats.signups,
-                label: "Early supporters",
-                suffix: "",
-              },
-              {
-                value: stats.connections,
-                label: "Connections made",
-                suffix: "+",
-              },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className="text-center group cursor-pointer"
-                initial={{ opacity: 0, y: 20 }}
-                animate={
-                  !showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                }
-                transition={{ delay: 2.0 + index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.05 }}
-              >
-                <div className="text-2xl sm:text-3xl font-spirituality font-bold mb-1 text-spiritual-accent group-hover:text-spiritual-primary transition-colors">
-                  {stat.value.toLocaleString()}
-                  {stat.suffix}
-                </div>
-                <div className="text-spiritual-text-muted text-sm group-hover:text-spiritual-text-muted/70 transition-colors">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+
       </div>
       
       {/* Danielle Modal */}
@@ -227,30 +187,29 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           <div className="max-w-7xl mx-auto">
             {/* Top: Danielle Video */}
             <div className="flex justify-center mb-12 relative">
-              {/* Information Icon - Positioned outside the frame on top right */}
-              <button
-                onClick={() => openModal("danielle")}
-                className="absolute top-0 right-0 z-20 w-12 h-12 bg-spiritual-accent/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-                style={{ transform: 'translate(50%, -50%)' }}
-              >
-                <svg 
-                  className="w-6 h-6 text-white group-hover:text-spiritual-background transition-colors" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-                  />
-                </svg>
-              </button>
-              
               <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
                 {/* Phone Notch - iPhone 16 Pro style */}
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
+                
+                {/* Information Icon - Positioned inside the frame on top right */}
+                <button
+                  onClick={() => openModal("danielle")}
+                  className="absolute top-4 right-4 z-20 w-8 h-8 bg-spiritual-accent/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+                >
+                  <svg 
+                    className="w-4 h-4 text-white group-hover:text-spiritual-background transition-colors" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+                    />
+                  </svg>
+                </button>
                 
                 {/* Video Screen */}
                 <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
