@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
 import { CollectionReference, Query, DocumentData } from 'firebase-admin/firestore';
 import { Resend } from 'resend';
-import { getAdminNotificationEmail } from '@/utils/emailTemplates';
+import { getAdminNotificationEmail } from "@/utils/emailTemplates";
 
 // Expo push notification service
 const EXPO_PUSH_URL = 'https://exp.host/--/api/v2/push/send';
