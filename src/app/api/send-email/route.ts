@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
     
     const { data, error } = await resend.emails.send({
-      from: 'FullCircle <onboarding@resend.dev>', // Using your onboarding domain for now
+      from: 'Circle <noreply@joinfullcircle.app>', // Use your verified domain
       to: [to],
       subject: subject,
       html: html,

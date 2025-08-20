@@ -68,7 +68,7 @@ async function sendEmailNotification(email: string, payload: NotificationPayload
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'FullCircle <onboarding@resend.dev>',
+      from: 'Circle <noreply@joinfullcircle.app>',
       to: [email],
       subject: payload.title,
       html: getAdminNotificationEmail({
