@@ -350,7 +350,7 @@ export const getWelcomeEmail = (data: EmailTemplateData): string => {
             You're about to embark on a beautiful journey of authentic connections and spiritual growth.
         </p>
         <p class="section-text">
-            FullCircle is more than just an app – it's a sacred space where like-minded spirits 
+            Circle is more than just an app – it's a sacred space where like-minded spirits 
             can find each other and create meaningful relationships that nourish the soul.
         </p>
     </div>
@@ -404,7 +404,7 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
             authentic connections and meaningful relationships.
         </p>
         <p class="section-text">
-            We'll notify you as soon as the FullCircle app launches with your exclusive early access.
+            We'll notify you as soon as the Circle app launches with your exclusive early access.
             Get ready to step into a world of genuine human connection!
         </p>
     </div>
@@ -439,7 +439,7 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
     <div class="section">
         <h2 class="section-title">🚀 The Circle is Now Open! 🚀</h2>
         <p class="section-text">
-            ${firstName}, the moment you've been waiting for is here! FullCircle is now live 
+            ${firstName}, the moment you've been waiting for is here! Circle is now live 
             and ready to help you find your spiritual tribe.
         </p>
         <p class="section-text">
@@ -449,7 +449,7 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
     </div>
     
     <div class="highlight-box">
-        <h3 class="highlight-title">🎉 Download FullCircle Today</h3>
+        <h3 class="highlight-title">🎉 Download Circle Today</h3>
         <p class="highlight-subtitle">Join thousands of spiritual seekers already connecting</p>
     </div>
     
