@@ -10,6 +10,8 @@ export async function POST() {
       expires: new Date(0), // Expire immediately
       path: '/'
     });
+    
+    console.log('✅ Admin logout successful');
     return response;
   } catch (error) {
     console.error('Admin logout error:', error);

@@ -8,8 +8,10 @@ export function middleware(request: NextRequest) {
     console.log('🛡️ Admin route detected, checking authentication...');
     
     // Skip authentication for the auth and logout routes
-    if (request.nextUrl.pathname === '/api/admin/auth' || request.nextUrl.pathname === '/api/admin/logout') {
-      console.log('✅ Auth/logout route, skipping authentication');
+    if (request.nextUrl.pathname === '/api/admin/auth' || 
+        request.nextUrl.pathname === '/api/admin/logout' ||
+        request.nextUrl.pathname === '/api/admin/test-password') {
+      console.log('✅ Auth/logout/test route, skipping authentication');
       return NextResponse.next();
     }
 

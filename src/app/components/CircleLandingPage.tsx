@@ -16,6 +16,7 @@ import PrivacyModal from "../modals/PrivacyModal";
 import TermsModal from "../modals/TermsModal";
 import FullCircleModal from "./FullCircleModal";
 import OuroborosInfoModal from "../modals/OuroborosInfoModal";
+import DanielleModal from "../modals/DanielleModal";
 import { getContactFormEmail } from "@/utils/emailTemplates";
 
 const CircleLandingPage = () => {
@@ -247,6 +248,9 @@ const CircleLandingPage = () => {
         )}
         {activeModal === "ouroborosInfo" && (
           <OuroborosInfoModal isOpen={true} onClose={closeModal} />
+        )}
+        {activeModal === "danielle" && (
+          <DanielleModal isOpen={true} onClose={closeModal} />
         )}
       </AnimatePresence>
 

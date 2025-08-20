@@ -227,6 +227,27 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           <div className="max-w-7xl mx-auto">
             {/* Top: Danielle Video */}
             <div className="flex justify-center mb-12 relative">
+              {/* Information Icon - Positioned outside the frame on top right */}
+              <button
+                onClick={() => openModal("danielle")}
+                className="absolute top-0 right-0 z-20 w-12 h-12 bg-spiritual-accent/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+                style={{ transform: 'translate(50%, -50%)' }}
+              >
+                <svg 
+                  className="w-6 h-6 text-white group-hover:text-spiritual-background transition-colors" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+                  />
+                </svg>
+              </button>
+              
               <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
                 {/* Phone Notch - iPhone 16 Pro style */}
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
