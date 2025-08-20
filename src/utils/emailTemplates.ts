@@ -399,30 +399,30 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
     <div class="section">
         <h2 class="section-title">🌿 You're on the List! 🌿</h2>
         <p class="section-text">
-            Thank you for joining our exclusive waitlist, ${firstName}! You're now part of a 
+            Thank you for joining our waitlist, ${firstName}! You're now part of a 
             carefully curated community of people who are ready to experience 
             authentic connections and meaningful relationships.
         </p>
         <p class="section-text">
-            We'll notify you as soon as the Circle app launches with your exclusive early access.
+            We'll notify you as soon as the Circle app launches with your early access.
             Get ready to step into a world of genuine human connection!
         </p>
     </div>
     
     <div class="highlight-box">
-        <h3 class="highlight-title">🎁 Exclusive Perks Await</h3>
-        <p class="highlight-subtitle">First 5,000 members get 1 month completely free + special bonuses</p>
+        <h3 class="highlight-title">🎁 Special Perks Await</h3>
+        <p class="highlight-subtitle" style="color: #F5E6D3;">First 5,000 members get 1 month completely free + special bonuses</p>
     </div>
-    
+      
     <div class="section">
         <h3 style="color: #C4A984; font-size: 22px; margin: 0 0 15px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">What to expect next:</h3>
         <div style="background: rgba(196, 169, 132, 0.1); padding: 20px; border-radius: 20px; border: 1px solid rgba(196, 169, 132, 0.3);">
             <ul style="color: #F5E6D3; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 25px; text-align: left;">
-                <li style="margin-bottom: 10px;">🌟 Early access notification when we launch</li>
-                <li style="margin-bottom: 10px;">💫 Exclusive community updates and behind-the-scenes content</li>
-                <li style="margin-bottom: 10px;">🎁 Special offers and bonuses for waitlist members</li>
-                <li style="margin-bottom: 10px;">✨ First look at new features and community events</li>
-                <li style="margin-bottom: 0;">🌿 Priority access to our growing community</li>
+                <li style="margin-bottom: 10px; color: #F5E6D3;">🌟 Early access notification when we launch</li>
+                <li style="margin-bottom: 10px; color: #F5E6D3;">💫 Community updates and behind-the-scenes content</li>
+                <li style="margin-bottom: 10px; color: #F5E6D3;">🎁 Special offers and bonuses for waitlist members</li>
+                <li style="margin-bottom: 10px; color: #F5E6D3;">✨ First look at new features and community events</li>
+                <li style="margin-bottom: 0; color: #F5E6D3;">🌿 Early access to our growing community</li>
             </ul>
         </div>
     </div>
@@ -436,7 +436,7 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
   const { firstName = 'there' } = data;
   
   const content = `
-    <div class="section">
+        <div class="section">
         <h2 class="section-title">🚀 The Circle is Now Open! 🚀</h2>
         <p class="section-text">
             ${firstName}, the moment you've been waiting for is here! Circle is now live 
@@ -526,7 +526,7 @@ export const getWeeklyInspirationEmail = (data: EmailTemplateData): string => {
     </div>
     
     <div style="text-align: center; margin: 35px 0;">
-        <a href="https://joinfullcircle.app" class="cta-button">Join Our Meditation Circle</a>
+        <a href="https://joinfullcircle.app" class="cta-button">Join Our Circle</a>
     </div>
   `;
   
@@ -602,10 +602,10 @@ export const getContactFormEmail = (data: EmailTemplateData): string => {
         </div>
             <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
                 <strong style="color: #C4A984; font-size: 16px;">Message:</strong>
-        </div>
-            <div style="background: rgba(37, 35, 32, 0.9); padding: 20px; border-radius: 16px; border: 1px solid rgba(196, 169, 132, 0.3);">
-                <p style="color: #F5E6D3; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message || 'No message provided'}</p>
-        </div>
+                <div style="margin-top: 10px; padding: 15px; background: rgba(37, 35, 32, 0.9); border-radius: 12px; border: 1px solid rgba(196, 169, 132, 0.3);">
+                    <p style="color: #F5E6D3; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap;">${message || 'No message provided'}</p>
+                </div>
+            </div>
             <div style="margin-top: 15px; font-size: 14px; color: #C4A984; text-align: center;">
             <strong>Timestamp:</strong> ${timestamp || new Date().toLocaleString('en-US', { 
                 timeZone: 'America/Los_Angeles',
