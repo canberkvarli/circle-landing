@@ -23,10 +23,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://joinfullcircle.app",
   },
-
   openGraph: {
     title: "Circle - Meaningful Connections",
-    description: "Where mindful souls unite. Connmect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
+    description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
     url: "https://joinfullcircle.app",
     siteName: "Circle",
     images: [
@@ -58,7 +57,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-
+      <head>
+        {/* Add meta tags to prevent caching */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+      </head>
       <body className={`${inter.className} ${philosopher.variable}`} suppressHydrationWarning>
         <ThemeProvider>
           {children}

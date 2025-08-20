@@ -15,7 +15,7 @@ export interface EmailTemplateData {
   [key: string]: string | number | boolean | null | undefined;
 }
 
-// Base email template with common styling - dark theme with spiritual colors
+// Base email template with common styling - dark theme with warm colors
 const getBaseEmailTemplate = (content: string): string => `
 <!DOCTYPE html>
 <html lang="en">
@@ -344,32 +344,32 @@ export const getWelcomeEmail = (data: EmailTemplateData): string => {
   
   const content = `
     <div class="section">
-        <h2 class="section-title">🌟 Welcome to the Circle, ${firstName}! 🌟</h2>
+        <h2 class="section-title">Welcome to the Circle, ${firstName}!</h2>
         <p class="section-text">
-            We're so excited to have you join our community of spiritual seekers and mindful souls. 
-            You're about to embark on a beautiful journey of authentic connections and spiritual growth.
+            We're so excited to have you join our community of mindful seekers and kindred souls. 
+            You're about to embark on a beautiful journey of authentic connections and personal growth.
         </p>
         <p class="section-text">
-            Circle is more than just an app – it's a sacred space where like-minded spirits 
+            Circle is more than just an app – it's a special space where like-minded hearts 
             can find each other and create meaningful relationships that nourish the soul.
         </p>
     </div>
     
     <div class="highlight-box">
-        <h3 class="highlight-title">✨ Your Spiritual Journey Begins ✨</h3>
-        <p class="highlight-subtitle">Connect with souls who share your spiritual path</p>
+        <h3 class="highlight-title">✨ Your Meaningful Journey Begins ✨</h3>
+        <p class="highlight-subtitle">Connect with souls who share your path of growth</p>
     </div>
     
     <div class="feature-grid">
         <div class="feature-item">
             <span class="feature-icon">🧘‍♀️</span>
             <h4 class="feature-title">Mindful Matching</h4>
-            <p class="feature-text">Find connections based on spiritual practices and beliefs</p>
+            <p class="feature-text">Find connections based on practices and beliefs that matter to you</p>
         </div>
         <div class="feature-item">
             <span class="feature-icon">💫</span>
-            <h4 class="feature-title">Sacred Spaces</h4>
-            <p class="feature-text">Join spiritual circles and meditation groups</p>
+            <h4 class="feature-title">Special Spaces</h4>
+            <p class="feature-text">Join meaningful circles and meditation groups</p>
         </div>
         <div class="feature-item">
             <span class="feature-icon">🌿</span>
@@ -379,7 +379,7 @@ export const getWelcomeEmail = (data: EmailTemplateData): string => {
         <div class="feature-item">
             <span class="feature-icon">✨</span>
             <h4 class="feature-title">Authentic Souls</h4>
-            <p class="feature-text">Connect with genuine spiritual seekers</p>
+            <p class="feature-text">Connect with genuine seekers of meaning</p>
         </div>
     </div>
     
@@ -397,7 +397,7 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
   
   const content = `
     <div class="section">
-        <h2 class="section-title">🌿 You're on the List! 🌿</h2>
+        <h2 class="section-title">You're on the List!</h2>
         <p class="section-text">
             Thank you for joining our waitlist, ${firstName}! You're now part of a 
             carefully curated community of people who are ready to experience 
@@ -440,17 +440,17 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
         <h2 class="section-title">🚀 The Circle is Now Open! 🚀</h2>
         <p class="section-text">
             ${firstName}, the moment you've been waiting for is here! Circle is now live 
-            and ready to help you find your spiritual tribe.
+            and ready to help you find your meaningful tribe.
         </p>
         <p class="section-text">
-            Download the app now and start connecting with souls who share your spiritual journey. 
+            Download the app now and start connecting with souls who share your journey. 
             Your first month is completely free as a special thank you for being on our waitlist!
         </p>
     </div>
     
     <div class="highlight-box">
         <h3 class="highlight-title">🎉 Download Circle Today</h3>
-        <p class="highlight-subtitle">Join thousands of spiritual seekers already connecting</p>
+        <p class="highlight-subtitle">Join thousands of seekers already connecting</p>
     </div>
     
     <div style="text-align: center; margin: 35px 0;">
@@ -465,7 +465,7 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
             <div class="feature-item">
                 <span class="feature-icon">📱</span>
                 <h4 class="feature-title">Create Profile</h4>
-                <p class="feature-text">Share your spiritual journey and intentions</p>
+                <p class="feature-text">Share your journey and intentions</p>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🔍</span>
@@ -480,7 +480,7 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
             <div class="feature-item">
                 <span class="feature-icon">🌱</span>
                 <h4 class="feature-title">Grow Together</h4>
-                <p class="feature-text">Nurture spiritual friendships</p>
+                <p class="feature-text">Nurture meaningful friendships</p>
             </div>
         </div>
     </div>
@@ -489,16 +489,16 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
   return getBaseEmailTemplate(content);
 };
 
-// 4. Weekly Spiritual Inspiration Email Template
+// 4. Weekly Inspiration Email Template
 export const getWeeklyInspirationEmail = (data: EmailTemplateData): string => {
   const { firstName = 'there' } = data;
   
   const content = `
     <div class="section">
-        <h2 class="section-title">🌿 Weekly Spiritual Wisdom 🌿</h2>
+        <h2 class="section-title">Weekly Wisdom & Inspiration 🌿</h2>
         <p class="section-text">
-            ${firstName}, here's your weekly dose of spiritual inspiration to nourish your soul 
-            and deepen your connection to the divine.
+            ${firstName}, here's your weekly dose of inspiration to nourish your soul 
+            and deepen your connection to what matters most.
         </p>
     </div>
     
@@ -542,7 +542,7 @@ export const getNewMatchEmail = (data: EmailTemplateData): string => {
         <h2 class="section-title">💫 New Soul Connection! 💫</h2>
         <p class="section-text">
             ${firstName}, the universe has brought you together with ${matchName}! 
-            This could be the beginning of a beautiful spiritual friendship.
+            This could be the beginning of a beautiful meaningful friendship.
         </p>
         <p class="section-text">
             Take a moment to reach out and start a conversation. Sometimes the most 
@@ -552,7 +552,7 @@ export const getNewMatchEmail = (data: EmailTemplateData): string => {
     
     <div class="highlight-box">
         <h3 class="highlight-title">✨ ${matchName} is waiting to connect ✨</h3>
-        <p class="highlight-subtitle">Send them a message and start your spiritual journey together</p>
+        <p class="highlight-subtitle">Send them a message and start your meaningful journey together</p>
     </div>
     
     <div style="text-align: center; margin: 35px 0;">
@@ -563,10 +563,10 @@ export const getNewMatchEmail = (data: EmailTemplateData): string => {
         <h3 style="color: #7B6B5C; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">Conversation Starters:</h3>
         <div style="background: rgba(255, 255, 255, 0.7); padding: 30px; border-radius: 20px; border: 1px solid rgba(232, 224, 213, 0.5);">
             <ul style="color: #6B5B4F; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 25px; text-align: left;">
-                <li style="margin-bottom: 12px;">🌿 What spiritual practices bring you peace?</li>
+                <li style="margin-bottom: 12px;">🌿 What practices bring you peace?</li>
                 <li style="margin-bottom: 12px;">🧘 How do you like to start your mornings?</li>
                 <li style="margin-bottom: 12px;">💫 What's your favorite way to connect with nature?</li>
-                <li style="margin-bottom: 0;">✨ What spiritual books or teachings inspire you?</li>
+                <li style="margin-bottom: 0;">✨ What books or teachings inspire you?</li>
         </ul>
         </div>
     </div>
@@ -652,20 +652,20 @@ export const getCommunityEventEmail = (data: EmailTemplateData): string => {
   
   const content = `
     <div class="section">
-        <h2 class="section-title">🌿 Join Our Sacred Circle 🌿</h2>
+        <h2 class="section-title">Join Our Meaningful Circle</h2>
         <p class="section-text">
             ${firstName}, you're invited to ${eventName}! This is a special opportunity 
-            to connect with fellow spiritual seekers in our community.
+            to connect with fellow seekers in our community.
         </p>
         <p class="section-text">
-            Whether you're new to spiritual practices or have been on this path for years, 
+            Whether you're new to mindful practices or have been on this path for years, 
             everyone is welcome to join us in creating meaningful connections.
         </p>
     </div>
     
     <div class="highlight-box">
         <h3 class="highlight-title">📅 ${eventName}</h3>
-        <p class="highlight-subtitle">${eventDate} - A time for connection, growth, and spiritual exploration</p>
+        <p class="highlight-subtitle">${eventDate} - A time for connection, growth, and meaningful exploration</p>
     </div>
     
     <div class="section">
@@ -679,7 +679,7 @@ export const getCommunityEventEmail = (data: EmailTemplateData): string => {
             <div class="feature-item">
                 <span class="feature-icon">💬</span>
                 <h4 class="feature-title">Open Sharing</h4>
-                <p class="feature-text">Share your spiritual journey with others</p>
+                <p class="feature-text">Share your journey with others</p>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🌱</span>

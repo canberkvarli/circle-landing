@@ -199,7 +199,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                 <Check className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
-                Welcome to the Community! 🌟
+                Welcome to the Community!
               </h3>
               <p className="text-spiritual-text-muted">
                 You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as the app launches!

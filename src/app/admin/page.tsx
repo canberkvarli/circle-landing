@@ -189,6 +189,12 @@ export default function AdminDashboard() {
   const [currentUserPage, setCurrentUserPage] = useState(1);
   const [usersPerPage] = useState(10);
   
+  // Email modal state
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [emailSubject, setEmailSubject] = useState('');
+  const [emailMessage, setEmailMessage] = useState('');
+  const [emailRecipient, setEmailRecipient] = useState<WaitlistUser | null>(null);
+  const [isBulkEmail, setIsBulkEmail] = useState(false);
 
 
   useEffect(() => {
@@ -208,13 +214,16 @@ export default function AdminDashboard() {
     try {
       const waitlist = await getWaitlistUsers();
       setWaitlistUsers(waitlist ?? []);
-      const appUsersList = await getAppUsers();
-      setAppUsers(
-        (appUsersList ?? []).map((user: UserData) => ({
-          ...user,
-          // These properties are already defined in the UserData interface now
-        }))
-      );
+      
+      // Try to load app users if they exist (from mobile app onboarding)
+      try {
+        const appUsersList = await getAppUsers();
+        setAppUsers(appUsersList ?? []);
+      } catch {
+        // No app users exist yet - this is expected until mobile app launches
+        console.log('No app users found yet - this is expected until mobile app launches');
+        setAppUsers([]);
+      }
     } catch (error) {
       console.error('Error loading users:', error);
       alert(`Failed to load users: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -231,6 +240,20 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error('Error loading admin stats:', error);
+      // Set default stats for waitlist-only mode
+      setAdminStats({
+        totalUsers: waitlistUsers.length,
+        activeSubscriptions: 0,
+        waitlistUsers: waitlistUsers.length,
+        totalLotusBalance: 0,
+        totalLotusGranted: 0,
+        totalLotusSpent: 0,
+        totalRadianceBoosts: 0,
+        averageLotusPerUser: 0,
+        recentSignups: 0,
+        recentSubscriptions: 0,
+        onboardingCompletionRate: 0
+      });
     }
   };
 
@@ -457,16 +480,433 @@ export default function AdminDashboard() {
   };
 
   const selectAllUsers = () => {
-    setSelectedUsers(appUsers.map(user => user.userId));
+    // Select from both waitlist and app users
+    const allUserIds = [
+      ...waitlistUsers.map(user => user.id || ''),
+      ...appUsers.map(user => user.userId)
+    ].filter(id => id !== '');
+    setSelectedUsers(allUserIds);
   };
 
   const clearSelection = () => {
     setSelectedUsers([]);
   };
 
+  // Manual email composition for waitlist users
+  const handleSendWaitlistEmail = async (user: WaitlistUser) => {
+    setEmailRecipient(user);
+    setIsBulkEmail(false);
+    setEmailSubject('Message from Circle');
+    setEmailMessage('Hello! We wanted to reach out...');
+    setShowEmailModal(true);
+  };
+
+  const handleSendWaitlistUpdate = async (user: WaitlistUser) => {
+    setEmailRecipient(user);
+    setIsBulkEmail(false);
+    setEmailSubject('Circle App Update');
+    setEmailMessage('Great news! We have an update...');
+    setShowEmailModal(true);
+  };
+
+  const handleBulkSendWaitlistEmails = async () => {
+    if (selectedUsers.length === 0) return;
+    
+    setEmailRecipient(null);
+    setIsBulkEmail(true);
+    setEmailSubject('Message from Circle');
+    setEmailMessage('Hello! We wanted to reach out...');
+    setShowEmailModal(true);
+  };
+
+  const sendEmail = async () => {
+    if (!emailSubject.trim() || !emailMessage.trim()) {
+      alert('Please enter both subject and message');
+      return;
+    }
+
+    setProcessing(true);
+    try {
+      let successCount = 0;
+      let errorCount = 0;
+
+      if (isBulkEmail) {
+        // Send to all selected users
+        for (const userId of selectedUsers) {
+          const user = waitlistUsers.find(u => u.id === userId);
+          if (user) {
+            try {
+              const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  to: user.email,
+                  subject: emailSubject,
+                  html: `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Circle</title>
+                        <style>
+                            body {
+                                margin: 0;
+                                padding: 0;
+                                font-family: 'Georgia', 'Times New Roman', serif;
+                                background: linear-gradient(135deg, #1A1815 0%, #252320 100%);
+                                color: #F5E6D3;
+                                line-height: 1.6;
+                            }
+                            .email-container {
+                                max-width: 650px;
+                                margin: 20px auto;
+                                background: linear-gradient(180deg, #252320 0%, #1A1815 100%);
+                                border-radius: 32px;
+                                overflow: hidden;
+                                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+                                border: 1px solid rgba(196, 169, 132, 0.2);
+                            }
+                            .header {
+                                background: linear-gradient(135deg, #3D3B37 0%, #2D2B27 50%, #1A1815 100%);
+                                padding: 50px 40px;
+                                text-align: center;
+                                position: relative;
+                                border-radius: 32px 32px 0 0;
+                            }
+                            .header::before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background: radial-gradient(circle at 30% 20%, rgba(196, 169, 132, 0.1) 0%, transparent 50%),
+                                            radial-gradient(circle at 70% 80%, rgba(196, 169, 132, 0.08) 0%, transparent 50%);
+                                border-radius: 32px 32px 0 0;
+                            }
+                            .logo-container {
+                                position: relative;
+                                z-index: 2;
+                            }
+                            .logo {
+                                width: 100%;
+                                max-width: 200px;
+                                height: auto;
+                                margin: 0 auto 25px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                            .logo img {
+                                width: 100%;
+                                max-width: 200px;
+                                height: auto;
+                                display: block;
+                                border-radius: 16px;
+                                object-fit: contain;
+                            }
+                            .header-title {
+                                font-family: 'Georgia', serif;
+                                color: #F5E6D3;
+                                font-size: 42px;
+                                font-weight: 700;
+                                margin: 0;
+                                text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                                letter-spacing: 1px;
+                            }
+                            .header-subtitle {
+                                font-family: 'Georgia', serif;
+                                color: rgba(245, 230, 211, 0.9);
+                                font-size: 18px;
+                                margin: 15px 0 0 0;
+                                font-weight: 500;
+                                letter-spacing: 0.5px;
+                            }
+                            .content {
+                                padding: 50px 40px;
+                                background: linear-gradient(180deg, #252320 0%, #1A1815 100%);
+                            }
+                            .section {
+                                background: rgba(37, 35, 32, 0.8);
+                                padding: 20px;
+                                border-radius: 24px;
+                                margin-bottom: 20px;
+                                border: 1px solid rgba(196, 169, 132, 0.2);
+                                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                            }
+                            .section-text {
+                                color: #F5E6D3;
+                                font-size: 17px;
+                                line-height: 1.8;
+                                margin: 0;
+                                text-align: center;
+                                font-family: 'Georgia', 'Times New Roman', serif;
+                                font-weight: 400;
+                                letter-spacing: 0.3px;
+                            }
+                            .footer {
+                                background: linear-gradient(135deg, #1A1815 0%, #252320 100%);
+                                padding: 40px;
+                                text-align: center;
+                                border-top: 1px solid rgba(196, 169, 132, 0.2);
+                                border-radius: 0 0 32px 32px;
+                            }
+                            .footer-text {
+                                color: #C4A984;
+                                font-size: 15px;
+                                margin: 0 0 12px 0;
+                                font-weight: 500;
+                            }
+                            .footer-signature {
+                                color: #C4A984;
+                                font-weight: 600;
+                                font-family: 'Georgia', serif;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="email-container">
+                            <div class="header">
+                                <div class="logo-container">
+                                    <div class="logo">
+                                        <img src="cid:email-logo" 
+                                             alt="Circle Logo" 
+                                             width="200" 
+                                             height="200" 
+                                             style="width: 100%; max-width: 200px; height: auto; display: block; border-radius: 16px;" />
+                                    </div>
+                                    <h1 class="header-title">Circle</h1>
+                                    <p class="header-subtitle">Meaningful Connections</p>
+                                </div>
+                            </div>
+                            
+                            <div class="content">
+                                <div class="section">
+                                    <p class="section-text">${emailMessage}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="footer">
+                                <p class="footer-text">This email was sent from the Circle admin dashboard</p>
+                                <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The Circle Team</span></p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                  `
+                }),
+              });
+
+              const result = await response.json();
+              if (result.success) {
+                successCount++;
+              } else {
+                errorCount++;
+              }
+            } catch {
+              errorCount++;
+            }
+          }
+        }
+
+        alert(`Bulk email sending completed!\n\n✅ Successfully sent: ${successCount} emails\n❌ Failed to send: ${errorCount} emails`);
+        setSelectedUsers([]);
+      } else {
+        // Send to single user
+        if (emailRecipient) {
+          const response = await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              to: emailRecipient.email,
+              subject: emailSubject,
+              html: `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Circle</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            font-family: 'Georgia', 'Times New Roman', serif;
+                            background: linear-gradient(135deg, #1A1815 0%, #252320 100%);
+                            color: #F5E6D3;
+                            line-height: 1.6;
+                        }
+                        .email-container {
+                            max-width: 650px;
+                            margin: 20px auto;
+                            background: linear-gradient(180deg, #252320 0%, #1A1815 100%);
+                            border-radius: 32px;
+                            overflow: hidden;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+                            border: 1px solid rgba(196, 169, 132, 0.2);
+                        }
+                        .header {
+                            background: linear-gradient(135deg, #3D3B37 0%, #2D2B27 50%, #1A1815 100%);
+                            padding: 50px 40px;
+                            text-align: center;
+                            position: relative;
+                            border-radius: 32px 32px 0 0;
+                        }
+                        .header::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: radial-gradient(circle at 30% 20%, rgba(196, 169, 132, 0.1) 0%, transparent 50%),
+                                        radial-gradient(circle at 70% 80%, rgba(196, 169, 132, 0.08) 0%, transparent 50%);
+                            border-radius: 32px 32px 0 0;
+                        }
+                        .logo-container {
+                            position: relative;
+                            z-index: 2;
+                        }
+                        .logo {
+                            width: 100%;
+                            max-width: 200px;
+                            height: auto;
+                            margin: 0 auto 25px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .logo img {
+                            width: 100%;
+                            max-width: 200px;
+                            height: auto;
+                            display: block;
+                            border-radius: 16px;
+                            object-fit: contain;
+                        }
+                        .header-title {
+                            font-family: 'Georgia', serif;
+                            color: #F5E6D3;
+                            font-size: 42px;
+                            font-weight: 700;
+                            margin: 0;
+                            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                            letter-spacing: 1px;
+                        }
+                        .header-subtitle {
+                            font-family: 'Georgia', serif;
+                            color: rgba(245, 230, 211, 0.9);
+                            font-size: 18px;
+                            margin: 15px 0 0 0;
+                            font-weight: 500;
+                            letter-spacing: 0.5px;
+                        }
+                        .content {
+                            padding: 50px 40px;
+                            background: linear-gradient(180deg, #252320 0%, #1A1815 100%);
+                        }
+                        .section {
+                            background: rgba(37, 35, 32, 0.8);
+                            padding: 20px;
+                            border-radius: 24px;
+                            margin-bottom: 20px;
+                            border: 1px solid rgba(196, 169, 132, 0.2);
+                            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                        }
+                        .section-text {
+                            color: #F5E6D3;
+                            font-size: 17px;
+                            line-height: 1.8;
+                            margin: 0;
+                            text-align: center;
+                            font-family: 'Georgia', 'Times New Roman', serif;
+                            font-weight: 400;
+                            letter-spacing: 0.3px;
+                        }
+                        .footer {
+                            background: linear-gradient(135deg, #1A1815 0%, #252320 100%);
+                            padding: 40px;
+                            text-align: center;
+                            border-top: 1px solid rgba(196, 169, 132, 0.2);
+                            border-radius: 0 0 32px 32px;
+                        }
+                        .footer-text {
+                            color: #C4A984;
+                            font-size: 15px;
+                            margin: 0 0 12px 0;
+                            font-weight: 500;
+                        }
+                        .footer-signature {
+                            color: #C4A984;
+                            font-weight: 600;
+                            font-family: 'Georgia', serif;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="email-container">
+                        <div class="header">
+                            <div class="logo-container">
+                                <div class="logo">
+                                    <img src="cid:email-logo" 
+                                         alt="Circle Logo" 
+                                         width="200" 
+                                         height="200" 
+                                         style="width: 100%; max-width: 200px; height: auto; display: block; border-radius: 16px;" />
+                                </div>
+                                <h1 class="header-title">Circle</h1>
+                                <p class="header-subtitle">Meaningful Connections</p>
+                            </div>
+                        </div>
+                        
+                        <div class="content">
+                            <div class="section">
+                                <p class="section-text">${emailMessage}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="footer">
+                            <p class="footer-text">This email was sent from the Circle admin dashboard</p>
+                            <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The Circle Team</span></p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+              `
+            }),
+          });
+
+          const result = await response.json();
+          if (result.success) {
+            alert(`✅ Email sent successfully to ${emailRecipient.email}!`);
+          } else {
+            alert(`❌ Failed to send email: ${result.error}`);
+          }
+        }
+      }
+
+      // Close modal and reset
+      setShowEmailModal(false);
+      setEmailSubject('');
+      setEmailMessage('');
+      setEmailRecipient(null);
+      setIsBulkEmail(false);
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('Failed to send email. Please try again.');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
   // Advanced filtering functions
   // Apply filters to users with stable date handling to prevent hydration mismatches
-  const applyFilters = useCallback((users: UserData[]) => {
+  const applyFilters = useCallback((users: (WaitlistUser | UserData)[]) => {
     return users.filter(user => {
       // Helper function to convert relative date strings to Date objects
       // Uses stable reference dates to ensure consistent server/client rendering
@@ -503,55 +943,60 @@ export default function AdminDashboard() {
         if (userDate > endDate) return false;
       }
 
-      // Lotus count filter
-      if (filterOptions.lotusCount.min !== null && (user.numOfLotus || 0) < filterOptions.lotusCount.min) return false;
-      if (filterOptions.lotusCount.max !== null && (user.numOfLotus || 0) > filterOptions.lotusCount.max) return false;
+      // For app users, apply additional filters
+      if ('userId' in user) {
+        const appUser = user as UserData;
+        
+        // Lotus count filter
+        if (filterOptions.lotusCount.min !== null && (appUser.numOfLotus || 0) < filterOptions.lotusCount.min) return false;
+        if (filterOptions.lotusCount.max !== null && (appUser.numOfLotus || 0) > filterOptions.lotusCount.max) return false;
 
-      // Radiance boosts filter
-      if (filterOptions.radianceBoosts.min !== null && (user.activeBoosts || 0) < filterOptions.radianceBoosts.min) return false;
-      if (filterOptions.radianceBoosts.max !== null && (user.activeBoosts || 0) > filterOptions.radianceBoosts.max) return false;
+        // Radiance boosts filter
+        if (filterOptions.radianceBoosts.min !== null && (appUser.activeBoosts || 0) < filterOptions.radianceBoosts.min) return false;
+        if (filterOptions.radianceBoosts.max !== null && (appUser.activeBoosts || 0) > filterOptions.radianceBoosts.max) return false;
 
-      // Subscription status filter
-      if (filterOptions.subscriptionStatus && user.subscription?.isActive !== (filterOptions.subscriptionStatus === 'active')) return false;
+        // Subscription status filter
+        if (filterOptions.subscriptionStatus && appUser.subscription?.isActive !== (filterOptions.subscriptionStatus === 'active')) return false;
 
-      // Onboarding status filter
-      if (filterOptions.onboardingStatus === 'completed' && !user.onboardingCompleted) return false;
-      if (filterOptions.onboardingStatus === 'incomplete' && user.onboardingCompleted) return false;
+        // Onboarding status filter
+        if (filterOptions.onboardingStatus === 'completed' && !appUser.onboardingCompleted) return false;
+        if (filterOptions.onboardingStatus === 'incomplete' && appUser.onboardingCompleted) return false;
 
-      // Location filter
-      if (filterOptions.location && user.regionName && !user.regionName.toLowerCase().includes(filterOptions.location.toLowerCase())) return false;
+        // Location filter
+        if (filterOptions.location && appUser.regionName && !appUser.regionName.toLowerCase().includes(filterOptions.location.toLowerCase())) return false;
 
-      // Spiritual practices filter
-      if (filterOptions.spiritualPractices.length > 0 && user.spiritualProfile?.practices) {
-        const hasPractice = filterOptions.spiritualPractices.some(practice => 
-          user.spiritualProfile?.practices?.includes(practice)
-        );
-        if (!hasPractice) return false;
-      }
+        // Spiritual practices filter
+        if (filterOptions.spiritualPractices.length > 0 && appUser.spiritualProfile?.practices) {
+          const hasPractice = filterOptions.spiritualPractices.some(practice => 
+            appUser.spiritualProfile?.practices?.includes(practice)
+          );
+          if (!hasPractice) return false;
+        }
 
-      // Connection intent filter
-      if (filterOptions.connectionIntent && user.matchPreferences?.connectionIntent !== filterOptions.connectionIntent) return false;
+        // Connection intent filter
+        if (filterOptions.connectionIntent && appUser.matchPreferences?.connectionIntent !== filterOptions.connectionIntent) return false;
 
-      // Photos filter
-      if (filterOptions.hasPhotos !== null) {
-        const hasPhotos = user.photos && user.photos.length > 0;
-        if (hasPhotos !== filterOptions.hasPhotos) return false;
-      }
+        // Photos filter
+        if (filterOptions.hasPhotos !== null) {
+          const hasPhotos = appUser.photos && appUser.photos.length > 0;
+          if (hasPhotos !== filterOptions.hasPhotos) return false;
+        }
 
-      // Seed user filter
-      if (filterOptions.isSeedUser !== null && user.isSeedUser !== filterOptions.isSeedUser) return false;
+        // Seed user filter
+        if (filterOptions.isSeedUser !== null && appUser.isSeedUser !== filterOptions.isSeedUser) return false;
 
-      // Last active filter
-      const lastActiveStart = getRelativeDate(filterOptions.lastActive.start);
-      const lastActiveEnd = getRelativeDate(filterOptions.lastActive.end);
-      
-      if (lastActiveStart && user.lastActive) {
-        const lastActiveDate = new Date(user.lastActive);
-        if (lastActiveDate > lastActiveStart) return false;
-      }
-      if (lastActiveEnd && user.lastActive) {
-        const lastActiveDate = new Date(user.lastActive);
-        if (lastActiveDate < lastActiveEnd) return false;
+        // Last active filter
+        const lastActiveStart = getRelativeDate(filterOptions.lastActive.start);
+        const lastActiveEnd = getRelativeDate(filterOptions.lastActive.end);
+        
+        if (lastActiveStart && appUser.lastActive) {
+          const lastActiveDate = new Date(appUser.lastActive);
+          if (lastActiveDate > lastActiveStart) return false;
+        }
+        if (lastActiveEnd && appUser.lastActive) {
+          const lastActiveDate = new Date(appUser.lastActive);
+          if (lastActiveDate < lastActiveEnd) return false;
+        }
       }
 
       return true;
@@ -559,34 +1004,49 @@ export default function AdminDashboard() {
   }, [filterOptions]);
 
   const filteredUsers = useMemo(() => {
-    return applyFilters(appUsers);
-  }, [appUsers, applyFilters]);
+    // Combine both user types for filtering
+    const allUsers = [...waitlistUsers, ...appUsers];
+    return applyFilters(allUsers);
+  }, [waitlistUsers, appUsers, applyFilters]);
 
   // Computed values for user selection
   // Note: Using stable date references to prevent hydration mismatches
   const filteredUsersForSelection = useMemo(() => {
-    let filtered = appUsers;
+    let filtered = [...waitlistUsers, ...appUsers];
     
     // Apply search filter
     if (userSearchQuery.trim()) {
       const query = userSearchQuery.toLowerCase();
-      filtered = filtered.filter(user => 
-        (user.fullName && user.fullName.toLowerCase().includes(query)) ||
-        (user.firstName && user.firstName.toLowerCase().includes(query)) ||
-        (user.familyName && user.familyName.toLowerCase().includes(query)) ||
-        (user.email && user.email.toLowerCase().includes(query))
-      );
+      filtered = filtered.filter(user => {
+        if ('userId' in user) {
+          // App user
+          return (
+            (user.fullName && user.fullName.toLowerCase().includes(query)) ||
+            (user.firstName && user.firstName.toLowerCase().includes(query)) ||
+            (user.familyName && user.familyName.toLowerCase().includes(query)) ||
+            (user.email && user.email.toLowerCase().includes(query))
+          );
+        } else {
+          // Waitlist user
+          return (
+            (user.fullName && user.fullName.toLowerCase().includes(query)) ||
+            (user.firstName && user.firstName.toLowerCase().includes(query)) ||
+            (user.familyName && user.familyName.toLowerCase().includes(query)) ||
+            (user.email && user.email.toLowerCase().includes(query))
+          );
+        }
+      });
     }
     
-    // Apply type filter
+    // Apply type filter (only for app users)
     if (userFilterType === 'withPush') {
-      filtered = filtered.filter(user => user.settings?.pushToken);
+      filtered = filtered.filter(user => 'userId' in user && user.settings?.pushToken);
     } else if (userFilterType === 'withoutPush') {
-      filtered = filtered.filter(user => !user.settings?.pushToken);
+      filtered = filtered.filter(user => 'userId' in user && !user.settings?.pushToken);
     }
     
     return filtered;
-  }, [appUsers, userSearchQuery, userFilterType]);
+  }, [waitlistUsers, appUsers, userSearchQuery, userFilterType]);
 
   // Reset page when filters change
   useEffect(() => {
@@ -683,21 +1143,43 @@ export default function AdminDashboard() {
       'Region', 'Connection Intent', 'Spiritual Practices'
     ];
 
-    const csvData = filteredUsers.map(user => [
-      user.userId,
-      user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A',
-      user.email,
-      user.phoneNumber || 'N/A',
-      user.numOfLotus || 0,
-      user.activeBoosts || 0,
-      user.onboardingCompleted ? 'Completed' : 'Incomplete',
-      user.subscription?.isActive ? 'Active' : 'Inactive',
-              user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A',
-        user.lastActive ? new Date(user.lastActive).toISOString().split('T')[0] : 'N/A',
-      user.regionName || 'N/A',
-      user.matchPreferences?.connectionIntent || 'N/A',
-      user.spiritualProfile?.practices?.join(', ') || 'N/A'
-    ]);
+    const csvData = filteredUsers.map(user => {
+      if ('userId' in user) {
+        // App user
+        return [
+          user.userId,
+          user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A',
+          user.email,
+          user.phoneNumber || 'N/A',
+          user.numOfLotus || 0,
+          user.activeBoosts || 0,
+          user.onboardingCompleted ? 'Completed' : 'Incomplete',
+          user.subscription?.isActive ? 'Active' : 'Inactive',
+          user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A',
+          user.lastActive ? new Date(user.lastActive).toISOString().split('T')[0] : 'N/A',
+          user.regionName || 'N/A',
+          user.matchPreferences?.connectionIntent || 'N/A',
+          user.spiritualProfile?.practices?.join(', ') || 'N/A'
+        ];
+      } else {
+        // Waitlist user
+        return [
+          user.id || 'N/A',
+          user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A',
+          user.email,
+          user.phoneNumber || 'N/A',
+          'N/A', // No lotus for waitlist users
+          'N/A', // No radiance for waitlist users
+          'N/A', // No onboarding for waitlist users
+          'N/A', // No subscription for waitlist users
+          user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A',
+          'N/A', // No last active for waitlist users
+          'N/A', // No region for waitlist users
+          'N/A', // No connection intent for waitlist users
+          'N/A'  // No spiritual practices for waitlist users
+        ];
+      }
+    });
 
     const csvContent = [headers, ...csvData]
       .map(row => row.map(cell => `"${cell}"`).join(','))
@@ -1106,6 +1588,20 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => {
                     if (selectedUsers.length === 0) {
+                      alert('Please select users to send emails to');
+                      return;
+                    }
+                    handleBulkSendWaitlistEmails();
+                  }}
+                  disabled={selectedUsers.length === 0}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Send Custom Emails ({selectedUsers.length})
+                </button>
+                <button
+                  onClick={() => {
+                    if (selectedUsers.length === 0) {
                       alert('Please select users to delete');
                       return;
                     }
@@ -1150,7 +1646,7 @@ export default function AdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email Actions</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
@@ -1169,9 +1665,32 @@ export default function AdminDashboard() {
                           {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.phoneNumber || 'N/A'}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.createdAt ? new Date(user.createdAt).toISOString().split('T')[0] : 'N/A'}
+                          {user.phoneNumber ? (
+                            <span className="text-green-600">{user.phoneNumber}</span>
+                          ) : (
+                            <span className="text-gray-400 italic">No phone</span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => handleSendWaitlistEmail(user)}
+                              className="inline-flex items-center px-3 py-1.5 border border-blue-300 text-xs font-medium rounded-md text-blue-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                              title="Send welcome email"
+                            >
+                              <Send className="w-3 h-3 mr-1" />
+                              Welcome Email
+                            </button>
+                            <button
+                              onClick={() => handleSendWaitlistUpdate(user)}
+                              className="inline-flex items-center px-3 py-1.5 border border-green-300 text-xs font-medium rounded-md text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                              title="Send app update"
+                            >
+                              <Bell className="w-3 h-3 mr-1" />
+                              App Update
+                            </button>
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           <div className="flex items-center space-x-2">
@@ -1270,6 +1789,9 @@ export default function AdminDashboard() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredUsers.map((user) => {
+                      // Only show app users in this table
+                      if (!('userId' in user)) return null;
+                      
                       const onboardingStatus = getOnboardingStatus(user);
                       const hasSubscription = user.subscription?.isActive;
                       
@@ -1680,66 +2202,9 @@ export default function AdminDashboard() {
                     Send Notification
                   </button>
                   
-                  {/* Debug Button */}
-                  <button
-                    onClick={async () => {
-                      try {
-                        const response = await fetch('/api/admin/debug-users');
-                        const data = await response.json();
-                        if (data.success) {
-                          console.log('User Debug Info:', data.debug);
-                          alert(`Debug Info:\n\nTotal Users: ${data.debug.totalUsers}\nUsers with Push Tokens: ${data.debug.usersWithTokens}\nUsers with Notification Settings: ${data.debug.usersWithNotificationSettings}\n\nCheck console for detailed user info.`);
-                        } else {
-                          alert('Debug failed: ' + data.message);
-                        }
-                      } catch (error) {
-                        alert('Debug error: ' + error);
-                      }
-                    }}
-                    className="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors mt-2"
-                  >
-                    🔍 Debug User Notification Settings
-                  </button>
+
                   
-                  {/* Test Connection Button */}
-                  <button
-                    onClick={async () => {
-                      try {
-                        const response = await fetch('/api/admin/test-connection');
-                        const data = await response.json();
-                        if (data.success) {
-                          alert(`✅ Connection Test Successful!\n\nFound ${data.userCount} users in database.\n\nFirebase Admin SDK is working correctly.`);
-                        } else {
-                          alert(`❌ Connection Test Failed:\n\n${data.message}\n\nMissing Variables: ${data.missingEnvironmentVariables?.join(', ') || 'None'}\n\nSuggestion: ${data.suggestion}`);
-                        }
-                      } catch (error) {
-                        alert('Connection test error: ' + error);
-                      }
-                    }}
-                    className="w-full px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors mt-2"
-                  >
-                    🔌 Test Firebase Connection
-                  </button>
-                  
-                  {/* Test Notifications Route Button */}
-                  <button
-                    onClick={async () => {
-                      try {
-                        const response = await fetch('/api/admin/notifications');
-                        const data = await response.json();
-                        if (data.success) {
-                          alert(`✅ Notifications Route Test Successful!\n\n${data.message}\n\nRoute is properly registered and accessible.`);
-                        } else {
-                          alert(`❌ Notifications Route Test Failed:\n\n${data.message}`);
-                        }
-                      } catch (error) {
-                        alert('Notifications route test error: ' + error);
-                      }
-                    }}
-                    className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors mt-2"
-                  >
-                    🧪 Test Notifications Route
-                  </button>
+
                 </div>
                 
                 <div className="border border-gray-200 rounded-lg p-4">
@@ -1833,34 +2298,39 @@ export default function AdminDashboard() {
                         </div>
                       ) : (
                         <div className="divide-y divide-gray-200">
-                          {paginatedUsersForSelection.map((user) => (
-                            <div key={user.userId} className="flex items-center p-3 hover:bg-gray-50">
-                              <input
-                                type="checkbox"
-                                checked={selectedUsers.includes(user.userId)}
-                                onChange={() => toggleUserSelection(user.userId)}
-                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                              />
-                              <div className="ml-3 flex-1 min-w-0">
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <p className="text-sm font-medium text-gray-900 truncate">
-                                      {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
-                                    </p>
-                                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <div className="text-xs text-gray-400">
-                                      {user.settings?.pushToken ? '📱' : '❌'} Push
+                          {paginatedUsersForSelection.map((user) => {
+                            // Only show app users in this selection
+                            if (!('userId' in user)) return null;
+                            
+                            return (
+                              <div key={user.userId} className="flex items-center p-3 hover:bg-gray-50">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedUsers.includes(user.userId)}
+                                  onChange={() => toggleUserSelection(user.userId)}
+                                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                />
+                                <div className="ml-3 flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <div>
+                                      <p className="text-sm font-medium text-gray-900 truncate">
+                                        {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
+                                      </p>
+                                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
                                     </div>
-                                    <div className="text-xs text-gray-400">
-                                      {user.numOfLotus || 0} 🌸
+                                    <div className="flex items-center gap-2">
+                                      <div className="text-xs text-gray-400">
+                                        {user.settings?.pushToken ? '📱' : '❌'} Push
+                                      </div>
+                                      <div className="text-xs text-gray-400">
+                                        {user.numOfLotus || 0} 🌸
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -2305,6 +2775,9 @@ export default function AdminDashboard() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredUsers.map((user) => {
+                      // Only show app users in this table
+                      if (!('userId' in user)) return null;
+                      
                       const onboardingStatus = getOnboardingStatus(user);
                       const hasSubscription = user.subscription?.isActive;
                       
@@ -2607,7 +3080,76 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+
+        {/* Email Composition Modal */}
+        {showEmailModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                {isBulkEmail ? `Send Email to ${selectedUsers.length} Users` : `Send Email to ${emailRecipient?.email}`}
+              </h3>
+              
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <input
+                  type="text"
+                  value={emailSubject}
+                  onChange={(e) => setEmailSubject(e.target.value)}
+                  placeholder="Enter email subject..."
+                  className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900"
+                />
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                <textarea
+                  value={emailMessage}
+                  onChange={(e) => setEmailMessage(e.target.value)}
+                  placeholder="Enter your email message..."
+                  rows={8}
+                  className="w-full px-3 py-2 border border-gray-400 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900 resize-none"
+                />
+              </div>
+              
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setShowEmailModal(false);
+                    setEmailSubject('');
+                    setEmailMessage('');
+                    setEmailRecipient(null);
+                    setIsBulkEmail(false);
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={sendEmail}
+                  disabled={!emailSubject.trim() || !emailMessage.trim() || processing}
+                  className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 transition-colors flex items-center justify-center"
+                >
+                  {processing ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    `Send ${isBulkEmail ? 'Bulk ' : ''}Email`
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+// Email handlers for waitlist users
+
+
+
+
+

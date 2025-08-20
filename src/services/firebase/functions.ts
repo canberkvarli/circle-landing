@@ -52,7 +52,7 @@ const sendConfirmationEmail = async (email: string, firstName: string) => {
       },
       body: JSON.stringify({
         to: email,
-        subject: 'Welcome to Circle Waitlist! 🌟',
+        subject: 'Welcome to Circle Waitlist!',
         html: getWaitlistConfirmationEmail({ firstName })
       })
     });
