@@ -43,12 +43,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Circle - Meaningful Connections",
     description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
-      images: ["https://joinfullcircle.app/logo.png"],
+    images: ["https://joinfullcircle.app/logo.png"],
   },
   verification: {
     google: "your-google-verification-code", // Add your Google Search Console verification code
   },
 };
+
+// Add dynamic segment config to force dynamic rendering
+export const dynamic = 'force-dynamic';
 
 export default function RootLayout({
   children,
