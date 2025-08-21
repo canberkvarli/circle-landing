@@ -20,7 +20,7 @@ const IntroAnimation = () => {
     >
       {/* Spinning Ouroboros */}
       <motion.div
-        className="relative w-96 h-96 flex items-center justify-center"
+        className="relative w-48 h-48 md:w-96 md:h-96 flex items-center justify-center"
         initial={{ 
           opacity: 0.7 
         }}
@@ -46,7 +46,7 @@ const IntroAnimation = () => {
           alt="Spinning Ouroboros"
           width={200}
           height={200}
-          className="w-50 h-50"
+          className="w-50 h-50 opacity-90"
           priority
           style={{
             transform: "rotate(0deg)", // Reset any inherited transforms
