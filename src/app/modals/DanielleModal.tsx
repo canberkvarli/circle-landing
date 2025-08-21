@@ -96,12 +96,21 @@ export default function DanielleModal({ isOpen, onClose }: DanielleModalProps) {
                   </div>
                   <div>
                     <h3 className="font-semibold text-spiritual-text-dark dark:text-spiritual-dark-accent mb-1">
-                      Bali Connection
+                      Global Connection
                     </h3>
                     <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
-                      Having lived in Bali, she brings the island&apos;s peaceful energy and sense of community to everything she does.
+                      Having lived in Bali and many other places around the world, she brings diverse cultural wisdom and a peaceful energy to everything she does.
                     </p>
                   </div>
+                </div>
+              </div>
+              
+              {/* Quote */}
+              <div className="mt-8 pt-6 border-t border-spiritual-border/20 dark:border-spiritual-dark-border/20">
+                <div className="text-center">
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light italic">
+                    &ldquo;This video was shot at Bhakti Fest 2024&rdquo;
+                  </p>
                 </div>
               </div>
             </div>
