@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     siteName: "Circle",
     images: [
       {
-        url: "https://joinfullcircle.app/lightOuroboros.png",
+        url: "https://joinfullcircle.app/assets/circle.svg",
         width: 1200,
         height: 630,
-        alt: "Circle - Meaningful Connections with the Ouroboros Symbol",
+        alt: "Circle - Meaningful Connections",
       },
     ],
     locale: "en_US",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Circle - Meaningful Connections",
     description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
-    images: ["https://joinfullcircle.app/lightOuroboros.png"],
+    images: ["https://joinfullcircle.app/assets/circle.svg"],
   },
   verification: {
     google: "your-google-verification-code", // Add your Google Search Console verification code
@@ -66,8 +66,8 @@ export default function RootLayout({
         {/* Additional social media meta tags */}
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:type" content="image/png" />
-        <meta name="twitter:image:alt" content="Circle - Meaningful Connections with Ouroboros Symbol" />
+        <meta property="og:image:type" content="image/svg+xml" />
+        <meta name="twitter:image:alt" content="Circle - Meaningful Connections" />
       </head>
       <body className={`${inter.className} ${philosopher.variable}`} suppressHydrationWarning>
         <ThemeProvider>
