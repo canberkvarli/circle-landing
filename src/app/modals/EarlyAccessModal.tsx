@@ -202,7 +202,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                 Welcome to the Community!
               </h3>
               <p className="text-spiritual-text-muted">
-                You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as the app launches!
+                You&apos;re now on our limited waitlist. We&apos;ll notify you as soon as the app launches!
               </p>
             </div>
           )}

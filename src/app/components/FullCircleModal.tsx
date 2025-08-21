@@ -103,7 +103,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               What is FullCircle?
             </h2>
             <p className="text-spiritual-text-dark text-lg dark:text-spiritual-dark-text-light">
-              Your premium spiritual connection experience
+              Your elevated connection experience
             </p>
           </div>
         </div>
@@ -116,22 +116,22 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               {
                 icon: <Sparkles className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Soul Matching",
-                description: "Advanced algorithm that connects you with compatible spiritual seekers"
+                description: "Advanced algorithm that connects you with compatible seekers"
               },
               {
                 icon: <Leaf className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Mindful Community",
-                description: "Join exclusive events and connect with like-minded souls"
+                description: "Join limited events and connect with like-minded souls"
               },
               {
                 icon: <Star className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
-                title: "Premium Support",
+                title: "Dedicated Support",
                 description: "Get dedicated assistance from our connection experts"
               },
               {
                 icon: <Crown className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
-                title: "Exclusive Content",
-                description: "Access to guided meditations, mindful practices, and growth resources"
+                title: "Curated Content",
+                description: "Access to guided practices, mindful content, and growth resources"
               }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-xl p-4 border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
@@ -156,7 +156,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 "Unlimited daily matches",
                 "Advanced compatibility algorithm",
                 "Dedicated customer support",
-                "Exclusive mindful content",
+                "Curated mindful content",
                 "Community events access",
                 "Profile verification badge",
                 "Custom conversation starters",
@@ -185,7 +185,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 </span>
               </p>
               <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-sm mt-2">
-                Join our exclusive waitlist and be among the first to experience premium spiritual connections
+                Join our limited waitlist and be among the first to experience elevated connections
               </p>
             </div>
           </div>
@@ -246,7 +246,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 Welcome to Circle!
               </h3>
               <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
-                You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as we launch with your FREE month of FullCircle!
+                You&apos;re now on our limited waitlist. We&apos;ll notify you as soon as we launch with your FREE month of FullCircle!
               </p>
             </div>
           )}
