@@ -38,7 +38,7 @@ const IntroAnimation = () => {
           transformOrigin: "center center", // Ensure rotation center is consistent
           backfaceVisibility: "hidden", // Prevent rendering issues on mobile
           WebkitBackfaceVisibility: "hidden", // Safari support
-          animation: "spin-clockwise 6s cubic-bezier(0.25, 0.1, 0.25, 1)" // Custom curve: slow -> fast -> very fast
+          animation: "spin-clockwise 6s cubic-bezier(0.4, 0.3, 0.3, 1)" // Even faster start -> slow -> fast -> very fast
         }}
       >
         <Image
