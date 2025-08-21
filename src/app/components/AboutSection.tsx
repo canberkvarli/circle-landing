@@ -2,7 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const AboutSection = () => {
+interface AboutSectionProps {
+  openModal: (modalType: string) => void;
+}
+
+const AboutSection = ({ openModal }: AboutSectionProps) => {
   return (
     <section id="about" className="py-20 bg-white dark:bg-spiritual-dark-background">
       <div className="max-w-6xl mx-auto px-6">
@@ -44,16 +48,21 @@ const AboutSection = () => {
               living intentionally, Circle helps you find your tribe.
             </p>
             <div className="flex items-center space-x-1 justify-start">
-              <Image
-                src="/logo.png"
-                alt="Circle"
-                width={32}
-                height={32}
-                className="w-50 h-50"
-              />
-              <span className="text-spiritual-primary font-medium">
-                Join the mindful movement
-              </span>
+              <button
+                onClick={() => openModal("earlyAccess")}
+                className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Circle"
+                  width={32}
+                  height={32}
+                  className="w-50 h-50"
+                />
+                <span className="text-spiritual-primary font-medium ml-2">
+                  Join the mindful movement
+                </span>
+              </button>
             </div>
           </motion.div>
 

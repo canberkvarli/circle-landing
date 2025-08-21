@@ -231,14 +231,20 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                       <div className="flex-1" />
                       <div className="space-y-3">
                         {/* Create Account Button */}
-                        <div className="w-full bg-spiritual-accent rounded-full py-3 px-6 text-center">
+                        <button
+                          onClick={() => openModal("earlyAccess")}
+                          className="w-full bg-spiritual-accent rounded-full py-3 px-6 text-center hover:bg-spiritual-accent/80 transition-colors duration-300 cursor-pointer"
+                        >
                           <span className="text-white font-spirituality font-bold text-base tracking-wide">Create account</span>
-                        </div>
+                        </button>
                         
                         {/* Sign In Button */}
-                        <div className="w-full bg-white/15 backdrop-blur-sm rounded-full py-3 px-6 text-center border-2 border-spiritual-accent">
+                        <button
+                          onClick={() => openModal("earlyAccess")}
+                          className="w-full bg-white/15 backdrop-blur-sm rounded-full py-3 px-6 text-center border-2 border-spiritual-accent hover:bg-white/25 transition-colors duration-300 cursor-pointer"
+                        >
                           <span className="text-white font-spirituality font-bold text-base tracking-wide">Sign In</span>
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>

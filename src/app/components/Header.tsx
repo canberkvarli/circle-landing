@@ -120,10 +120,10 @@ const Header = ({ openModal }: HeaderProps) => {
               alt="Circle"
               width={80}
               height={80}
-              className="w-14 h-14"
+              className="w-12 h-12 sm:w-14 sm:h-14 md:w-14 md:h-14"
               priority
             />
-            <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
+            <span className="text-2xl sm:text-3xl md:text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">
               Circle
             </span>
           </div>
@@ -165,9 +165,9 @@ const Header = ({ openModal }: HeaderProps) => {
             <ThemeToggle />
           </nav>
 
-          {/* CTA Button */}
+          {/* CTA Button - Hidden on mobile */}
           <motion.button
-            className="header-waitlist-button"
+            className="hidden md:block header-waitlist-button"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
@@ -239,6 +239,18 @@ const Header = ({ openModal }: HeaderProps) => {
                 <div className="flex justify-center pt-2">
                   <ThemeToggle />
                 </div>
+                
+                {/* Mobile Waitlist Button */}
+                <motion.button
+                  onClick={() => {
+                    openModal('earlyAccess');
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-black shadow-lg text-lg font-spirituality tracking-wide hover:shadow-xl transition-all duration-200"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Join Waitlist
+                </motion.button>
               </div>
             </motion.div>
           )}

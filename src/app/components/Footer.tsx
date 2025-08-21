@@ -26,16 +26,21 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             className="flex items-center justify-center space-x-0 mb-4"
             whileHover={{ scale: 1.05 }}
           >
-            <Image
-              src="/logo.png"
-              alt="Circle"
-              width={32}
-              height={32}
-              className="w-50 h-50 mr-2"
-            />
-            <span className="text-3xl font-spirituality text-spiritual-primary dark:text-spiritual-dark-primary ml-2">
-              Circle
-            </span>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <Image
+                src="/logo.png"
+                alt="Circle"
+                width={32}
+                height={32}
+                className="w-50 h-50 mr-2"
+              />
+              <span className="text-3xl font-spirituality text-spiritual-primary dark:text-spiritual-dark-primary ml-2">
+                Circle
+              </span>
+            </button>
           </motion.div>
           <p className="text-spiritual-text-muted mb-6 dark:text-spiritual-dark-text-muted">
             Connecting souls through mindful technology and mindful design.
