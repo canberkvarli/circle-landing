@@ -43,7 +43,7 @@ const Header = ({ openModal }: HeaderProps) => {
             {/* Logo */}
             <div className="flex items-center space-x-2">
                           <Image
-              src="/assets/circle.svg"
+              src="/logo.png"
               alt="Circle"
               width={80}
               height={80}
