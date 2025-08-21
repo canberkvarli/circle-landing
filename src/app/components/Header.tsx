@@ -114,13 +114,13 @@ const Header = ({ openModal }: HeaderProps) => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             <Image
-              src="/assets/circle.svg"
+              src="/logo.png"
               alt="Circle"
               width={80}
               height={80}
-              className="w-20 h-20"
+              className="w-14 h-14"
               priority
             />
             <span className="text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark">

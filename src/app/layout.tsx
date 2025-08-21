@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Circle",
     images: [
       {
-        url: "https://joinfullcircle.app/lightOuroboros.png",
+        url: "https://joinfullcircle.app/logo.png",
         width: 1200,
         height: 630,
         alt: "Circle - Meaningful Connections",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Circle - Meaningful Connections",
     description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
-    images: ["https://joinfullcircle.app/lightOuroboros.png"],
+      images: ["https://joinfullcircle.app/logo.png"],
   },
   verification: {
     google: "your-google-verification-code", // Add your Google Search Console verification code

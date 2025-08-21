@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     console.log('Using from address: FullCircle <onboarding@resend.dev>');
     
     // Read the email logo for inline attachment
-    const logoPath = path.join(process.cwd(), 'public', 'lightOuroboros.png');
+    const logoPath = path.join(process.cwd(), 'public', 'logo.png');
     let logoAttachment = null;
     
     try {

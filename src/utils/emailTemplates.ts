@@ -4,8 +4,8 @@
 // Email logo configuration for Resend inline images
 export const EMAIL_LOGO_CONFIG = {
   contentId: 'email-logo',
-  filename: 'lightOuroboros.png',
-  path: '/lightOuroboros.png' // PNG file - will make transparent
+  filename: 'logo.png',
+  path: '/logo.png' // PNG file - will make transparent
 };
 
 export interface EmailTemplateData {
