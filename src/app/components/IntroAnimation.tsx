@@ -22,23 +22,23 @@ const IntroAnimation = () => {
       <motion.div
         className="relative w-96 h-96 flex items-center justify-center"
         initial={{ 
-          rotate: 0, // Start from normal position
           opacity: 0.7 
         }}
         animate={{ 
-          rotate: 1440, // 4 full rotations clockwise (4 * 360 = 1440 degrees)
           opacity: 1
         }}
         transition={{
           duration: 6, // 6 seconds for the complete animation
-          rotate: {
-            duration: 6,
-            ease: [0.4, 0, 0.2, 1], // Smooth slow-fast-slow easing
-          },
           opacity: {
             duration: 1.5,
             ease: "easeOut"
           }
+        }}
+        style={{
+          transformOrigin: "center center", // Ensure rotation center is consistent
+          backfaceVisibility: "hidden", // Prevent rendering issues on mobile
+          WebkitBackfaceVisibility: "hidden", // Safari support
+          animation: "spin-clockwise 6s cubic-bezier(0.25, 0.1, 0.25, 1)" // Custom curve: slow -> fast -> very fast
         }}
       >
         <Image
@@ -48,6 +48,10 @@ const IntroAnimation = () => {
           height={400}
           className="w-full h-full opacity-90"
           priority
+          style={{
+            transform: "rotate(0deg)", // Reset any inherited transforms
+            transformOrigin: "center center" // Ensure consistent rotation center
+          }}
         />
       </motion.div>
     </motion.div>
