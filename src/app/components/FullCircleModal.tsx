@@ -146,44 +146,6 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
             ))}
           </div>
 
-          {/* Pricing Plans */}
-          <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-6 mb-6 border border-spiritual-primary/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary/30 dark:border-spiritual-dark-border">
-            <h3 className="text-xl font-spirituality font-bold text-spiritual-primary mb-4 tracking-wide dark:text-spiritual-dark-primary">
-              Choose Your Plan
-            </h3>
-            <div className="space-y-3">
-              {[
-                { name: "1 Month", price: "$29.97", savings: "0%" },
-                { name: "3 Months", price: "$67.48", savings: "12%" },
-                { name: "6 Months", price: "$107.82", savings: "25%" },
-                { name: "Annual", price: "$143.82", savings: "40%", popular: true },
-              ].map((option, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
-                  <div className="flex items-center space-x-3">
-                    <div className="text-sm font-semibold text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                      {option.name}
-                    </div>
-                    {option.popular && (
-                      <span className="px-2 py-1 bg-spiritual-primary text-white text-xs font-bold rounded-full dark:bg-spiritual-dark-primary">
-                        POPULAR
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="text-lg font-bold text-spiritual-text-dark dark:text-spiritual-dark-text-light">
-                      {option.price}
-                    </div>
-                    {option.savings !== "0%" && (
-                      <div className="text-xs text-spiritual-primary font-bold dark:text-spiritual-dark-primary">
-                        Save {option.savings}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Benefits */}
           <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-6 mb-6 border border-spiritual-primary/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary/30 dark:border-spiritual-dark-border">
             <h3 className="text-xl font-spirituality font-bold text-spiritual-primary mb-4 tracking-wide dark:text-spiritual-dark-primary">
@@ -208,21 +170,43 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
             </div>
           </div>
 
+          {/* Special Offer */}
+          <div className="bg-gradient-to-br from-spiritual-accent/20 to-spiritual-primary/20 rounded-2xl p-6 mb-6 border-2 border-spiritual-accent/40 dark:from-spiritual-dark-accent/20 dark:to-spiritual-dark-primary/20 dark:border-spiritual-dark-accent/40">
+            <div className="text-center">
+              <div className="flex justify-center mb-3">
+                <Crown className="w-8 h-8 text-spiritual-accent dark:text-spiritual-dark-accent" />
+              </div>
+              <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
+                🎉 Special Launch Offer
+              </h3>
+              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-lg">
+                <span className="font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
+                  First 5,000 users get 1 month of FullCircle FREE!
+                </span>
+              </p>
+              <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-sm mt-2">
+                Join our exclusive waitlist and be among the first to experience premium spiritual connections
+              </p>
+            </div>
+          </div>
+
           {/* Email Collection Form */}
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="text-center">
                 <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
-                  Get Early Access
+                  Join the Waitlist
                 </h3>
                 <p className="text-spiritual-text-dark mb-4 dark:text-spiritual-dark-text-light font-medium">
-                  Be among the first to experience FullCircle when we launch
+                  Be among the first 5,000 to get 1 month of FullCircle FREE when we launch
                 </p>
               </div>
               
               <div className="flex flex-col md:flex-row gap-3">
                 <div className="flex-1 relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-dark dark:text-spiritual-dark-text-light" style={{ marginTop: '-2.5px' }} />
+                  <div className="absolute inset-0 grid place-items-center pointer-events-none" style={{ width: '48px' }}>
+                    <Mail className="w-5 h-5 text-spiritual-text-dark dark:text-spiritual-dark-text-light" />
+                  </div>
                   <input
                     type="email"
                     value={email}
@@ -231,7 +215,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                       if (error) setError(""); // Clear error when user types
                     }}
                     placeholder="Enter your email address"
-                    className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-full focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-dark/60 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-light/60 dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent font-medium"
+                    className="w-full pl-12 pr-4 py-3 border border-spiritual-accent/30 rounded-full focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-dark/60 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-light/60 dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent font-medium"
                     required
                   />
                 </div>
@@ -262,7 +246,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 Welcome to Circle!
               </h3>
               <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
-                You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as we launch!
+                You&apos;re now on our exclusive waitlist. We&apos;ll notify you as soon as we launch with your FREE month of FullCircle!
               </p>
             </div>
           )}
