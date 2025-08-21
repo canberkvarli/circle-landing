@@ -30,7 +30,7 @@ const MandalaBackground = () => {
       >
         {/* Simple ouroboros without scaling */}
         <Image
-          src="/assets/circle.svg"
+          src="/logo.png"
           alt="Spinning Ouroboros"
           width={400}
           height={400}

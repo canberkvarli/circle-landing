@@ -92,11 +92,11 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           <div className="text-center">
             <div className="flex justify-center mx-auto mb-4">
               <Image
-                src="/assets/circle.svg"
+                src="/logo.png"
                 alt="Circle"
-                width={80}
-                height={80}
-                className="w-20 h-20"
+                width={64}
+                height={64}
+                className="w-50 h-50"
               />
             </div>
             <h2 className="text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">

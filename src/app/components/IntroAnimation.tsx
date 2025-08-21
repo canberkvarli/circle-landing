@@ -42,11 +42,11 @@ const IntroAnimation = () => {
         }}
       >
         <Image
-          src="/assets/circle.svg"
+          src="/logo.png"
           alt="Spinning Ouroboros"
-          width={400}
-          height={400}
-          className="w-full h-full opacity-90"
+          width={200}
+          height={200}
+          className="w-50 h-50"
           priority
           style={{
             transform: "rotate(0deg)", // Reset any inherited transforms

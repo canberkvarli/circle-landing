@@ -102,7 +102,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
           <div className="text-center">
             <div className="flex justify-center mx-auto mb-4">
               <Image
-                src="/assets/circle.svg"
+                src="/logo.png"
                 alt="Circle"
                 width={80}
                 height={80}

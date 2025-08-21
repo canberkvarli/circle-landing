@@ -27,11 +27,11 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             whileHover={{ scale: 1.05 }}
           >
             <Image
-              src="/assets/circle.svg"
+              src="/logo.png"
               alt="Circle"
-              width={64}
-              height={64}
-              className="w-16 h-16"
+              width={32}
+              height={32}
+              className="w-50 h-50 mr-2"
             />
             <span className="text-3xl font-spirituality text-spiritual-primary dark:text-spiritual-dark-primary ml-2">
               Circle

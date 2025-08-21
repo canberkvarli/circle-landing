@@ -49,7 +49,7 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
             <div className="flex justify-center mb-8">
               <div className="w-20 h-20 relative">
                 <Image
-                  src="/assets/circle.svg"
+                  src="/logo.png"
                   alt="Ouroboros"
                   fill
                   className="object-contain animate-spin-ouroboros"

@@ -45,11 +45,11 @@ const AboutSection = () => {
             </p>
             <div className="flex items-center space-x-1 justify-start">
               <Image
-                src="/assets/circle.svg"
+                src="/logo.png"
                 alt="Circle"
-                width={64}
-                height={64}
-                className="w-16 h-16"
+                width={32}
+                height={32}
+                className="w-50 h-50"
               />
               <span className="text-spiritual-primary font-medium">
                 Join the mindful movement
