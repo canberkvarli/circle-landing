@@ -121,7 +121,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               {
                 icon: <Leaf className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Mindful Community",
-                description: "Join limited events and connect with like-minded souls"
+                description: "Join communities and connect with like-minded souls"
               },
               {
                 icon: <Star className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
@@ -131,7 +131,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               {
                 icon: <Crown className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Curated Content",
-                description: "Access to guided practices, mindful content, and growth resources"
+                description: "Access to mindful content and growth resources"
               }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-xl p-4 border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
@@ -159,8 +159,8 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 "Curated mindful content",
                 "Community events access",
                 "Profile verification badge",
-                "Custom conversation starters",
-                "Relationship coaching sessions"
+                "See who wants to connect with you",
+                "Unlimited connections"
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-3">
                   <CheckCircle className="w-5 h-5 text-spiritual-primary flex-shrink-0 dark:text-spiritual-dark-primary" />
