@@ -21,6 +21,7 @@ import {
 } from '@/services/firebase/adminFunctions';
 import { WaitlistUser, AdminStats } from '@/types';
 import { UserData } from '@/services/firebase/adminFunctions';
+import AdminNotifications from '@/app/components/AdminNotifications';
 
 // Define types for filter presets to avoid hydration issues
 interface FilterPreset {
@@ -189,6 +190,10 @@ export default function AdminDashboard() {
   const [currentUserPage, setCurrentUserPage] = useState(1);
   const [usersPerPage] = useState(10);
   
+  // Notification state
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+  
   // Email modal state
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailSubject, setEmailSubject] = useState('');
@@ -204,6 +209,12 @@ export default function AdminDashboard() {
       console.log('✅ User is authenticated, loading data...');
       loadAllUsers();
       loadAdminStats();
+      loadNotifications();
+      
+      // Set up periodic refresh for notifications
+      const notificationInterval = setInterval(loadNotifications, 60000); // Refresh every minute
+      
+      return () => clearInterval(notificationInterval);
     } else {
       console.log('❌ User is not authenticated, skipping data load');
     }
@@ -254,6 +265,23 @@ export default function AdminDashboard() {
         recentSubscriptions: 0,
         onboardingCompletionRate: 0
       });
+    }
+  };
+
+  const loadNotifications = async () => {
+    try {
+      const response = await fetch('/api/admin/waitlist-notifications');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          const unreadCount = data.notifications.filter((n: { acknowledged: boolean }) => !n.acknowledged).length;
+          console.log(`📊 Loaded notifications: ${data.notifications.length} total, ${unreadCount} unread`);
+          setNotificationCount(unreadCount);
+        }
+      }
+    } catch (error) {
+      console.error('Error loading notifications:', error);
+      // Don't change the count on error
     }
   };
 
@@ -1357,12 +1385,27 @@ export default function AdminDashboard() {
             <h1 className="text-4xl font-bold text-gray-800 mb-2">FullCircle Admin Panel</h1>
             <p className="text-lg text-gray-700">Comprehensive user management, lotus flowers, notifications, and analytics</p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors font-medium"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-4">
+            {/* Notification Bell */}
+            <button
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="relative p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              title="View notifications"
+            >
+              <Bell className="w-5 h-5" />
+              {notificationCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+                  {notificationCount > 99 ? '99+' : notificationCount}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors font-medium"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Tab Navigation */}
@@ -3142,6 +3185,13 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+        
+        {/* Admin Notifications */}
+        <AdminNotifications 
+          isVisible={showNotifications}
+          onClose={() => setShowNotifications(false)}
+          onNotificationAcknowledged={loadNotifications}
+        />
       </div>
     </div>
   );

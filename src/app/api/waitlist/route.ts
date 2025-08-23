@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
 import { getWaitlistConfirmationEmail } from '@/utils/emailTemplates';
+import { getAdminWaitlistNotificationEmail } from "@/utils/emailTemplates";
 
 export const runtime = 'nodejs';
 
@@ -98,6 +99,53 @@ export async function POST(request: NextRequest) {
     } catch (emailError) {
       console.error('Error sending confirmation email:', emailError);
       // Don't fail the waitlist signup if email fails
+    }
+
+    // Send admin notification email
+    try {
+      console.log('Preparing to send admin notification email');
+      
+      const adminEmailHtml = getAdminWaitlistNotificationEmail({
+        firstName: firstName || 'Waitlist',
+        lastName: lastName || 'User',
+        email: email.toLowerCase().trim(),
+        phone: phone || 'Not provided',
+        source: firstName ? 'early-access-modal' : 'fullcircle-modal',
+        timestamp: new Date().toLocaleString('en-US', {
+          timeZone: 'America/Los_Angeles',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZoneName: 'short'
+        })
+      });
+
+      const adminEmailUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-email`;
+      
+      const adminEmailResponse = await fetch(adminEmailUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: process.env.ADMIN_EMAIL || 'canberkvarli@gmail.com',
+          subject: '🎉 New Waitlist Signup!',
+          html: adminEmailHtml,
+        }),
+      });
+
+      if (adminEmailResponse.ok) {
+        const adminEmailResult = await adminEmailResponse.json();
+        console.log('Admin notification email sent successfully:', adminEmailResult);
+      } else {
+        const errorText = await adminEmailResponse.text();
+        console.error('Failed to send admin notification email:', adminEmailResponse.status, errorText);
+      }
+    } catch (adminEmailError) {
+      console.error('Error sending admin notification email:', adminEmailError);
+      // Don't fail the waitlist signup if admin email fails
     }
 
     return NextResponse.json({

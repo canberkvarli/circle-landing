@@ -646,6 +646,89 @@ export const getAdminNotificationEmail = (data: EmailTemplateData): string => {
   return getBaseEmailTemplate(content);
 };
 
+// 8. Admin Waitlist Notification Email Template
+export const getAdminWaitlistNotificationEmail = (data: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  source: string;
+  timestamp: string;
+}): string => {
+  const { firstName, lastName, email, phone, source, timestamp } = data;
+  
+  const content = `
+    <div class="section">
+        <h2 class="section-title">🎉 New Waitlist Signup!</h2>
+        <p class="section-text">
+            Someone has just joined your Circle waitlist! Here are the details:
+        </p>
+    </div>
+    
+    <div class="highlight-box">
+        <h3 class="highlight-title">✨ New Member Details ✨</h3>
+        <p class="highlight-subtitle">Welcome them to the Circle community</p>
+    </div>
+    
+    <div class="section">
+        <div style="background: rgba(196, 169, 132, 0.1); padding: 25px; border-radius: 20px; border: 1px solid rgba(196, 169, 132, 0.3);">
+            <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Name:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${firstName} ${lastName}</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Email:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${email}</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Phone:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${phone}</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Source:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${source}</span>
+            </div>
+            <div style="margin-bottom: 0; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Signed up at:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${timestamp}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h3 style="color: #C4A984; font-size: 22px; margin: 0 0 15px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">Quick Actions:</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <span class="feature-icon">👥</span>
+                <h4 class="feature-title">View Dashboard</h4>
+                <p class="feature-text">Check admin dashboard for more details</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📧</span>
+                <h4 class="feature-title">Send Welcome</h4>
+                <p class="feature-text">Send personalized welcome message</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📊</span>
+                <h4 class="feature-title">Track Growth</h4>
+                <p class="feature-text">Monitor waitlist growth trends</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🎯</span>
+                <h4 class="feature-title">Plan Launch</h4>
+                <p class="feature-text">Prepare for app launch strategy</p>
+            </div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/admin" class="cta-button">Go to Admin Dashboard</a>
+    </div>
+  `;
+  
+  return getBaseEmailTemplate(content);
+};
+
 // 8. Community Event Invitation Email Template
 export const getCommunityEventEmail = (data: EmailTemplateData): string => {
   const { firstName = 'there', eventName = 'our next gathering', eventDate = 'this weekend' } = data;
