@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     // Send a simple test email
     const { data, error } = await resend.emails.send({
-      from: 'Circle <noreply@joinfullcircle.app>',
+      from: 'Circle <hello@joinfullcircle.app>',
       to: [to],
       subject: '🧪 Test Email from Circle',
       html: `

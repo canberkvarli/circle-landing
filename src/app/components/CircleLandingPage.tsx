@@ -12,8 +12,6 @@ import AboutSection from "./AboutSection";
 import Footer from "./Footer";
 import EarlyAccessModal from "../modals/EarlyAccessModal";
 import ContactModal from "../modals/ContactModal";
-import PrivacyModal from "../modals/PrivacyModal";
-import TermsModal from "../modals/TermsModal";
 import FullCircleModal from "./FullCircleModal";
 import OuroborosInfoModal from "../modals/OuroborosInfoModal";
 import DanielleModal from "../modals/DanielleModal";
@@ -159,7 +157,7 @@ const CircleLandingPage = () => {
       
       // Prepare email content
       const emailData = {
-        to: 'canberkvarli@gmail.com', // Your email address
+        to: 'hello@joinfullcircle.app',
         subject: `Contact Form: ${data.subject}`,
         html: getContactFormEmail({
           name: data.name,
@@ -236,12 +234,6 @@ const CircleLandingPage = () => {
             isSubmitting={isSubmitting}
             submitMessage={submitMessage}
           />
-        )}
-        {activeModal === "privacy" && (
-          <PrivacyModal isOpen={true} onClose={closeModal} />
-        )}
-        {activeModal === "terms" && (
-          <TermsModal isOpen={true} onClose={closeModal} />
         )}
         {activeModal === "fullcircle" && (
           <FullCircleModal isOpen={true} onClose={closeModal} />

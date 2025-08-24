@@ -198,7 +198,7 @@ const ContactModal = ({
             <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-center dark:bg-red-900/20 dark:border-red-800">
               <p className="text-red-700 dark:text-red-300 text-sm">
                 There was an error sending your message. Please try again or email
-                us directly at canberkvarli@gmail.com
+                us directly at hello@joinfullcircle.app
               </p>
             </div>
           )}

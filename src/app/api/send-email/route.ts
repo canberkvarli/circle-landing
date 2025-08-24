@@ -63,11 +63,11 @@ export async function POST(request: NextRequest) {
     }
     
     const { data, error } = await resend.emails.send({
-      from: 'Circle <noreply@joinfullcircle.app>', // Use your verified domain
+      from: 'Circle <hello@joinfullcircle.app>', // Use your new Google Workspace domain
       to: [to],
       subject: subject,
       html: html,
-      replyTo: 'support@joinfullcircle.app', // Add reply-to address
+      replyTo: 'hello@joinfullcircle.app', // Use your new email as reply-to
       attachments: logoAttachment ? [logoAttachment] : undefined,
       tags: [
         { name: 'category', value: 'waitlist' },

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, RefreshCw, Infinity, Heart } from "lucide-react";
 import Image from "next/image";
 
 interface OuroborosInfoModalProps {
@@ -35,7 +35,7 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative bg-spiritual-card dark:bg-spiritual-dark-card border border-spiritual-primary/20 dark:border-spiritual-dark-primary/20 rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            className="relative bg-white dark:bg-spiritual-dark-card border border-spiritual-primary/20 dark:border-spiritual-dark-primary/20 rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl"
           >
             {/* Close Button */}
             <button
@@ -46,7 +46,7 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
             </button>
             
             {/* Ouroboros Animation */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-6">
               <div className="w-20 h-20 relative">
                 <Image
                   src="/logo.png"
@@ -57,63 +57,74 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
               </div>
             </div>
             
-            {/* Subtitle */}
-            <p className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-center mb-8 leading-relaxed">
-              The Ouroboros represents the eternal cycle of transformation and renewal
-            </p>
-            
-            {/* Features Section 1 */}
-            <div className="mb-8">
-              <h3 className="text-spiritual-text-dark dark:text-spiritual-dark-text-dark font-bold text-center mb-4">
-                The Sacred Symbol:
-              </h3>
-              <ul className="space-y-2">
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Ancient symbol of infinite cycles
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Represents death and rebirth
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Symbolizes the unity of opposites
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Embodies eternal transformation
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Represents the cosmic dance of life
-                </li>
-              </ul>
+            {/* Title */}
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-spirituality font-bold text-spiritual-primary dark:text-spiritual-dark-primary tracking-wide">
+                The Ouroboros
+              </h2>
             </div>
             
-            {/* Features Section 2 */}
-            <div className="mb-8">
-              <h3 className="text-spiritual-text-dark dark:text-spiritual-dark-text-dark font-bold text-center mb-4">
-                In Circle&apos;s Journey:
-              </h3>
-              <ul className="space-y-2">
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Every ending is a new beginning
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Each connection transforms us
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • We grow through relationships
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Love flows in infinite cycles
-                </li>
-                <li className="text-spiritual-text-light dark:text-spiritual-dark-text-light text-sm leading-relaxed">
-                  • Our spiritual path has no end
-                </li>
-              </ul>
+            {/* Content */}
+            <div className="space-y-6">
+              <div className="text-center">
+                <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light leading-relaxed">
+                  The ouroboros is an ancient symbol of a serpent or dragon eating its own tail, representing the eternal cycle of life, death, and rebirth.
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-spiritual-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <RefreshCw className="w-5 h-5 text-spiritual-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-spiritual-text-dark dark:text-spiritual-dark-accent mb-1">
+                      Eternal Cycles
+                    </h3>
+                    <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
+                      This symbol reminds us that everything in nature moves in cycles - seasons change, relationships evolve, and we continuously transform through our experiences.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-spiritual-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Infinity className="w-5 h-5 text-spiritual-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-spiritual-text-dark dark:text-spiritual-dark-accent mb-1">
+                      Unity of Opposites
+                    </h3>
+                    <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
+                      The ouroboros shows how beginnings and endings are connected, how light and dark exist together, and how we can find wholeness by embracing all parts of ourselves.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-spiritual-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Heart className="w-5 h-5 text-spiritual-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-spiritual-text-dark dark:text-spiritual-dark-accent mb-1">
+                      In Circle&apos;s Journey
+                    </h3>
+                    <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
+                      Just as the ouroboros represents endless transformation, Circle helps us grow through relationships. Each connection teaches us something new, and every ending opens the door to new beginnings in our spiritual journey.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Quote */}
+              <div className="mt-8 pt-6 border-t border-spiritual-border/20 dark:border-spiritual-dark-border/20">
+                <div className="text-center">
+                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light italic">
+                    &ldquo;As the serpent completes its circle, so do we find completion in our connections&rdquo;
+                  </p>
+                </div>
+              </div>
             </div>
-            
-            {/* Footer Quote */}
-            <p className="text-spiritual-text-muted dark:text-spiritual-dark-text-muted text-sm text-center italic leading-relaxed">
-              &ldquo;As the serpent eats its tail, so do we complete and renew ourselves through love&rdquo;
-            </p>
           </motion.div>
         </motion.div>
       )}

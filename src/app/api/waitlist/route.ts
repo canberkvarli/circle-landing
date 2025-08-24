@@ -124,24 +124,29 @@ export async function POST(request: NextRequest) {
 
       const adminEmailUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-email`;
       
-      const adminEmailResponse = await fetch(adminEmailUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: process.env.ADMIN_EMAIL || 'canberkvarli@gmail.com',
-          subject: '🎉 New Waitlist Signup!',
-          html: adminEmailHtml,
-        }),
-      });
+      // Send admin notification to both email addresses
+      const adminEmails = (process.env.ADMIN_EMAIL || 'canberkvarli@gmail.com').split(',').map(email => email.trim());
+      
+      for (const adminEmail of adminEmails) {
+        const adminEmailResponse = await fetch(adminEmailUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            to: adminEmail,
+            subject: '🎉 New Waitlist Signup!',
+            html: adminEmailHtml,
+          }),
+        });
 
-      if (adminEmailResponse.ok) {
-        const adminEmailResult = await adminEmailResponse.json();
-        console.log('Admin notification email sent successfully:', adminEmailResult);
-      } else {
-        const errorText = await adminEmailResponse.text();
-        console.error('Failed to send admin notification email:', adminEmailResponse.status, errorText);
+        if (adminEmailResponse.ok) {
+          const adminEmailResult = await adminEmailResponse.json();
+          console.log(`Admin notification email sent successfully to ${adminEmail}:`, adminEmailResult);
+        } else {
+          const errorText = await adminEmailResponse.text();
+          console.error(`Failed to send admin notification email to ${adminEmail}:`, adminEmailResponse.status, errorText);
+        }
       }
     } catch (adminEmailError) {
       console.error('Error sending admin notification email:', adminEmailError);

@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => (
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto"
+          className="bg-white dark:bg-spiritual-dark-card rounded-xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto border border-spiritual-border/20 dark:border-spiritual-dark-border/20"
         >
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-semibold bg-gradient-to-r from-spiritual-primary to-spiritual-secondary bg-clip-text text-transparent">
@@ -31,9 +31,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => (
             </h3>
             <button
               onClick={onClose}
-              className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-1 hover:bg-gray-100 dark:hover:bg-spiritual-dark-accent/20 rounded-lg transition-colors"
             >
-              <X className="w-5 h-5 text-gray-500" />
+              <X className="w-5 h-5 text-gray-500 dark:text-spiritual-dark-text-muted" />
             </button>
           </div>
           {children}
