@@ -239,6 +239,10 @@ export interface WaitlistUser {
   email: string;
   phoneNumber?: string;
   createdAt?: Date;
+  // Notification acknowledgment fields
+  notificationAcknowledged?: boolean;
+  acknowledgedAt?: Date;
+  acknowledgedBy?: string;
 }
 
 export interface AdminStats {

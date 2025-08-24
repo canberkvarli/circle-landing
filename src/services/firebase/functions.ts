@@ -12,6 +12,10 @@ export interface WaitlistUser {
   status: 'waitlist' | 'invited' | 'active';
   inviteSent?: boolean;
   inviteDate?: Timestamp | null;
+  // Notification acknowledgment fields
+  notificationAcknowledged?: boolean;
+  acknowledgedAt?: Timestamp | null;
+  acknowledgedBy?: string;
 }
 
 export const addWaitlistUser = async (userData: Omit<WaitlistUser, 'timestamp' | 'status'>) => {

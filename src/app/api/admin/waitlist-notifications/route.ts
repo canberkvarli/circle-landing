@@ -28,12 +28,12 @@ export async function GET(request: NextRequest) {
       .limit(50)
       .get();
 
-    // Get acknowledged notifications to filter them out
-    const acknowledgedSnap = await db.collection('notificationAcknowledged').get();
-    const acknowledgedIds = new Set(acknowledgedSnap.docs.map(doc => doc.id));
-
     const notifications = waitlistSnap.docs
-      .filter(doc => !acknowledgedIds.has(doc.id)) // Only show unacknowledged notifications
+      .filter(doc => {
+        const data = doc.data();
+        // Only show notifications that haven't been acknowledged
+        return !data.notificationAcknowledged;
+      })
       .map(doc => {
         const data = doc.data();
         return {
@@ -92,17 +92,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Store the acknowledged state in the database
+    // Store the acknowledged state directly in the waitlist document
     const db = getAdminDb();
     
-    // Create a notifications collection to track acknowledged state
-    await db.collection('notificationAcknowledged').doc(notificationId).set({
-      acknowledged: true,
+    await db.collection('waitlist').doc(notificationId).update({
+      notificationAcknowledged: true,
       acknowledgedAt: new Date(),
       acknowledgedBy: 'admin-dashboard'
     });
 
-    console.log(`Notification ${notificationId} acknowledged and stored in database`);
+    console.log(`Notification ${notificationId} acknowledged and stored in waitlist document`);
 
     return NextResponse.json({
       success: true,
