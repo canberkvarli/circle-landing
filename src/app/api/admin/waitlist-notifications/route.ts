@@ -46,6 +46,8 @@ export async function GET(request: NextRequest) {
             lastName: data.lastName || 'User',
             email: data.email,
             phone: data.phone || 'Not provided',
+            heardFrom: data.heardFrom || 'Not specified',
+            additionalComments: data.additionalComments || 'None',
             source: data.source || 'unknown',
             timestamp: data.timestamp?.toDate?.() || data.timestamp
           },

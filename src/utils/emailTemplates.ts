@@ -652,10 +652,12 @@ export const getAdminWaitlistNotificationEmail = (data: {
   lastName: string;
   email: string;
   phone: string;
+  heardFrom: string;
+  additionalComments: string;
   source: string;
   timestamp: string;
 }): string => {
-  const { firstName, lastName, email, phone, source, timestamp } = data;
+  const { firstName, lastName, email, phone, heardFrom, additionalComments, source, timestamp } = data;
   
   const content = `
     <div class="section">
@@ -685,8 +687,16 @@ export const getAdminWaitlistNotificationEmail = (data: {
                 <span style="color: #F5E6D3; font-size: 16px;">${phone}</span>
             </div>
             <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Heard From:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${heardFrom}</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
                 <strong style="color: #C4A984; font-size: 16px;">Source:</strong> 
                 <span style="color: #F5E6D3; font-size: 16px;">${source}</span>
+            </div>
+            <div style="margin-bottom: 15px; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
+                <strong style="color: #C4A984; font-size: 16px;">Additional Comments:</strong> 
+                <span style="color: #F5E6D3; font-size: 16px;">${additionalComments || 'None'}</span>
             </div>
             <div style="margin-bottom: 0; padding: 15px; background: rgba(37, 35, 32, 0.8); border-radius: 16px;">
                 <strong style="color: #C4A984; font-size: 16px;">Signed up at:</strong> 

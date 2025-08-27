@@ -7,7 +7,9 @@ export interface WaitlistUser {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
+  heardFrom?: string;
+  additionalComments?: string;
   timestamp: Timestamp | null;
   status: 'waitlist' | 'invited' | 'active';
   inviteSent?: boolean;

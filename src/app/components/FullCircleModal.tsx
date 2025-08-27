@@ -26,7 +26,11 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ 
+          email,
+          heardFrom: 'fullcircle-modal',
+          additionalComments: ''
+        }),
       });
 
       const result = await response.json();

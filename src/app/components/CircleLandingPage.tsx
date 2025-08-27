@@ -27,7 +27,7 @@ const CircleLandingPage = () => {
   const [stats, setStats] = useState({
     signups: 0,
     connections: 0,
-    totalSpots: 5000,
+    totalSpots: 1000,
   });
   const [countdown, setCountdown] = useState({
     days: 0,

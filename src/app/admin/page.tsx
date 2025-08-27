@@ -1689,6 +1689,8 @@ export default function AdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heard From</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comments</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email Actions</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -1709,10 +1711,32 @@ export default function AdminDashboard() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.phoneNumber ? (
-                            <span className="text-green-600">{user.phoneNumber}</span>
+                          {(user.phoneNumber || user.phone) ? (
+                            <span className="text-green-600">{user.phoneNumber || user.phone}</span>
                           ) : (
-                            <span className="text-gray-400 italic">No phone</span>
+                            <span className="text-gray-400 italic">No phone provided</span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {user.heardFrom ? (
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                              {user.heardFrom}
+                            </span>
+                          ) : (
+                            <span className="text-gray-400 italic">Not specified</span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {user.additionalComments ? (
+                            <div className="max-w-xs">
+                              <span className="text-gray-700" title={user.additionalComments}>
+                                {user.additionalComments.length > 50 
+                                  ? `${user.additionalComments.substring(0, 50)}...` 
+                                  : user.additionalComments}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-gray-400 italic">No comments</span>
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

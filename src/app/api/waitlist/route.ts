@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, firstName, lastName, phone } = await request.json();
+    const { email, firstName, lastName, phone, heardFrom, additionalComments } = await request.json();
 
     if (!email) {
       return NextResponse.json(
@@ -45,7 +45,9 @@ export async function POST(request: NextRequest) {
       email: email.toLowerCase().trim(),
       firstName: firstName || 'Waitlist', // Use provided name or default
       lastName: lastName || 'User', // Use provided name or default
-      phone: phone || '', // Use provided phone or empty
+      phone: phone?.trim() || '', // Use provided phone or empty
+      heardFrom: heardFrom?.trim() || 'fullcircle-modal',
+      additionalComments: additionalComments?.trim() || '',
       timestamp: new Date(),
       status: 'waitlist',
       inviteSent: false,
@@ -109,7 +111,9 @@ export async function POST(request: NextRequest) {
         firstName: firstName || 'Waitlist',
         lastName: lastName || 'User',
         email: email.toLowerCase().trim(),
-        phone: phone || 'Not provided',
+        phone: phone?.trim() || 'Not provided',
+        heardFrom: heardFrom?.trim() || 'fullcircle-modal',
+        additionalComments: additionalComments?.trim() || 'None',
         source: firstName ? 'early-access-modal' : 'fullcircle-modal',
         timestamp: new Date().toLocaleString('en-US', {
           timeZone: 'America/Los_Angeles',

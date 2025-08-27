@@ -238,6 +238,9 @@ export interface WaitlistUser {
   fullName?: string;
   email: string;
   phoneNumber?: string;
+  phone?: string;
+  heardFrom?: string;
+  additionalComments?: string;
   createdAt?: Date;
   // Notification acknowledgment fields
   notificationAcknowledged?: boolean;

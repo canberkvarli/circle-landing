@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X, ArrowRight, Check, Mail, User, Phone, Info, AlertCircle } from "lucide-react";
+import { X, ArrowRight, Check, Mail, User, Phone, Info, AlertCircle, MessageSquare } from "lucide-react";
 import Image from "next/image";
 
 interface EarlyAccessModalProps {
@@ -23,10 +23,12 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
       const fullName = formData.get("firstName") as string;
       const email = formData.get("email") as string;
       const phone = formData.get("phone") as string;
+      const heardFrom = formData.get("heardFrom") as string;
+      const additionalComments = formData.get("additionalComments") as string;
       
       // Validate required fields
-      if (!fullName.trim() || !email.trim() || !phone.trim()) {
-        setError('All fields are required. Please fill in everything.');
+      if (!fullName.trim() || !email.trim() || !heardFrom.trim()) {
+        setError('Please fill in all required fields.');
         return;
       }
       
@@ -45,7 +47,9 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
           email: email.trim(),
           firstName,
           lastName,
-          phone: phone.trim()
+          phone: phone.trim(),
+          heardFrom: heardFrom.trim(),
+          additionalComments: additionalComments?.trim() || ''
         }),
       });
 
@@ -172,8 +176,41 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                   type="tel"
                   name="phone"
                   className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent"
-                  placeholder="Phone number"
+                  placeholder="Phone number (optional)"
+                />
+              </div>
+
+              <div className="relative">
+                <Info className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
+                <select
+                  name="heardFrom"
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent appearance-none cursor-pointer"
                   required
+                >
+                  <option value="">Where did you hear about us?</option>
+                  <option value="social-media">Social Media</option>
+                  <option value="friend-recommendation">Friend Recommendation</option>
+                  <option value="online-search">Online Search</option>
+                  <option value="advertisement">Advertisement</option>
+                  <option value="event">Event</option>
+                  <option value="blog-article">Blog/Article</option>
+                  <option value="podcast">Podcast</option>
+                  <option value="other">Other</option>
+                </select>
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                  <svg className="w-4 h-4 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+
+              <div className="relative">
+                <MessageSquare className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
+                <textarea
+                  name="additionalComments"
+                  rows={3}
+                  className="w-full pl-10 pr-4 py-3 border border-spiritual-accent/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-muted dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent resize-none"
+                  placeholder="Anything else you'd like to share? (Optional)"
                 />
               </div>
 
