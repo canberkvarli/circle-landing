@@ -13,7 +13,7 @@ const philosopher = Philosopher({
 export const metadata: Metadata = {
   title: "Circle - Meaningful Connections",
   description:
-    "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
+    "Where mindful souls unite. Where mindful hearts meet. Connect with a community that values presence, wellness, and authentic living.",
   keywords:
     "mindful dating, meaningful relationships, meditation, yoga, energy healing, authentic connections, full circle app",
   authors: [{ name: "Full Circle" }],
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Circle - Meaningful Connections",
-    description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
+    description: "Where mindful souls unite. Where mindful hearts meet. Connect with a community that values presence, wellness, and authentic living.",
     url: "https://joinfullcircle.app",
     siteName: "Circle",
     images: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Circle - Meaningful Connections",
-    description: "Where mindful souls unite. Connect with fellow seekers who practice meditation, yoga, energy healing, and embrace mindful living.",
+    description: "Where mindful souls unite. Where mindful hearts meet. Connect with a community that values presence, wellness, and authentic living.",
     images: ["https://joinfullcircle.app/logo.png"],
   },
   verification: {

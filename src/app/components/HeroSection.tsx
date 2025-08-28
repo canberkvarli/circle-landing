@@ -53,8 +53,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 1, delay: 0.8 }}
           >
-            Connect with fellow seekers who practice meditation, yoga, energy
-            healing, and embrace mindful living.
+            Where mindful hearts meet. Connect with a community that values presence, wellness, and authentic living.
           </motion.p>
 
           {/* Logo Meaning Link */}
