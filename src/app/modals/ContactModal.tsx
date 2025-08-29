@@ -8,6 +8,7 @@ const ContactModal = ({
   onSubmit,
   isSubmitting,
   submitMessage,
+  openModal,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -20,6 +21,7 @@ const ContactModal = ({
   }) => Promise<{ success: boolean }>;
   isSubmitting: boolean;
   submitMessage?: string;
+  openModal: (modalType: string) => void;
 }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -175,6 +177,26 @@ const ContactModal = ({
                 <span>Send Message</span>
               )}
             </button>
+            
+            {/* Privacy Policy & Terms Links */}
+            <p className="text-xs text-spiritual-text-muted text-center dark:text-spiritual-dark-text-muted">
+              By sending this message, you agree to our{" "}
+              <button
+                type="button"
+                onClick={() => openModal('privacyPolicy')}
+                className="text-spiritual-accent hover:underline dark:text-spiritual-dark-accent"
+              >
+                Privacy Policy
+              </button>{" "}
+              and{" "}
+              <button
+                type="button"
+                onClick={() => openModal('termsAndConditions')}
+                className="text-spiritual-accent hover:underline dark:text-spiritual-dark-accent"
+              >
+                Terms &amp; Conditions
+              </button>
+            </p>
           </form>
 
           {submitMessage === "success" && (

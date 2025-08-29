@@ -15,6 +15,8 @@ import ContactModal from "../modals/ContactModal";
 import FullCircleModal from "./FullCircleModal";
 import OuroborosInfoModal from "../modals/OuroborosInfoModal";
 import DanielleModal from "../modals/DanielleModal";
+import PrivacyPolicyModal from "../modals/PrivacyPolicyModal";
+import TermsAndConditionsModal from "../modals/TermsAndConditionsModal";
 import { getContactFormEmail } from "@/utils/emailTemplates";
 
 const CircleLandingPage = () => {
@@ -233,16 +235,23 @@ const CircleLandingPage = () => {
             onSubmit={handleContactSubmit} 
             isSubmitting={isSubmitting}
             submitMessage={submitMessage}
+            openModal={openModal}
           />
         )}
         {activeModal === "fullcircle" && (
-          <FullCircleModal isOpen={true} onClose={closeModal} />
+          <FullCircleModal isOpen={true} onClose={closeModal} openModal={openModal} />
         )}
         {activeModal === "ouroborosInfo" && (
           <OuroborosInfoModal isOpen={true} onClose={closeModal} />
         )}
         {activeModal === "danielle" && (
           <DanielleModal isOpen={true} onClose={closeModal} />
+        )}
+        {activeModal === "privacyPolicy" && (
+          <PrivacyPolicyModal onClose={closeModal} />
+        )}
+        {activeModal === "termsAndConditions" && (
+          <TermsAndConditionsModal onClose={closeModal} />
         )}
       </AnimatePresence>
 

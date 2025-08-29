@@ -70,6 +70,28 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             >
               Contact
             </motion.button>
+            <motion.button
+              onClick={() => openModal("privacyPolicy")}
+              className="hover:text-spiritual-secondary transition-colors dark:hover:text-spiritual-dark-secondary"
+              whileHover={{ y: -2 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Privacy Policy
+            </motion.button>
+            <motion.button
+              onClick={() => openModal("termsAndConditions")}
+              className="hover:text-spiritual-secondary transition-colors dark:hover:text-spiritual-dark-secondary"
+              whileHover={{ y: -2 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              Terms &amp; Conditions
+            </motion.button>
           </div>
           
           {/* Social Media Links */}

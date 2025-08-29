@@ -6,9 +6,10 @@ import Image from "next/image";
 interface FullCircleModalProps {
   isOpen: boolean;
   onClose: () => void;
+  openModal: (modalType: string) => void;
 }
 
-const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
+const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -70,29 +71,32 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
     >
       <motion.div
-        className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl dark:bg-spiritual-dark-card"
+        className="bg-white rounded-3xl max-w-2xl w-full max-h-[85dvh] sm:max-h-[90vh] overflow-y-auto shadow-2xl dark:bg-spiritual-dark-card relative"
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ duration: 0.3 }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="relative p-8 pb-6">
+        {/* Sticky Close Button - Always visible */}
+        <div className="sticky top-0 z-10 bg-white dark:bg-spiritual-dark-card rounded-t-3xl">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors dark:bg-spiritual-dark-primary/10 dark:hover:bg-spiritual-dark-primary/20"
+            className="absolute top-3 right-3 sm:top-6 sm:right-6 w-10 h-10 sm:w-8 sm:h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors dark:bg-spiritual-dark-primary/10 dark:hover:bg-spiritual-dark-primary/20 z-20"
           >
             <X className="w-5 h-5 text-spiritual-primary dark:text-spiritual-dark-primary" />
           </button>
-          
+        </div>
+
+        {/* Header */}
+        <div className="relative pt-16 pb-4 px-4 sm:px-8 sm:pb-6">
           <div className="text-center">
             <div className="flex justify-center mx-auto mb-4">
               <Image
@@ -100,50 +104,50 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 alt="Circle"
                 width={64}
                 height={64}
-                className="w-50 h-50"
+                className="w-12 h-12 sm:w-16 sm:h-16"
               />
             </div>
-            <h2 className="text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
+            <h2 className="text-2xl sm:text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
               What is FullCircle?
             </h2>
-            <p className="text-spiritual-text-dark text-lg dark:text-spiritual-dark-text-light">
+            <p className="text-spiritual-text-dark text-base sm:text-lg dark:text-spiritual-dark-text-light">
               Your elevated connection experience
             </p>
           </div>
         </div>
 
         {/* Content */}
-        <div className="px-8 pb-8">
+        <div className="px-4 sm:px-8 pb-6 sm:pb-8">
           {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {[
               {
-                icon: <Sparkles className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
+                icon: <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Soul Matching",
                 description: "Advanced algorithm that connects you with compatible seekers"
               },
               {
-                icon: <Leaf className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
+                icon: <Leaf className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Mindful Community",
                 description: "Join communities and connect with like-minded souls"
               },
               {
-                icon: <Star className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
+                icon: <Star className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Dedicated Support",
                 description: "Get dedicated assistance from our connection experts"
               },
               {
-                icon: <Crown className="w-8 h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
+                icon: <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Curated Content",
                 description: "Access to mindful content and growth resources"
               }
             ].map((feature, index) => (
-              <div key={index} className="bg-white rounded-xl p-4 border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
-                <div className="mb-3">{feature.icon}</div>
-                <h4 className="text-xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
+              <div key={index} className="bg-white rounded-xl p-3 sm:p-4 border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
+                <div className="mb-2 sm:mb-3">{feature.icon}</div>
+                <h4 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
                   {feature.title}
                 </h4>
-                <p className="text-sm text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
+                <p className="text-xs sm:text-sm text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
                   {feature.description}
                 </p>
               </div>
@@ -151,11 +155,11 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
           </div>
 
           {/* Benefits */}
-          <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-6 mb-6 border border-spiritual-primary/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary/30 dark:border-spiritual-dark-border">
-            <h3 className="text-xl font-spirituality font-bold text-spiritual-primary mb-4 tracking-wide dark:text-spiritual-dark-primary">
+          <div className="bg-gradient-to-br from-spiritual-background to-spiritual-tertiary/30 rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-spiritual-primary/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary/30 dark:border-spiritual-dark-border">
+            <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-primary mb-3 sm:mb-4 tracking-wide dark:text-spiritual-dark-primary">
               Enhanced Features Unlocked
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {[
                 "Unlimited daily matches",
                 "Advanced compatibility algorithm",
@@ -166,29 +170,29 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 "See who wants to connect with you",
                 "Unlimited connections"
               ].map((feature, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-spiritual-primary flex-shrink-0 dark:text-spiritual-dark-primary" />
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">{feature}</span>
+                <div key={index} className="flex items-center space-x-2 sm:space-x-3">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-spiritual-primary flex-shrink-0 dark:text-spiritual-dark-primary" />
+                  <span className="text-sm sm:text-base text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">{feature}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Special Offer */}
-          <div className="bg-gradient-to-br from-spiritual-accent/20 to-spiritual-primary/20 rounded-2xl p-6 mb-6 border-2 border-spiritual-accent/40 dark:from-spiritual-dark-accent/20 dark:to-spiritual-dark-primary/20 dark:border-spiritual-dark-accent/40">
+          <div className="bg-gradient-to-br from-spiritual-accent/20 to-spiritual-primary/20 rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-spiritual-accent/40 dark:from-spiritual-dark-accent/20 dark:to-spiritual-dark-primary/20 dark:border-spiritual-dark-accent/40">
             <div className="text-center">
               <div className="flex justify-center mb-3">
-                <Crown className="w-8 h-8 text-spiritual-accent dark:text-spiritual-dark-accent" />
+                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-accent dark:text-spiritual-dark-accent" />
               </div>
-              <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
+              <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
                 🎉 Special Launch Offer
               </h3>
-              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-lg">
+              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-base sm:text-lg">
                 <span className="font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
                   First 5,000 users get 1 month of FullCircle FREE!
                 </span>
               </p>
-              <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-sm mt-2">
+              <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-2">
                 Join our limited waitlist and be among the first to experience elevated connections
               </p>
             </div>
@@ -196,18 +200,18 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
 
           {/* Email Collection Form */}
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <div className="text-center">
-                <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
+                <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
                   Join the Waitlist
                 </h3>
-                <p className="text-spiritual-text-dark mb-4 dark:text-spiritual-dark-text-light font-medium">
+                <p className="text-spiritual-text-dark mb-3 sm:mb-4 dark:text-spiritual-dark-text-light font-medium text-sm sm:text-base">
                   Be among the first 5,000 to get 1 month of FullCircle FREE when we launch
                 </p>
               </div>
               
-              <div className="flex flex-col md:flex-row gap-3">
-                <div className="flex-1 relative">
+              <div className="flex flex-col gap-3">
+                <div className="relative">
                   <div className="absolute inset-0 grid place-items-center pointer-events-none" style={{ width: '48px' }}>
                     <Mail className="w-5 h-5 text-spiritual-text-dark dark:text-spiritual-dark-text-light" />
                   </div>
@@ -226,7 +230,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="waitlist-button w-full md:w-auto"
+                  className="waitlist-button w-full"
                 >
                   {isSubmitting ? "Joining..." : "Join Waitlist"}
                 </button>
@@ -240,16 +244,28 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
                   </p>
                 </div>
               )}
+              
+              {/* Privacy Policy Link */}
+              <p className="text-xs text-spiritual-text-muted text-center dark:text-spiritual-dark-text-muted">
+                By joining the waitlist, you agree to our{" "}
+                <button
+                  type="button"
+                  onClick={() => openModal('privacyPolicy')}
+                  className="text-spiritual-accent hover:underline dark:text-spiritual-dark-accent"
+                >
+                  Privacy Policy
+                </button>
+              </p>
             </form>
           ) : (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-green-900/20">
-                <CheckCircle className="w-8 h-8 text-green-600 dark:text-green-400" />
+            <div className="text-center py-6 sm:py-8">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-green-900/20">
+                <CheckCircle className="w-7 h-7 sm:w-8 sm:h-8 text-green-600 dark:text-green-400" />
               </div>
-              <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
+              <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
                 Welcome to Circle!
               </h3>
-              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium">
+              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-sm sm:text-base">
                 You&apos;re now on our limited waitlist. We&apos;ll notify you as soon as we launch with your FREE month of FullCircle!
               </p>
             </div>

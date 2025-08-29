@@ -228,6 +228,26 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                   </>
                 )}
               </button>
+              
+              {/* Privacy Policy & Terms Links */}
+              <p className="text-xs text-spiritual-text-muted text-center dark:text-spiritual-dark-text-muted">
+                By joining the waitlist, you agree to our{" "}
+                <button
+                  type="button"
+                  onClick={() => openModal?.('privacyPolicy')}
+                  className="text-spiritual-accent hover:underline dark:text-spiritual-dark-accent"
+                >
+                  Privacy Policy
+                </button>{" "}
+                and{" "}
+                <button
+                  type="button"
+                  onClick={() => openModal?.('termsAndConditions')}
+                  className="text-spiritual-accent hover:underline dark:text-spiritual-dark-accent"
+                >
+                  Terms &amp; Conditions
+                </button>
+              </p>
               </form>
             </>
           ) : (
