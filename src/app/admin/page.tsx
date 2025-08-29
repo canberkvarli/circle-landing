@@ -200,6 +200,9 @@ export default function AdminDashboard() {
   const [emailMessage, setEmailMessage] = useState('');
   const [emailRecipient, setEmailRecipient] = useState<WaitlistUser | null>(null);
   const [isBulkEmail, setIsBulkEmail] = useState(false);
+  
+  // Comment expansion state
+  const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
 
 
   useEffect(() => {
@@ -545,6 +548,18 @@ export default function AdminDashboard() {
     setEmailSubject('Message from Circle');
     setEmailMessage('Hello! We wanted to reach out...');
     setShowEmailModal(true);
+  };
+
+  const toggleCommentExpansion = (commentId: string) => {
+    setExpandedComments(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(commentId)) {
+        newSet.delete(commentId);
+      } else {
+        newSet.add(commentId);
+      }
+      return newSet;
+    });
   };
 
   const sendEmail = async () => {
@@ -1726,14 +1741,38 @@ export default function AdminDashboard() {
                             <span className="text-gray-400 italic">Not specified</span>
                           )}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 text-sm text-gray-500">
                           {user.additionalComments ? (
                             <div className="max-w-xs">
-                              <span className="text-gray-700" title={user.additionalComments}>
-                                {user.additionalComments.length > 50 
-                                  ? `${user.additionalComments.substring(0, 50)}...` 
-                                  : user.additionalComments}
-                              </span>
+                              {user.additionalComments.length > 50 ? (
+                                <button
+                                  onClick={() => toggleCommentExpansion(user.id || '')}
+                                  className="text-left text-gray-700 hover:text-purple-600 transition-colors cursor-pointer block w-full"
+                                  title="Click to expand/collapse comment"
+                                >
+                                  <div className="flex items-start gap-2">
+                                    <span className={`block break-words transition-all duration-200 flex-1 ${
+                                      expandedComments.has(user.id || '') 
+                                        ? 'bg-purple-50 p-2 rounded border-l-2 border-purple-400' 
+                                        : ''
+                                    }`}>
+                                      {expandedComments.has(user.id || '') 
+                                        ? user.additionalComments
+                                        : `${user.additionalComments.substring(0, 50)}...`
+                                      }
+                                    </span>
+                                    <span className="text-purple-500 mt-1">
+                                      {expandedComments.has(user.id || '') ? (
+                                        <ChevronUp className="w-4 h-4" />
+                                      ) : (
+                                        <ChevronDown className="w-4 h-4" />
+                                      )}
+                                    </span>
+                                  </div>
+                                </button>
+                              ) : (
+                                <span className="text-gray-700 break-words">{user.additionalComments}</span>
+                              )}
                             </div>
                           ) : (
                             <span className="text-gray-400 italic">No comments</span>

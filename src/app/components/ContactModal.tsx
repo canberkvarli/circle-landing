@@ -165,7 +165,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               Start Your FullCircle Journey
             </button>
             <p className="text-sm text-spiritual-text-muted mt-3">
-              First 5,000 members get 1 month completely free
+              First 1,000 members get 1 month completely free
             </p>
           </div>
         </div>

@@ -411,7 +411,7 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
     
     <div class="highlight-box">
         <h3 class="highlight-title">🎁 Special Perks Await</h3>
-        <p class="highlight-subtitle" style="color: #F5E6D3;">First 5,000 members get 1 month completely free + special bonuses</p>
+        <p class="highlight-subtitle" style="color: #F5E6D3;">First 1,000 members get 1 month completely free + special bonuses</p>
     </div>
       
     <div class="section">

@@ -112,7 +112,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             />
           </div>
           <p className="text-xs text-spiritual-text-muted mt-2 text-center">
-            First {stats.totalSpots.toLocaleString()} users get 1 month of FullCircle free
+            First {stats.totalSpots.toLocaleString()} users get 1 month of FullCircle membership for free
           </p>
         </motion.div>
 
@@ -435,7 +435,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               transition={{ duration: 0.6, delay: 3.4 }}
             >
               <p className="text-sm text-spiritual-text-muted">
-                First 5,000 members get 1 month of FullCircle completely free
+                First 1,000 members get 1 month of FullCircle completely free
               </p>
             </motion.div>
           </div>

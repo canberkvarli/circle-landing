@@ -80,14 +80,14 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
     >
       <motion.div
-        className="bg-white rounded-3xl max-w-md w-full shadow-2xl dark:bg-spiritual-dark-card"
+        className="bg-white rounded-3xl max-w-md w-full max-h-[95vh] sm:max-h-[90vh] shadow-2xl dark:bg-spiritual-dark-card flex flex-col"
         initial={{ opacity: 0, scale: 0.9, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -95,16 +95,17 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="relative p-6 pb-4">
+        <div className="relative p-4 sm:p-6 pb-4 flex-shrink-0">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors dark:bg-spiritual-dark-primary/10 dark:hover:bg-spiritual-dark-primary/20"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 bg-spiritual-primary/10 rounded-full flex items-center justify-center hover:bg-spiritual-primary/20 transition-colors dark:bg-spiritual-dark-primary/10 dark:hover:bg-spiritual-dark-primary/20"
           >
             <X className="w-5 h-5 text-spiritual-primary dark:text-spiritual-dark-primary" />
           </button>
           
           <div className="text-center">
-            <div className="flex justify-center mx-auto mb-4">
+            {/* Logo only shown on larger screens to save mobile space */}
+            <div className="hidden sm:flex justify-center mx-auto mb-4">
               <Image
                 src="/logo.png"
                 alt="Circle"
@@ -113,10 +114,10 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
                 className="w-20 h-20"
               />
             </div>
-            <h2 className="text-2xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
+            <h2 className="text-xl sm:text-2xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
               Join the Waitlist
             </h2>
-            <p className="text-spiritual-text-muted mb-4 dark:text-spiritual-dark-text-muted">
+            <p className="text-sm sm:text-base text-spiritual-text-muted mb-4 dark:text-spiritual-dark-text-muted">
               Be among the first to experience authentic connections
             </p>
             
@@ -124,17 +125,18 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
             {openModal && (
               <button
                 onClick={() => openModal('fullcircle')}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-sm font-medium hover:bg-spiritual-accent/20 transition-colors dark:bg-spiritual-dark-accent/10 dark:text-spiritual-dark-accent dark:hover:bg-spiritual-dark-accent/20"
+                className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-xs sm:text-sm font-medium hover:bg-spiritual-accent/20 transition-colors dark:bg-spiritual-dark-accent/10 dark:text-spiritual-dark-accent dark:hover:bg-spiritual-dark-accent/20"
               >
-                <Info className="w-4 h-4" />
-                What is FullCircle Membership?
+                <Info className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">What is FullCircle Membership?</span>
+                <span className="sm:hidden">FullCircle Info</span>
               </button>
             )}
           </div>
         </div>
 
-        {/* Content */}
-        <div className="px-6 pb-6">
+        {/* Scrollable Content */}
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6 flex-1 overflow-y-auto">
           {!submitted ? (
             <>
               {error && (

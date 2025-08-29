@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { X, CheckCircle, Mail, Sparkles, Leaf, Star, Crown } from "lucide-react";
+import { X, CheckCircle, Sparkles, Leaf, Star, Crown, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 interface FullCircleModalProps {
@@ -10,63 +10,6 @@ interface FullCircleModalProps {
 }
 
 const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) => {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          email,
-          heardFrom: 'fullcircle-modal',
-          additionalComments: ''
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        setSubmitted(true);
-        // Close modal after 2 seconds
-        setTimeout(() => {
-          onClose();
-          setSubmitted(false);
-          setEmail("");
-        }, 2000);
-      } else {
-        // Handle specific error cases
-        if (response.status === 409) {
-          setError('This email is already on our waitlist! You\'re all set.');
-        } else {
-          console.error('Waitlist submission failed:', result.message);
-          setError(result.message || 'Failed to join waitlist. Please try again.');
-        }
-      }
-    } catch (error) {
-      console.error('Error submitting to waitlist:', error);
-      // You could add error handling here if needed
-      setSubmitted(true); // Still show success for now
-      setTimeout(() => {
-        onClose();
-        setSubmitted(false);
-        setEmail("");
-      }, 2000);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   if (!isOpen) return null;
 
   return (
@@ -189,7 +132,7 @@ const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) =
               </h3>
               <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-base sm:text-lg">
                 <span className="font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
-                  First 5,000 users get 1 month of FullCircle FREE!
+                  First 1,000 users get 1 month of FullCircle membership for FREE!
                 </span>
               </p>
               <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-2">
@@ -198,78 +141,22 @@ const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) =
             </div>
           </div>
 
-          {/* Email Collection Form */}
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-              <div className="text-center">
-                <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
-                  Join the Waitlist
-                </h3>
-                <p className="text-spiritual-text-dark mb-3 sm:mb-4 dark:text-spiritual-dark-text-light font-medium text-sm sm:text-base">
-                  Be among the first 5,000 to get 1 month of FullCircle FREE when we launch
-                </p>
-              </div>
-              
-              <div className="flex flex-col gap-3">
-                <div className="relative">
-                  <div className="absolute inset-0 grid place-items-center pointer-events-none" style={{ width: '48px' }}>
-                    <Mail className="w-5 h-5 text-spiritual-text-dark dark:text-spiritual-dark-text-light" />
-                  </div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (error) setError(""); // Clear error when user types
-                    }}
-                    placeholder="Enter your email address"
-                    className="w-full pl-12 pr-4 py-3 border border-spiritual-accent/30 rounded-full focus:outline-none focus:ring-2 focus:ring-spiritual-accent/50 focus:border-spiritual-accent text-spiritual-text-dark placeholder-spiritual-text-dark/60 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-light/60 dark:focus:ring-spiritual-dark-accent/50 dark:focus:border-spiritual-dark-accent font-medium"
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="waitlist-button w-full"
-                >
-                  {isSubmitting ? "Joining..." : "Join Waitlist"}
-                </button>
-              </div>
-              
-              {/* Error Display */}
-              {error && (
-                <div className="text-center">
-                  <p className="text-red-600 dark:text-red-400 text-sm font-medium">
-                    {error}
-                  </p>
-                </div>
-              )}
-              
-              {/* Privacy Policy Link */}
-              <p className="text-xs text-spiritual-text-muted text-center dark:text-spiritual-dark-text-muted">
-                By joining the waitlist, you agree to our{" "}
-                <button
-                  type="button"
-                  onClick={() => openModal('privacyPolicy')}
-                  className="text-spiritual-accent hover:underline dark:text-spiritual-dark-accent"
-                >
-                  Privacy Policy
-                </button>
-              </p>
-            </form>
-          ) : (
-            <div className="text-center py-6 sm:py-8">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-green-900/20">
-                <CheckCircle className="w-7 h-7 sm:w-8 sm:h-8 text-green-600 dark:text-green-400" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
-                Welcome to Circle!
-              </h3>
-              <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-sm sm:text-base">
-                You&apos;re now on our limited waitlist. We&apos;ll notify you as soon as we launch with your FREE month of FullCircle!
-              </p>
-            </div>
-          )}
+          {/* Join Waitlist Button */}
+          <div className="text-center">
+            <button
+              onClick={() => {
+                onClose();
+                openModal('earlyAccess');
+              }}
+              className="w-full py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-lg font-spirituality font-bold text-lg tracking-wide hover:shadow-xl transition-all duration-100 flex items-center justify-center space-x-2 shadow-lg dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
+            >
+              <span>Join the Waitlist</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+            <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-3">
+              Be among the first 1,000 to get 1 month of FullCircle membership for FREE when we launch
+            </p>
+          </div>
         </div>
       </motion.div>
     </motion.div>
