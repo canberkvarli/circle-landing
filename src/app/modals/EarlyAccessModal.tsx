@@ -207,7 +207,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
               </div>
 
               <div className="relative">
-                <MessageSquare className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
+                <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" />
                 <textarea
                   name="additionalComments"
                   rows={3}
