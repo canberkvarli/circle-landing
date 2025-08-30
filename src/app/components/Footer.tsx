@@ -97,7 +97,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
           {/* Social Media Links */}
           <div className="flex justify-center space-x-6 text-spiritual-text-dark dark:text-spiritual-dark-text-muted mb-6">
             <motion.a
-              href="https://www.linkedin.com/company/joinfullcircleapp/"
+              href="https://www.linkedin.com/company/joinfullcircleapp"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-spiritual-accent/10 hover:bg-spiritual-accent/20 transition-colors dark:hover:bg-spiritual-dark-accent/20"
@@ -111,7 +111,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
               <Linkedin className="w-5 h-5" />
             </motion.a>
             <motion.a
-              href="https://instagram.com/fullcircleapp.co"
+              href="https://instagram.com/meetoncircle"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-spiritual-accent/10 hover:bg-spiritual-accent/20 transition-colors dark:hover:bg-spiritual-dark-accent/20"
