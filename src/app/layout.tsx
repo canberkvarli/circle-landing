@@ -3,6 +3,7 @@ import { Inter, Philosopher } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ["latin"] });
 const philosopher = Philosopher({ 
@@ -81,14 +82,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logo.png" />
         
         {/* LinkedIn Insight Tag */}
-        <script type="text/javascript">
+        <Script id="linkedin-partner-id" strategy="afterInteractive">
           {`
             _linkedin_partner_id = "7829812";
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
             window._linkedin_data_partner_ids.push(_linkedin_partner_id);
           `}
-        </script>
-        <script type="text/javascript">
+        </Script>
+        <Script id="linkedin-insight" strategy="afterInteractive">
           {`
             (function(l) {
               if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
@@ -100,7 +101,7 @@ export default function RootLayout({
               s.parentNode.insertBefore(b, s);
             })(window.lintrk);
           `}
-        </script>
+        </Script>
         <noscript>
           <img height="1" width="1" style={{display: 'none'}} alt="" src="https://px.ads.linkedin.com/collect/?pid=7829812&fmt=gif" />
         </noscript>
