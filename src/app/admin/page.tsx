@@ -204,6 +204,9 @@ export default function AdminDashboard() {
   // Comment expansion state
   const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
 
+  // Waitlist sorting state
+  const [waitlistSortField, setWaitlistSortField] = useState<'name' | 'email' | 'createdAt' | 'heardFrom' | 'phoneNumber' | 'commentsLength'>('createdAt');
+  const [waitlistSortDirection, setWaitlistSortDirection] = useState<'asc' | 'desc'>('desc');
 
   useEffect(() => {
     console.log('🔍 useEffect triggered, isAuthenticated:', isAuthenticated);
@@ -1052,6 +1055,66 @@ export default function AdminDashboard() {
     return applyFilters(allUsers);
   }, [waitlistUsers, appUsers, applyFilters]);
 
+  // Sorted and filtered waitlist users for display
+  const sortedWaitlistUsers = useMemo(() => {
+    // First filter by search query
+    let filtered = waitlistUsers;
+    if (userSearchQuery.trim()) {
+      const query = userSearchQuery.toLowerCase();
+      filtered = waitlistUsers.filter(user => {
+        const fullName = (user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || '').toLowerCase();
+        const email = (user.email || '').toLowerCase();
+        const phone = ((user.phoneNumber || user.phone) || '').toLowerCase();
+        const heardFrom = (user.heardFrom || '').toLowerCase();
+        
+        return fullName.includes(query) || 
+               email.includes(query) || 
+               phone.includes(query) || 
+               heardFrom.includes(query);
+      });
+    }
+
+    // Then sort the filtered results
+    return filtered.sort((a, b) => {
+      let aValue: any;
+      let bValue: any;
+
+      switch (waitlistSortField) {
+        case 'name':
+          aValue = (a.fullName || `${a.firstName || ''} ${a.familyName || ''}`.trim() || '').toLowerCase();
+          bValue = (b.fullName || `${b.firstName || ''} ${b.familyName || ''}`.trim() || '').toLowerCase();
+          break;
+        case 'email':
+          aValue = (a.email || '').toLowerCase();
+          bValue = (b.email || '').toLowerCase();
+          break;
+        case 'createdAt':
+          aValue = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          bValue = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          break;
+        case 'heardFrom':
+          aValue = (a.heardFrom || '').toLowerCase();
+          bValue = (b.heardFrom || '').toLowerCase();
+          break;
+        case 'phoneNumber':
+          aValue = (a.phoneNumber || a.phone || '').toLowerCase();
+          bValue = (b.phoneNumber || b.phone || '').toLowerCase();
+          break;
+        case 'commentsLength':
+          aValue = (a.additionalComments || '').length;
+          bValue = (b.additionalComments || '').length;
+          break;
+        default:
+          aValue = 0;
+          bValue = 0;
+      }
+
+      if (aValue < bValue) return waitlistSortDirection === 'asc' ? -1 : 1;
+      if (aValue > bValue) return waitlistSortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [waitlistUsers, waitlistSortField, waitlistSortDirection, userSearchQuery]);
+
   // Computed values for user selection
   // Note: Using stable date references to prevent hydration mismatches
   const filteredUsersForSelection = useMemo(() => {
@@ -1685,9 +1748,104 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
+
+            {/* Search and Filter Controls */}
+            <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="flex items-center gap-4">
+                <div className="flex-1">
+                  <label className="block text-sm font-medium text-blue-700 mb-2">Search Waitlist Users</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search by name, email, or phone..."
+                      value={userSearchQuery}
+                      onChange={(e) => setUserSearchQuery(e.target.value)}
+                      className="w-full px-4 py-2 pl-10 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-900 placeholder-gray-600"
+                    />
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-blue-400" />
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setUserSearchQuery('')}
+                    className="px-3 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  >
+                    Clear Search
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Sorting Controls */}
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-700">Sort by:</label>
+                    <select
+                      value={waitlistSortField}
+                      onChange={(e) => setWaitlistSortField(e.target.value as 'name' | 'email' | 'createdAt' | 'heardFrom' | 'phoneNumber')}
+                      className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900 text-sm"
+                    >
+                      <option value="name">Name</option>
+                      <option value="email">Email</option>
+                      <option value="createdAt">Date Created</option>
+                      <option value="heardFrom">Heard From</option>
+                      <option value="phoneNumber">Phone Number</option>
+                      <option value="commentsLength">Comments Length</option>
+                    </select>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-700">Order:</label>
+                    <button
+                      onClick={() => setWaitlistSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')}
+                      className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900 text-sm transition-colors"
+                    >
+                      {waitlistSortDirection === 'asc' ? (
+                        <>
+                          <ChevronUp className="w-4 h-4" />
+                          Ascending
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="w-4 h-4" />
+                          Descending
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  
+                  <button
+                    onClick={() => {
+                      setWaitlistSortField('createdAt');
+                      setWaitlistSortDirection('desc');
+                      setUserSearchQuery('');
+                    }}
+                    className="px-3 py-2 text-sm bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+                  >
+                    Reset to Default
+                  </button>
+                </div>
+                
+                <div className="text-sm text-gray-600">
+                  Showing {sortedWaitlistUsers.length} of {waitlistUsers.length} waitlist users
+                  {userSearchQuery.trim() && (
+                    <span className="ml-2 text-blue-600">
+                      (filtered by search)
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
             
             {waitlistUsers.length === 0 ? (
               <p className="text-gray-500 text-center py-8">No waitlist users found.</p>
+            ) : sortedWaitlistUsers.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-500 mb-2">No waitlist users match your search criteria.</p>
+                <p className="text-sm text-gray-400">Try adjusting your search terms or clearing the search.</p>
+              </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -1696,13 +1854,71 @@ export default function AdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <input
                           type="checkbox"
-                          checked={selectedUsers.length === waitlistUsers.length && waitlistUsers.length > 0}
+                          checked={selectedUsers.length === sortedWaitlistUsers.length && sortedWaitlistUsers.length > 0}
                           onChange={(e) => e.target.checked ? selectAllUsers() : clearSelection()}
                           className="rounded border-gray-400 text-purple-600 focus:ring-purple-500"
                         />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <button
+                          onClick={() => {
+                            if (waitlistSortField === 'name') {
+                              setWaitlistSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+                            } else {
+                              setWaitlistSortField('name');
+                              setWaitlistSortDirection('asc');
+                            }
+                          }}
+                          className="flex items-center gap-1 hover:text-purple-600 transition-colors"
+                        >
+                          Name
+                          {waitlistSortField === 'name' && (
+                            waitlistSortDirection === 'asc' ? 
+                              <ChevronUp className="w-3 h-3 text-purple-600" /> : 
+                              <ChevronDown className="w-3 h-3 text-purple-600" />
+                          )}
+                        </button>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <button
+                          onClick={() => {
+                            if (waitlistSortField === 'email') {
+                              setWaitlistSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+                            } else {
+                              setWaitlistSortField('email');
+                              setWaitlistSortDirection('asc');
+                            }
+                          }}
+                          className="flex items-center gap-1 hover:text-purple-600 transition-colors"
+                        >
+                          Email
+                          {waitlistSortField === 'email' && (
+                            waitlistSortDirection === 'asc' ? 
+                              <ChevronUp className="w-3 h-3 text-purple-600" /> : 
+                              <ChevronDown className="w-3 h-3 text-purple-600" />
+                          )}
+                        </button>
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <button
+                          onClick={() => {
+                            if (waitlistSortField === 'createdAt') {
+                              setWaitlistSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+                            } else {
+                              setWaitlistSortField('createdAt');
+                              setWaitlistSortDirection('desc');
+                            }
+                          }}
+                          className="flex items-center gap-1 hover:text-purple-600 transition-colors"
+                        >
+                          Date Created
+                          {waitlistSortField === 'createdAt' && (
+                            waitlistSortDirection === 'desc' ? 
+                              <ChevronDown className="w-3 h-3 text-purple-600" /> : 
+                              <ChevronUp className="w-3 h-3 text-purple-600" />
+                          )}
+                        </button>
+                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heard From</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comments</th>
@@ -1711,7 +1927,7 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {waitlistUsers.map((user, index) => (
+                    {sortedWaitlistUsers.map((user, index) => (
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-6 py-4 whitespace-nowrap">
                           <input
@@ -1725,6 +1941,19 @@ export default function AdminDashboard() {
                           {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {user.createdAt ? (
+                            <span className="text-gray-700">
+                              {new Date(user.createdAt).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                              })}
+                            </span>
+                          ) : (
+                            <span className="text-gray-400 italic">Unknown</span>
+                          )}
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {(user.phoneNumber || user.phone) ? (
                             <span className="text-green-600">{user.phoneNumber || user.phone}</span>

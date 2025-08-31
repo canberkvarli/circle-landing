@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '@/services/firebase/adminApp';
 import { getWaitlistConfirmationEmail } from '@/utils/emailTemplates';
 import { getAdminWaitlistNotificationEmail } from "@/utils/emailTemplates";
+import { FieldValue } from 'firebase-admin/firestore';
 
 export const runtime = 'nodejs';
 
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
       phone: phone?.trim() || '', // Use provided phone or empty
       heardFrom: heardFrom?.trim() || 'fullcircle-modal',
       additionalComments: additionalComments?.trim() || '',
-      timestamp: new Date(),
+      timestamp: FieldValue.serverTimestamp(),
       status: 'waitlist',
       inviteSent: false,
       source: firstName ? 'early-access-modal' : 'fullcircle-modal' // Track where they came from

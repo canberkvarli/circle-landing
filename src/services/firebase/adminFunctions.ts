@@ -120,6 +120,7 @@ export async function getWaitlistUsers(): Promise<WaitlistUser[]> {
     const res = await fetch('/api/admin/waitlist', { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+
     return (data.users || []).map((u: Record<string, unknown>) => ({
       id: u.id as string,
       firstName: u.firstName as string | undefined,
@@ -130,7 +131,7 @@ export async function getWaitlistUsers(): Promise<WaitlistUser[]> {
       phone: u.phone as string | undefined,
       heardFrom: u.heardFrom as string | undefined,
       additionalComments: u.additionalComments as string | undefined,
-      createdAt: u.createdAt as Date | undefined,
+      createdAt: u.timestamp as Date | undefined,
     }));
   } catch (error) {
     console.error('Firebase: Error getting waitlist users:', error);

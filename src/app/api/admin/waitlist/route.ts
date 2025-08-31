@@ -42,7 +42,34 @@ export async function GET(request: NextRequest) {
     
     console.log('📋 Fetching waitlist collection...');
     const snap = await db.collection('waitlist').get();
-    const users = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const users = snap.docs.map((doc) => {
+      const data = doc.data();
+      // Convert Firestore timestamps to Date objects
+      const processedData = { id: doc.id, ...data };
+      
+      // Handle timestamp conversion
+      if (data.timestamp) {
+        console.log('🔍 Processing timestamp for user:', data.email);
+        console.log('🔍 Original timestamp:', data.timestamp);
+        console.log('🔍 Timestamp type:', typeof data.timestamp);
+        console.log('🔍 Timestamp keys:', Object.keys(data.timestamp || {}));
+        
+        if (data.timestamp.toDate && typeof data.timestamp.toDate === 'function') {
+          processedData.timestamp = data.timestamp.toDate();
+          console.log('🔍 Converted using toDate():', processedData.timestamp);
+        } else if (data.timestamp._seconds) {
+          // Handle Firestore timestamp serialization
+          processedData.timestamp = new Date(data.timestamp._seconds * 1000);
+          console.log('🔍 Converted using _seconds:', processedData.timestamp);
+        } else {
+          console.log('🔍 Could not convert timestamp, keeping original');
+        }
+      } else {
+        console.log('🔍 No timestamp found for user:', data.email);
+      }
+      
+      return processedData;
+    });
     console.log(`✅ Found ${users.length} waitlist users`);
     
     return NextResponse.json({ success: true, users });
