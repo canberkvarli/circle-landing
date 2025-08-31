@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
+import Image from 'next/image';
 
 const inter = Inter({ subsets: ["latin"] });
 const philosopher = Philosopher({ 
@@ -102,8 +103,8 @@ export default function RootLayout({
             })(window.lintrk);
           `}
         </Script>
-        <noscript>
-          <img height="1" width="1" style={{display: 'none'}} alt="" src="https://px.ads.linkedin.com/collect/?pid=7829812&fmt=gif" />
+                <noscript>
+          <Image height={1} width={1} style={{display: 'none'}} alt="" src="https://px.ads.linkedin.com/collect/?pid=7829812&fmt=gif" />
         </noscript>
         
         {/* Additional social media meta tags */}

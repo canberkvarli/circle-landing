@@ -45,7 +45,8 @@ export async function GET(request: NextRequest) {
     const users = snap.docs.map((doc) => {
       const data = doc.data();
       // Convert Firestore timestamps to Date objects
-      const processedData = { id: doc.id, ...data };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const processedData: { id: string; [key: string]: any } = { id: doc.id, ...data };
       
       // Handle timestamp conversion
       if (data.timestamp) {

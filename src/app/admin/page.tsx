@@ -208,6 +208,7 @@ export default function AdminDashboard() {
   const [waitlistSortField, setWaitlistSortField] = useState<'name' | 'email' | 'createdAt' | 'heardFrom' | 'phoneNumber' | 'commentsLength'>('createdAt');
   const [waitlistSortDirection, setWaitlistSortDirection] = useState<'asc' | 'desc'>('desc');
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     console.log('🔍 useEffect triggered, isAuthenticated:', isAuthenticated);
     // Only load data if user is authenticated
@@ -1076,8 +1077,8 @@ export default function AdminDashboard() {
 
     // Then sort the filtered results
     return filtered.sort((a, b) => {
-      let aValue: any;
-      let bValue: any;
+      let aValue: string | number;
+      let bValue: string | number;
 
       switch (waitlistSortField) {
         case 'name':
