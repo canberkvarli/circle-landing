@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
   // Production optimizations
   compress: true,
   poweredByHeader: false,
+  // SEO optimizations
+  generateEtags: true,
   // Domain configuration
   async headers() {
     return [
