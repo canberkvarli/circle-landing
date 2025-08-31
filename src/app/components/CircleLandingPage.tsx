@@ -38,10 +38,10 @@ const CircleLandingPage = () => {
     seconds: 0,
   });
 
-  // Calculate launch date (45 days from now)
+  // Calculate launch date (65 days from now)
   const calculateLaunchDate = useCallback(() => {
     const now = new Date();
-    const launchDate = new Date(now.getTime() + (45 * 24 * 60 * 60 * 1000)); // 45 days from now
+    const launchDate = new Date(now.getTime() + (65 * 24 * 60 * 60 * 1000)); // 65 days from now
     return launchDate;
   }, []);
 
