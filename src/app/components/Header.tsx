@@ -124,9 +124,9 @@ const Header = ({ openModal }: HeaderProps) => {
               className="w-12 h-12 sm:w-14 sm:h-14 md:w-14 md:h-14"
               priority
             />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark relative">
+            <span className="text-3xl sm:text-4xl md:text-4xl font-spirituality font-bold tracking-wider text-spiritual-text-dark dark:text-spiritual-dark-text-dark relative">
               fullcircle
-              <span className="absolute -top-1 -right-2 text-xs font-sans font-normal text-spiritual-accent dark:text-spiritual-dark-accent">™</span>
+              <span className="absolute -top-1 -right-2 text-xs font-sans font-normal text-spiritual-text-dark dark:text-spiritual-dark-text-dark">™</span>
             </span>
           </div>
 
