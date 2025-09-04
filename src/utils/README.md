@@ -7,7 +7,7 @@ This directory contains the email template system for fullcircle.
 ### 1. **Waitlist Confirmation Email** (`getWaitlistConfirmationEmail`)
 - **Purpose**: Sent when users join the waitlist
 - **Data**: `{ firstName }`
-- **Subject**: "Welcome to fullcircle Waitlist! 🌟"
+- **Subject**: "Welcome to fullcircle™ Waitlist! 🌟"
 
 ### 2. **Contact Form Email** (`getContactFormEmail`)
 - **Purpose**: Sent when someone submits the contact form

@@ -2,12 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { X, CheckCircle, Star, Heart, Sparkles, Users, Crown } from "lucide-react";
 
-interface FullCircleModalProps {
+interface fullcircleModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
+const fullcircleModal = ({ isOpen, onClose }: fullcircleModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -174,4 +174,4 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
   );
 };
 
-export default FullCircleModal;
+export default fullcircleModal;

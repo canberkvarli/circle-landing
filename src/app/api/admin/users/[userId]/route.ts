@@ -282,7 +282,7 @@ export async function POST(
           subscription: {
             isActive: true,
             status: 'active',
-            planType: 'FullCircle',
+            planType: 'fullcircle',
             currentPeriodStart: Date.now(),
             currentPeriodEnd: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days
             cancelAtPeriodEnd: false,

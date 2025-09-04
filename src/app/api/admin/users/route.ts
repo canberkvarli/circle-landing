@@ -37,14 +37,14 @@ export async function POST(request: NextRequest) {
     const db = getAdminDb();
     const userRef = db.collection('users').doc(userId);
 
-    if (action === 'grantFullCircle') {
+    if (action === 'grantfullcircle') {
       const now = Date.now();
       await userRef.set(
         {
           subscription: {
             isActive: true,
             status: 'active',
-            planType: 'FullCircle',
+            planType: 'fullcircle',
             currentPeriodStart: now,
             currentPeriodEnd: now + 30 * 24 * 60 * 60 * 1000,
             cancelAtPeriodEnd: false,

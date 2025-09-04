@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
                 subscription: {
                   isActive: true,
                   status: 'active',
-                  planType: 'FullCircle',
+                  planType: 'fullcircle',
                   currentPeriodStart: now,
                   currentPeriodEnd: now + 30 * 24 * 60 * 60 * 1000,
                   cancelAtPeriodEnd: false,
