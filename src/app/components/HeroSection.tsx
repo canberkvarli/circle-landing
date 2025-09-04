@@ -220,7 +220,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     playsInline
                   >
                     <source src="/assets/videos/danielle.mp4" type="video/mp4" />
-                    <source src="/assets/videos/danielle.mov" type="video/quicktime" />
                   </video>
                   
                   {/* App Overlay - Cleaner design */}
