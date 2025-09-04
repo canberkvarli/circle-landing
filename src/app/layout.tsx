@@ -14,7 +14,7 @@ const philosopher = Philosopher({
 });
 
 export const metadata: Metadata = {
-  title: "fullcircle™ - Mindful Dating & Meaningful Connections | Join fullcircle",
+  title: "fullcircle™ • Mindful Dating & Meaningful Connections | Join fullcircle",
   description:
     "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
   keywords:
