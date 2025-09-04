@@ -70,7 +70,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              What does the Circle logo mean?
+              What does the fullcircle logo mean?
             </button>
           </motion.div>
 
@@ -86,7 +86,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 1.0 }}
           >
-            <span className="relative z-10">Join FullCircle Waitlist</span>
+            <span className="relative z-10">Join fullcircle Waitlist</span>
           </motion.button>
         </div>
 
@@ -100,7 +100,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           transition={{ duration: 0.6, delay: 1.4 }}
         >
           <div className="mb-2 flex justify-between text-sm text-spiritual-accent font-medium">
-            <span>{stats.signups} FullCircle spots claimed</span>
+            <span>{stats.signups} fullcircle spots claimed</span>
             <span>{stats.totalSpots - stats.signups} remaining</span>
           </div>
           <div className="w-full bg-spiritual-accent/20 rounded-full h-3 overflow-hidden shadow-inner">
@@ -112,7 +112,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             />
           </div>
           <p className="text-xs text-spiritual-text-muted mt-2 text-center">
-            First {stats.totalSpots.toLocaleString()} users get 1 month of FullCircle membership for free
+            First {stats.totalSpots.toLocaleString()} users get 1 month of fullcircle+ membership for free
           </p>
         </motion.div>
 
@@ -179,7 +179,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           transition={{ duration: 1, delay: 0.8 }}
         >
           <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight min-h-[150px] flex flex-col justify-center font-spirituality text-spiritual-accent mb-8 text-center tracking-wide">
-            See Circle in Action
+            See fullcircle in Action
           </h3>
           
           {/* Pyramid Layout: Video at top, 3 phones below */}
@@ -356,7 +356,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           </div>
         </motion.div>
 
-        {/* FullCircle Membership Section */}
+        {/* fullcircle+ Membership Section */}
         <motion.div
           id="waitlist"
           className="mt-20 mb-16"
@@ -424,7 +424,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                 onClick={() => openModal('fullcircle')}
                 className="golden-member-button"
               >
-                Become a FullCircle Member
+                Become a fullcircle<span className="font-mono text-sm pl-1">+</span> Member
               </button>
             </motion.div>
 
@@ -435,7 +435,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               transition={{ duration: 0.6, delay: 3.4 }}
             >
               <p className="text-sm text-spiritual-text-muted">
-                First 1,000 members get 1 month of FullCircle completely free
+                First 1,000 members get 1 month of fullcircle+ completely free
               </p>
             </motion.div>
           </div>

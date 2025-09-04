@@ -19,7 +19,7 @@ import PrivacyPolicyModal from "../modals/PrivacyPolicyModal";
 import TermsAndConditionsModal from "../modals/TermsAndConditionsModal";
 import { getContactFormEmail } from "@/utils/emailTemplates";
 
-const CircleLandingPage = () => {
+const FullCircleLandingPage = () => {
   const [showIntro, setShowIntro] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -275,4 +275,4 @@ const CircleLandingPage = () => {
   );
 };
 
-export default CircleLandingPage;
+export default FullCircleLandingPage;

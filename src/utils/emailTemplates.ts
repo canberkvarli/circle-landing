@@ -1,4 +1,4 @@
-// Email Templates for Circle
+// Email Templates for fullcircle
 // Multiple beautiful email templates with consistent branding
 
 // Email logo configuration for Resend inline images
@@ -24,7 +24,7 @@ const getBaseEmailTemplate = (content: string): string => `
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
-    <title>Circle</title>
+    <title>fullcircle™</title>
     <style>
         /* Font fallbacks for better email client compatibility */
         @font-face {
@@ -307,12 +307,12 @@ const getBaseEmailTemplate = (content: string): string => `
             <div class="logo-container">
                 <div class="logo">
                     <img src="cid:${EMAIL_LOGO_CONFIG.contentId}" 
-                         alt="Circle Logo" 
+                         alt="fullcircle Logo" 
                          width="200" 
                          height="200" 
                          style="width: 100%; max-width: 200px; height: auto; display: block; border-radius: 16px;" />
                 </div>
-                <h1 class="header-title">Circle</h1>
+                <h1 class="header-title">fullcircle™</h1>
                 <p class="header-subtitle">Meaningful Connections</p>
             </div>
         </div>
@@ -322,7 +322,7 @@ const getBaseEmailTemplate = (content: string): string => `
         </div>
         
         <div class="footer">
-            <p class="footer-text">This is an automated message from Circle</p>
+            <p class="footer-text">This is an automated message from fullcircle™</p>
             <p class="footer-text">You can manage your preferences in the app settings</p>
             <div class="social-links">
                 <span class="social-link">🌿</span>
@@ -331,7 +331,7 @@ const getBaseEmailTemplate = (content: string): string => `
                 <span class="social-link">✨</span>
             </div>
             <div class="spacer"></div>
-            <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The Circle Team</span></p>
+            <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The fullcircle™ Team</span></p>
         </div>
     </div>
 </body>
@@ -344,13 +344,13 @@ export const getWelcomeEmail = (data: EmailTemplateData): string => {
   
   const content = `
     <div class="section">
-        <h2 class="section-title">Welcome to the Circle, ${firstName}!</h2>
+        <h2 class="section-title">Welcome to fullcircle™, ${firstName}!</h2>
         <p class="section-text">
             We're so excited to have you join our community of mindful seekers and kindred souls. 
             You're about to embark on a beautiful journey of authentic connections and personal growth.
         </p>
         <p class="section-text">
-            Circle is more than just an app – it's a special space where like-minded hearts 
+            fullcircle™ is more than just an app – it's a special space where like-minded hearts 
             can find each other and create meaningful relationships that nourish the soul.
         </p>
     </div>
@@ -404,14 +404,14 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
             authentic connections and meaningful relationships.
         </p>
         <p class="section-text">
-            We'll notify you as soon as the Circle app launches with your early access.
+            We'll notify you as soon as the fullcircle app launches with your early access.
             Get ready to step into a world of genuine human connection!
         </p>
     </div>
     
     <div class="highlight-box">
         <h3 class="highlight-title">🎁 Special Perks Await</h3>
-        <p class="highlight-subtitle" style="color: #F5E6D3;">First 1,000 members get 1 month completely free + special bonuses</p>
+        <p class="highlight-subtitle" style="color: #F5E6D3;">First 1,000 members get 1 month of fullcircle+ completely free + special bonuses</p>
     </div>
       
     <div class="section">
@@ -437,19 +437,19 @@ export const getAppLaunchEmail = (data: EmailTemplateData): string => {
   
   const content = `
         <div class="section">
-        <h2 class="section-title">🚀 The Circle is Now Open! 🚀</h2>
+        <h2 class="section-title">🚀 The fullcircle is Now Open! 🚀</h2>
         <p class="section-text">
-            ${firstName}, the moment you've been waiting for is here! Circle is now live 
+            ${firstName}, the moment you've been waiting for is here! fullcircle is now live 
             and ready to help you find your meaningful tribe.
         </p>
         <p class="section-text">
             Download the app now and start connecting with souls who share your journey. 
-            Your first month is completely free as a special thank you for being on our waitlist!
+            Your first month of fullcircle+ is completely free as a special thank you for being on our waitlist!
         </p>
     </div>
     
     <div class="highlight-box">
-        <h3 class="highlight-title">🎉 Download Circle Today</h3>
+        <h3 class="highlight-title">🎉 Download fullcircle Today</h3>
         <p class="highlight-subtitle">Join thousands of seekers already connecting</p>
     </div>
     
@@ -526,7 +526,7 @@ export const getWeeklyInspirationEmail = (data: EmailTemplateData): string => {
     </div>
     
     <div style="text-align: center; margin: 35px 0;">
-        <a href="https://joinfullcircle.app" class="cta-button">Join Our Circle</a>
+        <a href="https://joinfullcircle.app" class="cta-button">Join Our fullcircle</a>
     </div>
   `;
   
@@ -663,13 +663,13 @@ export const getAdminWaitlistNotificationEmail = (data: {
     <div class="section">
         <h2 class="section-title">🎉 New Waitlist Signup!</h2>
         <p class="section-text">
-            Someone has just joined your Circle waitlist! Here are the details:
+            Someone has just joined your fullcircle waitlist! Here are the details:
         </p>
     </div>
     
     <div class="highlight-box">
         <h3 class="highlight-title">✨ New Member Details ✨</h3>
-        <p class="highlight-subtitle">Welcome them to the Circle community</p>
+        <p class="highlight-subtitle">Welcome them to the fullcircle community</p>
     </div>
     
     <div class="section">
@@ -745,7 +745,7 @@ export const getCommunityEventEmail = (data: EmailTemplateData): string => {
   
   const content = `
     <div class="section">
-        <h2 class="section-title">Join Our Meaningful Circle</h2>
+        <h2 class="section-title">Join Our Meaningful fullcircle</h2>
         <p class="section-text">
             ${firstName}, you're invited to ${eventName}! This is a special opportunity 
             to connect with fellow seekers in our community.

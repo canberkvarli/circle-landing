@@ -70,7 +70,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
               Features
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              Discover the powerful tools and features that make Circle the ultimate platform for meaningful connections.
+              Discover the powerful tools and features that make fullcircle the ultimate platform for meaningful connections.
             </p>
           </div>
         </div>
@@ -105,10 +105,10 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
           
           <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-2xl p-6 border border-amber-200">
             <h3 className="text-2xl font-spirituality font-bold text-spiritual-accent mb-4 text-center">
-              Ready to Join Circle?
+              Ready to Join fullcircle?
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Join thousands of mindful seekers who are already transforming their connections through Circle.
+              Join thousands of mindful seekers who are already transforming their connections through fullcircle.
             </p>
             <div className="text-center">
               <button

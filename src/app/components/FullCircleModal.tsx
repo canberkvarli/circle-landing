@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import { X, CheckCircle, Sparkles, Leaf, Star, Crown, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
-interface FullCircleModalProps {
+interface fullcircleModalProps {
   isOpen: boolean;
   onClose: () => void;
   openModal: (modalType: string) => void;
 }
 
-const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) => {
+const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -44,14 +44,14 @@ const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) =
             <div className="flex justify-center mx-auto mb-4">
               <Image
                 src="/logo.png"
-                alt="Circle"
+                alt="fullcircle"
                 width={64}
                 height={64}
                 className="w-12 h-12 sm:w-16 sm:h-16"
               />
             </div>
             <h2 className="text-2xl sm:text-3xl font-spirituality font-bold text-spiritual-primary mb-2 tracking-wide dark:text-spiritual-dark-primary">
-              What is FullCircle?
+              fullcircle<span className="font-mono text-lg pl-1">+</span>
             </h2>
             <p className="text-spiritual-text-dark text-base sm:text-lg dark:text-spiritual-dark-text-light">
               Your elevated connection experience
@@ -132,7 +132,7 @@ const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) =
               </h3>
               <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-base sm:text-lg">
                 <span className="font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
-                  First 1,000 users get 1 month of FullCircle membership for FREE!
+                  First 1,000 users get 1 month of fullcircle+ membership for FREE!
                 </span>
               </p>
               <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-2">
@@ -154,7 +154,7 @@ const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) =
               <ArrowRight className="w-5 h-5" />
             </button>
             <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-3">
-              Be among the first 1,000 to get 1 month of FullCircle membership for FREE when we launch
+              Be among the first 1,000 to get 1 month of fullcircle+ membership for FREE when we launch
             </p>
           </div>
         </div>
@@ -163,4 +163,4 @@ const FullCircleModal = ({ isOpen, onClose, openModal }: FullCircleModalProps) =
   );
 };
 
-export default FullCircleModal;
+export default fullcircleModal;

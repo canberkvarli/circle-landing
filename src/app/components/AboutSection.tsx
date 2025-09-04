@@ -18,7 +18,7 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-primary mb-6 tracking-wide">
-            About Circle
+            About fullcircle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
             We believe that true connections happen when souls align on a deeper level
@@ -36,7 +36,7 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
               Our Mission
             </h3>
             <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted">
-              Circle is more than a dating app - it&apos;s a sanctuary for mindful souls
+              fullcircle is more than a dating app • it&apos;s a sanctuary for mindful souls
               seeking meaningful connections. We understand that true compatibility
               goes beyond surface-level interests and delves into the emotional,
               intellectual, and personal growth realms.
@@ -45,7 +45,7 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
               Our platform is designed to foster authentic relationships based on
               shared values, personal practices, and mindful living principles.
               Whether you&apos;re into meditation, yoga, energy healing, or simply
-              living intentionally, Circle helps you find your tribe.
+              living intentionally, fullcircle helps you find your tribe.
             </p>
             <div className="flex items-center space-x-1 justify-start">
               <button
@@ -54,7 +54,7 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
               >
                 <Image
                   src="/logo.png"
-                  alt="Circle"
+                  alt="fullcircle"
                   width={32}
                   height={32}
                   className="w-50 h-50"
@@ -96,7 +96,7 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">FullCircle Enhanced Features: Deeper matching and community access</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">fullcircle+ Enhanced Features: Deeper matching and community access</span>
                 </li>
               </ul>
             </div>

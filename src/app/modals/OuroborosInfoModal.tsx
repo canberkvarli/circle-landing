@@ -107,10 +107,10 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
                   </div>
                   <div>
                     <h3 className="font-semibold text-spiritual-text-dark dark:text-spiritual-dark-accent mb-1">
-                      In Circle&apos;s Journey
+                      In fullcircle&apos;s Journey
                     </h3>
                     <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
-                      Just as the ouroboros represents endless transformation, Circle helps us grow through relationships. Each connection teaches us something new, and every ending opens the door to new beginnings in our spiritual journey.
+                      Just as the ouroboros represents endless transformation, fullcircle helps us grow through relationships. Each connection teaches us something new, and every ending opens the door to new beginnings in our spiritual journey.
                     </p>
                   </div>
                 </div>

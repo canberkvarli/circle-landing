@@ -45,13 +45,13 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             >
               <Image
                 src="/logo.png"
-                alt="Circle"
+                alt="fullcircle"
                 width={32}
                 height={32}
                 className="w-50 h-50 mr-2"
               />
               <span className="text-3xl font-spirituality text-spiritual-text-dark dark:text-spiritual-dark-primary ml-2">
-                Circle
+                fullcircle
               </span>
             </button>
           </motion.div>
@@ -140,7 +140,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             </motion.a>
           </div>
           <p className="text-spiritual-text-dark/70 dark:text-spiritual-dark-text-muted/70 text-sm">
-            © 2025 Circle. All rights reserved.
+            © 2025 fullcircle. All rights reserved.
           </p>
         </motion.div>
       </div>

@@ -108,7 +108,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
             <div className="hidden sm:flex justify-center mx-auto mb-4">
               <Image
                 src="/logo.png"
-                alt="Circle"
+                alt="fullcircle"
                 width={80}
                 height={80}
                 className="w-20 h-20"
@@ -121,15 +121,15 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
               Be among the first to experience authentic connections
             </p>
             
-            {/* FullCircle Membership Info Button */}
+            {/* fullcircle Membership Info Button */}
             {openModal && (
               <button
                 onClick={() => openModal('fullcircle')}
                 className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-spiritual-accent/10 text-spiritual-accent rounded-full text-xs sm:text-sm font-medium hover:bg-spiritual-accent/20 transition-colors dark:bg-spiritual-dark-accent/10 dark:text-spiritual-dark-accent dark:hover:bg-spiritual-dark-accent/20"
               >
                 <Info className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">What is FullCircle Membership?</span>
-                <span className="sm:hidden">FullCircle Info</span>
+                <span className="hidden sm:inline">What is fullcircle+ Membership?</span>
+                <span className="sm:hidden">fullcircle Info</span>
               </button>
             )}
           </div>

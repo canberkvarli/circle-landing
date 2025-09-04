@@ -41,10 +41,10 @@ const FeaturesSection = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-primary mb-6 tracking-wide">
-            Discover Circle
+            Discover fullcircle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
-            Circle is building more than just a dating app - it&apos;s creating a community
+            fullcircle is building more than just a dating app • it&apos;s creating a community
             of mindful individuals who value authentic connections.
           </p>
         </motion.div>

@@ -1,13 +1,13 @@
 # Email Templates System
 
-This directory contains the email template system for FullCircle.
+This directory contains the email template system for fullcircle.
 
 ## 📧 Available Templates
 
 ### 1. **Waitlist Confirmation Email** (`getWaitlistConfirmationEmail`)
 - **Purpose**: Sent when users join the waitlist
 - **Data**: `{ firstName }`
-- **Subject**: "Welcome to Circle Waitlist! 🌟"
+- **Subject**: "Welcome to fullcircle Waitlist! 🌟"
 
 ### 2. **Contact Form Email** (`getContactFormEmail`)
 - **Purpose**: Sent when someone submits the contact form
@@ -21,8 +21,8 @@ This directory contains the email template system for FullCircle.
 
 ## 🎨 Design Features
 
-- **Brand Colors**: Uses FullCircle's spiritual color palette
-- **Circle Logo**: Embedded SVG logo in header
+- **Brand Colors**: Uses fullcircle's spiritual color palette
+- **fullcircle Logo**: Embedded SVG logo in header
 - **Responsive**: Mobile-friendly design
 - **Consistent**: All emails use the same base template
 - **Professional**: Clean, modern design with proper spacing

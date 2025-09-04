@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     // Send email using Resend
     console.log('Attempting to send email via Resend to:', to);
-    console.log('Using from address: FullCircle <onboarding@resend.dev>');
+    console.log('Using from address: fullcircle <onboarding@resend.dev>');
     
     // Read the email logo for inline attachment
     const logoPath = path.join(process.cwd(), 'public', 'logo.png');
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
     
     const { data, error } = await resend.emails.send({
-      from: 'Circle <hello@joinfullcircle.app>', // Use your new Google Workspace domain
+      from: 'fullcircle <hello@joinfullcircle.app>', // Use your new Google Workspace domain
       to: [to],
       subject: subject,
       html: html,

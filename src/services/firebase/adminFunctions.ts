@@ -202,15 +202,15 @@ export async function getAppUsers(): Promise<UserData[]> {
 }
 
 /**
- * Assign a FullCircle subscription to a user
+ * Assign a fullcircle subscription to a user
  * This creates a 1-month subscription with 10 lotus
  */
-export async function assignFullCircleSubscription(userId: string): Promise<SubscriptionAssignmentResult> {
+export async function assignfullcircleSubscription(userId: string): Promise<SubscriptionAssignmentResult> {
   try {
     const res = await fetch('/api/admin/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'grantFullCircle', userId }),
+      body: JSON.stringify({ action: 'grantfullcircle', userId }),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return { success: true, subscriptionId: `sub_${Date.now()}` };

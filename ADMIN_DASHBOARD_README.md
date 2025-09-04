@@ -1,8 +1,8 @@
-# FullCircle Admin Dashboard - Comprehensive Guide
+# fullcircle Admin Dashboard - Comprehensive Guide
 
 ## Overview
 
-The FullCircle Admin Dashboard has been completely enhanced to provide comprehensive user management, lotus flower management, notification systems, and analytics. This dashboard serves as the central control center for managing the FullCircle platform.
+The fullcircle Admin Dashboard has been completely enhanced to provide comprehensive user management, lotus flower management, notification systems, and analytics. This dashboard serves as the central control center for managing the fullcircle platform.
 
 ## Features
 
@@ -34,7 +34,7 @@ The FullCircle Admin Dashboard has been completely enhanced to provide comprehen
 - **Operation Types**:
   - Grant/Revoke lotus flowers
   - Send notifications
-  - Grant/Revoke FullCircle subscriptions
+  - Grant/Revoke fullcircle subscriptions
 - **Progress Tracking**: Monitor bulk operation progress
 - **Error Handling**: Detailed reporting for failed operations
 

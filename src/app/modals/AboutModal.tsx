@@ -34,10 +34,10 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
           
           <div className="text-center">
             <h2 className="text-4xl font-spirituality font-bold text-spiritual-accent mb-4 tracking-wide">
-              About Circle
+              About fullcircle
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              Where intention meets connection. Circle is building a community of mindful seekers who believe in the power of meaningful relationships.
+              Where intention meets connection. fullcircle is building a community of mindful seekers who believe in the power of meaningful relationships.
             </p>
           </div>
         </div>

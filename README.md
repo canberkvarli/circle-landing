@@ -1,6 +1,6 @@
-# Circle Landing Page
+# fullcircle Landing Page
 
-A modern, responsive landing page for the Full Circle app built with Next.js, TypeScript, and Tailwind CSS.
+A modern, responsive landing page for the fullcircle app built with Next.js, TypeScript, and Tailwind CSS.
 
 ## 🚀 Deployment
 

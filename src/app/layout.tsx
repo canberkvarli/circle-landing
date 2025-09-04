@@ -14,29 +14,29 @@ const philosopher = Philosopher({
 });
 
 export const metadata: Metadata = {
-  title: "Circle - Mindful Dating & Meaningful Connections | Join Full Circle",
+  title: "fullcircle™ - Mindful Dating & Meaningful Connections | Join fullcircle",
   description:
-    "Discover authentic connections through mindful dating. Join Circle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+    "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
   keywords:
     "mindful dating, meaningful relationships, meditation, yoga, energy healing, authentic connections, spiritual dating, conscious dating, wellness dating, mindfulness app, dating app, relationship app, spiritual community, meditation community, yoga community, energy healing, chakra alignment, spiritual growth, conscious living, authentic dating, mindful relationships, spiritual relationships, wellness relationships, meditation partners, yoga partners, spiritual partners, conscious community, mindful community, spiritual community, wellness community, dating for mindful people, dating for spiritual people, dating for wellness enthusiasts",
-  authors: [{ name: "Full Circle" }],
-  creator: "Full Circle",
-  publisher: "Full Circle",
+  authors: [{ name: "fullcircle" }],
+  creator: "fullcircle",
+  publisher: "fullcircle",
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   alternates: {
     canonical: "https://joinfullcircle.app",
   },
   openGraph: {
-    title: "Circle - Mindful Dating & Meaningful Connections",
-    description: "Discover authentic connections through mindful dating. Join Circle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+    title: "fullcircle - Mindful Dating & Meaningful Connections",
+    description: "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
     url: "https://joinfullcircle.app",
-    siteName: "Circle - Mindful Dating App",
+    siteName: "fullcircle - Mindful Dating App",
     images: [
       {
         url: "https://joinfullcircle.app/dark-logo.png",
         width: 1200,
         height: 630,
-        alt: "Circle - Meaningful Connections",
+        alt: "fullcircle - Meaningful Connections",
       },
     ],
     locale: "en_US",
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Circle - Mindful Dating & Meaningful Connections",
-    description: "Discover authentic connections through mindful dating. Join Circle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+    title: "fullcircle - Mindful Dating & Meaningful Connections",
+    description: "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
     images: ["https://joinfullcircle.app/dark-logo.png"],
   },
   verification: {
@@ -79,7 +79,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Circle" />
+        <meta name="apple-mobile-web-app-title" content="fullcircle" />
         <link rel="apple-touch-icon" href="/logo.png" />
         
         {/* LinkedIn Insight Tag */}
@@ -111,7 +111,7 @@ export default function RootLayout({
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/png" />
-        <meta name="twitter:image:alt" content="Circle - Mindful Dating App for Meaningful Connections" />
+        <meta name="twitter:image:alt" content="fullcircle - Mindful Dating App for Meaningful Connections" />
         
         {/* Structured Data for SEO */}
         <script
@@ -120,8 +120,8 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "Circle - Mindful Dating App",
-              "description": "Discover authentic connections through mindful dating. Join Circle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+              "name": "fullcircle - Mindful Dating App",
+              "description": "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
               "url": "https://joinfullcircle.app",
               "applicationCategory": "SocialNetworkingApplication",
               "operatingSystem": "iOS, Android, Web",
@@ -133,11 +133,11 @@ export default function RootLayout({
               },
               "author": {
                 "@type": "Organization",
-                "name": "Full Circle"
+                "name": "fullcircle"
               },
               "publisher": {
                 "@type": "Organization",
-                "name": "Full Circle"
+                "name": "fullcircle"
               },
               "keywords": "mindful dating, spiritual dating, conscious dating, wellness dating, meditation, yoga, energy healing"
             })

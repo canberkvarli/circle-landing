@@ -40,7 +40,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               <Crown className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-3xl font-spirituality font-bold text-spiritual-accent mb-2 tracking-wide">
-              What is FullCircle?
+              What is fullcircle<span className="font-mono text-sm pl-1">+</span>?
             </h2>
             <p className="text-spiritual-text-muted text-lg">
               Your premium spiritual connection experience
@@ -162,7 +162,7 @@ const FullCircleModal = ({ isOpen, onClose }: FullCircleModalProps) => {
               }}
               className="px-8 py-4 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white rounded-full font-medium shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide"
             >
-              Start Your FullCircle Journey
+              Start Your fullcircle+ Journey
             </button>
             <p className="text-sm text-spiritual-text-muted mt-3">
               First 1,000 members get 1 month completely free

@@ -12,7 +12,7 @@ import {
   getAppUsers, 
   getWaitlistUsers, 
   deleteWaitlistUser,
-  assignFullCircleSubscription,
+  assignfullcircleSubscription,
   grantLotusFlowers,
   revokeLotusFlowers,
   sendNotification,
@@ -297,9 +297,9 @@ export default function AdminDashboard() {
   const handleGrantSubscription = async (userId: string) => {
     setAssigningSubscription(userId);
     try {
-      const result = await assignFullCircleSubscription(userId);
+      const result = await assignfullcircleSubscription(userId);
       if (result.success) {
-        alert(`Successfully granted FullCircle subscription to user!`);
+        alert(`Successfully granted fullcircle subscription to user!`);
         await loadAllUsers();
         await loadAdminStats();
       } else {
@@ -531,7 +531,7 @@ export default function AdminDashboard() {
   const handleSendWaitlistEmail = async (user: WaitlistUser) => {
     setEmailRecipient(user);
     setIsBulkEmail(false);
-    setEmailSubject('Message from Circle');
+    setEmailSubject('Message from fullcircle');
     setEmailMessage('Hello! We wanted to reach out...');
     setShowEmailModal(true);
   };
@@ -539,7 +539,7 @@ export default function AdminDashboard() {
   const handleSendWaitlistUpdate = async (user: WaitlistUser) => {
     setEmailRecipient(user);
     setIsBulkEmail(false);
-    setEmailSubject('Circle App Update');
+    setEmailSubject('fullcircle App Update');
     setEmailMessage('Great news! We have an update...');
     setShowEmailModal(true);
   };
@@ -549,7 +549,7 @@ export default function AdminDashboard() {
     
     setEmailRecipient(null);
     setIsBulkEmail(true);
-    setEmailSubject('Message from Circle');
+    setEmailSubject('Message from fullcircle');
     setEmailMessage('Hello! We wanted to reach out...');
     setShowEmailModal(true);
   };
@@ -597,7 +597,7 @@ export default function AdminDashboard() {
                     <head>
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Circle</title>
+                        <title>fullcircle</title>
                         <style>
                             body {
                                 margin: 0;
@@ -720,12 +720,12 @@ export default function AdminDashboard() {
                                 <div class="logo-container">
                                     <div class="logo">
                                         <img src="cid:email-logo" 
-                                             alt="Circle Logo" 
+                                             alt="fullcircle Logo" 
                                              width="200" 
                                              height="200" 
                                              style="width: 100%; max-width: 200px; height: auto; display: block; border-radius: 16px;" />
                                     </div>
-                                    <h1 class="header-title">Circle</h1>
+                                    <h1 class="header-title">fullcircle</h1>
                                     <p class="header-subtitle">Meaningful Connections</p>
                                 </div>
                             </div>
@@ -737,8 +737,8 @@ export default function AdminDashboard() {
                             </div>
                             
                             <div class="footer">
-                                <p class="footer-text">This email was sent from the Circle admin dashboard</p>
-                                <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The Circle Team</span></p>
+                                <p class="footer-text">This email was sent from the fullcircle admin dashboard</p>
+                                <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The fullcircle Team</span></p>
                             </div>
                         </div>
                     </body>
@@ -778,7 +778,7 @@ export default function AdminDashboard() {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Circle</title>
+                    <title>fullcircle</title>
                     <style>
                         body {
                             margin: 0;
@@ -901,12 +901,12 @@ export default function AdminDashboard() {
                             <div class="logo-container">
                                 <div class="logo">
                                     <img src="cid:email-logo" 
-                                         alt="Circle Logo" 
+                                         alt="fullcircle Logo" 
                                          width="200" 
                                          height="200" 
                                          style="width: 100%; max-width: 200px; height: auto; display: block; border-radius: 16px;" />
                                 </div>
-                                <h1 class="header-title">Circle</h1>
+                                <h1 class="header-title">fullcircle</h1>
                                 <p class="header-subtitle">Meaningful Connections</p>
                             </div>
                         </div>
@@ -918,8 +918,8 @@ export default function AdminDashboard() {
                         </div>
                         
                         <div class="footer">
-                            <p class="footer-text">This email was sent from the Circle admin dashboard</p>
-                            <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The Circle Team</span></p>
+                            <p class="footer-text">This email was sent from the fullcircle admin dashboard</p>
+                            <p class="footer-text">With gratitude and light,<br><span class="footer-signature">The fullcircle Team</span></p>
                         </div>
                     </div>
                 </body>
@@ -1461,7 +1461,7 @@ export default function AdminDashboard() {
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="text-center flex-1">
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">FullCircle Admin Panel</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">fullcircle Admin Panel</h1>
             <p className="text-lg text-gray-700">Comprehensive user management, lotus flowers, notifications, and analytics</p>
           </div>
           <div className="flex items-center gap-4">
@@ -2193,7 +2193,7 @@ export default function AdminDashboard() {
                                   ) : (
                                     <>
                                       <Gift className="w-3 h-3 mr-1" />
-                                      Grant FullCircle
+                                      Grant fullcircle
                                     </>
                                   )}
                                 </button>
@@ -2737,7 +2737,7 @@ export default function AdminDashboard() {
                       <option value="grantLotus">Grant Lotus Flowers</option>
                       <option value="revokeLotus">Revoke Lotus Flowers</option>
                       <option value="sendNotification">Send Notification</option>
-                      <option value="grantSubscription">Grant FullCircle Subscription</option>
+                      <option value="grantSubscription">Grant fullcircle Subscription</option>
                       <option value="revokeSubscription">Revoke Subscription</option>
                     </select>
                   </div>
@@ -3171,7 +3171,7 @@ export default function AdminDashboard() {
                                   ) : (
                                     <>
                                       <Gift className="w-3 h-3 mr-1" />
-                                      Grant FullCircle
+                                      Grant fullcircle
                                     </>
                                   )}
                                 </button>

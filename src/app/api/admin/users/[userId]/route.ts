@@ -296,7 +296,7 @@ export async function POST(
 
         return NextResponse.json({ 
           success: true, 
-          message: 'Granted FullCircle subscription to user' 
+          message: 'Granted fullcircle+ subscription to user' 
         });
 
       case 'revokeSubscription':

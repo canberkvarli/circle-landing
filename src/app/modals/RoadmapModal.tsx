@@ -115,7 +115,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
               Development Roadmap
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              See how Circle is evolving and what&apos;s coming next in our journey to transform meaningful connections.
+              See how fullcircle is evolving and what&apos;s coming next in our journey to transform meaningful connections.
             </p>
           </div>
         </div>
