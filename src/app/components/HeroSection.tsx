@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, Clock, HandHeart, Sprout, Sparkles } from "lucide-react";
 import Image from "next/image";
+import EmailWaitlistInput from "./EmailWaitlistInput";
 
 interface HeroSectionProps {
   showIntro: boolean;
@@ -74,20 +75,14 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
             </button>
           </motion.div>
 
-          {/* CTA Button */}
-          <motion.button
-            className="vibrant-waitlist-button"
-            whileHover={{
-              scale: 1.08,
-            }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => openModal("earlyAccess")}
+          {/* Email Waitlist Input */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 1.0 }}
           >
-            <span className="relative z-10">Join fullcircle Waitlist</span>
-          </motion.button>
+            <EmailWaitlistInput />
+          </motion.div>
         </div>
 
         {/* Progress and Countdown Section */}
@@ -228,21 +223,10 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     <div className="p-6 flex flex-col flex-1 pt-16">
                       <div className="flex-1" />
                       <div className="space-y-3">
-                        {/* Create Account Button */}
-                        <button
-                          onClick={() => openModal("earlyAccess")}
-                          className="w-full bg-spiritual-accent rounded-full py-3 px-6 text-center hover:bg-spiritual-accent/80 transition-colors duration-300 cursor-pointer"
-                        >
-                          <span className="text-white font-spirituality font-bold text-base tracking-wide">Create account</span>
-                        </button>
-                        
-                        {/* Sign In Button */}
-                        <button
-                          onClick={() => openModal("earlyAccess")}
-                          className="w-full bg-white/15 backdrop-blur-sm rounded-full py-3 px-6 text-center border-2 border-spiritual-accent hover:bg-white/25 transition-colors duration-300 cursor-pointer"
-                        >
-                          <span className="text-white font-spirituality font-bold text-base tracking-wide">Sign In</span>
-                        </button>
+                        {/* Email Input for Waitlist */}
+                        <div className="px-2">
+                          <EmailWaitlistInput className="w-full" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -419,12 +403,7 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 3.2 }}
             >
-              <button
-                onClick={() => openModal('fullcircle')}
-                className="golden-member-button"
-              >
-                Become a fullcircle<span className="font-mono text-sm pl-1">+</span> Member
-              </button>
+              <EmailWaitlistInput />
             </motion.div>
 
             <motion.div

@@ -75,18 +75,20 @@ const Header = ({ openModal }: HeaderProps) => {
               <ThemeToggle />
             </nav>
 
-            {/* CTA Button */}
-            <motion.button
-              className="header-waitlist-button"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
-              }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => openModal('earlyAccess')}
-            >
-              Join Waitlist
-            </motion.button>
+                      {/* CTA Button */}
+          <motion.button
+            className="header-waitlist-button"
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
+            }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Join Waitlist
+          </motion.button>
 
             {/* Mobile Menu Button */}
             <button
@@ -175,7 +177,9 @@ const Header = ({ openModal }: HeaderProps) => {
               boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
             }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => openModal('earlyAccess')}
+            onClick={() => {
+              document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
             Join Waitlist
           </motion.button>
@@ -245,7 +249,7 @@ const Header = ({ openModal }: HeaderProps) => {
                 {/* Mobile Waitlist Button */}
                 <motion.button
                   onClick={() => {
-                    openModal('earlyAccess');
+                    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
                   className="w-full py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-black shadow-lg text-lg font-spirituality tracking-wide hover:shadow-xl transition-all duration-200"

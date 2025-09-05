@@ -49,7 +49,9 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
             </p>
             <div className="flex items-center space-x-1 justify-start">
               <button
-                onClick={() => openModal("earlyAccess")}
+                onClick={() => {
+                  document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
               >
                 <Image
