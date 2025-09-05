@@ -219,7 +219,7 @@ const FullCircleLandingPage = () => {
         />
         <FeaturesSection />
         <RoadmapSection />
-        <AboutSection openModal={openModal} />
+        <AboutSection />
         <Footer showIntro={showIntro} openModal={openModal} />
       </div>
 

@@ -2,11 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-interface AboutSectionProps {
-  openModal: (modalType: string) => void;
-}
-
-const AboutSection = ({ openModal }: AboutSectionProps) => {
+const AboutSection = () => {
   return (
     <section id="about" className="py-20 bg-white dark:bg-spiritual-dark-background">
       <div className="max-w-6xl mx-auto px-6">
@@ -50,7 +46,15 @@ const AboutSection = ({ openModal }: AboutSectionProps) => {
             <div className="flex items-center space-x-1 justify-start">
               <button
                 onClick={() => {
-                  document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                  // Scroll to the first email input in the hero section
+                  const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+                  if (emailInput) {
+                    emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Focus the input after scrolling
+                    setTimeout(() => {
+                      emailInput.focus();
+                    }, 500);
+                  }
                 }}
                 className="flex items-center hover:opacity-80 transition-opacity cursor-pointer"
               >

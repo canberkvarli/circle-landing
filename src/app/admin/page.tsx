@@ -208,7 +208,31 @@ export default function AdminDashboard() {
   const [waitlistSortField, setWaitlistSortField] = useState<'name' | 'email' | 'createdAt' | 'heardFrom' | 'phoneNumber' | 'commentsLength'>('createdAt');
   const [waitlistSortDirection, setWaitlistSortDirection] = useState<'asc' | 'desc'>('desc');
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const loadAdminStats = useCallback(async () => {
+    try {
+      const result = await getAdminStats();
+      if (result.success && result.stats) {
+        setAdminStats(result.stats as unknown as AdminStats);
+      }
+    } catch (error) {
+      console.error('Error loading admin stats:', error);
+      // Set default stats for waitlist-only mode
+      setAdminStats({
+        totalUsers: waitlistUsers.length,
+        activeSubscriptions: 0,
+        waitlistUsers: waitlistUsers.length,
+        totalLotusBalance: 0,
+        totalLotusGranted: 0,
+        totalLotusSpent: 0,
+        totalRadianceBoosts: 0,
+        averageLotusPerUser: 0,
+        recentSignups: 0,
+        recentSubscriptions: 0,
+        onboardingCompletionRate: 0
+      });
+    }
+  }, [waitlistUsers.length]);
+
   useEffect(() => {
     console.log('🔍 useEffect triggered, isAuthenticated:', isAuthenticated);
     // Only load data if user is authenticated
@@ -225,7 +249,7 @@ export default function AdminDashboard() {
     } else {
       console.log('❌ User is not authenticated, skipping data load');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, loadAdminStats]);
 
   const loadAllUsers = async () => {
     setLoading(true);
@@ -250,30 +274,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const loadAdminStats = async () => {
-    try {
-      const result = await getAdminStats();
-      if (result.success && result.stats) {
-        setAdminStats(result.stats as unknown as AdminStats);
-      }
-    } catch (error) {
-      console.error('Error loading admin stats:', error);
-      // Set default stats for waitlist-only mode
-      setAdminStats({
-        totalUsers: waitlistUsers.length,
-        activeSubscriptions: 0,
-        waitlistUsers: waitlistUsers.length,
-        totalLotusBalance: 0,
-        totalLotusGranted: 0,
-        totalLotusSpent: 0,
-        totalRadianceBoosts: 0,
-        averageLotusPerUser: 0,
-        recentSignups: 0,
-        recentSubscriptions: 0,
-        onboardingCompletionRate: 0
-      });
-    }
-  };
 
   const loadNotifications = async () => {
     try {

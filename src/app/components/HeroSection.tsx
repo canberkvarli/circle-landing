@@ -87,28 +87,53 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
 
         {/* Progress and Countdown Section */}
         <motion.div
-          className="mb-12 max-w-md mx-auto"
+          className="mb-12 max-w-lg mx-auto"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={
             !showIntro ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
           }
           transition={{ duration: 0.6, delay: 1.4 }}
         >
-          <div className="mb-2 flex justify-between text-sm text-spiritual-accent font-medium">
-            <span>{stats.signups} fullcircle spots claimed</span>
-            <span>{stats.totalSpots - stats.signups} remaining</span>
+          {/* Progress Bar Container */}
+          <div className="bg-white/80 dark:bg-spiritual-dark-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-spiritual-primary/10 dark:border-spiritual-dark-border/20">
+            <div className="mb-4 flex justify-between items-center">
+              <div className="text-left">
+                <div className="text-lg font-spirituality font-bold text-spiritual-primary dark:text-spiritual-dark-primary">
+                  {stats.signups} fullcircle spots claimed
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-spirituality font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
+                  {stats.totalSpots - stats.signups} remaining
+                </div>
+              </div>
+            </div>
+            
+            {/* Beautiful Progress Bar */}
+            <div className="relative">
+              <div className="w-full bg-gradient-to-r from-spiritual-background/50 to-spiritual-tertiary/30 dark:from-spiritual-dark-background/50 dark:to-spiritual-dark-tertiary/30 rounded-full h-4 overflow-hidden shadow-inner border border-spiritual-primary/10 dark:border-spiritual-dark-border/20">
+                <motion.div
+                  className="h-full rounded-full relative overflow-hidden"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressPercentage}%` }}
+                  transition={{ duration: 1.2, delay: 1.6, ease: "easeOut" }}
+                >
+                  {/* Gradient Progress Fill */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-spiritual-accent via-spiritual-primary to-spiritual-secondary rounded-full shadow-lg" />
+                  
+                  {/* Shimmer Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full animate-pulse" />
+                  
+                  {/* Progress Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-spiritual-accent/20 via-spiritual-primary/20 to-spiritual-secondary/20 rounded-full blur-sm" />
+                </motion.div>
+              </div>
+            </div>
+            
+            <p className="text-xs text-spiritual-text-muted dark:text-spiritual-dark-text-muted mt-4 text-center font-medium">
+              First {stats.totalSpots.toLocaleString()} users get 1 month of fullcircle+ membership for free
+            </p>
           </div>
-          <div className="w-full bg-spiritual-accent/20 rounded-full h-3 overflow-hidden shadow-inner">
-            <motion.div
-              className="bg-gradient-to-r from-spiritual-accent to-spiritual-primary h-full rounded-full shadow-sm"
-              initial={{ width: 0 }}
-              animate={{ width: `${progressPercentage}%` }}
-              transition={{ duration: 1, delay: 1.6 }}
-            />
-          </div>
-          <p className="text-xs text-spiritual-text-muted mt-2 text-center">
-            First {stats.totalSpots.toLocaleString()} users get 1 month of fullcircle+ membership for free
-          </p>
         </motion.div>
 
         {/* Countdown Timer */}
@@ -223,9 +248,40 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                     <div className="p-6 flex flex-col flex-1 pt-16">
                       <div className="flex-1" />
                       <div className="space-y-3">
-                        {/* Email Input for Waitlist */}
-                        <div className="px-2">
-                          <EmailWaitlistInput className="w-full" />
+                        {/* Sign In and Create Account Buttons */}
+                        <div className="px-2 space-y-3">
+                          <button 
+                            onClick={() => {
+                              // Scroll to the first email input in the hero section
+                              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+                              if (emailInput) {
+                                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                // Focus the input after scrolling
+                                setTimeout(() => {
+                                  emailInput.focus();
+                                }, 500);
+                              }
+                            }}
+                            className="w-full py-4 bg-white/95 backdrop-blur-sm text-spiritual-primary rounded-2xl font-spirituality font-bold text-base shadow-xl hover:bg-white hover:shadow-2xl transition-all duration-300 border border-spiritual-primary/20"
+                          >
+                            Sign In
+                          </button>
+                          <button 
+                            onClick={() => {
+                              // Scroll to the first email input in the hero section
+                              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+                              if (emailInput) {
+                                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                // Focus the input after scrolling
+                                setTimeout(() => {
+                                  emailInput.focus();
+                                }, 500);
+                              }
+                            }}
+                            className="w-full py-4 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary backdrop-blur-sm text-white rounded-2xl font-spirituality font-bold text-base shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+                          >
+                            Create Account
+                          </button>
                         </div>
                       </div>
                     </div>

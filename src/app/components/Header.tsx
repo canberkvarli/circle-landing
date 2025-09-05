@@ -84,7 +84,15 @@ const Header = ({ openModal }: HeaderProps) => {
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => {
-              document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+              // Scroll to the first email input in the hero section
+              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+              if (emailInput) {
+                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Focus the input after scrolling
+                setTimeout(() => {
+                  emailInput.focus();
+                }, 500);
+              }
             }}
           >
             Join Waitlist
@@ -178,7 +186,15 @@ const Header = ({ openModal }: HeaderProps) => {
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => {
-              document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+              // Scroll to the first email input in the hero section
+              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+              if (emailInput) {
+                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Focus the input after scrolling
+                setTimeout(() => {
+                  emailInput.focus();
+                }, 500);
+              }
             }}
           >
             Join Waitlist
@@ -249,7 +265,15 @@ const Header = ({ openModal }: HeaderProps) => {
                 {/* Mobile Waitlist Button */}
                 <motion.button
                   onClick={() => {
-                    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+                    // Scroll to the first email input in the hero section
+                    const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+                    if (emailInput) {
+                      emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      // Focus the input after scrolling
+                      setTimeout(() => {
+                        emailInput.focus();
+                      }, 500);
+                    }
                     setIsMenuOpen(false);
                   }}
                   className="w-full py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-black shadow-lg text-lg font-spirituality tracking-wide hover:shadow-xl transition-all duration-200"

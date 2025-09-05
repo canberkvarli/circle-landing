@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 interface EmailWaitlistInputProps {
   onSuccess?: () => void;
@@ -87,13 +87,25 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
           {/* Email Input */}
           <div className="relative flex-1">
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-accent dark:text-spiritual-dark-accent" />
+              <svg 
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-300 z-10" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+                />
+              </svg>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
-                className="w-full pl-12 pr-4 py-4 bg-white/90 backdrop-blur-sm border-2 border-spiritual-accent/30 rounded-2xl text-spiritual-text-dark placeholder-spiritual-text-muted focus:outline-none focus:border-spiritual-accent focus:ring-4 focus:ring-spiritual-accent/20 transition-all duration-300 dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:border-spiritual-dark-accent dark:focus:ring-spiritual-dark-accent/20"
+                className="w-full pl-12 pr-4 py-4 bg-white/90 backdrop-blur-sm border-2 border-spiritual-accent/30 rounded-2xl text-spiritual-text-dark placeholder-spiritual-text-muted focus:outline-none focus:border-spiritual-accent focus:ring-4 focus:ring-spiritual-accent/20 transition-all duration-300 dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:border-spiritual-dark-accent dark:focus:ring-spiritual-dark-accent/20 relative z-0"
                 disabled={isSubmitting}
               />
             </div>
