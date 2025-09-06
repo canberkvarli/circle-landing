@@ -189,7 +189,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
       </div>
       
       {/* Danielle Modal */}
-      {/* Removed Danielle modal as it's no longer accessible */}
 
         {/* App Preview Section */}
         <motion.div
@@ -204,16 +203,40 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           
           {/* Pyramid Layout: Video at top, 3 phones below */}
           <div className="max-w-7xl mx-auto">
-            {/* Top: Danielle Video */}
-            <div className="flex justify-center mb-12 relative">
-              <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
-                {/* Phone Notch - iPhone 16 Pro style */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
+            {/* Top: Demo Video */}
+            <div className="flex justify-center mb-12">
+              <div className="relative inline-block">
+                {/* Video Frame Container */}
+                <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
+                  {/* Phone Notch - iPhone 16 Pro style */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
+                  
+                  {/* Video Screen */}
+                  <div className="absolute inset-2 bg-black rounded-[1.8rem] overflow-hidden">
+                    <video
+                      ref={(el) => {
+                        if (el) {
+                          el.addEventListener('ended', () => {
+                            el.currentTime = 0;
+                            el.play();
+                          });
+                        }
+                      }}
+                      className="w-full h-full object-cover scale-110"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      <source src="/assets/videos/demo_shortened.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
                 
-                {/* Information Icon - Positioned inside the frame on top right */}
+                {/* Information Icon - Positioned at top-right of frame */}
                 <button
                   onClick={() => openModal("danielle")}
-                  className="absolute top-4 right-4 z-20 w-8 h-8 bg-spiritual-accent/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+                  className="absolute -top-4 -right-4 z-20 w-8 h-8 bg-spiritual-accent/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
                 >
                   <svg 
                     className="w-4 h-4 text-white group-hover:text-spiritual-background transition-colors" 
@@ -230,63 +253,32 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
                   </svg>
                 </button>
                 
-                {/* Video Screen */}
-                <div className="absolute inset-1 bg-black rounded-[2rem] overflow-hidden">
-                  <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+                {/* Replay Button - Positioned at bottom-right of frame */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const video = e.currentTarget.parentElement?.querySelector('video');
+                    if (video) {
+                      video.currentTime = 0;
+                      video.play();
+                    }
+                  }}
+                  className="absolute -bottom-4 -right-4 z-20 w-8 h-8 bg-spiritual-primary/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+                >
+                  <svg 
+                    className="w-4 h-4 text-white group-hover:text-spiritual-background transition-colors" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
                   >
-                    <source src="/assets/videos/danielle.mp4" type="video/mp4" />
-                  </video>
-                  
-                  {/* App Overlay - Cleaner design */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-transparent flex flex-col justify-between">                    
-                    {/* Bottom Section - Smaller Buttons */}
-                    <div className="p-6 flex flex-col flex-1 pt-16">
-                      <div className="flex-1" />
-                      <div className="space-y-3">
-                        {/* Sign In and Create Account Buttons */}
-                        <div className="px-2 space-y-3">
-                          <button 
-                            onClick={() => {
-                              // Scroll to the first email input in the hero section
-                              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-                              if (emailInput) {
-                                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                // Focus the input after scrolling
-                                setTimeout(() => {
-                                  emailInput.focus();
-                                }, 500);
-                              }
-                            }}
-                            className="w-full py-4 bg-white/95 backdrop-blur-sm text-spiritual-primary rounded-2xl font-spirituality font-bold text-base shadow-xl hover:bg-white hover:shadow-2xl transition-all duration-300 border border-spiritual-primary/20"
-                          >
-                            Sign In
-                          </button>
-                          <button 
-                            onClick={() => {
-                              // Scroll to the first email input in the hero section
-                              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-                              if (emailInput) {
-                                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                // Focus the input after scrolling
-                                setTimeout(() => {
-                                  emailInput.focus();
-                                }, 500);
-                              }
-                            }}
-                            className="w-full py-4 bg-gradient-to-r from-spiritual-primary to-spiritual-secondary backdrop-blur-sm text-white rounded-2xl font-spirituality font-bold text-base shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
-                          >
-                            Create Account
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
             
