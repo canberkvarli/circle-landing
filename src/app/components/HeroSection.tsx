@@ -130,9 +130,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               </div>
             </div>
             
-            <p className="text-xs text-spiritual-text-muted dark:text-spiritual-dark-text-muted mt-4 text-center font-medium">
-              First {stats.totalSpots.toLocaleString()} users get 1 month of fullcircle+ membership for free
-            </p>
           </div>
         </motion.div>
 
@@ -454,16 +451,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
               <EmailWaitlistInput />
             </motion.div>
 
-            <motion.div
-              className="flex items-center justify-center gap-2"
-              initial={{ opacity: 0 }}
-              animate={!showIntro ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.6, delay: 3.4 }}
-            >
-              <p className="text-sm text-spiritual-text-muted">
-                First 1,000 members get 1 month of fullcircle+ completely free
-              </p>
-            </motion.div>
           </div>
         </motion.div>
     </motion.main>
