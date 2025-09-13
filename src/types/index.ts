@@ -6,12 +6,6 @@ export interface Stats {
   connections: number;
 }
 
-export interface Countdown {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
 
 export interface FormData {
   email: string;
@@ -47,7 +41,6 @@ export interface HeaderProps {
 export interface HeroSectionProps {
   showIntro: boolean;
   stats: Stats;
-  countdown: Countdown;
   openModal: (modalId: string) => void;
 }
 

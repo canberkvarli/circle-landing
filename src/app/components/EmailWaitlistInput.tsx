@@ -76,49 +76,60 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
   };
 
   return (
-    <div className={`w-full max-w-md mx-auto ${className}`}>
+    <div className={`w-full max-w-2xl mx-auto ${className}`}>
       <form onSubmit={handleSubmit} className="relative mb-8">
         <motion.div
-          className="relative flex items-center"
+          className="relative flex flex-col sm:flex-row items-center gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Email Input */}
-          <div className="relative flex-1">
-            <div className="relative">
-              <svg 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-300 z-10" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
-                />
-              </svg>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                className="w-full pl-12 pr-4 py-4 bg-white/90 backdrop-blur-sm border-2 border-spiritual-accent/30 rounded-2xl text-spiritual-text-dark placeholder-spiritual-text-muted focus:outline-none focus:border-spiritual-accent focus:ring-4 focus:ring-spiritual-accent/20 transition-all duration-300 dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-text-muted dark:focus:border-spiritual-dark-accent dark:focus:ring-spiritual-dark-accent/20 relative z-0"
-                disabled={isSubmitting}
-              />
+          {/* Email Input with Subtle Glow */}
+          <div className="relative flex-1 w-full">
+            <div className="relative group">
+              {/* Subtle glowing border */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400/30 via-pink-400/40 to-indigo-400/30 rounded-3xl blur-sm opacity-60 group-hover:opacity-80 group-focus-within:opacity-100 transition-all duration-500"></div>
+              
+              <div className="relative bg-white/95 dark:bg-spiritual-dark-card/95 rounded-3xl p-1">
+                <div className="relative">
+                  <svg 
+                    className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-600 dark:text-purple-400 z-10" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
+                    />
+                  </svg>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full pl-14 pr-5 py-4 bg-transparent border-0 rounded-2xl text-lg font-semibold text-spiritual-text-dark placeholder-purple-500/80 focus:outline-none transition-all duration-300 dark:text-spiritual-dark-text-light dark:placeholder-purple-400/80 relative z-0"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit Button - Smaller and Better Styled */}
           <motion.button
             type="submit"
             disabled={isSubmitting || !email.trim()}
-            className="ml-3 px-6 py-3 bg-spiritual-primary text-gray-800 font-spirituality font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-spiritual-dark-primary dark:text-gray-900 text-base tracking-wide drop-shadow-sm border-2 border-spiritual-primary/30 dark:border-spiritual-dark-primary/30"
+            className="px-6 py-4 bg-gradient-to-r from-amber-600 via-orange-600 to-orange-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-base tracking-wide drop-shadow-md border border-amber-500/30 hover:scale-105 active:scale-95 min-w-[160px]"
+            style={{ 
+              fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.2)' 
+            }}
             whileHover={{ 
               scale: isSubmitting || !email.trim() ? 1 : 1.05,
-              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+              boxShadow: "0 10px 25px -5px rgba(217, 119, 6, 0.4)"
             }}
             whileTap={{ scale: isSubmitting || !email.trim() ? 1 : 0.95 }}
             initial={{ opacity: 0, x: 20 }}
@@ -134,7 +145,7 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
                   exit={{ opacity: 0, scale: 0.8 }}
                   className="flex items-center gap-2"
                 >
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   <span>Joining...</span>
                 </motion.div>
               ) : (
@@ -146,6 +157,9 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
                   className="flex items-center gap-2"
                 >
                   <span>Join Waitlist</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -180,15 +194,6 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
         </AnimatePresence>
       </form>
 
-      {/* Additional Info */}
-      <motion.p
-        className="text-sm text-spiritual-text-muted text-center mt-4 dark:text-spiritual-dark-text-muted"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-      >
-        Be the first to know when fullcircle launches
-      </motion.p>
     </div>
   );
 };

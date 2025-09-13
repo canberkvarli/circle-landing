@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, HandHeart, Sprout, Sparkles } from "lucide-react";
+import { HandHeart, Sprout, Sparkles } from "lucide-react";
 import Image from "next/image";
 import EmailWaitlistInput from "./EmailWaitlistInput";
 
@@ -11,16 +11,10 @@ interface HeroSectionProps {
     totalSpots: number;
     connections: number;
   };
-  countdown: {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-  };
   openModal: (modalType: string) => void;
 }
 
-const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProps) => {
+const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
   // Progress bar percentage
   const progressPercentage = (stats.signups / stats.totalSpots) * 100;
   
@@ -98,12 +92,12 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           <div className="bg-white/80 dark:bg-spiritual-dark-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-spiritual-primary/10 dark:border-spiritual-dark-border/20">
             <div className="mb-4 flex justify-between items-center">
               <div className="text-left">
-                <div className="text-lg font-spirituality font-bold text-spiritual-primary dark:text-spiritual-dark-primary">
+                <div className="text-lg font-sans font-bold text-spiritual-primary dark:text-spiritual-dark-primary">
                   {stats.signups} fullcircle spots claimed
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-lg font-spirituality font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
+                <div className="text-lg font-sans font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
                   {stats.totalSpots - stats.signups} remaining
                 </div>
               </div>
@@ -133,54 +127,6 @@ const HeroSection = ({ showIntro, stats, countdown, openModal }: HeroSectionProp
           </div>
         </motion.div>
 
-        {/* Countdown Timer */}
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={
-            !showIntro ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }
-          }
-          transition={{ duration: 0.6, delay: 1.6 }}
-        >
-          <div className="max-w-lg mx-auto bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-xl dark:bg-spiritual-dark-card/90 dark:border-spiritual-dark-border">
-            <motion.div
-              className="flex items-center justify-center space-x-2 mb-4"
-              whileHover={{ scale: 1.05 }}
-            >
-              <Clock className="w-5 h-5 text-spiritual-accent" />
-              <span className="text-lg font-spirituality font-bold text-spiritual-accent tracking-wide">
-                Launching in
-              </span>
-            </motion.div>
-
-            <div className="grid grid-cols-4 gap-4 mb-4">
-              {[
-                { value: countdown.days, label: "Days" },
-                { value: countdown.hours, label: "Hours" },
-                { value: countdown.minutes, label: "Minutes" },
-                { value: countdown.seconds, label: "Seconds" },
-              ].map((item, index) => (
-                <div key={index} className="text-center">
-                  <motion.div
-                    className="text-2xl font-spirituality font-bold text-spiritual-accent"
-                    key={item.value}
-                    initial={{ scale: 1.1 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {String(item.value).padStart(2, "0")}
-                  </motion.div>
-                  <div className="text-xs text-spiritual-text-muted">{item.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-sm text-spiritual-text-muted flex items-center justify-center space-x-2">
-              <Calendar className="w-4 h-4" />
-              <span>iOS & Android • Free to download</span>
-            </div>
-          </div>
-        </motion.div>
 
 
       </div>

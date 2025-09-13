@@ -17,6 +17,7 @@ import OuroborosInfoModal from "../modals/OuroborosInfoModal";
 import DanielleModal from "../modals/DanielleModal";
 import PrivacyPolicyModal from "../modals/PrivacyPolicyModal";
 import TermsAndConditionsModal from "../modals/TermsAndConditionsModal";
+import WaitlistModal from "../modals/WaitlistModal";
 import { getContactFormEmail } from "@/utils/emailTemplates";
 
 const FullCircleLandingPage = () => {
@@ -26,42 +27,13 @@ const FullCircleLandingPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | undefined>(undefined);
   const [mounted, setMounted] = useState(false);
+  const [showWaitlistModal, setShowWaitlistModal] = useState(false);
   const [stats, setStats] = useState({
     signups: 0,
     connections: 0,
     totalSpots: 1000,
   });
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
 
-  // Calculate launch date (65 days from now)
-  const calculateLaunchDate = useCallback(() => {
-    const now = new Date();
-    const launchDate = new Date(now.getTime() + (65 * 24 * 60 * 60 * 1000)); // 65 days from now
-    return launchDate;
-  }, []);
-
-  // Calculate countdown to launch
-  const calculateCountdown = useCallback(() => {
-    const now = new Date();
-    const launchDate = calculateLaunchDate();
-    const diff = launchDate.getTime() - now.getTime();
-    
-    if (diff <= 0) {
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
-    
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-    return { days, hours, minutes, seconds };
-  }, [calculateLaunchDate]);
 
   // Fetch real waitlist data
   const fetchWaitlistData = async () => {
@@ -90,11 +62,20 @@ const FullCircleLandingPage = () => {
     // Fetch waitlist data
     fetchWaitlistData();
 
-    // Set initial countdown
-    setCountdown(calculateCountdown());
+    // Show waitlist modal after 5 seconds (only if user hasn't interacted)
+    const waitlistTimer = setTimeout(() => {
+      // Check if user has already signed up (you could check localStorage or a cookie)
+      const hasSignedUp = localStorage.getItem('waitlist-signed-up');
+      if (!hasSignedUp) {
+        setShowWaitlistModal(true);
+      }
+    }, 5000);
 
-    return () => clearTimeout(timer);
-  }, [calculateCountdown]);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(waitlistTimer);
+    };
+  }, []);
 
   useEffect(() => {
     if (!mounted) return;
@@ -106,29 +87,14 @@ const FullCircleLandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [mounted]);
 
-  useEffect(() => {
-    if (!mounted) return;
-    const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
-        }
-        return prev;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [mounted, calculateCountdown]);
 
   const openModal = (modalType: string) => {
     console.log('Opening modal:', modalType);
-    setActiveModal(modalType);
+    if (modalType === 'waitlist') {
+      setShowWaitlistModal(true);
+    } else {
+      setActiveModal(modalType);
+    }
     setSubmitMessage(undefined); // Reset message when opening modal
   };
 
@@ -137,6 +103,10 @@ const FullCircleLandingPage = () => {
     setActiveModal(null);
     setSubmitMessage(undefined);
     setIsSubmitting(false);
+  };
+
+  const closeWaitlistModal = () => {
+    setShowWaitlistModal(false);
   };
 
   const handleContactSubmit = async (data: {
@@ -214,7 +184,6 @@ const FullCircleLandingPage = () => {
         <HeroSection
           showIntro={showIntro}
           stats={stats}
-          countdown={countdown}
           openModal={openModal}
         />
         <FeaturesSection />
@@ -254,6 +223,12 @@ const FullCircleLandingPage = () => {
           <TermsAndConditionsModal onClose={closeModal} />
         )}
       </AnimatePresence>
+
+      {/* Waitlist Modal */}
+      <WaitlistModal 
+        isOpen={showWaitlistModal} 
+        onClose={closeWaitlistModal} 
+      />
 
       {/* Scroll to Top Button */}
       <AnimatePresence>

@@ -80,7 +80,7 @@ const Header = ({ openModal }: HeaderProps) => {
             className="header-waitlist-button"
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
+              boxShadow: "0 10px 25px rgba(217, 119, 6, 0.4)",
             }}
             whileTap={{ scale: 0.98 }}
             onClick={() => {
@@ -276,7 +276,11 @@ const Header = ({ openModal }: HeaderProps) => {
                     }
                     setIsMenuOpen(false);
                   }}
-                  className="w-full py-3 bg-gradient-to-r from-spiritual-accent to-spiritual-primary text-white rounded-full font-black shadow-lg text-lg font-spirituality tracking-wide hover:shadow-xl transition-all duration-200"
+                  className="w-full py-3 bg-gradient-to-r from-amber-600 to-orange-700 text-white rounded-full font-bold shadow-lg text-lg tracking-wide hover:shadow-xl transition-all duration-200"
+                  style={{ 
+                    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.2)' 
+                  }}
                   whileTap={{ scale: 0.98 }}
                 >
                   Join Waitlist
