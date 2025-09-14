@@ -140,7 +140,7 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
           animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight min-h-[150px] flex flex-col justify-center font-spirituality text-spiritual-accent mb-8 text-center tracking-wide">
+          <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight min-h-[150px] flex flex-col justify-center font-spirituality text-spiritual-secondary dark:text-spiritual-dark-secondary mb-8 text-center tracking-wide">
             See fullcircle in Action
           </h3>
           

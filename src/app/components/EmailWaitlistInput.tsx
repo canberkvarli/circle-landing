@@ -88,12 +88,12 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
           <div className="relative flex-1 w-full">
             <div className="relative group">
               {/* Subtle glowing border */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400/30 via-pink-400/40 to-indigo-400/30 rounded-3xl blur-sm opacity-60 group-hover:opacity-80 group-focus-within:opacity-100 transition-all duration-500"></div>
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-spiritual-primary/30 via-spiritual-accent/40 to-spiritual-secondary/30 rounded-3xl blur-sm opacity-60 group-hover:opacity-80 group-focus-within:opacity-100 transition-all duration-500"></div>
               
               <div className="relative bg-white/95 dark:bg-spiritual-dark-card/95 rounded-3xl p-1">
                 <div className="relative">
                   <svg 
-                    className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-600 dark:text-purple-400 z-10" 
+                    className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-accent dark:text-spiritual-dark-accent z-10" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -110,7 +110,7 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full pl-14 pr-5 py-4 bg-transparent border-0 rounded-2xl text-lg font-semibold text-spiritual-text-dark placeholder-purple-500/80 focus:outline-none transition-all duration-300 dark:text-spiritual-dark-text-light dark:placeholder-purple-400/80 relative z-0"
+                    className="w-full pl-14 pr-5 py-4 bg-transparent border-0 rounded-2xl text-lg font-semibold text-spiritual-text-dark placeholder-spiritual-accent/80 focus:outline-none transition-all duration-300 dark:text-spiritual-dark-text-light dark:placeholder-spiritual-dark-accent/80 relative z-0"
                     disabled={isSubmitting}
                   />
                 </div>
@@ -122,7 +122,7 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
           <motion.button
             type="submit"
             disabled={isSubmitting || !email.trim()}
-            className="px-6 py-4 bg-gradient-to-r from-amber-600 via-orange-600 to-orange-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-base tracking-wide drop-shadow-md border border-amber-500/30 hover:scale-105 active:scale-95 min-w-[160px]"
+            className="px-6 py-4 bg-gradient-to-r from-spiritual-primary via-spiritual-accent to-spiritual-secondary text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-base tracking-wide drop-shadow-md border border-spiritual-accent/30 hover:scale-105 active:scale-95 min-w-[160px]"
             style={{ 
               fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.2)' 

@@ -276,7 +276,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     }
                     setIsMenuOpen(false);
                   }}
-                  className="w-full py-3 bg-gradient-to-r from-amber-600 to-orange-700 text-white rounded-full font-bold shadow-lg text-lg tracking-wide hover:shadow-xl transition-all duration-200"
+                  className="w-full py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-accent text-white rounded-full font-bold shadow-lg text-lg tracking-wide hover:shadow-xl transition-all duration-200"
                   style={{ 
                     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
                     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.2)' 

@@ -116,7 +116,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
             <div className="text-center">
               <button
                 onClick={onClose}
-                className="px-8 py-4 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white rounded-full font-medium shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide"
+                className="px-8 py-4 bg-gradient-to-r from-spiritual-primary via-spiritual-accent to-spiritual-secondary text-white rounded-full font-medium shadow-xl text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 font-spirituality font-bold tracking-wide"
               >
                 Start Your Journey
               </button>

@@ -31,6 +31,11 @@ const config: Config = {
           accent: '#D4A574', // Warm amber (for waitlist buttons)
           'accent-light': '#E5C399', // Light amber
           
+          // Button colors - charcoal theme
+          'button-primary': '#374151', // Charcoal gray
+          'button-secondary': '#4B5563', // Darker charcoal
+          'button-accent': '#6B7280', // Medium charcoal
+          
           // Semantic colors
           success: '#7D8471', // Sage green
           warning: '#D4A574', // Warm amber
@@ -69,6 +74,11 @@ const config: Config = {
           // Accent colors
           accent: '#D4C8B8', // Light taupe
           'accent-light': '#9B8F7F', // Muted taupe
+          
+          // Button colors - charcoal theme
+          'button-primary': '#6B7280', // Medium charcoal
+          'button-secondary': '#4B5563', // Darker charcoal
+          'button-accent': '#9CA3AF', // Light charcoal
           
           // Semantic colors
           success: '#9BA88C', // Light sage

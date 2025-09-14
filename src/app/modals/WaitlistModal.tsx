@@ -117,7 +117,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
             <div className="p-8">
               {/* Header */}
               <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-amber-600 to-orange-700 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-spiritual-primary to-spiritual-accent rounded-full flex items-center justify-center">
                   <Mail className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-spiritual-text-dark dark:text-spiritual-dark-text-light mb-2">
@@ -136,7 +136,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-spiritual-dark-tertiary border border-gray-200 dark:border-spiritual-dark-border rounded-xl text-spiritual-text-dark dark:text-spiritual-dark-text-light placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 bg-gray-50 dark:bg-spiritual-dark-tertiary border border-gray-200 dark:border-spiritual-dark-border rounded-xl text-spiritual-text-dark dark:text-spiritual-dark-text-light placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-spiritual-accent focus:border-transparent transition-all duration-200"
                     disabled={isSubmitting}
                   />
                 </div>
@@ -144,7 +144,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting || !email.trim()}
-                  className="w-full py-3 bg-gradient-to-r from-amber-600 to-orange-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-accent text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   style={{ 
                     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
                     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.2)' 

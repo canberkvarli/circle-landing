@@ -62,9 +62,9 @@ const FullCircleLandingPage = () => {
     // Fetch waitlist data
     fetchWaitlistData();
 
-    // Show waitlist modal after 5 seconds (only if user hasn't interacted)
+    // Show waitlist modal after 5 seconds (only if user hasn't signed up)
     const waitlistTimer = setTimeout(() => {
-      // Check if user has already signed up (you could check localStorage or a cookie)
+      // Check if user has already signed up
       const hasSignedUp = localStorage.getItem('waitlist-signed-up');
       if (!hasSignedUp) {
         setShowWaitlistModal(true);
