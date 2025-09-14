@@ -210,7 +210,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
               {/* Footer */}
               <div className="mt-6 text-center">
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  We'll notify you when fullcircle launches
+                  We&apos;ll notify you when fullcircle launches
                 </p>
               </div>
             </div>
