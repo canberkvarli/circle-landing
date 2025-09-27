@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle, AlertCircle, Loader2, Mail, Sparkles } from "lucide-react";
+import { X, CheckCircle, AlertCircle, Loader2, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -118,9 +119,11 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
               {/* Header */}
               <div className="text-center mb-6">
                 <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-                  <img 
+                  <Image 
                     src="/assets/icons/ouroboros.png" 
                     alt="Ouroboros" 
+                    width={48}
+                    height={48}
                     className="w-12 h-12" 
                   />
                 </div>

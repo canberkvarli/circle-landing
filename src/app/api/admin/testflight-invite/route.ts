@@ -62,10 +62,7 @@ export async function POST(request: NextRequest) {
 
       try {
         // Generate the email content
-        const emailHtml = getTestFlightInvitationEmail({
-          firstName: user.firstName || 'there',
-          testerName: testerName
-        });
+        const emailHtml = getTestFlightInvitationEmail();
 
         // Send the email
         const emailResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/send-email`, {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X, ArrowRight, Check, Mail, User, Phone, Info, AlertCircle, MessageSquare } from "lucide-react";
+import { X, ArrowRight, Check, User, Phone, Info, AlertCircle, MessageSquare } from "lucide-react";
 import Image from "next/image";
 
 interface EarlyAccessModalProps {
@@ -151,9 +151,11 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
               )}
               <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
-                <img 
+                <Image 
                   src="/assets/icons/ouroboros.png" 
                   alt="Ouroboros" 
+                  width={20}
+                  height={20}
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-text-muted dark:text-spiritual-dark-text-muted" 
                 />
                 <input

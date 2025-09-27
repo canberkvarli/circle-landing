@@ -751,8 +751,7 @@ export const getAdminWaitlistNotificationEmail = (data: {
 };
 
 // 8. TestFlight Beta Invitation Email Template
-export const getTestFlightInvitationEmail = (data: EmailTemplateData): string => {
-  const { testerName = 'Tester' } = data;
+export const getTestFlightInvitationEmail = (): string => {
   
   const content = `
     <div class="section">

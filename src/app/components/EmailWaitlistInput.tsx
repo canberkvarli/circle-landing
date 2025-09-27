@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 interface EmailWaitlistInputProps {
   onSuccess?: () => void;
@@ -92,9 +93,11 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
               
               <div className="relative bg-white/95 dark:bg-spiritual-dark-card/95 rounded-3xl p-1">
                 <div className="relative">
-                  <img 
+                  <Image 
                     src="/assets/icons/ouroboros.png" 
                     alt="Ouroboros" 
+                    width={20}
+                    height={20}
                     className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-accent dark:text-spiritual-dark-accent z-10" 
                   />
                   <input
