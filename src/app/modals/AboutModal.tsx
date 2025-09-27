@@ -51,7 +51,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                   <Heart className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
+                  <h3 className="text-xl font-spirituality font-bold text-black mb-2 dark:text-spiritual-dark-accent">
                     Our Mission
                   </h3>
                   <p className="text-spiritual-text-muted">
@@ -65,7 +65,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                   <Users className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
+                  <h3 className="text-xl font-spirituality font-bold text-black mb-2 dark:text-spiritual-dark-accent">
                     Our Community
                   </h3>
                   <p className="text-spiritual-text-muted">
@@ -81,7 +81,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                   <Sparkles className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
+                  <h3 className="text-xl font-spirituality font-bold text-black mb-2 dark:text-spiritual-dark-accent">
                     Our Values
                   </h3>
                   <p className="text-spiritual-text-muted">
@@ -95,7 +95,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                   <Globe className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
+                  <h3 className="text-xl font-spirituality font-bold text-black mb-2 dark:text-spiritual-dark-accent">
                     Our Vision
                   </h3>
                   <p className="text-spiritual-text-muted">

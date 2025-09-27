@@ -97,7 +97,7 @@ const TermsAndConditionsModal = ({ onClose }: TermsAndConditionsModalProps) => {
               Newsletter Registration and Early Access Offer
             </h3>
             <p className="mb-4">
-              The Service allows You to register for our newsletter by providing Your email address, name, and optionally Your phone number. By registering, You consent to receive periodic communications from Us regarding our upcoming application and related updates.
+              The Service allows You to register for our newsletter by providing Your email address. By registering, You consent to receive periodic communications from Us regarding our upcoming application and related updates.
             </p>
 
             <h4 className="text-xl font-semibold text-spiritual-accent mb-3">Early Access Promotional Offer</h4>

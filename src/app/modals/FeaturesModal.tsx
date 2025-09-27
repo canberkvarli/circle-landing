@@ -91,7 +91,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
                     {feature.icon}
                   </div>
                   <div>
-                    <h3 className="text-xl font-spirituality font-bold text-spiritual-accent mb-2">
+                    <h3 className="text-xl font-spirituality font-bold text-black mb-2 dark:text-spiritual-dark-accent">
                       {feature.title}
                     </h3>
                     <p className="text-spiritual-text-muted">

@@ -94,8 +94,6 @@ const PrivacyPolicyModal = ({ onClose }: PrivacyPolicyModalProps) => {
             </p>
             <ul className="list-disc pl-6 mb-4">
               <li>Email address</li>
-              <li>First name and last name</li>
-              <li>Phone number (optional)</li>
               <li>Usage Data</li>
             </ul>
 
@@ -144,7 +142,7 @@ const PrivacyPolicyModal = ({ onClose }: PrivacyPolicyModalProps) => {
             <p className="mb-4">The Company may use Personal Data for the following purposes:</p>
             <ul className="list-disc pl-6 mb-6">
               <li><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</li>
-              <li><strong>To manage Your newsletter registration:</strong> to manage Your registration for our newsletter and communications. The Personal Data You provide allows us to send You updates about our upcoming application and related news.</li>
+              <li><strong>To manage Your newsletter registration:</strong> to manage Your registration for our newsletter and communications. The email address You provide allows us to send You updates about our upcoming application and related news.</li>
               <li><strong>To contact You:</strong> To contact You by email regarding updates or informative communications related to our upcoming application, including launch notifications and promotional offers, when necessary or reasonable for their implementation.</li>
               <li><strong>To provide You</strong> with news, special offers and general information about our upcoming application and services unless You have opted not to receive such information.</li>
               <li><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</li>

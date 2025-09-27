@@ -117,8 +117,12 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
             <div className="p-8">
               {/* Header */}
               <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-spiritual-primary to-spiritual-accent rounded-full flex items-center justify-center">
-                  <Mail className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                  <img 
+                    src="/assets/icons/ouroboros.png" 
+                    alt="Ouroboros" 
+                    className="w-12 h-12" 
+                  />
                 </div>
                 <h2 className="text-2xl font-bold text-spiritual-text-dark dark:text-spiritual-dark-text-light mb-2">
                   Join the Waitlist

@@ -422,8 +422,19 @@ export const getWaitlistConfirmationEmail = (data: EmailTemplateData): string =>
                 <li style="margin-bottom: 10px; color: #F5E6D3;">💫 Community updates and behind-the-scenes content</li>
                 <li style="margin-bottom: 10px; color: #F5E6D3;">🎁 Special offers and bonuses for waitlist members</li>
                 <li style="margin-bottom: 10px; color: #F5E6D3;">✨ First look at new features and community events</li>
-                <li style="margin-bottom: 0; color: #F5E6D3;">🌿 Early access to our growing community</li>
+                <li style="margin-bottom: 10px; color: #F5E6D3;">🌿 Early access to our growing community</li>
+                <li style="margin-bottom: 0; color: #F5E6D3;">📱 <strong>Beta testing invitation</strong> - You may receive an email to test fullcircle before launch!</li>
             </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div style="background: linear-gradient(135deg, #3D3B37 0%, #2D2B27 100%); padding: 25px; border-radius: 20px; text-align: center; border: 2px solid #C4A984; margin-top: 20px;">
+            <h4 style="color: #C4A984; font-size: 20px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">🚀 Beta Testing Opportunity</h4>
+            <p style="color: #F5E6D3; font-size: 16px; margin: 0; line-height: 1.6;">
+                Selected waitlist members will receive an invitation to test fullcircle through TestFlight 
+                before our official launch. Keep an eye on your email for this exclusive opportunity!
+            </p>
         </div>
     </div>
   `;
@@ -739,7 +750,112 @@ export const getAdminWaitlistNotificationEmail = (data: {
   return getBaseEmailTemplate(content);
 };
 
-// 8. Community Event Invitation Email Template
+// 8. TestFlight Beta Invitation Email Template
+export const getTestFlightInvitationEmail = (data: EmailTemplateData): string => {
+  const { testerName = 'Tester' } = data;
+  
+  const content = `
+    <div class="section">
+        <h2 class="section-title">🎉 You're Invited to Test fullcircle! 🎉</h2>
+        <p class="section-text">
+            Congratulations! You've been selected to be part of our exclusive 
+            beta testing program for fullcircle. We're excited to have you help us shape 
+            this meaningful platform before our official launch.
+        </p>
+        <p class="section-text">
+            As a beta tester, you'll get early access to all features and your feedback 
+            will directly influence the final product. This is your chance to be part of 
+            something truly special!
+        </p>
+    </div>
+    
+    <div class="highlight-box">
+        <h3 class="highlight-title">📱 Download TestFlight & Join the Beta</h3>
+        <p class="highlight-subtitle">Follow these simple steps to get started with fullcircle beta</p>
+    </div>
+    
+    <div class="section">
+        <h3 style="color: #C4A984; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">Step-by-Step Instructions:</h3>
+        <div style="background: rgba(196, 169, 132, 0.1); padding: 25px; border-radius: 20px; border: 1px solid rgba(196, 169, 132, 0.3);">
+            <div style="margin-bottom: 20px; padding: 20px; background: rgba(37, 35, 32, 0.8); border-radius: 16px; border-left: 4px solid #C4A984;">
+                <h4 style="color: #C4A984; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">1️⃣ Download TestFlight</h4>
+                <p style="color: #F5E6D3; font-size: 15px; margin: 0; line-height: 1.6;">First, download the TestFlight app from the App Store on your iPhone or iPad</p>
+            </div>
+            <div style="margin-bottom: 20px; padding: 20px; background: rgba(37, 35, 32, 0.8); border-radius: 16px; border-left: 4px solid #C4A984;">
+                <h4 style="color: #C4A984; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">2️⃣ Check Your Email</h4>
+                <p style="color: #F5E6D3; font-size: 15px; margin: 0; line-height: 1.6;">Look for an invitation email from Apple with the subject "You're invited to test fullcircle"</p>
+            </div>
+            <div style="margin-bottom: 20px; padding: 20px; background: rgba(37, 35, 32, 0.8); border-radius: 16px; border-left: 4px solid #C4A984;">
+                <h4 style="color: #C4A984; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">3️⃣ Accept the Invitation</h4>
+                <p style="color: #F5E6D3; font-size: 15px; margin: 0; line-height: 1.6;">Tap "Start Testing" in the email or open the link in TestFlight</p>
+            </div>
+            <div style="padding: 20px; background: rgba(37, 35, 32, 0.8); border-radius: 16px; border-left: 4px solid #C4A984;">
+                <h4 style="color: #C4A984; font-size: 18px; margin: 0 0 10px 0; font-family: 'Spirituality', 'Georgia', serif;">4️⃣ Start Exploring</h4>
+                <p style="color: #F5E6D3; font-size: 15px; margin: 0; line-height: 1.6;">Open fullcircle in TestFlight and begin your beta testing journey!</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h3 style="color: #C4A984; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">Stay Connected:</h3>
+        <div style="background: linear-gradient(135deg, #3D3B37 0%, #2D2B27 100%); padding: 25px; border-radius: 20px; text-align: center; border: 2px solid #C4A984;">
+            <p style="color: #F5E6D3; font-size: 16px; margin: 0 0 10px 0; opacity: 0.9;">We'd love to hear from you! Send us an email at any time to chat, share feedback, or just say hello.</p>
+            <p style="color: #C4A984; font-size: 14px; margin: 0; font-style: italic;">Your voice matters to us, and we're here to listen</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h3 style="color: #C4A984; font-size: 22px; margin: 0 0 20px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">What We Need From You:</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <span class="feature-icon">🔍</span>
+                <h4 class="feature-title">Test Features</h4>
+                <p class="feature-text">Try out all the features and report any bugs or issues</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">💬</span>
+                <h4 class="feature-title">Share Feedback</h4>
+                <p class="feature-text">Tell us what you love and what could be improved</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <h4 class="feature-title">Test on Device</h4>
+                <p class="feature-text">Use the app regularly on your personal device</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">⭐</span>
+                <h4 class="feature-title">Rate Experience</h4>
+                <p class="feature-text">Help us understand how the app feels to use</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h3 style="color: #C4A984; font-size: 22px; margin: 0 0 15px 0; text-align: center; font-family: 'Spirituality', 'Georgia', serif;">How to Provide Feedback:</h3>
+        <div style="background: rgba(196, 169, 132, 0.1); padding: 20px; border-radius: 20px; border: 1px solid rgba(196, 169, 132, 0.3);">
+            <ul style="color: #F5E6D3; font-size: 16px; line-height: 1.8; margin: 0; padding-left: 25px; text-align: left;">
+                <li style="margin-bottom: 10px;">📧 Email us at <strong style="color: #C4A984;">hello@joinfullcircle.app</strong> with your feedback</li>
+                <li style="margin-bottom: 10px;">🐛 Use TestFlight's built-in feedback tools to report bugs</li>
+                <li style="margin-bottom: 10px;">💭 Share your thoughts on the user experience and design</li>
+                <li style="margin-bottom: 0;">🌟 Let us know what features you'd like to see added</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="highlight-box">
+        <h3 class="highlight-title">✨ Thank You for Being Part of Our Journey ✨</h3>
+        <p class="highlight-subtitle">Your input will help us create the most meaningful connection platform possible</p>
+    </div>
+    
+    <div style="text-align: center; margin: 35px 0;">
+        <a href="https://testflight.apple.com" class="cta-button">Download TestFlight</a>
+    </div>
+  `;
+  
+  return getBaseEmailTemplate(content);
+};
+
+// 9. Community Event Invitation Email Template
 export const getCommunityEventEmail = (data: EmailTemplateData): string => {
   const { firstName = 'there', eventName = 'our next gathering', eventDate = 'this weekend' } = data;
   

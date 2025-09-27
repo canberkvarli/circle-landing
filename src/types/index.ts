@@ -239,6 +239,10 @@ export interface WaitlistUser {
   notificationAcknowledged?: boolean;
   acknowledgedAt?: Date;
   acknowledgedBy?: string;
+  // TestFlight invitation fields
+  testflightInviteSent?: boolean;
+  testflightInviteSentAt?: Date;
+  testerName?: string;
 }
 
 export interface AdminStats {

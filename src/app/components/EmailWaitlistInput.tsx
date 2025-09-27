@@ -92,19 +92,11 @@ const EmailWaitlistInput = ({ onSuccess, className = "" }: EmailWaitlistInputPro
               
               <div className="relative bg-white/95 dark:bg-spiritual-dark-card/95 rounded-3xl p-1">
                 <div className="relative">
-                  <svg 
+                  <img 
+                    src="/assets/icons/ouroboros.png" 
+                    alt="Ouroboros" 
                     className="absolute left-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-spiritual-accent dark:text-spiritual-dark-accent z-10" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" 
-                    />
-                  </svg>
+                  />
                   <input
                     type="email"
                     value={email}

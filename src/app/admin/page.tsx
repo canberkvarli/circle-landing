@@ -160,6 +160,7 @@ export default function AdminDashboard() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState<WaitlistUser | null>(null);
   const [processing, setProcessing] = useState(false);
+  const [sendingTestFlightInvites, setSendingTestFlightInvites] = useState(false);
 
   // New advanced filtering state
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
@@ -201,11 +202,9 @@ export default function AdminDashboard() {
   const [emailRecipient, setEmailRecipient] = useState<WaitlistUser | null>(null);
   const [isBulkEmail, setIsBulkEmail] = useState(false);
   
-  // Comment expansion state
-  const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
 
   // Waitlist sorting state
-  const [waitlistSortField, setWaitlistSortField] = useState<'name' | 'email' | 'createdAt' | 'heardFrom' | 'phoneNumber' | 'commentsLength'>('createdAt');
+  const [waitlistSortField, setWaitlistSortField] = useState<'email' | 'createdAt'>('createdAt');
   const [waitlistSortDirection, setWaitlistSortDirection] = useState<'asc' | 'desc'>('desc');
 
   const loadAdminStats = useCallback(async () => {
@@ -544,6 +543,52 @@ export default function AdminDashboard() {
     setShowEmailModal(true);
   };
 
+  const handleSendTestFlightInvites = async () => {
+    if (selectedUsers.length === 0) {
+      alert('Please select users to send TestFlight invitations to');
+      return;
+    }
+
+    if (!confirm(`Are you sure you want to send TestFlight invitations to ${selectedUsers.length} selected users?`)) {
+      return;
+    }
+
+    try {
+      setSendingTestFlightInvites(true);
+      
+      const response = await fetch('/api/admin/testflight-invite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userIds: selectedUsers
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(`TestFlight invitations sent successfully!\n\nStats:\n- Total: ${result.stats.total}\n- Successful: ${result.stats.successful}\n- Failed: ${result.stats.failed}`);
+        
+        if (result.stats.errors && result.stats.errors.length > 0) {
+          console.error('TestFlight invitation errors:', result.stats.errors);
+        }
+        
+        // Refresh the waitlist data to show updated invitation status
+        loadAllUsers();
+        setSelectedUsers([]);
+      } else {
+        alert(`Failed to send TestFlight invitations: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Error sending TestFlight invitations:', error);
+      alert('Error sending TestFlight invitations');
+    } finally {
+      setSendingTestFlightInvites(false);
+    }
+  };
+
   const handleBulkSendWaitlistEmails = async () => {
     if (selectedUsers.length === 0) return;
     
@@ -554,17 +599,6 @@ export default function AdminDashboard() {
     setShowEmailModal(true);
   };
 
-  const toggleCommentExpansion = (commentId: string) => {
-    setExpandedComments(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(commentId)) {
-        newSet.delete(commentId);
-      } else {
-        newSet.add(commentId);
-      }
-      return newSet;
-    });
-  };
 
   const sendEmail = async () => {
     if (!emailSubject.trim() || !emailMessage.trim()) {
@@ -1063,15 +1097,9 @@ export default function AdminDashboard() {
     if (userSearchQuery.trim()) {
       const query = userSearchQuery.toLowerCase();
       filtered = waitlistUsers.filter(user => {
-        const fullName = (user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || '').toLowerCase();
         const email = (user.email || '').toLowerCase();
-        const phone = ((user.phoneNumber || user.phone) || '').toLowerCase();
-        const heardFrom = (user.heardFrom || '').toLowerCase();
         
-        return fullName.includes(query) || 
-               email.includes(query) || 
-               phone.includes(query) || 
-               heardFrom.includes(query);
+        return email.includes(query);
       });
     }
 
@@ -1081,10 +1109,6 @@ export default function AdminDashboard() {
       let bValue: string | number;
 
       switch (waitlistSortField) {
-        case 'name':
-          aValue = (a.fullName || `${a.firstName || ''} ${a.familyName || ''}`.trim() || '').toLowerCase();
-          bValue = (b.fullName || `${b.firstName || ''} ${b.familyName || ''}`.trim() || '').toLowerCase();
-          break;
         case 'email':
           aValue = (a.email || '').toLowerCase();
           bValue = (b.email || '').toLowerCase();
@@ -1092,18 +1116,6 @@ export default function AdminDashboard() {
         case 'createdAt':
           aValue = a.createdAt ? new Date(a.createdAt).getTime() : 0;
           bValue = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-          break;
-        case 'heardFrom':
-          aValue = (a.heardFrom || '').toLowerCase();
-          bValue = (b.heardFrom || '').toLowerCase();
-          break;
-        case 'phoneNumber':
-          aValue = (a.phoneNumber || a.phone || '').toLowerCase();
-          bValue = (b.phoneNumber || b.phone || '').toLowerCase();
-          break;
-        case 'commentsLength':
-          aValue = (a.additionalComments || '').length;
-          bValue = (b.additionalComments || '').length;
           break;
         default:
           aValue = 0;
@@ -1245,7 +1257,7 @@ export default function AdminDashboard() {
 
   const exportToCSV = () => {
     const headers = [
-      'User ID', 'Name', 'Email', 'Phone', 'Lotus Count', 'Radiance Boosts',
+      'User ID', 'Email', 'Lotus Count', 'Radiance Boosts',
       'Onboarding Status', 'Subscription Status', 'Created Date', 'Last Active',
       'Region', 'Connection Intent', 'Spiritual Practices'
     ];
@@ -1255,9 +1267,7 @@ export default function AdminDashboard() {
         // App user
         return [
           user.userId,
-          user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A',
           user.email,
-          user.phoneNumber || 'N/A',
           user.numOfLotus || 0,
           user.activeBoosts || 0,
           user.onboardingCompleted ? 'Completed' : 'Incomplete',
@@ -1272,9 +1282,7 @@ export default function AdminDashboard() {
         // Waitlist user
         return [
           user.id || 'N/A',
-          user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A',
           user.email,
-          user.phoneNumber || 'N/A',
           'N/A', // No lotus for waitlist users
           'N/A', // No radiance for waitlist users
           'N/A', // No onboarding for waitlist users
@@ -1708,6 +1716,23 @@ export default function AdminDashboard() {
               </h2>
               <div className="flex gap-2">
                 <button
+                  onClick={handleSendTestFlightInvites}
+                  disabled={selectedUsers.length === 0 || sendingTestFlightInvites}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center"
+                >
+                  {sendingTestFlightInvites ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-4 h-4 mr-2" />
+                      Send TestFlight Invites ({selectedUsers.length})
+                    </>
+                  )}
+                </button>
+                <button
                   onClick={() => {
                     if (selectedUsers.length === 0) {
                       alert('Please select users to send emails to');
@@ -1785,15 +1810,11 @@ export default function AdminDashboard() {
                     <label className="text-sm font-medium text-gray-700">Sort by:</label>
                     <select
                       value={waitlistSortField}
-                      onChange={(e) => setWaitlistSortField(e.target.value as 'name' | 'email' | 'createdAt' | 'heardFrom' | 'phoneNumber')}
+                      onChange={(e) => setWaitlistSortField(e.target.value as 'email' | 'createdAt')}
                       className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white text-gray-900 text-sm"
                     >
-                      <option value="name">Name</option>
                       <option value="email">Email</option>
                       <option value="createdAt">Date Created</option>
-                      <option value="heardFrom">Heard From</option>
-                      <option value="phoneNumber">Phone Number</option>
-                      <option value="commentsLength">Comments Length</option>
                     </select>
                   </div>
                   
@@ -1863,17 +1884,17 @@ export default function AdminDashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <button
                           onClick={() => {
-                            if (waitlistSortField === 'name') {
+                            if (waitlistSortField === 'email') {
                               setWaitlistSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
                             } else {
-                              setWaitlistSortField('name');
+                              setWaitlistSortField('email');
                               setWaitlistSortDirection('asc');
                             }
                           }}
                           className="flex items-center gap-1 hover:text-purple-600 transition-colors"
                         >
                           Name
-                          {waitlistSortField === 'name' && (
+                          {waitlistSortField === 'email' && (
                             waitlistSortDirection === 'asc' ? 
                               <ChevronUp className="w-3 h-3 text-purple-600" /> : 
                               <ChevronDown className="w-3 h-3 text-purple-600" />
@@ -1920,9 +1941,7 @@ export default function AdminDashboard() {
                           )}
                         </button>
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heard From</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comments</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">TestFlight</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email Actions</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -1937,9 +1956,6 @@ export default function AdminDashboard() {
                             onChange={() => toggleUserSelection(user.id || '')}
                             className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                           />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -1956,56 +1972,24 @@ export default function AdminDashboard() {
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {(user.phoneNumber || user.phone) ? (
-                            <span className="text-green-600">{user.phoneNumber || user.phone}</span>
-                          ) : (
-                            <span className="text-gray-400 italic">No phone provided</span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {user.heardFrom ? (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                              {user.heardFrom}
-                            </span>
-                          ) : (
-                            <span className="text-gray-400 italic">Not specified</span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          {user.additionalComments ? (
-                            <div className="max-w-xs">
-                              {user.additionalComments.length > 50 ? (
-                                <button
-                                  onClick={() => toggleCommentExpansion(user.id || '')}
-                                  className="text-left text-gray-700 hover:text-purple-600 transition-colors cursor-pointer block w-full"
-                                  title="Click to expand/collapse comment"
-                                >
-                                  <div className="flex items-start gap-2">
-                                    <span className={`block break-words transition-all duration-200 flex-1 ${
-                                      expandedComments.has(user.id || '') 
-                                        ? 'bg-purple-50 p-2 rounded border-l-2 border-purple-400' 
-                                        : ''
-                                    }`}>
-                                      {expandedComments.has(user.id || '') 
-                                        ? user.additionalComments
-                                        : `${user.additionalComments.substring(0, 50)}...`
-                                      }
-                                    </span>
-                                    <span className="text-purple-500 mt-1">
-                                      {expandedComments.has(user.id || '') ? (
-                                        <ChevronUp className="w-4 h-4" />
-                                      ) : (
-                                        <ChevronDown className="w-4 h-4" />
-                                      )}
-                                    </span>
-                                  </div>
-                                </button>
-                              ) : (
-                                <span className="text-gray-700 break-words">{user.additionalComments}</span>
+                          {user.testflightInviteSent ? (
+                            <div className="flex flex-col items-start">
+                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 mb-1">
+                                ✓ Invited
+                              </span>
+                              {user.testerName && (
+                                <span className="text-xs text-gray-500">{user.testerName}</span>
+                              )}
+                              {user.testflightInviteSentAt && (
+                                <span className="text-xs text-gray-400">
+                                  {new Date(user.testflightInviteSentAt).toLocaleDateString()}
+                                </span>
                               )}
                             </div>
                           ) : (
-                            <span className="text-gray-400 italic">No comments</span>
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                              Not Invited
+                            </span>
                           )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -2113,7 +2097,6 @@ export default function AdminDashboard() {
                           className="rounded border-gray-400 text-purple-600 focus:ring-purple-500"
                         />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Name</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lotus</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Radiance</th>
@@ -2140,14 +2123,6 @@ export default function AdminDashboard() {
                               onChange={() => toggleUserSelection(user.userId)}
                               className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                             />
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            <a 
-                              href={`/admin/users/${user.userId}`}
-                              className="text-purple-600 hover:text-purple-800 hover:underline font-medium"
-                            >
-                              {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
-                            </a>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -2427,7 +2402,6 @@ export default function AdminDashboard() {
                           className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                         />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Lotus</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Radiance</th>
@@ -2444,9 +2418,6 @@ export default function AdminDashboard() {
                             onChange={() => toggleUserSelection(user.userId)}
                             className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                           />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -3099,7 +3070,6 @@ export default function AdminDashboard() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Name</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Email</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Lotus</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Radiance</th>
@@ -3119,14 +3089,6 @@ export default function AdminDashboard() {
                       
                       return (
                         <tr key={user.userId} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            <a 
-                              href={`/admin/users/${user.userId}`}
-                              className="text-purple-600 hover:text-purple-800 hover:underline font-medium"
-                            >
-                              {user.fullName || `${user.firstName || ''} ${user.familyName || ''}`.trim() || 'N/A'}
-                            </a>
-                          </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">

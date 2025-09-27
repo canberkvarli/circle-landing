@@ -247,8 +247,8 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Connect</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Find your tribe</p>
+                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Connect</h4>
+                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Find your tribe</p>
                 </div>
               </div>
 
@@ -272,8 +272,8 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Kindred Spirits</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Discover souls</p>
+                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Kindred Spirits</h4>
+                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Discover souls</p>
                 </div>
               </div>
 
@@ -297,8 +297,8 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Soul Chats</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Start connecting</p>
+                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Soul Chats</h4>
+                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Start connecting</p>
                 </div>
               </div>
 
@@ -322,8 +322,8 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
                 
                 {/* Label */}
                 <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-spiritual-accent mb-1 dark:text-spiritual-dark-accent">Self</h4>
-                  <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">Express yourself</p>
+                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Self</h4>
+                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Express yourself</p>
                 </div>
               </div>
             </div>
