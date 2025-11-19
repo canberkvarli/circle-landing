@@ -34,28 +34,28 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
       title: "Community Building",
       status: "in-progress",
       features: ["Group circles", "Event organization", "Community guidelines", "Moderation tools"],
-      timeline: `Q${currentQuarter} ${currentYear}`
+      timeline: "Q1 2026"
     },
     {
       phase: "Phase 3",
       title: "Advanced Features",
       status: "planned",
       features: ["AI-powered matching", "Video calls", "Meditation integration", "Wellness tracking"],
-      timeline: currentQuarter < 4 ? `Q${currentQuarter + 1} ${currentYear}` : `Q1 ${currentYear + 1}`
+      timeline: "Q2 2026"
     },
     {
       phase: "Phase 4",
       title: "Mindful Communities",
       status: "planned",
       features: ["Wellness retreat partnerships", "Yoga studio discounts", "Meditation center access", "Mindful event discovery"],
-      timeline: currentQuarter < 3 ? `Q${currentQuarter + 2} ${currentYear}` : currentQuarter === 3 ? `Q1 ${currentYear + 1}` : `Q2 ${currentYear + 1}`
+      timeline: "Q3 2026"
     },
     {
       phase: "Phase 5",
       title: "Global Evolution",
       status: "planned",
       features: ["Multi-language support", "Cultural adaptations", "Global events", "Advanced AI matching"],
-      timeline: currentQuarter < 2 ? `Q${currentQuarter + 3} ${currentYear}` : currentQuarter === 2 ? `Q1 ${currentYear + 1}` : currentQuarter === 3 ? `Q2 ${currentYear + 1}` : `Q3 ${currentYear + 1}`
+      timeline: "Q4 2026"
     }
   ];
 

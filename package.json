@@ -9,7 +9,8 @@
     "lint": "next lint",
     "export": "next build && next export",
     "deploy": "npm run build && npm run start",
-    "analyze": "ANALYZE=true npm run build"
+    "analyze": "ANALYZE=true npm run build",
+    "migrate:waitlist": "tsx scripts/migrate-waitlist-to-prod.ts"
   },
   "dependencies": {
     "@firebase/firestore": "^4.7.16",
@@ -34,6 +35,7 @@
     "eslint-config-next": "15.3.2",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

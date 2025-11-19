@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { HandHeart, Sprout, Sparkles } from "lucide-react";
 import Image from "next/image";
 import EmailWaitlistInput from "./EmailWaitlistInput";
+import VideoPhoneFrame from "./VideoPhoneFrame";
 
 interface HeroSectionProps {
   showIntro: boolean;
@@ -133,198 +134,134 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
       
       {/* Danielle Modal */}
 
-        {/* App Preview Section */}
+        {/* App Preview Section - Premium Showcase */}
         <motion.div
-          className="mt-16 mb-16"
+          className="mt-24 mb-24 relative"
           initial={{ opacity: 0, y: 30 }}
           animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 1, delay: 0.8 }}
         >
-          <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight min-h-[150px] flex flex-col justify-center font-spirituality text-spiritual-secondary dark:text-spiritual-dark-secondary mb-8 text-center tracking-wide">
-            See fullcircle in Action
-          </h3>
+          {/* Background Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-spiritual-tertiary/10 to-transparent dark:via-spiritual-dark-tertiary/5 -z-10"></div>
           
-          {/* Pyramid Layout: Video at top, 3 phones below */}
-          <div className="max-w-7xl mx-auto">
-            {/* Top: Demo Video */}
-            <div className="flex justify-center mb-12">
-              <div className="relative inline-block">
-                {/* Video Frame Container */}
-                <div className="relative w-72 h-[600px] bg-black rounded-[2.5rem] shadow-2xl transform transition-all duration-500 hover:scale-105">
-                  {/* Phone Notch - iPhone 16 Pro style */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-10"></div>
-                  
-                  {/* Video Screen */}
-                  <div className="absolute inset-2 bg-black rounded-[1.8rem] overflow-hidden">
-                    <video
-                      ref={(el) => {
-                        if (el) {
-                          el.addEventListener('ended', () => {
-                            el.currentTime = 0;
-                            el.play();
-                          });
-                        }
-                      }}
-                      className="w-full h-full object-cover scale-110"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    >
-                      <source src="/assets/videos/demo_shortened.mp4" type="video/mp4" />
-                    </video>
-                  </div>
-                </div>
-                
-                {/* Information Icon - Positioned at top-right of frame */}
+          <div className="max-w-7xl mx-auto px-6">
+            {/* Section Header */}
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight font-spirituality text-spiritual-secondary dark:text-white mb-6 tracking-wide">
+                See fullcircle in Action
+              </h3>
+              <p className="text-xl text-spiritual-text-muted dark:text-spiritual-dark-text-muted max-w-2xl mx-auto mb-4">
+                Explore every feature through video demonstrations
+              </p>
+              {/* Danielle Info Button */}
                 <button
                   onClick={() => openModal("danielle")}
-                  className="absolute -top-4 -right-4 z-20 w-8 h-8 bg-spiritual-accent/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-                >
-                  <svg 
-                    className="w-4 h-4 text-white group-hover:text-spiritual-background transition-colors" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-                    />
+                className="inline-flex items-center gap-2 text-sm text-spiritual-text-muted hover:text-spiritual-accent transition-colors duration-300 font-medium dark:text-spiritual-dark-text-muted dark:hover:text-spiritual-dark-accent"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
+                About the videos
                 </button>
-                
-                {/* Replay Button - Positioned at bottom-right of frame */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const video = e.currentTarget.parentElement?.querySelector('video');
-                    if (video) {
-                      video.currentTime = 0;
-                      video.play();
-                    }
-                  }}
-                  className="absolute -bottom-4 -right-4 z-20 w-8 h-8 bg-spiritual-primary/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-                >
-                  <svg 
-                    className="w-4 h-4 text-white group-hover:text-spiritual-background transition-colors" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+            </motion.div>
             
-            {/* Bottom: 4 Phone Frames */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-              {/* Phone 1 - Connect Feature */}
-              <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-2">
-                  {/* Phone Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    <Image
-                      src="/assets/frames/connect2.png"
-                      alt="Connect Screen"
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: 'center 80%' }}
-                    />
-                  </div>
+            {/* Premium Grid Layout */}
+            <div className="space-y-12">
+              {/* Hero Video - Onboarding */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex justify-center"
+              >
+                <div className="max-w-2xl w-full">
+                  <VideoPhoneFrame
+                    videoSrc="/assets/videos/onboarding.mp4"
+                    title="Onboarding"
+                    description="Start your journey"
+                    detailedDescription="Experience our intuitive onboarding process designed to help you set up your profile and discover your spiritual journey. Get started with guided steps that introduce you to the fullcircle community."
+                    size="large"
+                    onInfoClick={() => openModal("danielle")}
+                  />
                 </div>
-                
-                {/* Label */}
-                <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Connect</h4>
-                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Find your tribe</p>
-                </div>
-              </div>
+              </motion.div>
 
-              {/* Phone 2 - Kindred Feature */}
-              <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-1">
-                  {/* Phone Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    <Image
-                      src="/assets/frames/kindred1.png"
-                      alt="Kindred Screen"
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: 'center 75%' }}
-                    />
-                  </div>
-                </div>
-                
-                {/* Label */}
-                <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Kindred Spirits</h4>
-                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Discover souls</p>
-                </div>
-              </div>
+              {/* Four Feature Videos - Staggered Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+                {/* Connect */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="flex justify-center md:justify-end"
+                >
+                  <VideoPhoneFrame
+                    videoSrc="/assets/videos/connect.mp4"
+                    title="Connect"
+                    description="Find meaningful connections"
+                    detailedDescription="Discover like-minded souls and build authentic relationships. Swipe through connections, like profiles that resonate with you, or send lotus flowers to show deep appreciation for someone special."
+                    size="large"
+                  />
+                </motion.div>
 
-              {/* Phone 3 - Chat Feature */}
-              <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:-rotate-1">
-                  {/* Phone Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    <Image
-                      src="/assets/frames/chat1.png"
-                      alt="Chat Screen"
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: 'center 70%' }}
-                    />
-                  </div>
-                </div>
-                
-                {/* Label */}
-                <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Soul Chats</h4>
-                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Start connecting</p>
-                </div>
-              </div>
+                {/* Sanctuary */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="flex justify-center md:justify-start"
+                >
+                  <VideoPhoneFrame
+                    videoSrc="/assets/videos/sanctuary.mp4"
+                    title="Sanctuary"
+                    description="Your mindful space"
+                    detailedDescription="Access meditation timers with customizable instruments and duration settings. Join gatherings, explore upcoming events, and connect with interested souls. Share affirmations and engage with the activity feed to see meaningful interactions."
+                    size="large"
+                  />
+                </motion.div>
 
-              {/* Phone 4 - Sacred Self Feature */}
-              <div className="relative group">
-                <div className="relative mx-auto w-64 h-[500px] bg-gradient-to-br from-spiritual-background to-spiritual-tertiary rounded-[2.5rem] shadow-xl border-6 border-spiritual-accent/20 dark:from-spiritual-dark-background dark:to-spiritual-dark-tertiary transform transition-all duration-500 group-hover:scale-105 group-hover:rotate-2">
-                  {/* Phone Notch */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-5 bg-spiritual-accent/20 rounded-b-xl"></div>
-                  
-                  {/* Screen Content */}
-                  <div className="absolute inset-1.5 bg-white rounded-[2rem] overflow-hidden dark:bg-spiritual-dark-card">
-                    <Image
-                      src="/assets/frames/self1.png"
-                      alt="Sacred Self Screen"
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: 'center 75%' }}
-                    />
-                  </div>
-                </div>
-                
-                {/* Label */}
-                <div className="text-center mt-4">
-                  <h4 className="text-xl font-spirituality font-bold text-black mb-1 dark:text-spiritual-dark-accent">Self</h4>
-                  <p className="text-sm text-black dark:text-spiritual-dark-text-light">Express yourself</p>
-                </div>
+                {/* Spirits */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="flex justify-center md:justify-end"
+                >
+                  <VideoPhoneFrame
+                    videoSrc="/assets/videos/spirits.mp4"
+                    title="Spirits"
+                    description="Connections & soul chats"
+                    detailedDescription="View connections who have shown interest in you. Engage in meaningful soul chats - deep conversations that go beyond surface-level interactions. Build lasting relationships through authentic communication."
+                    size="large"
+                  />
+                </motion.div>
+
+                {/* Self */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="flex justify-center md:justify-start"
+                >
+                  <VideoPhoneFrame
+                    videoSrc="/assets/videos/sacred_self.mp4"
+                    title="Self"
+                    description="Your sacred profile"
+                    detailedDescription="Manage your profile, track your lotus flowers and radiances earned through meaningful interactions. Verify your profile to build trust within the community. Access settings to update your information and preferences."
+                    size="large"
+                  />
+                </motion.div>
               </div>
             </div>
           </div>
@@ -340,7 +277,7 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
         >
           <div className="max-w-4xl mx-auto text-center">
             <motion.h2
-              className="text-4xl sm:text-5xl font-spirituality font-bold text-spiritual-text-dark mb-6 tracking-wide dark:text-spiritual-dark-accent"
+              className="text-5xl sm:text-6xl lg:text-7xl font-spirituality font-bold text-spiritual-text-dark mb-6 tracking-wide dark:text-spiritual-dark-accent"
               initial={{ opacity: 0, y: 20 }}
               animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 2.6 }}
@@ -365,25 +302,25 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
             >
               {[
                 {
-                  icon: <HandHeart className="w-6 h-6" />,
+                  icon: <HandHeart className="w-14 h-14" />,
                   title: "Deep Connections",
                   description: "Find your tribe of like-minded souls who share your journey"
                 },
                 {
-                  icon: <Sprout className="w-6 h-6" />,
+                  icon: <Sprout className="w-14 h-14" />,
                   title: "Personal Growth",
                   description: "Access curated content and practices to support your journey"
                 },
                 {
-                  icon: <Sparkles className="w-6 h-6" />,
+                  icon: <Sparkles className="w-14 h-14" />,
                   title: "Enhanced Features",
                   description: "Unlock advanced matching, unlimited connections, and dedicated support"
                 }
               ].map((feature, index) => (
-                <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
-                  <div className="mb-4 flex justify-center text-spiritual-accent dark:text-spiritual-dark-accent">{feature.icon}</div>
-                  <h3 className="text-xl font-spirituality font-bold text-spiritual-text-dark mb-3 dark:text-spiritual-dark-accent">{feature.title}</h3>
-                  <p className="text-spiritual-text-muted">{feature.description}</p>
+                <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-12 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">
+                  <div className="mb-8 flex justify-center text-spiritual-accent dark:text-spiritual-dark-accent">{feature.icon}</div>
+                  <h3 className="text-3xl font-spirituality font-bold text-spiritual-text-dark mb-5 dark:text-spiritual-dark-accent">{feature.title}</h3>
+                  <p className="text-xl text-spiritual-text-muted">{feature.description}</p>
                 </div>
               ))}
             </motion.div>

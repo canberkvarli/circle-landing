@@ -58,16 +58,16 @@ const Header = ({ openModal }: HeaderProps) => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
+              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
                 About
               </button>
-              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
+              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
                 Features
               </button>
-              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
+              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
                 Roadmap
               </button>
-              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
+              <button className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent">
                 Contact
               </button>
               
@@ -146,7 +146,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               About
             </button>
@@ -154,7 +154,7 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               Features
             </button>
@@ -162,13 +162,13 @@ const Header = ({ openModal }: HeaderProps) => {
               onClick={() => {
                 document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               Roadmap
             </button>
             <button
               onClick={() => openModal('contact')}
-              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+              className="text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
             >
               Contact
             </button>
@@ -225,7 +225,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   About
                 </button>
@@ -234,7 +234,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Features
                 </button>
@@ -243,7 +243,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' });
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Roadmap
                 </button>
@@ -252,7 +252,7 @@ const Header = ({ openModal }: HeaderProps) => {
                     openModal('contact');
                     setIsMenuOpen(false);
                   }}
-                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
+                  className="block w-full text-left py-3 text-spiritual-text-dark hover:text-spiritual-accent transition-colors font-bold text-2xl font-spirituality tracking-wide dark:text-spiritual-dark-text-dark dark:hover:text-spiritual-dark-accent"
                 >
                   Contact
                 </button>

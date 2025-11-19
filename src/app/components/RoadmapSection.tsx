@@ -30,28 +30,28 @@ const RoadmapSection = () => {
       title: "Launch",
       description: "Public release and community building",
       status: "IN PROGRESS",
-      date: `Q${currentQuarter} ${currentYear}`,
+      date: "Q1 2026",
     },
     {
       phase: "Phase 3",
       title: "Growth",
       description: "Feature expansion and user growth",
       status: "UPCOMING",
-      date: currentQuarter < 4 ? `Q${currentQuarter + 1} ${currentYear}` : `Q1 ${currentYear + 1}`,
+      date: "Q2 2026",
     },
     {
       phase: "Phase 4",
       title: "Mindful Communities",
       description: "Wellness retreats, yoga studios, and mindful spaces",
       status: "UPCOMING",
-      date: currentQuarter < 3 ? `Q${currentQuarter + 2} ${currentYear}` : currentQuarter === 3 ? `Q1 ${currentYear + 1}` : `Q2 ${currentYear + 1}`,
+      date: "Q3 2026",
     },
     {
       phase: "Phase 5",
       title: "Evolution",
       description: "Advanced AI matching and global expansion",
       status: "UPCOMING",
-      date: currentQuarter < 2 ? `Q${currentQuarter + 3} ${currentYear}` : currentQuarter === 2 ? `Q1 ${currentYear + 1}` : currentQuarter === 3 ? `Q2 ${currentYear + 1}` : `Q3 ${currentYear + 1}`,
+      date: "Q4 2026",
     },
   ];
 
