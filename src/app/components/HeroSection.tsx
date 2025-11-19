@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { HandHeart, Sprout, Sparkles } from "lucide-react";
-import Image from "next/image";
 import EmailWaitlistInput from "./EmailWaitlistInput";
 import VideoPhoneFrame from "./VideoPhoneFrame";
 

@@ -8,7 +8,6 @@ interface VideoPhoneFrameProps {
   description: string;
   detailedDescription?: string;
   className?: string;
-  hoverRotation?: number;
   size?: "default" | "large";
   onInfoClick?: () => void;
 }
@@ -19,12 +18,10 @@ const VideoPhoneFrame = ({
   description,
   detailedDescription,
   className = "",
-  hoverRotation = 0,
   size = "default",
   onInfoClick
 }: VideoPhoneFrameProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,10 +39,8 @@ const VideoPhoneFrame = ({
     };
 
     const handlePlay = () => {
-      setIsPlaying(true);
       setIsLoading(false);
     };
-    const handlePause = () => setIsPlaying(false);
     const handleLoadedData = () => setIsLoading(false);
     const handleError = () => {
       setHasError(true);
@@ -55,7 +50,6 @@ const VideoPhoneFrame = ({
 
     video.addEventListener('ended', handleEnded);
     video.addEventListener('play', handlePlay);
-    video.addEventListener('pause', handlePause);
     video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('error', handleError);
     
@@ -71,7 +65,6 @@ const VideoPhoneFrame = ({
     return () => {
       video.removeEventListener('ended', handleEnded);
       video.removeEventListener('play', handlePlay);
-      video.removeEventListener('pause', handlePause);
       video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('error', handleError);
     };

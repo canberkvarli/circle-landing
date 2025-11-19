@@ -19,7 +19,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
     return { quarter: 4, year };
   };
 
-  const { quarter: currentQuarter, year: currentYear } = getCurrentQuarter();
+  const { year: currentYear } = getCurrentQuarter();
 
   const roadmapItems = [
     {
