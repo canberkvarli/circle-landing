@@ -46,10 +46,10 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Introduction</h2>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                Welcome to fullcircle™ (&quot;fullcircle,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). We are committed to protecting your privacy and being transparent about how we collect, use, and share your information.
+                Welcome to fullcircle™ ("fullcircle," "we," "us," or "our"). We are committed to protecting your privacy and being transparent about how we collect, use, and share your information.
               </p>
               <p>
-                This Privacy Policy explains how we handle your personal information when you use the fullcircle mobile application and related services (collectively, the &quot;Service&quot;). By using fullcircle, you agree to the collection and use of information in accordance with this Privacy Policy.
+                This Privacy Policy explains how we handle your personal information when you use the fullcircle mobile application and related services (collectively, the "Service"). By using fullcircle, you agree to the collection and use of information in accordance with this Privacy Policy.
               </p>
               <p>
                 <strong className="font-semibold">Contact Information:</strong><br />
@@ -93,7 +93,7 @@ export default function PrivacyPolicy() {
                 <ul className="list-disc pl-6 space-y-1">
                   <li>What draws you spiritually (interests and values)</li>
                   <li>Spiritual practices you engage in (meditation, yoga, sound healing, reiki, etc.)</li>
-                  <li>Healing modalities you&apos;re interested in or practice</li>
+                  <li>Healing modalities you're interested in or practice</li>
                 </ul>
               </div>
 
@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
               <div>
                 <p className="font-semibold mb-2">Sanctuary Interactions:</p>
                 <ul className="list-disc pl-6 space-y-1">
-                  <li>Gatherings/events you&apos;re interested in or attending</li>
+                  <li>Gatherings/events you're interested in or attending</li>
                   <li>Invites you send or receive for gatherings</li>
                   <li>Comments and discussions on event posts</li>
                   <li>Activity feed interactions</li>
@@ -176,7 +176,7 @@ export default function PrivacyPolicy() {
                   <li>Time, frequency, and duration of your activities</li>
                   <li>Events you view, mark as interested, or attend</li>
                   <li>Affirmations you like</li>
-                  <li>When you&apos;re actively using the app (&quot;last active&quot; timestamps)</li>
+                  <li>When you're actively using the app ("last active" timestamps)</li>
                 </ul>
               </div>
 
@@ -365,7 +365,7 @@ export default function PrivacyPolicy() {
                   <li>Your profile information, photos, and bio are visible to other users</li>
                   <li>Your messages are visible to the recipients</li>
                   <li>Your event posts in the Sanctuary are visible to other users</li>
-                  <li>Your activity and presence may be visible (e.g., &quot;active now&quot; status)</li>
+                  <li>Your activity and presence may be visible (e.g., "active now" status)</li>
                 </ul>
               </div>
 
@@ -487,7 +487,7 @@ export default function PrivacyPolicy() {
 
               <div>
                 <p className="font-semibold mb-2">Right to Opt-Out:</p>
-                <p>You have the right to opt out of the &quot;sale&quot; of personal information. We do not sell your personal information.</p>
+                <p>You have the right to opt out of the "sale" of personal information. We do not sell your personal information.</p>
               </div>
 
               <div>
@@ -580,7 +580,7 @@ export default function PrivacyPolicy() {
 
           {/* Section 7 */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Children&apos;s Privacy</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Children's Privacy</h2>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
                 fullcircle is only for users aged 18 and older. We do not knowingly collect information from anyone under 18. If we become aware that we have collected information from someone under 18, we will delete it immediately.
@@ -636,7 +636,7 @@ export default function PrivacyPolicy() {
               <ul className="list-disc pl-6 space-y-1">
                 <li>Posting a notice in the app</li>
                 <li>Sending an email to the address associated with your account</li>
-                <li>Updating the &quot;Last Updated&quot; date at the top of this policy</li>
+                <li>Updating the "Last Updated" date at the top of this policy</li>
               </ul>
               <p className="mt-3">
                 Your continued use of the Service after changes become effective constitutes acceptance of the updated Privacy Policy.

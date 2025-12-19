@@ -46,7 +46,7 @@ export default function TermsOfService() {
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">1. Acceptance of Terms</h2>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                Welcome to fullcircle™ (&quot;fullcircle,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). These Terms of Service (&quot;Terms&quot;) govern your access to and use of the fullcircle mobile application and related services (collectively, the &quot;Service&quot;).
+                Welcome to fullcircle™ ("fullcircle," "we," "us," or "our"). These Terms of Service ("Terms") govern your access to and use of the fullcircle mobile application and related services (collectively, the "Service").
               </p>
               <p>
                 By creating an account or using the Service, you agree to be bound by these Terms. If you do not agree to these Terms, do not use the Service.
@@ -124,12 +124,12 @@ export default function TermsOfService() {
                 <li>Post content that infringes on intellectual property rights of others</li>
                 <li>Spam, solicit, or contact users for purposes outside the intended use of the Service</li>
                 <li>Use automated systems (bots, scripts, etc.) to access or interact with the Service</li>
-                <li>Attempt to gain unauthorized access to the Service or other users&apos; accounts</li>
+                <li>Attempt to gain unauthorized access to the Service or other users' accounts</li>
                 <li>Collect or harvest information about other users without their consent</li>
                 <li>Post false, misleading, or deceptive content</li>
                 <li>Discriminate against or demean any individual or group based on race, ethnicity, national origin, religion, gender, sexual orientation, disability, or any other protected characteristic</li>
                 <li>Share content that promotes violence, self-harm, or dangerous activities</li>
-                <li>Share another person&apos;s private information without consent</li>
+                <li>Share another person's private information without consent</li>
               </ul>
             </div>
 
@@ -142,7 +142,7 @@ export default function TermsOfService() {
                 <li>Be appropriate for a diverse, respectful community</li>
                 <li>Not contain nudity or sexually explicit material</li>
                 <li>Not depict or promote illegal drug use (while we support discussions of plant medicine in therapeutic contexts, we do not permit content promoting illegal activities)</li>
-                <li>Not infringe on others&apos; rights or violate any laws</li>
+                <li>Not infringe on others' rights or violate any laws</li>
                 <li>Be your own original content or content you have permission to use</li>
               </ul>
             </div>
@@ -168,7 +168,7 @@ export default function TermsOfService() {
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">5.1 Your Content</h3>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              You retain ownership of all content you submit to fullcircle (&quot;Your Content&quot;). However, by posting Your Content, you grant fullcircle a worldwide, non-exclusive, royalty-free, transferable, sublicensable license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display Your Content in connection with operating and providing the Service.
+              You retain ownership of all content you submit to fullcircle ("Your Content"). However, by posting Your Content, you grant fullcircle a worldwide, non-exclusive, royalty-free, transferable, sublicensable license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display Your Content in connection with operating and providing the Service.
             </p>
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">5.2 Content Monitoring</h3>
@@ -207,12 +207,12 @@ export default function TermsOfService() {
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.2 fullcircle+ and Premium Features</h3>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                We may offer subscription services (&quot;fullcircle+&quot;) or other premium features that provide enhanced functionality. Subscription terms include:
+                We may offer subscription services ("fullcircle+") or other premium features that provide enhanced functionality. Subscription terms include:
               </p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Subscriptions automatically renew unless canceled</li>
                 <li>You will be charged the then-current subscription price at each renewal</li>
-                <li>You may cancel at any time through your device&apos;s subscription settings</li>
+                <li>You may cancel at any time through your device's subscription settings</li>
                 <li>Cancellation takes effect at the end of the current billing period</li>
                 <li>No refunds for partial subscription periods</li>
               </ul>
@@ -220,7 +220,7 @@ export default function TermsOfService() {
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.3 Payment Processing</h3>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              All purchases are processed through your device&apos;s app store (Apple App Store or Google Play Store). Payment terms, refund policies, and billing disputes are subject to the app store&apos;s policies in addition to these Terms.
+              All purchases are processed through your device's app store (Apple App Store or Google Play Store). Payment terms, refund policies, and billing disputes are subject to the app store's policies in addition to these Terms.
             </p>
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.4 Price Changes</h3>
@@ -346,7 +346,7 @@ export default function TermsOfService() {
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">12. Disclaimers</h2>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p className="font-semibold uppercase">
-                THE SERVICE IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+                THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
               </p>
               <p className="font-semibold">FULLCIRCLE DOES NOT WARRANT THAT:</p>
               <ul className="list-disc pl-6 space-y-1">
@@ -379,13 +379,13 @@ export default function TermsOfService() {
                 THIS LIMITATION APPLIES REGARDLESS OF THE LEGAL THEORY (CONTRACT, TORT, STRICT LIABILITY, OR OTHERWISE) AND WHETHER OR NOT FULLCIRCLE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
               </p>
               <p className="font-semibold uppercase">
-                IN JURISDICTIONS THAT DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES, FULLCIRCLE&apos;S LIABILITY SHALL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY LAW.
+                IN JURISDICTIONS THAT DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES, FULLCIRCLE'S LIABILITY SHALL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY LAW.
               </p>
               <p className="font-semibold uppercase">
                 IF YOU HAVE A DISPUTE WITH ANOTHER USER, YOU RELEASE FULLCIRCLE FROM ANY CLAIMS, DEMANDS, AND DAMAGES ARISING OUT OF OR IN CONNECTION WITH SUCH DISPUTE.
               </p>
               <p className="font-semibold uppercase">
-                TO THE EXTENT PERMITTED BY LAW, FULLCIRCLE&apos;S TOTAL LIABILITY FOR ANY CLAIMS UNDER THESE TERMS SHALL NOT EXCEED THE AMOUNT YOU PAID TO FULLCIRCLE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR $100, WHICHEVER IS GREATER.
+                TO THE EXTENT PERMITTED BY LAW, FULLCIRCLE'S TOTAL LIABILITY FOR ANY CLAIMS UNDER THESE TERMS SHALL NOT EXCEED THE AMOUNT YOU PAID TO FULLCIRCLE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR $100, WHICHEVER IS GREATER.
               </p>
             </div>
           </section>
@@ -395,7 +395,7 @@ export default function TermsOfService() {
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">14. Indemnification</h2>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                You agree to indemnify, defend, and hold harmless fullcircle, its affiliates, officers, directors, employees, agents, and licensors from and against any claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys&apos; fees) arising from:
+                You agree to indemnify, defend, and hold harmless fullcircle, its affiliates, officers, directors, employees, agents, and licensors from and against any claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys' fees) arising from:
               </p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Your use of the Service</li>
@@ -444,7 +444,7 @@ export default function TermsOfService() {
               <ul className="list-disc pl-6 space-y-1">
                 <li>Posting a notice in the app</li>
                 <li>Sending an email to the address associated with your account</li>
-                <li>Updating the &quot;Last Updated&quot; date at the top of these Terms</li>
+                <li>Updating the "Last Updated" date at the top of these Terms</li>
               </ul>
               <p>
                 Your continued use of the Service after changes become effective constitutes acceptance of the modified Terms. If you do not agree to the modified Terms, you must stop using the Service.
