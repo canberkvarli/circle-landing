@@ -131,7 +131,7 @@ const WaitlistModal = ({ isOpen, onClose }: WaitlistModalProps) => {
                   Join the Waitlist
                 </h2>
                 <p className="text-spiritual-text-muted dark:text-spiritual-dark-text-muted">
-                  Be the first to experience meaningful connections
+                  Be the first to experience our wellness community
                 </p>
               </div>
 

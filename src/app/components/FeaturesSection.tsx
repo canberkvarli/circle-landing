@@ -6,27 +6,27 @@ const FeaturesSection = () => {
   const features = [
     {
       icon: Heart,
-      title: "Authentic Connections",
+      title: "Meditation & Wellness",
       description:
-        "Connect with people who share your journey and values.",
+        "Built-in meditation timer, breathwork exercises, and pelvic wellness practices.",
     },
     {
       icon: Users,
-      title: "Community Building",
+      title: "Wellness Community",
       description:
-        "Join groups and events that align with your practices and interests.",
+        "Connect with meditation partners, healing practitioners, and like-minded souls.",
     },
     {
       icon: Shield,
-      title: "Safe Space",
+      title: "Safe Sanctuary",
       description:
-        "A respectful environment where you can be your authentic self.",
+        "A respectful environment for authentic self-expression and conscious growth.",
     },
     {
       icon: BookHeart,
-      title: "Mindful Matching",
+      title: "Practice-Based Matching",
       description:
-        "Our algorithm considers compatibility and shared interests.",
+        "Connect through shared wellness interests, meditation styles, and healing modalities.",
     },
   ];
 
@@ -44,8 +44,7 @@ const FeaturesSection = () => {
             Discover fullcircle
           </h2>
           <p className="text-2xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed dark:text-spiritual-dark-text-muted">
-            fullcircle is building more than just a dating app • it&apos;s creating a community
-            of mindful individuals who value authentic connections.
+            fullcircle is your wellness community app • connecting mindful individuals through meditation, healing practices, and conscious living.
           </p>
         </motion.div>
 

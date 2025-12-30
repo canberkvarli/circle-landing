@@ -17,7 +17,7 @@ const AboutSection = () => {
             About fullcircle
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
-            We believe that true connections happen when souls align on a deeper level
+            We believe that authentic wellness community grows through shared practices, meditation, and conscious living
           </p>
         </motion.div>
 
@@ -32,16 +32,16 @@ const AboutSection = () => {
               Our Mission
             </h3>
             <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted">
-              fullcircle is more than a dating app • it&apos;s a sanctuary for mindful souls
-              seeking meaningful connections. We understand that true compatibility
-              goes beyond surface-level interests and delves into the emotional,
-              intellectual, and personal growth realms.
+              fullcircle is your wellness community app • a sanctuary for mindful souls
+              seeking authentic connections through shared wellness practices. We understand that true community
+              grows through meditation, healing modalities, and conscious living principles that
+              support personal growth and spiritual alignment.
             </p>
             <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted">
-              Our platform is designed to foster authentic relationships based on
-              shared values, personal practices, and mindful living principles.
-              Whether you&apos;re into meditation, yoga, energy healing, or simply
-              living intentionally, fullcircle helps you find your tribe.
+              Our platform is designed to foster wellness communities based on
+              shared practices, healing interests, and mindful living. Whether you&apos;re into meditation, 
+              breathwork, energy healing, sound healing, or simply living intentionally, 
+              fullcircle helps you find your tribe and track your wellness journey.
             </p>
             <div className="flex items-center space-x-1 justify-start">
               <button
@@ -66,7 +66,7 @@ const AboutSection = () => {
                   className="w-50 h-50"
                 />
                 <span className="text-spiritual-primary font-medium ml-2">
-                  Join the mindful movement
+                  Join the wellness community
                 </span>
               </button>
             </div>
@@ -86,23 +86,23 @@ const AboutSection = () => {
               <ul className="space-y-3">
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Dual Intent Matching: Date, make friends, or both</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Meditation Timer & Tracking: Built-in tools for your practice</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Mindful Compatibility: Match by practices, draws & healing modalities</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Practice-Based Matching: Connect through meditation, healing modalities & wellness interests</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Kindred Souls Discovery: Find people who resonate with your energy</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Local Wellness Events: Discover meditation circles, sound healing, reiki & more</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Connection Styles: Match by how you prefer to connect</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Community Affirmations: Share and engage with wellness-focused content</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">fullcircle+ Enhanced Features: Deeper matching and community access</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">fullcircle+ Enhanced Features: Advanced wellness tracking and community access</span>
                 </li>
               </ul>
             </div>

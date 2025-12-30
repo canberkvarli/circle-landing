@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 interface VideoPhoneFrameProps {
   videoSrc: string;
   title: string;
-  description: string;
+  description?: string;
   detailedDescription?: string;
   className?: string;
   size?: "default" | "large";
@@ -233,9 +233,11 @@ const VideoPhoneFrame = ({
               {title}
             </h4>
           </div>
-          <p className="text-lg md:text-xl text-spiritual-text-muted dark:text-spiritual-dark-text-muted font-semibold tracking-wide mb-2">
-            {description}
-          </p>
+          {description && (
+            <p className="text-lg md:text-xl text-spiritual-text-muted dark:text-spiritual-dark-text-muted font-semibold tracking-wide mb-2">
+              {description}
+            </p>
+          )}
           {detailedDescription && (
             <p className="text-sm md:text-base text-spiritual-text-muted/70 dark:text-spiritual-dark-text-light leading-relaxed max-w-lg mx-auto pt-1">
               {detailedDescription}

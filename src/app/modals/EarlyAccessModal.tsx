@@ -118,7 +118,7 @@ const EarlyAccessModal = ({ onClose, openModal }: EarlyAccessModalProps) => {
               Join the Waitlist
             </h2>
             <p className="text-sm sm:text-base text-spiritual-text-muted mb-4 dark:text-spiritual-dark-text-muted">
-              Be among the first to experience authentic connections
+              Be among the first to experience our wellness community
             </p>
             
             {/* fullcircle Membership Info Button */}

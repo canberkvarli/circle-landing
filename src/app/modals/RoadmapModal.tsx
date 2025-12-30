@@ -26,7 +26,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
       phase: "Phase 1",
       title: "Foundation & Launch",
       status: "completed",
-      features: ["Core matching algorithm", "User profiles", "Basic messaging", "iOS & Android apps"],
+      features: ["Practice-based matching", "Wellness profiles", "Community messaging", "iOS & Android apps"],
       timeline: `Q1 ${currentYear - 1}`
     },
     {
@@ -40,7 +40,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
       phase: "Phase 3",
       title: "Advanced Features",
       status: "planned",
-      features: ["AI-powered matching", "Video calls", "Meditation integration", "Wellness tracking"],
+      features: ["Advanced practice matching", "Wellness video calls", "Meditation timer integration", "Wellness journey tracking"],
       timeline: "Q2 2026"
     },
     {
@@ -54,7 +54,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
       phase: "Phase 5",
       title: "Global Evolution",
       status: "planned",
-      features: ["Multi-language support", "Cultural adaptations", "Global events", "Advanced AI matching"],
+      features: ["Multi-language support", "Cultural adaptations", "Global wellness events", "Advanced practice matching"],
       timeline: "Q4 2026"
     }
   ];
@@ -115,7 +115,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
               Development Roadmap
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              See how fullcircle is evolving and what&apos;s coming next in our journey to transform meaningful connections.
+              See how fullcircle is evolving and what&apos;s coming next in our journey to build wellness community and conscious living.
             </p>
           </div>
         </div>
@@ -165,7 +165,7 @@ const RoadmapModal = ({ onClose }: RoadmapModalProps) => {
               Be Part of Our Journey
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Join our community and help shape the future of meaningful connections. Your feedback and participation drive our development.
+              Join our wellness community and help shape the future of conscious living. Your feedback and participation drive our development.
             </p>
             <div className="text-center">
               <button

@@ -37,7 +37,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
               About fullcircle
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              Where intention meets connection. fullcircle is building a community of mindful seekers who believe in the power of meaningful relationships.
+              Where wellness meets authentic connection. fullcircle is building a community of mindful seekers who believe in the power of shared wellness practices and conscious living.
             </p>
           </div>
         </div>
@@ -55,7 +55,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                     Our Mission
                   </h3>
                   <p className="text-spiritual-text-muted">
-                    To create authentic connections between people who share a passion for personal growth, mindful living, and meaningful relationships.
+                    To create authentic wellness communities where people connect through shared meditation practices, healing modalities, and conscious living.
                   </p>
                 </div>
               </div>
@@ -111,7 +111,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
               Join the Movement
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Be part of something bigger than yourself. Connect with like-minded souls who are ready to explore meaningful connections together.
+              Be part of something bigger than yourself. Connect with like-minded souls who are ready to explore wellness practices and conscious living together.
             </p>
             <div className="text-center">
               <button

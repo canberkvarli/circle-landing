@@ -54,7 +54,7 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
               fullcircle<span className="font-mono text-lg pl-1">+</span>
             </h2>
             <p className="text-spiritual-text-dark text-base sm:text-lg dark:text-spiritual-dark-text-light">
-              Your elevated connection experience
+              Your elevated wellness community experience
             </p>
           </div>
         </div>
@@ -66,23 +66,23 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
             {[
               {
                 icon: <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
-                title: "Soul Matching",
-                description: "Advanced algorithm that connects you with compatible seekers"
+                title: "Practice Matching",
+                description: "Connect with meditation partners and healing practitioners based on shared wellness interests"
               },
               {
                 icon: <Leaf className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
-                title: "Mindful Community",
-                description: "Join communities and connect with like-minded souls"
+                title: "Wellness Community",
+                description: "Join meditation circles, healing groups, and connect with like-minded souls"
               },
               {
                 icon: <Star className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Dedicated Support",
-                description: "Get dedicated assistance from our connection experts"
+                description: "Get dedicated assistance from our wellness community experts"
               },
               {
                 icon: <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
-                title: "Curated Content",
-                description: "Access to mindful content and growth resources"
+                title: "Wellness Resources",
+                description: "Access meditation guides, breathwork exercises, and conscious living content"
               }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-xl p-3 sm:p-4 border border-spiritual-primary/20 dark:bg-spiritual-dark-card dark:border-spiritual-dark-border">
@@ -104,14 +104,14 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {[
-                "Unlimited daily matches",
-                "Advanced compatibility algorithm",
+                "Unlimited wellness connections",
+                "Advanced practice-based matching",
                 "Dedicated customer support",
-                "Curated mindful content",
-                "Community events access",
+                "Curated wellness content & guides",
+                "Local wellness events access",
                 "Profile verification badge",
                 "See who wants to connect with you",
-                "Unlimited connections"
+                "Unlimited meditation partners"
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2 sm:space-x-3">
                   <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-spiritual-primary flex-shrink-0 dark:text-spiritual-dark-primary" />
@@ -136,7 +136,7 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
                 </span>
               </p>
               <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-2">
-                Join our limited waitlist and be among the first to experience elevated connections
+                Join our limited waitlist and be among the first to experience elevated wellness community
               </p>
             </div>
           </div>

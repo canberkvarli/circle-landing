@@ -11,6 +11,9 @@ interface FooterProps {
 }
 
 const Footer = ({ showIntro, openModal }: FooterProps) => {
+  const instagramLink = "https://instagram.com/meetonfullcircle";
+  console.log("Instagram link:", instagramLink);
+  
   return (
     <motion.footer
       className="py-12 px-6 border-t border-spiritual-primary/20 relative z-10 dark:border-spiritual-dark-border"
@@ -46,7 +49,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             </button>
           </motion.div>
           <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-muted mb-6">
-            Connecting souls through mindful technology and mindful design.
+            Building wellness community through mindful technology and conscious design.
           </p>
           <div className="flex justify-center space-x-6 text-spiritual-text-dark dark:text-spiritual-dark-text-muted mb-6 text-sm">
             <motion.button
@@ -107,7 +110,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
               <Linkedin className="w-5 h-5" />
             </motion.a>
             <motion.a
-              href="https://instagram.com/meetonfullcircle"
+              href={instagramLink}
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full bg-spiritual-accent/10 hover:bg-spiritual-accent/20 transition-colors dark:hover:bg-spiritual-dark-accent/20"

@@ -49,7 +49,7 @@ const RoadmapSection = () => {
     {
       phase: "Phase 5",
       title: "Evolution",
-      description: "Advanced AI matching and global expansion",
+      description: "Advanced wellness features and global community expansion",
       status: "UPCOMING",
       date: "Q4 2026",
     },
@@ -82,7 +82,7 @@ const RoadmapSection = () => {
             Our Journey
           </h2>
           <p className="text-xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed">
-            Follow our path as we build the future of meaningful connections
+            Follow our path as we build the future of wellness community and conscious living
           </p>
         </motion.div>
 
