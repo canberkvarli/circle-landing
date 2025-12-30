@@ -14,7 +14,7 @@ const philosopher = Philosopher({
 });
 
 export const metadata: Metadata = {
-  title: "fullcircle™ • Mindful Dating & Meaningful Connections | Join fullcircle",
+  title: "fullcircle™ • Wellness Community & Mindful Living | Join fullcircle",
   description:
     "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
   keywords:
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     canonical: "https://joinfullcircle.app",
   },
   openGraph: {
-    title: "fullcircle - Mindful Dating & Meaningful Connections",
+    title: "fullcircle - Wellness Community & Mindful Living",
     description: "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
     url: "https://joinfullcircle.app",
-    siteName: "fullcircle - Mindful Dating App",
+    siteName: "fullcircle - Wellness Community App",
     images: [
       {
         url: "https://joinfullcircle.app/dark-logo.png",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "fullcircle - Mindful Dating & Meaningful Connections",
+    title: "fullcircle - Wellness Community & Mindful Living",
     description: "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
     images: ["https://joinfullcircle.app/dark-logo.png"],
   },
@@ -111,7 +111,7 @@ export default function RootLayout({
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/png" />
-        <meta name="twitter:image:alt" content="fullcircle - Mindful Dating App for Meaningful Connections" />
+        <meta name="twitter:image:alt" content="fullcircle - Wellness Community App for Mindful Living" />
         
         {/* Structured Data for SEO */}
         <script
@@ -120,7 +120,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "fullcircle - Mindful Dating App",
+              "name": "fullcircle - Wellness Community App",
               "description": "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
               "url": "https://joinfullcircle.app",
               "applicationCategory": "SocialNetworkingApplication",

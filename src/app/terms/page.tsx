@@ -4,7 +4,7 @@ import { FileText } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | fullcircle™",
+  title: "Terms of Service | fullcircle™ - Wellness Community & Mindful Living",
   description: "Read the fullcircle Terms of Service. Learn about our policies, user conduct guidelines, and legal terms for using the fullcircle mobile application.",
   robots: "index, follow",
 };
@@ -112,7 +112,7 @@ export default function TermsOfService() {
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">4.1 Community Standards</h3>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                fullcircle is built for individuals practicing meditation, yoga, healing journeys, reiki, sound healing, plant medicine, and other spiritual practices. We expect all users to maintain the integrity and safety of our community. You agree NOT to:
+                fullcircle is built for individuals practicing meditation, healing journeys, reiki, sound healing, breathwork, pelvic wellness, plant medicine, and other wellness practices. We expect all users to maintain the integrity and safety of our community. You agree NOT to:
               </p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Harass, bully, stalk, intimidate, threaten, or abuse any person</li>
@@ -150,7 +150,7 @@ export default function TermsOfService() {
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">4.3 Events and Gatherings</h3>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                The Sanctuary section allows users to discover and attend spiritual events and gatherings. When posting or attending events, you agree to:
+                The Sanctuary section allows users to discover and attend wellness events and gatherings. When posting or attending events, you agree to:
               </p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Provide accurate information about events</li>
@@ -247,7 +247,7 @@ export default function TermsOfService() {
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">8.1 No Guarantees</h3>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              fullcircle provides a platform for users to connect with others who share similar spiritual practices and interests. We do not guarantee that you will meet any particular person or achieve any particular outcome from using the Service.
+              fullcircle provides a platform for users to connect with others who share similar wellness practices and interests. We do not guarantee that you will meet any particular person or achieve any particular outcome from using the Service.
             </p>
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">8.2 User Responsibility</h3>

@@ -4,7 +4,7 @@ import { Shield } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | fullcircle™",
+  title: "Privacy Policy | fullcircle™ - Wellness Community & Mindful Living",
   description: "Read the fullcircle Privacy Policy. Learn how we collect, use, and protect your personal information when you use the fullcircle mobile application.",
   robots: "index, follow",
 };
@@ -89,10 +89,10 @@ export default function PrivacyPolicy() {
               </div>
 
               <div>
-                <p className="font-semibold mb-2">Spiritual Profile:</p>
+                <p className="font-semibold mb-2">Wellness Profile:</p>
                 <ul className="list-disc pl-6 space-y-1">
-                  <li>What draws you spiritually (interests and values)</li>
-                  <li>Spiritual practices you engage in (meditation, yoga, sound healing, reiki, etc.)</li>
+                  <li>What draws you to wellness (interests and values)</li>
+                  <li>Wellness practices you engage in (meditation, breathwork, pelvic wellness, sound healing, reiki, etc.)</li>
                   <li>Healing modalities you&apos;re interested in or practice</li>
                 </ul>
               </div>
@@ -103,9 +103,9 @@ export default function PrivacyPolicy() {
                   <li>Preferred age range for matches (min/max)</li>
                   <li>Preferred height range (min/max)</li>
                   <li>Maximum distance for matches</li>
-                  <li>Connection intent (romantic, friendship, or both)</li>
+                  <li>Connection preferences for wellness community building</li>
                   <li>Connection preferences and styles</li>
-                  <li>Spiritual compatibility preferences (desired draws, practices, healing modalities)</li>
+                  <li>Wellness compatibility preferences (desired draws, practices, healing modalities)</li>
                 </ul>
               </div>
 
