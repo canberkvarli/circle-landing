@@ -16,9 +16,9 @@ const philosopher = Philosopher({
 export const metadata: Metadata = {
   title: "fullcircle™ • Wellness Community & Mindful Living | Join fullcircle",
   description:
-    "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+    "fullcircle brings together wellness-minded individuals seeking authentic community through shared practices and mindful living.",
   keywords:
-    "mindful dating, meaningful relationships, meditation, yoga, energy healing, authentic connections, spiritual dating, conscious dating, wellness dating, mindfulness app, dating app, relationship app, spiritual community, meditation community, yoga community, energy healing, chakra alignment, spiritual growth, conscious living, authentic dating, mindful relationships, spiritual relationships, wellness relationships, meditation partners, yoga partners, spiritual partners, conscious community, mindful community, spiritual community, wellness community, dating for mindful people, dating for spiritual people, dating for wellness enthusiasts",
+    "meditation, healing, wellness, community, mindful, holistic, breathwork, conscious, practices, mindfulness, wellness community, meditation community, spiritual community, energy healing, chakra alignment, spiritual growth, conscious living, meditation practitioners, energy healers, mindful wellness, wellness practices, conscious growth, meditation circles, sound healing, reiki gatherings, consciousness events",
   authors: [{ name: "fullcircle" }],
   creator: "fullcircle",
   publisher: "fullcircle",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "fullcircle - Wellness Community & Mindful Living",
-    description: "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+    description: "fullcircle brings together wellness-minded individuals seeking authentic community through shared practices and mindful living.",
     url: "https://joinfullcircle.app",
     siteName: "fullcircle - Wellness Community App",
     images: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: "https://joinfullcircle.app/dark-logo.png",
         width: 1200,
         height: 630,
-        alt: "fullcircle - Meaningful Connections",
+        alt: "fullcircle - Wellness Community",
       },
     ],
     locale: "en_US",
@@ -45,13 +45,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "fullcircle - Wellness Community & Mindful Living",
-    description: "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+    description: "fullcircle brings together wellness-minded individuals seeking authentic community through shared practices and mindful living.",
     images: ["https://joinfullcircle.app/dark-logo.png"],
   },
   verification: {
     google: "kbGJtNuAjM6RnOIDFABALKpS30gdXSCGf-AaVOqzdN0",
   },
-  category: "Dating & Relationships",
+  category: "Health & Fitness",
   classification: "Social Networking",
   other: {
     "msapplication-TileColor": "#000000",
@@ -121,7 +121,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               "name": "fullcircle - Wellness Community App",
-              "description": "Discover authentic connections through mindful dating. Join fullcircle, the premier app for conscious singles seeking meaningful relationships, meditation partners, and spiritual connections.",
+              "description": "fullcircle brings together wellness-minded individuals seeking authentic community through shared practices and mindful living.",
               "url": "https://joinfullcircle.app",
               "applicationCategory": "SocialNetworkingApplication",
               "operatingSystem": "iOS, Android, Web",
@@ -139,7 +139,7 @@ export default function RootLayout({
                 "@type": "Organization",
                 "name": "fullcircle"
               },
-              "keywords": "mindful dating, spiritual dating, conscious dating, wellness dating, meditation, yoga, energy healing"
+              "keywords": "meditation, healing, wellness, community, mindful, holistic, breathwork, conscious, practices, mindfulness, energy healing"
             })
           }}
         />

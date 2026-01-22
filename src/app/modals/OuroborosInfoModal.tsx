@@ -82,7 +82,7 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
                       Eternal Cycles
                     </h3>
                     <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
-                      This symbol reminds us that everything in nature moves in cycles - seasons change, relationships evolve, and we continuously transform through our experiences.
+                      This symbol reminds us that everything in nature moves in cycles - seasons change, practices evolve, and we continuously transform through our experiences.
                     </p>
                   </div>
                 </div>
@@ -110,7 +110,7 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
                       In fullcircle&apos;s Journey
                     </h3>
                     <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light">
-                      Just as the ouroboros represents endless transformation, fullcircle helps us grow through relationships. Each connection teaches us something new, and every ending opens the door to new beginnings in our spiritual journey.
+                      Just as the ouroboros represents endless transformation, fullcircle helps us grow through community. Each practice teaches us something new, and every experience opens the door to new beginnings in our wellness journey.
                     </p>
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function OuroborosInfoModal({ isOpen, onClose }: OuroborosInfoMod
               <div className="mt-8 pt-6 border-t border-spiritual-border/20 dark:border-spiritual-dark-border/20">
                 <div className="text-center">
                   <p className="text-sm text-spiritual-text-muted dark:text-spiritual-dark-text-light italic">
-                    &ldquo;As the serpent completes its circle, so do we find completion in our connections&rdquo;
+                    &ldquo;As the serpent completes its circle, so do we find completion in our wellness community&rdquo;
                   </p>
                 </div>
               </div>

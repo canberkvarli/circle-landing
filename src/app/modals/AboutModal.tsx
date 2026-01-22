@@ -37,7 +37,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
               About fullcircle
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              Where wellness meets authentic connection. fullcircle is building a community of mindful seekers who believe in the power of shared wellness practices and conscious living.
+              fullcircle brings together wellness-minded individuals seeking authentic community through shared practices and mindful living.
             </p>
           </div>
         </div>
@@ -85,7 +85,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                     Our Values
                   </h3>
                   <p className="text-spiritual-text-muted">
-                    Authenticity, mindfulness, compassion, and the belief that every connection has the potential to transform lives.
+                    Authenticity, mindfulness, compassion, and the belief that shared wellness practices create meaningful community.
                   </p>
                 </div>
               </div>
@@ -99,7 +99,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
                     Our Vision
                   </h3>
                   <p className="text-spiritual-text-muted">
-                    A world where meaningful connections flourish, creating ripples of positive change that touch every corner of the globe.
+                    A world where wellness communities flourish, creating ripples of positive change that touch every corner of the globe.
                   </p>
                 </div>
               </div>
@@ -111,7 +111,7 @@ const AboutModal = ({ onClose }: AboutModalProps) => {
               Join the Movement
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Be part of something bigger than yourself. Connect with like-minded souls who are ready to explore wellness practices and conscious living together.
+              Be part of something bigger than yourself. Join wellness-minded individuals who are ready to explore wellness practices and conscious living together.
             </p>
             <div className="text-center">
               <button

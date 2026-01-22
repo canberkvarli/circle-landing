@@ -14,7 +14,7 @@ const FeaturesSection = () => {
       icon: Users,
       title: "Wellness Community",
       description:
-        "Connect with meditation partners, healing practitioners, and like-minded souls.",
+        "Join meditation circles, healing groups, and find others who share your wellness practices.",
     },
     {
       icon: Shield,
@@ -24,9 +24,9 @@ const FeaturesSection = () => {
     },
     {
       icon: BookHeart,
-      title: "Practice-Based Matching",
+      title: "Practice-Based Community",
       description:
-        "Connect through shared wellness interests, meditation styles, and healing modalities.",
+        "Find others who share your wellness practices like meditation, energy healing, sound therapy, and other conscious approaches.",
     },
   ];
 
@@ -44,7 +44,7 @@ const FeaturesSection = () => {
             Discover fullcircle
           </h2>
           <p className="text-2xl text-spiritual-text-muted max-w-3xl mx-auto leading-relaxed dark:text-spiritual-dark-text-muted">
-            fullcircle is your wellness community app • connecting mindful individuals through meditation, healing practices, and conscious living.
+            fullcircle is your wellness community app • bringing together wellness-minded individuals through meditation, healing practices, and conscious living.
           </p>
         </motion.div>
 

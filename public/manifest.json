@@ -1,7 +1,7 @@
 {
-  "name": "fullcircle - Mindful Dating App",
+  "name": "fullcircle - Wellness Community App",
   "short_name": "fullcircle",
-  "description": "Discover authentic connections through mindful dating",
+  "description": "Join wellness-minded individuals seeking authentic community through shared practices and mindful living",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
@@ -21,6 +21,6 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["dating", "social", "lifestyle", "health"],
+  "categories": ["health", "social", "lifestyle", "wellness"],
   "lang": "en-US"
 }

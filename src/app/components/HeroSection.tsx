@@ -47,7 +47,7 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
             animate={!showIntro ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 1, delay: 0.8 }}
           >
-            Where wellness meets authentic connection. Discover your tribe through meditation, healing practices, and conscious living.
+            fullcircle brings together wellness-minded individuals seeking authentic community through shared practices and mindful living.
           </motion.p>
 
           {/* Logo Meaning Link */}
@@ -167,7 +167,7 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
                 {
                   icon: <HandHeart className="w-14 h-14" />,
                   title: "Wellness Community",
-                  description: "Connect with meditation partners, healing practitioners, and like-minded souls"
+                  description: "Join meditation circles, healing groups, and find others who share your wellness practices"
                 },
                 {
                   icon: <Sprout className="w-14 h-14" />,
@@ -177,7 +177,7 @@ const HeroSection = ({ showIntro, stats, openModal }: HeroSectionProps) => {
                 {
                   icon: <Sparkles className="w-14 h-14" />,
                   title: "Enhanced Features",
-                  description: "Unlock practice-based matching, local wellness events, and community affirmations"
+                  description: "Unlock practice-based recommendations, local wellness events, and community affirmations"
                 }
               ].map((feature, index) => (
                 <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl p-12 border border-spiritual-accent/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 dark:bg-spiritual-dark-card/80 dark:border-spiritual-dark-border">

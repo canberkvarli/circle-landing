@@ -10,23 +10,23 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
   const features = [
     {
       icon: <Heart className="w-6 h-6" />,
-      title: "Deep Connections",
-      description: "Find meaningful relationships with people who share your spiritual journey and values."
+      title: "Wellness Community",
+      description: "Share affirmations and insights with your community. See what practices resonate with others and discover new approaches to conscious living."
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: "Community Building",
-      description: "Join groups and circles based on your interests, practices, and spiritual path."
+      description: "Join groups and circles based on your interests, practices, and wellness journey."
     },
     {
       icon: <Sparkles className="w-6 h-6" />,
-      title: "Intention Matching",
-      description: "Our AI connects you with people who align with your energy and personal goals."
+      title: "Practice-Based Recommendations",
+      description: "Find others who share your wellness practices and conscious approaches to living."
     },
     {
       icon: <Star className="w-6 h-6" />,
       title: "Enhanced Features",
-      description: "Unlock advanced matching, unlimited connections, and enhanced visibility."
+      description: "Unlock practice-based recommendations, increased visibility, and special recognition."
     },
     {
       icon: <Shield className="w-6 h-6" />,
@@ -70,7 +70,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
               Features
             </h2>
             <p className="text-xl text-spiritual-text-muted max-w-2xl mx-auto">
-              Discover the powerful tools and features that make fullcircle the ultimate platform for meaningful connections.
+              Discover the powerful tools and features that make fullcircle the ultimate platform for wellness community and conscious living.
             </p>
           </div>
         </div>
@@ -108,7 +108,7 @@ const FeaturesModal = ({ onClose }: FeaturesModalProps) => {
               Ready to Join fullcircle?
             </h3>
             <p className="text-center text-spiritual-text-muted mb-6">
-              Join thousands of mindful seekers who are already transforming their connections through fullcircle.
+              Join thousands of wellness seekers who are already building meaningful community through fullcircle.
             </p>
             <div className="text-center">
               <button

@@ -43,7 +43,7 @@ const fullcircleModal = ({ isOpen, onClose }: fullcircleModalProps) => {
               What is fullcircle<span className="font-mono text-sm pl-1">+</span>?
             </h2>
             <p className="text-spiritual-text-muted text-lg">
-              Your premium spiritual connection experience
+              Your premium wellness community experience
             </p>
           </div>
         </div>
@@ -55,8 +55,8 @@ const fullcircleModal = ({ isOpen, onClose }: fullcircleModalProps) => {
             {[
               {
                 icon: <Users className="w-6 h-6" />,
-                title: "Unlimited Connections",
-                description: "Connect with unlimited mindful seekers"
+                title: "Unlimited Community Access",
+                description: "Join unlimited wellness community members"
               },
               {
                 icon: <Heart className="w-6 h-6" />,
@@ -70,7 +70,7 @@ const fullcircleModal = ({ isOpen, onClose }: fullcircleModalProps) => {
               },
               {
                 icon: <Sparkles className="w-6 h-6" />,
-                title: "Priority Matching",
+                title: "Priority Recommendations",
                 description: "Get featured with the lotus flower"
               }
             ].map((feature, index) => (
@@ -137,7 +137,7 @@ const fullcircleModal = ({ isOpen, onClose }: fullcircleModalProps) => {
             </h3>
             <div className="space-y-3">
               {[
-                "Unlimited Meaningful Connections",
+                "Unlimited Wellness Community Access",
                 "See Who Resonates With You", 
                 "Advanced Mindful Filters",
                 "Enhanced Likes with the Lotus Flower"

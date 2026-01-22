@@ -33,7 +33,7 @@ const AboutSection = () => {
             </h3>
             <p className="text-spiritual-text-muted mb-6 leading-relaxed dark:text-spiritual-dark-text-muted">
               fullcircle is your wellness community app • a sanctuary for mindful souls
-              seeking authentic connections through shared wellness practices. We understand that true community
+              seeking authentic community through shared wellness practices. We understand that true community
               grows through meditation, healing modalities, and conscious living principles that
               support personal growth and spiritual alignment.
             </p>
@@ -90,7 +90,7 @@ const AboutSection = () => {
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>
-                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Practice-Based Matching: Connect through meditation, healing modalities & wellness interests</span>
+                  <span className="text-spiritual-text-dark dark:text-spiritual-dark-text-light">Practice-Based Community: Find others who share your wellness practices like meditation, healing modalities & wellness interests</span>
                 </li>
                 <li className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-spiritual-primary rounded-full dark:bg-spiritual-dark-accent"></div>

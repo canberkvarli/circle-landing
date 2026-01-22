@@ -66,13 +66,13 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
             {[
               {
                 icon: <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
-                title: "Practice Matching",
-                description: "Connect with meditation partners and healing practitioners based on shared wellness interests"
+                title: "Practice-Based Community",
+                description: "Find others who share your wellness practices like meditation, energy healing, sound therapy, and other conscious approaches"
               },
               {
                 icon: <Leaf className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
                 title: "Wellness Community",
-                description: "Join meditation circles, healing groups, and connect with like-minded souls"
+                description: "Join meditation circles, healing groups, and find others who share your wellness practices"
               },
               {
                 icon: <Star className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-primary dark:text-spiritual-dark-primary" />,
@@ -104,13 +104,13 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {[
-                "Unlimited wellness connections",
-                "Advanced practice-based matching",
+                "Unlimited wellness community access",
+                "Advanced practice-based recommendations",
                 "Dedicated customer support",
                 "Curated wellness content & guides",
                 "Local wellness events access",
                 "Profile verification badge",
-                "See who wants to connect with you",
+                "See who resonates with your practices",
                 "Unlimited meditation partners"
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2 sm:space-x-3">
