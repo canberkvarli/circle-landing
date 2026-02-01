@@ -187,14 +187,14 @@ export default function TermsOfService() {
             </p>
           </section>
 
-          {/* Section 6 */}
+          {/* Section 6 - In-app purchase wording simplified for Apple review; Lotus/Radiance/subscription can be re-added later */}
           <section>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">6. In-App Purchases</h2>
 
             <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.1 Virtual Items</h3>
             <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>
-                fullcircle offers in-app purchases of virtual items, including but not limited to Lotus Flowers and Radiance. These virtual items:
+                fullcircle may offer in-app purchases of virtual items or premium features. Any such virtual items:
               </p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Have no monetary value outside the Service</li>
@@ -204,28 +204,14 @@ export default function TermsOfService() {
               </ul>
             </div>
 
-            <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.2 fullcircle+ and Premium Features</h3>
-            <div className="space-y-3 text-gray-700 dark:text-gray-300 leading-relaxed">
-              <p>
-                We may offer subscription services (&quot;fullcircle+&quot;) or other premium features that provide enhanced functionality. Subscription terms include:
-              </p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>Subscriptions automatically renew unless canceled</li>
-                <li>You will be charged the then-current subscription price at each renewal</li>
-                <li>You may cancel at any time through your device&apos;s subscription settings</li>
-                <li>Cancellation takes effect at the end of the current billing period</li>
-                <li>No refunds for partial subscription periods</li>
-              </ul>
-            </div>
-
-            <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.3 Payment Processing</h3>
+            <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.2 Payment Processing</h3>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
               All purchases are processed through your device&apos;s app store (Apple App Store or Google Play Store). Payment terms, refund policies, and billing disputes are subject to the app store&apos;s policies in addition to these Terms.
             </p>
 
-            <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.4 Price Changes</h3>
+            <h3 className="text-xl font-semibold text-amber-700 dark:text-amber-500 mb-3 mt-4">6.3 Price Changes</h3>
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              We reserve the right to modify pricing for any in-app purchases or subscriptions at any time. Price changes for existing subscriptions will be communicated in advance and take effect at the next renewal period.
+              We reserve the right to modify pricing for any in-app purchases at any time. We will communicate any price changes in advance where required by the app store or applicable law.
             </p>
           </section>
 

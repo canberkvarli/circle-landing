@@ -151,7 +151,7 @@ export default function PrivacyPolicy() {
 
               <div>
                 <p className="font-semibold mb-2">Payment Information:</p>
-                <p className="mb-2">When you make in-app purchases (Lotus Flowers, Radiance boosts, fullcircle+ subscription), payment is processed through Stripe. We store:</p>
+                <p className="mb-2">When you make in-app purchases, payment is processed through Stripe. We store:</p>
                 <ul className="list-disc pl-6 space-y-1">
                   <li>Purchase history (item type, quantity, price, date)</li>
                   <li>Stripe customer ID and payment intent IDs</li>
@@ -236,12 +236,8 @@ export default function PrivacyPolicy() {
               <div>
                 <p className="font-semibold mb-2">In-App Purchase Data:</p>
                 <ul className="list-disc pl-6 space-y-1">
-                  <li>Number of Lotus Flowers owned</li>
-                  <li>Active Radiance boosts and expiration times</li>
                   <li>Purchase history for virtual items</li>
-                  <li>Subscription status (active, canceled, past due)</li>
-                  <li>Subscription period dates</li>
-                  <li>Whether subscription is set to auto-renew or cancel</li>
+                  <li>Transaction status and payment-related identifiers</li>
                 </ul>
               </div>
 
@@ -309,10 +305,8 @@ export default function PrivacyPolicy() {
                   <li>Display events and gatherings in the Sanctuary section</li>
                   <li>Track your meditation practice and wellness journey</li>
                   <li>Show you activity feeds and user interactions</li>
-                  <li>Process in-app purchases and manage subscriptions (via Stripe)</li>
+                  <li>Process in-app purchases when available (via Stripe)</li>
                   <li>Verify your identity (age 18+ requirement and optional selfie verification)</li>
-                  <li>Distribute weekly Lotus Flowers to eligible users</li>
-                  <li>Manage Radiance boosts and premium features</li>
                   <li>Enable account settings (pause, incognito mode, notification preferences)</li>
                   <li>Provide customer support and respond to your inquiries</li>
                   <li>Improve our matching algorithms and features</li>
@@ -617,7 +611,7 @@ export default function PrivacyPolicy() {
               <p className="font-semibold">Third-Party Services We Use:</p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Firebase (Google Cloud Platform) - hosting, database (Firestore), storage, authentication, analytics, and cloud functions</li>
-                <li>Stripe - payment processing for in-app purchases and subscriptions</li>
+                <li>Stripe - payment processing for in-app purchases</li>
                 <li>Authentication providers (Google, Apple) - OAuth sign-in</li>
                 <li>Firebase Cloud Messaging - push notifications</li>
                 <li>Analytics services - usage tracking and insights</li>
