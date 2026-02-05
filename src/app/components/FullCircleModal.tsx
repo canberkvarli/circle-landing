@@ -1,15 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { X, CheckCircle, Sparkles, Leaf, Star, Crown, ArrowRight } from "lucide-react";
+import { X, CheckCircle, Sparkles, Leaf, Star, Crown } from "lucide-react";
 import Image from "next/image";
+import { APP_STORE_URL } from "../constants";
 
 interface fullcircleModalProps {
   isOpen: boolean;
   onClose: () => void;
-  openModal: (modalType: string) => void;
+  openModal?: (modalType: string) => void;
 }
 
-const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) => {
+const fullcircleModal = ({ isOpen, onClose }: fullcircleModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -121,41 +122,39 @@ const fullcircleModal = ({ isOpen, onClose, openModal }: fullcircleModalProps) =
             </div>
           </div>
 
-          {/* Special Offer */}
+          {/* Download the app */}
           <div className="bg-gradient-to-br from-spiritual-accent/20 to-spiritual-primary/20 rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border-2 border-spiritual-accent/40 dark:from-spiritual-dark-accent/20 dark:to-spiritual-dark-primary/20 dark:border-spiritual-dark-accent/40">
             <div className="text-center">
               <div className="flex justify-center mb-3">
                 <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-spiritual-accent dark:text-spiritual-dark-accent" />
               </div>
               <h3 className="text-lg sm:text-xl font-spirituality font-bold text-spiritual-accent mb-2 dark:text-spiritual-dark-accent">
-                🎉 Special Launch Offer
+                fullcircle is live
               </h3>
               <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-light font-medium text-base sm:text-lg">
                 <span className="font-bold text-spiritual-accent dark:text-spiritual-dark-accent">
-                  First 1,000 users get 1 month of fullcircle+ membership for FREE!
+                  Download the app and join our wellness community today.
                 </span>
               </p>
               <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-2">
-                Join our limited waitlist and be among the first to experience elevated wellness community
+                Available now on the App Store for iPhone.
               </p>
             </div>
           </div>
 
-          {/* Join Waitlist Button */}
+          {/* Download on App Store Button */}
           <div className="text-center">
-            <button
-              onClick={() => {
-                onClose();
-                openModal('earlyAccess');
-              }}
-              className="w-full py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-lg font-spirituality font-bold text-lg tracking-wide hover:shadow-xl transition-all duration-100 flex items-center justify-center space-x-2 shadow-lg dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-spiritual-accent/90 to-spiritual-primary/90 text-white rounded-lg font-spirituality font-bold text-lg tracking-wide hover:shadow-xl transition-all duration-100 shadow-lg dark:from-spiritual-dark-accent/90 dark:to-spiritual-dark-primary/90"
             >
-              <span>Join the Waitlist</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
-            <p className="text-spiritual-text-dark/80 dark:text-spiritual-dark-text-light/80 text-xs sm:text-sm mt-3">
-              Be among the first 1,000 to get 1 month of fullcircle+ membership for FREE when we launch
-            </p>
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+              </svg>
+              Download on the App Store
+            </a>
           </div>
         </div>
       </motion.div>

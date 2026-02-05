@@ -28,30 +28,7 @@ const FullCircleLandingPage = () => {
   const [submitMessage, setSubmitMessage] = useState<string | undefined>(undefined);
   const [mounted, setMounted] = useState(false);
   const [showWaitlistModal, setShowWaitlistModal] = useState(false);
-  const [stats, setStats] = useState({
-    signups: 0,
-    connections: 0,
-    totalSpots: 1000,
-  });
 
-
-  // Fetch real waitlist data
-  const fetchWaitlistData = async () => {
-    try {
-      const response = await fetch('/api/waitlist');
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setStats(prev => ({
-            ...prev,
-            signups: data.count || 0
-          }));
-        }
-      }
-    } catch (error) {
-      console.error('Failed to fetch waitlist data:', error);
-    }
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -59,22 +36,7 @@ const FullCircleLandingPage = () => {
       setShowIntro(false);
     }, 2500);
 
-    // Fetch waitlist data
-    fetchWaitlistData();
-
-    // Show waitlist modal after 5 seconds (only if user hasn't signed up)
-    const waitlistTimer = setTimeout(() => {
-      // Check if user has already signed up
-      const hasSignedUp = localStorage.getItem('waitlist-signed-up');
-      if (!hasSignedUp) {
-        setShowWaitlistModal(true);
-      }
-    }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(waitlistTimer);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -183,7 +145,6 @@ const FullCircleLandingPage = () => {
         <Header openModal={openModal} />
         <HeroSection
           showIntro={showIntro}
-          stats={stats}
           openModal={openModal}
         />
         <FeaturesSection />

@@ -129,7 +129,7 @@ export default function RootLayout({
                 "@type": "Offer",
                 "price": "0",
                 "priceCurrency": "USD",
-                "description": "Free to join waitlist"
+                "description": "Free to download on the App Store"
               },
               "author": {
                 "@type": "Organization",

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
+import { APP_STORE_URL } from "../constants";
 
 interface HeaderProps {
   openModal: (modalType: string) => void;
@@ -76,27 +77,19 @@ const Header = ({ openModal }: HeaderProps) => {
             </nav>
 
                       {/* CTA Button */}
-          <motion.button
+          <motion.a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="header-waitlist-button"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 10px 25px rgba(217, 119, 6, 0.4)",
             }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              // Scroll to the first email input in the hero section
-              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-              if (emailInput) {
-                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Focus the input after scrolling
-                setTimeout(() => {
-                  emailInput.focus();
-                }, 500);
-              }
-            }}
           >
-            Join Waitlist
-          </motion.button>
+            Download App
+          </motion.a>
 
             {/* Mobile Menu Button */}
             <button
@@ -178,27 +171,19 @@ const Header = ({ openModal }: HeaderProps) => {
           </nav>
 
           {/* CTA Button - Hidden on mobile */}
-          <motion.button
+          <motion.a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:block header-waitlist-button"
             whileHover={{
               scale: 1.05,
               boxShadow: "0 10px 25px rgba(255, 100, 100, 0.4)",
             }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              // Scroll to the first email input in the hero section
-              const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-              if (emailInput) {
-                emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Focus the input after scrolling
-                setTimeout(() => {
-                  emailInput.focus();
-                }, 500);
-              }
-            }}
           >
-            Join Waitlist
-          </motion.button>
+            Download App
+          </motion.a>
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -262,29 +247,21 @@ const Header = ({ openModal }: HeaderProps) => {
                   <ThemeToggle />
                 </div>
                 
-                {/* Mobile Waitlist Button */}
-                <motion.button
-                  onClick={() => {
-                    // Scroll to the first email input in the hero section
-                    const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-                    if (emailInput) {
-                      emailInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                      // Focus the input after scrolling
-                      setTimeout(() => {
-                        emailInput.focus();
-                      }, 500);
-                    }
-                    setIsMenuOpen(false);
-                  }}
-                  className="w-full py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-accent text-white rounded-full font-bold shadow-lg text-lg tracking-wide hover:shadow-xl transition-all duration-200"
+                {/* Mobile Download Button */}
+                <motion.a
+                  href={APP_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full py-3 bg-gradient-to-r from-spiritual-primary to-spiritual-accent text-white rounded-full font-bold shadow-lg text-lg tracking-wide hover:shadow-xl transition-all duration-200 text-center block"
                   style={{ 
                     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
                     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.2)' 
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Join Waitlist
-                </motion.button>
+                  Download App
+                </motion.a>
               </div>
             </motion.div>
           )}

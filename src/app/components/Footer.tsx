@@ -2,7 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Linkedin, Instagram } from "lucide-react";
+import { Linkedin } from "lucide-react";
+import { APP_STORE_URL } from "../constants";
 
 
 interface FooterProps {
@@ -11,9 +12,8 @@ interface FooterProps {
 }
 
 const Footer = ({ showIntro, openModal }: FooterProps) => {
-  const instagramLink = "https://instagram.com/meetonfullcircle";
-  console.log("Instagram link:", instagramLink);
-  
+  // const instagramLink = "https://instagram.com/meetonfullcircle";
+
   return (
     <motion.footer
       className="py-12 px-6 border-t border-spiritual-primary/20 relative z-10 dark:border-spiritual-dark-border"
@@ -51,7 +51,20 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
           <p className="text-spiritual-text-dark dark:text-spiritual-dark-text-muted mb-6">
             Building wellness community through mindful technology and conscious design.
           </p>
-          <div className="flex justify-center space-x-6 text-spiritual-text-dark dark:text-spiritual-dark-text-muted mb-6 text-sm">
+          <div className="flex justify-center space-x-6 text-spiritual-text-dark dark:text-spiritual-dark-text-muted mb-6 text-sm flex-wrap gap-2">
+            <motion.a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-spiritual-secondary transition-colors dark:hover:text-spiritual-dark-secondary"
+              whileHover={{ y: -2 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              Download the app
+            </motion.a>
             <motion.button
               onClick={() => openModal("contact")}
               className="hover:text-spiritual-secondary transition-colors dark:hover:text-spiritual-dark-secondary"
@@ -109,6 +122,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             >
               <Linkedin className="w-5 h-5" />
             </motion.a>
+            {/* Instagram commented out
             <motion.a
               href={instagramLink}
               target="_blank"
@@ -123,6 +137,7 @@ const Footer = ({ showIntro, openModal }: FooterProps) => {
             >
               <Instagram className="w-5 h-5" />
             </motion.a>
+            */}
           </div>
           <p className="text-spiritual-text-dark/70 dark:text-spiritual-dark-text-muted/70 text-sm">
             © 2025 fullcircle. All rights reserved.

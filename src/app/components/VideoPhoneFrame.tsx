@@ -70,32 +70,17 @@ const VideoPhoneFrame = ({
     };
   }, [videoSrc]);
 
-  const handleReset = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.warn('Video play failed:', error);
-        });
-      }
-    }
-  };
-
   // Determine video MIME type based on file extension
   const getVideoType = (src: string) => {
-    if (src.endsWith('.mov')) {
-      // .mov files are not well-supported in browsers (only Safari)
-      // Try to use .mp4 version if available
-      return 'video/quicktime';
-    }
-    if (src.endsWith('.mp4')) return 'video/mp4';
+    const lower = src.toLowerCase();
+    if (lower.endsWith('.mov')) return 'video/quicktime';
+    if (lower.endsWith('.mp4')) return 'video/mp4';
     return 'video/mp4'; // default
   };
 
   // Check if video source needs conversion
   const getVideoSources = (src: string) => {
-    if (src.endsWith('.mov')) {
+    if (src.toLowerCase().endsWith('.mov')) {
       // Try .mp4 version first, then fallback to .mov
       const mp4Version = src.replace('.mov', '.mp4');
       return [
@@ -118,7 +103,17 @@ const VideoPhoneFrame = ({
       <div className="group relative bg-gradient-to-br from-white via-white to-spiritual-tertiary/30 dark:from-spiritual-dark-card dark:via-spiritual-dark-card dark:to-spiritual-dark-tertiary/20 backdrop-blur-sm rounded-3xl p-8 md:p-10 shadow-2xl border border-spiritual-accent/10 dark:border-spiritual-dark-border/30 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 hover:-translate-y-2 overflow-visible">
         {/* Glow effect on hover */}
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-spiritual-accent/0 via-spiritual-primary/0 to-spiritual-secondary/0 group-hover:from-spiritual-accent/5 group-hover:via-spiritual-primary/5 group-hover:to-spiritual-secondary/5 transition-all duration-500 -z-10"></div>
-        
+
+        {/* Title - on top of the frame */}
+        <div className="text-center mb-6">
+          <h4
+            className="text-3xl md:text-4xl font-spirituality font-bold bg-gradient-to-r from-spiritual-text-dark via-spiritual-accent to-spiritual-primary bg-clip-text text-transparent dark:from-spiritual-dark-accent dark:via-spiritual-dark-accent dark:to-spiritual-dark-secondary"
+            style={{ lineHeight: '1.4' }}
+          >
+            {title}
+          </h4>
+        </div>
+
         {/* Phone Frame */}
         <div className="flex justify-center mb-8 relative">
           {/* Info Button - Top Right Corner */}
@@ -194,56 +189,23 @@ const VideoPhoneFrame = ({
               )}
             </div>
           </motion.div>
-          
-          {/* Reset Button - Outside frame, very close to bottom right corner */}
-          <button
-            onClick={handleReset}
-            className="absolute bottom-0 right-0 translate-x-0.5 translate-y-0.5 z-20 w-10 h-10 bg-gradient-to-br from-spiritual-primary to-spiritual-accent backdrop-blur-sm rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center group border-2 border-white/20"
-            aria-label="Reset video"
-          >
-            <svg 
-              className="w-5 h-5 text-white group-hover:text-spiritual-background transition-colors" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
-              />
-            </svg>
-          </button>
         </div>
 
-        {/* Content Section - Enhanced Typography */}
-        <div className="text-center space-y-4 min-h-[180px] flex flex-col justify-start pt-6 pb-4" style={{ overflow: 'visible' }}>
-          <div className="inline-block py-2 px-2" style={{ overflow: 'visible', lineHeight: '1.7' }}>
-            <h4 
-              className="text-3xl md:text-4xl font-spirituality font-bold bg-gradient-to-r from-spiritual-text-dark via-spiritual-accent to-spiritual-primary bg-clip-text text-transparent dark:from-spiritual-dark-accent dark:via-spiritual-dark-accent dark:to-spiritual-dark-secondary mb-3"
-              style={{ 
-                lineHeight: '1.7',
-                paddingTop: '0.5rem',
-                paddingBottom: '0.5rem',
-                display: 'block',
-                overflow: 'visible'
-              }}
-            >
-              {title}
-            </h4>
+        {/* Optional description below frame */}
+        {(description || detailedDescription) && (
+          <div className="text-center space-y-4 pt-6 pb-4">
+            {description && (
+              <p className="text-lg md:text-xl text-spiritual-text-muted dark:text-spiritual-dark-text-muted font-semibold tracking-wide">
+                {description}
+              </p>
+            )}
+            {detailedDescription && (
+              <p className="text-sm md:text-base text-spiritual-text-muted/70 dark:text-spiritual-dark-text-light leading-relaxed max-w-lg mx-auto">
+                {detailedDescription}
+              </p>
+            )}
           </div>
-          {description && (
-            <p className="text-lg md:text-xl text-spiritual-text-muted dark:text-spiritual-dark-text-muted font-semibold tracking-wide mb-2">
-              {description}
-            </p>
-          )}
-          {detailedDescription && (
-            <p className="text-sm md:text-base text-spiritual-text-muted/70 dark:text-spiritual-dark-text-light leading-relaxed max-w-lg mx-auto pt-1">
-              {detailedDescription}
-            </p>
-          )}
-        </div>
+        )}
       </div>
     </motion.div>
   );
